@@ -7,5 +7,5 @@ frontend: js
 backend: ruby
 [x] - lint: rubocop
 [x] - format: rubocop
-[ ] - test: rspec
+[x] - test: rspec
 [x] - debug: debugger
