@@ -1,0 +1,11 @@
+backend: ruby
+[x] - lint: rubocop
+[x] - format: rubocop
+[ ] - test: rspec
+[x] - debug: debugger
+
+frontend: js
+[ ] - lint: eslint
+[ ] - format: prettier
+[ ] - test: vitest + react testing library
+[x] - debug: built-in vscode node debugger
