@@ -1,6 +1,6 @@
 frontend: js
 [x] - lint: eslint
-[ ] - format: prettier
+[x] - format: prettier
 [ ] - test: vitest + react testing library
 [x] - debug: built-in vscode node debugger
 
