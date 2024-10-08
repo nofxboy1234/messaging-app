@@ -9,3 +9,13 @@ backend: ruby
 [x] - format: rubocop
 [x] - test: rspec
 [x] - debug: debugger
+
+[ ] - Update config/environments/production.rb
+      - In production, :host should be set to the actual host of your application.
+      - config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+You can copy Devise views (for customization) to your app by running:
+       rails g devise:views
+     * Not required *
+
+     
