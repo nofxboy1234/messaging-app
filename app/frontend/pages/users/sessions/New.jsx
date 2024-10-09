@@ -17,6 +17,15 @@ function New() {
     }));
   }
 
+  function handleCheckboxChange(e) {
+    const key = e.target.id;
+    const value = values.remember_me;
+    setValues((values) => ({
+      ...values,
+      [key]: !value,
+    }));
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     const userData = {
@@ -49,7 +58,7 @@ function New() {
         type="checkbox"
         id="remember_me"
         value={values.remember_me}
-        onChange={handleChange}
+        onChange={handleCheckboxChange}
       />
 
       <button type="submit">Log in</button>
