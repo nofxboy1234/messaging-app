@@ -4,10 +4,10 @@ class ApplicationController < ActionController::Base
   # rescue_from Exception, with: :inertia_error_page
   # rescue_from StandardError, with: :inertia_error_page
 
-  def after_sign_out_path_for(resource)
-    puts "**** after_sign_out_path_for ****"
-    new_user_session_path
-  end
+  # def after_sign_out_path_for(resource)
+  #   puts "**** after_sign_out_path_for ****"
+  #   new_user_session_path
+  # end
 
   # private
 
