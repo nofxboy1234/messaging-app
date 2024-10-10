@@ -1,5 +1,6 @@
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
+import Layout from '../../Layout';
 
 function New() {
   const [values, setValues] = useState({
@@ -39,31 +40,33 @@ function New() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        value={values.email}
-        onChange={handleChange}
-      />
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        value={values.password}
-        onChange={handleChange}
-      />
-      <label htmlFor="remember_me">Remember me:</label>
-      <input
-        type="checkbox"
-        id="remember_me"
-        value={values.remember_me}
-        onChange={handleCheckboxChange}
-      />
+    <Layout>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          value={values.email}
+          onChange={handleChange}
+        />
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          value={values.password}
+          onChange={handleChange}
+        />
+        <label htmlFor="remember_me">Remember me:</label>
+        <input
+          type="checkbox"
+          id="remember_me"
+          value={values.remember_me}
+          onChange={handleCheckboxChange}
+        />
 
-      <button type="submit">Log in</button>
-    </form>
+        <button type="submit">Log in</button>
+      </form>
+    </Layout>
   );
 }
 
