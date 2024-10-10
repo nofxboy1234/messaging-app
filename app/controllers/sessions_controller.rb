@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
   end
 
   def new
+    render inertia: "sessions/New"
   end
 
   def create
