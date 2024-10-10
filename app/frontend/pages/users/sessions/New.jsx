@@ -54,6 +54,7 @@ function New() {
         value={values.password}
         onChange={handleChange}
       />
+      <label htmlFor="remember_me">Remember me:</label>
       <input
         type="checkbox"
         id="remember_me"
