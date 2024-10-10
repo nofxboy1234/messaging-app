@@ -1,8 +1,10 @@
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import Layout from '../Layout';
 
 function New() {
+  console.log(usePage());
+
   const [values, setValues] = useState({
     email: '',
     password: '',
