@@ -103,7 +103,7 @@ GEM
       concurrent-ruby (~> 1.0)
     inertia_rails (3.2.0)
       railties (>= 5)
-    inertia_rails-contrib (0.2.1)
+    inertia_rails-contrib (0.2.2)
       inertia_rails
       railties (>= 6.0.0)
     io-console (0.7.2)
@@ -320,7 +320,7 @@ DEPENDENCIES
   brakeman
   debug
   faker
-  inertia_rails-contrib (~> 0.2.1)
+  inertia_rails-contrib (~> 0.2.2)
   jbuilder
   kredis
   omniauth
