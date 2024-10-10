@@ -2,10 +2,11 @@ import { router, Link } from '@inertiajs/react';
 import { useState } from 'react';
 import Layout from '../Layout';
 
-function New() {
+function New({ user }) {
   const [values, setValues] = useState({
     email: '',
     password: '',
+    password_confirmation: '',
   });
 
   function handleChange(e) {
@@ -19,7 +20,7 @@ function New() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    router.post('/sign_in', values);
+    router.post('/sign_up', values);
   }
 
   return (
@@ -39,12 +40,16 @@ function New() {
           value={values.password}
           onChange={handleChange}
         />
-        <label htmlFor="remember_me">Remember me:</label>
+        <label htmlFor="password_confirmation">Password confirmation:</label>
+        <input
+          type="password"
+          id="password_confirmation"
+          value={values.password_confirmation}
+          onChange={handleChange}
+        />
 
-        <button type="submit">Log in</button>
+        <button type="submit">Sign up</button>
       </form>
-
-      <Link href="/sign_up">Sign up</Link>
     </Layout>
   );
 }
