@@ -2,6 +2,11 @@ class ApplicationController < ActionController::Base
   before_action :set_current_request_details
   before_action :authenticate
 
+  inertia_share shared: {
+    flash: -> { flash.to_hash },
+    current_user: -> { Current.user }
+  }
+
   private
     def authenticate
       if session_record = Session.find_by_id(cookies.signed[:session_token])
