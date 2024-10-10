@@ -3,8 +3,6 @@ import { useState } from 'react';
 import Layout from '../Layout';
 
 function New() {
-  console.log(usePage());
-
   const [values, setValues] = useState({
     email: '',
     password: '',
