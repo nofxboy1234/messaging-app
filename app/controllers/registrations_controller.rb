@@ -16,7 +16,8 @@ class RegistrationsController < ApplicationController
       send_email_verification
       redirect_to root_path, notice: "Welcome! You have signed up successfully"
     else
-      render :new, status: :unprocessable_entity
+      render inertia: "registrations/New", props: { user: @user, errors: @user.errors, status: :unprocessable_entity }
+      # render :new, status: :unprocessable_entity
     end
   end
 
