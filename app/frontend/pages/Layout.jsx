@@ -1,13 +1,13 @@
 import { Link, usePage } from '@inertiajs/react';
 
 export default function Layout({ children }) {
-  const { flash } = usePage().props;
+  const { shared } = usePage().props;
 
   return (
     <main>
       <header>
-        {flash.alert && <div>{flash.alert}</div>}
-        {flash.notice && <div>{flash.notice}</div>}
+        {shared.flash.alert && <div>{shared.flash.alert}</div>}
+        {shared.flash.notice && <div>{shared.flash.notice}</div>}
         <Link href="/users/sign_out" method="delete" as="button">
           Sign out
         </Link>
