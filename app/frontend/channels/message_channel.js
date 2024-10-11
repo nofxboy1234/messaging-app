@@ -1,11 +1,19 @@
-console.log('*** message_channel.js ***');
+console.log('*** message_channel.js');
 
 import consumer from './consumer';
 
 const messageChannel = consumer.subscriptions.create('MessageChannel', {
-  connected() {},
+  connected() {
+    console.log('*** frontend message channel connected');
+  },
 
-  disconnected() {},
+  disconnected() {
+    console.log('*** frontend message channel disconnected');
+  },
 
-  received(data) {},
+  received(data) {
+    console.log('*** frontend message channel received');
+  },
 });
+
+export { consumer, messageChannel };
