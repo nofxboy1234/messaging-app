@@ -6,7 +6,6 @@ import { consumer, messageChannel } from '../../channels/message_channel';
 function Home({ session }) {
   useEffect(() => {
     console.log('*** Home useEffect');
-    consumer.connect();
   }, []);
 
   console.log('*** Home rendering');
