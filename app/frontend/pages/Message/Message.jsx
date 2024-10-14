@@ -10,5 +10,5 @@ export default function Message({ message }) {
         {message.user_id.toString()}
       </p>
     </div>
-  )
+  );
 }

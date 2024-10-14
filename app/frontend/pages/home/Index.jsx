@@ -2,11 +2,13 @@ import { router, Link } from '@inertiajs/react';
 import Layout from '../Layout';
 import { useEffect, useState } from 'react';
 import { consumer } from '../../channels/message_channel';
+import Message from '../Message/Message';
 
 function Home({ session }) {
   const [values, setValues] = useState({
     message: '',
   });
+  const [messages, setMessages] = useState([]);
   const [messageChannel, setMessageChannel] = useState(null);
 
   useEffect(() => {
@@ -23,6 +25,9 @@ function Home({ session }) {
 
       received(data) {
         console.log('*** frontend message channel received');
+
+        const message = data.message;
+        setMessages((messages) => [...messages, message]);
       },
     });
 
@@ -61,7 +66,11 @@ function Home({ session }) {
         Log out
       </Link>
 
-      <div id="message-display"></div>
+      <div id="message-display">
+        {messages.map((message) => (
+          <Message key={message.body} message={message} />
+        ))}
+      </div>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="message">Message:</label>

@@ -9,4 +9,9 @@ class MessageChannel < ApplicationCable::Channel
 
     # Any cleanup needed when channel is unsubscribed
   end
+
+  def receive(data)
+    data["message"]["user_id"] = current_user
+    ActionCable.server.broadcast("message", data)
+  end
 end
