@@ -1,7 +1,7 @@
 import { router, Link } from '@inertiajs/react';
 import Layout from '../Layout';
 import { useEffect, useState } from 'react';
-import { consumer } from '../../channels/message_channel';
+import { createConsumer } from '@rails/actioncable';
 import Message from '../Message/Message';
 
 function Home({ session }) {
@@ -14,6 +14,7 @@ function Home({ session }) {
   useEffect(() => {
     console.log('*** Home useEffect');
 
+    const consumer = createConsumer();
     const channel = consumer.subscriptions.create('MessageChannel', {
       connected() {
         console.log('*** frontend message channel connected');

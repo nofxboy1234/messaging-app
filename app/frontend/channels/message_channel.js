@@ -1,6 +1,6 @@
-console.log('*** message_channel.js');
+// console.log('*** message_channel.js');
 
-import consumer from './consumer';
+// import consumer from './consumer';
 
 // const messageChannel = consumer.subscriptions.create('MessageChannel', {
 //   connected() {
@@ -16,4 +16,4 @@ import consumer from './consumer';
 //   },
 // });
 
-export { consumer };
+// export { consumer };
