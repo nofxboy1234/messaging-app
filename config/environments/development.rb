@@ -69,7 +69,6 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   config.action_cable.url = "ws://localhost:3100/websocket"
-  # config.action_cable.url = "ws://127.0.0.1:3100/cable"
   config.action_cable.disable_request_forgery_protection = true
 
   # Raise error when a before_action's only/except options reference missing actions.
