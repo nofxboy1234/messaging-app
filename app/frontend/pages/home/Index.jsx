@@ -14,7 +14,13 @@ function Home({ session }) {
   useEffect(() => {
     console.log('*** Home useEffect');
 
-    const consumer = createConsumer();
+    const actionCableUrl = 'ws://localhost:3100/websocket';
+
+    // const actionCableUrl =
+    //   process.env.NODE_ENV === 'production'
+    //     ? 'wss://glacial-lowlands-89807-117906cec308.herokuapp.com/websocket'
+    //     : 'ws://localhost:3100/websocket';
+    const consumer = createConsumer(actionCableUrl);
     const channel = consumer.subscriptions.create('MessageChannel', {
       connected() {
         console.log('*** frontend message channel connected');
