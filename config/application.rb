@@ -39,6 +39,6 @@ module MessagingApp
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    config.action_cable.mount_path = "/cable"
+    config.action_cable.mount_path = "/websocket"
   end
 end
