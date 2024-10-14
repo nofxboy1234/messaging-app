@@ -7,11 +7,12 @@ function Home({ session }) {
   const [values, setValues] = useState({
     message: '',
   });
+  const [messageChannel, setMessageChannel] = useState(null);
 
   useEffect(() => {
     console.log('*** Home useEffect');
 
-    const messageChannel = consumer.subscriptions.create('MessageChannel', {
+    const channel = consumer.subscriptions.create('MessageChannel', {
       connected() {
         console.log('*** frontend message channel connected');
       },
@@ -24,6 +25,8 @@ function Home({ session }) {
         console.log('*** frontend message channel received');
       },
     });
+
+    setMessageChannel(channel);
   }, []);
 
   function handleChange(e) {
@@ -37,8 +40,11 @@ function Home({ session }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('handleSubmit');
-    // router.post('/sign_in', values);
+    if (values.message === '') return;
+    const message = {
+      body: values.message,
+    };
+    messageChannel.send({ message: message });
   }
 
   console.log('*** Home rendering');
@@ -65,7 +71,7 @@ function Home({ session }) {
           value={values.message}
           onChange={handleChange}
         />
-        <button type="submit">Log in</button>
+        <button type="submit">Send</button>
       </form>
     </Layout>
   );
