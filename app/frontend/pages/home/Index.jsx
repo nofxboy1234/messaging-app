@@ -1,9 +1,13 @@
-import { Link } from '@inertiajs/react';
+import { router, Link } from '@inertiajs/react';
 import Layout from '../Layout';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { consumer } from '../../channels/message_channel';
 
 function Home({ session }) {
+  const [values, setValues] = useState({
+    message: '',
+  });
+
   useEffect(() => {
     console.log('*** Home useEffect');
 
@@ -22,6 +26,21 @@ function Home({ session }) {
     });
   }, []);
 
+  function handleChange(e) {
+    const key = e.target.id;
+    const value = e.target.value;
+    setValues((values) => ({
+      ...values,
+      [key]: value,
+    }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log('handleSubmit');
+    // router.post('/sign_in', values);
+  }
+
   console.log('*** Home rendering');
 
   return (
@@ -35,6 +54,19 @@ function Home({ session }) {
       >
         Log out
       </Link>
+
+      <div id="message-display"></div>
+
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="message">Message:</label>
+        <input
+          type="text"
+          id="message"
+          value={values.message}
+          onChange={handleChange}
+        />
+        <button type="submit">Log in</button>
+      </form>
     </Layout>
   );
 }
