@@ -2,6 +2,7 @@
 <html>
   <head>
     <title inertia><%= content_for(:title) || "Messaging App" %></title>
+    <%= action_cable_meta_tag %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -27,7 +28,6 @@
 
       Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
     -->
-
   </head>
 
   <body>
