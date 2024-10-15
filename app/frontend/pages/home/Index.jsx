@@ -2,6 +2,7 @@ import Layout from '../Layout';
 import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from './MessageDisplay';
+import styles from './Index.module.css';
 
 function Home({ shared }) {
   const [values, setValues] = useState({
@@ -77,6 +78,7 @@ function Home({ shared }) {
       <form onSubmit={handleSubmit}>
         <label htmlFor="message">Message:</label>
         <input
+          className={styles.messageInput}
           type="text"
           id="message"
           autoFocus

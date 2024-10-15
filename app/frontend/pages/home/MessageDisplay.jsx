@@ -1,5 +1,6 @@
 import Message from '../Message/Message';
 import styles from './MessageDisplay.module.css';
+
 function MessageDisplay({ messages }) {
   return (
     <div className={styles.container}>
