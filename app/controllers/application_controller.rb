@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_request_details
+  before_action :authenticate
 
   inertia_share shared: {
-    flash: -> { flash.to_hash }
+    flash: -> { flash.to_hash },
+    current_user: -> { Current.user }
   }
 
   private

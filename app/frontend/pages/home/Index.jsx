@@ -1,9 +1,10 @@
+import { router, Link } from '@inertiajs/react';
 import Layout from '../Layout';
 import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import Message from '../Message/Message';
 
-function Home() {
+function Home({ session }) {
   const [values, setValues] = useState({
     message: '',
   });
@@ -63,6 +64,14 @@ function Home() {
   return (
     <Layout>
       <div>Home</div>
+      <Link
+        href={`/sessions/${session.id}`}
+        as="button"
+        type="button"
+        method="delete"
+      >
+        Log out
+      </Link>
 
       <div id="message-display">
         {messages.map((message) => (

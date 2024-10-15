@@ -10,7 +10,7 @@ module ApplicationCable
     private
 
     def find_verified_user
-      if verified_user = "guest"
+      if verified_user = cookies.signed.permanent[:session_token]
         puts "*** backend verified actioncable connection"
         verified_user
       else
