@@ -1,4 +1,6 @@
 class TwoFactorAuthentication::Challenge::RecoveryCodesController < ApplicationController
+  skip_before_action :authenticate
+
   before_action :set_user
 
   def new
