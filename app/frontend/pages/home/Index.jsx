@@ -56,6 +56,13 @@ function Home({ session }) {
     }));
   }
 
+  function clearMessage() {
+    setValues((values) => ({
+      ...values,
+      message: '',
+    }));
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     if (values.message === '') return;
@@ -63,6 +70,7 @@ function Home({ session }) {
       body: values.message,
     };
     messageChannel.send({ message: message });
+    clearMessage();
   }
 
   console.log('*** Home rendering');
