@@ -20,10 +20,4 @@ class ApplicationController < ActionController::Base
       Current.user_agent = request.user_agent
       Current.ip_address = request.ip
     end
-
-    def require_sudo
-      unless Current.session.sudo?
-        redirect_to new_sessions_sudo_path(proceed_to_url: request.original_url)
-      end
-    end
 end

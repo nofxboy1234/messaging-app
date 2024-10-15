@@ -114,10 +114,6 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.7.2)
-    kredis (1.7.0)
-      activemodel (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      redis (>= 4.2, < 6)
     language_server-protocol (3.17.0.3)
     logger (1.6.1)
     loofah (2.22.0)
@@ -322,7 +318,6 @@ DEPENDENCIES
   faker
   inertia_rails-contrib (~> 0.2.1)
   jbuilder
-  kredis
   omniauth
   omniauth-rails_csrf_protection
   pg

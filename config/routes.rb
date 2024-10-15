@@ -24,9 +24,7 @@ Rails.application.routes.draw do
   get  "/auth/failure",            to: "sessions/omniauth#failure"
   get  "/auth/:provider/callback", to: "sessions/omniauth#create"
   post "/auth/:provider/callback", to: "sessions/omniauth#create"
-  namespace :sessions do
-    resource :sudo, only: [ :new, :create ]
-  end
+
   root "home#index"
   # root "inertia_example#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

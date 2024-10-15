@@ -58,7 +58,6 @@ gem "bcrypt", "~> 3.1.7"
 # Use Redis adapter to run additional authentication features
 gem "redis", "~> 4.0"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-gem "kredis"
 # Use Pwned to check if a password has been found in any of the huge data breaches [https://github.com/philnash/pwned]
 gem "pwned"
 # Use OmniAuth to support multi-provider authentication [https://github.com/omniauth/omniauth]
