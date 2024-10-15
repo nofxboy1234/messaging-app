@@ -39,6 +39,12 @@ function Home({ session }) {
     });
 
     setMessageChannel(channel);
+
+    return () => {
+      console.log('*** Home useEffect cleanup');
+      channel.unsubscribe();
+      consumer.disconnect();
+    };
   }, []);
 
   function handleChange(e) {
