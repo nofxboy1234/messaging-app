@@ -23,7 +23,7 @@ function New() {
   }
 
   return (
-    <Layout>
+    <>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
@@ -45,7 +45,7 @@ function New() {
       </form>
 
       <Link href="/sign_up">Sign up</Link>
-    </Layout>
+    </>
   );
 }
 

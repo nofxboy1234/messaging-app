@@ -85,6 +85,7 @@ function Home({ session }) {
         <input
           type="text"
           id="message"
+          autoFocus
           value={values.message}
           onChange={handleChange}
         />

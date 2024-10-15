@@ -24,7 +24,7 @@ function New({ user }) {
   }
 
   return (
-    <Layout>
+    <>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
@@ -50,7 +50,7 @@ function New({ user }) {
 
         <button type="submit">Sign up</button>
       </form>
-    </Layout>
+    </>
   );
 }
 

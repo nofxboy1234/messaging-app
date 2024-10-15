@@ -9,7 +9,7 @@ export default function Layout({ children, session }) {
         {shared.flash.alert && <div>{shared.flash.alert}</div>}
         {shared.flash.notice && <div>{shared.flash.notice}</div>}
         <Link
-          href={`/sessions/${session.id}`}
+          href={`/sessions/${shared.session.id}`}
           as="button"
           type="button"
           method="delete"
