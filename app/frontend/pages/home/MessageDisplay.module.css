@@ -1,5 +1,7 @@
-.messageDisplay {
-  border: 1px solid black;
+.container {
+  display: flex;
+  flex-direction: column-reverse;
   height: 300px;
   overflow: auto;
+  border: 1px solid black;
 }
