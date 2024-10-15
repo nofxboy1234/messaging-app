@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from './MessageDisplay';
 
-function Home() {
+function Home({ shared }) {
   const [values, setValues] = useState({
     message: '',
   });
@@ -59,6 +59,7 @@ function Home() {
     e.preventDefault();
     if (values.message === '') return;
     const message = {
+      username: shared.current_user.email.split('@')[0],
       body: values.message,
     };
     messageChannel.send({ message: message });
