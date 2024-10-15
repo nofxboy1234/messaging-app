@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from './MessageDisplay';
 
-function Home({ session }) {
+function Home() {
   const [values, setValues] = useState({
     message: '',
   });
@@ -12,13 +12,6 @@ function Home({ session }) {
 
   useEffect(() => {
     console.log('*** Home useEffect');
-
-    // const actionCableUrl = 'ws://localhost:3100/websocket';
-
-    // const actionCableUrl =
-    //   process.env.NODE_ENV === 'production'
-    //     ? 'wss://glacial-lowlands-89807-117906cec308.herokuapp.com/websocket'
-    //     : 'ws://localhost:3100/websocket';
     const consumer = createConsumer();
     const channel = consumer.subscriptions.create('MessageChannel', {
       connected() {
@@ -75,7 +68,7 @@ function Home({ session }) {
   console.log('*** Home rendering');
 
   return (
-    <Layout session={session}>
+    <Layout>
       <div>Home</div>
 
       <MessageDisplay messages={messages} />

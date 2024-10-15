@@ -1,6 +1,6 @@
 import { usePage, Link } from '@inertiajs/react';
 
-export default function Layout({ children, session }) {
+export default function Layout({ children }) {
   const { shared } = usePage().props;
 
   return (
