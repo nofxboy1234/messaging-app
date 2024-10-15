@@ -1,6 +1,6 @@
-import { usePage } from '@inertiajs/react';
+import { usePage, Link } from '@inertiajs/react';
 
-export default function Layout({ children }) {
+export default function Layout({ children, session }) {
   const { shared } = usePage().props;
 
   return (
@@ -8,6 +8,14 @@ export default function Layout({ children }) {
       <header>
         {shared.flash.alert && <div>{shared.flash.alert}</div>}
         {shared.flash.notice && <div>{shared.flash.notice}</div>}
+        <Link
+          href={`/sessions/${session.id}`}
+          as="button"
+          type="button"
+          method="delete"
+        >
+          Log out
+        </Link>
       </header>
       <article>{children}</article>
     </main>

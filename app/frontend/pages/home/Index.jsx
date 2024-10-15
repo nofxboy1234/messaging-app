@@ -76,16 +76,8 @@ function Home({ session }) {
   console.log('*** Home rendering');
 
   return (
-    <Layout>
+    <Layout session={session}>
       <div>Home</div>
-      <Link
-        href={`/sessions/${session.id}`}
-        as="button"
-        type="button"
-        method="delete"
-      >
-        Log out
-      </Link>
 
       <div id="message-display">
         {messages.map((message) => (
