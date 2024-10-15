@@ -1,8 +1,7 @@
-import { router, Link } from '@inertiajs/react';
 import Layout from '../Layout';
 import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
-import Message from '../Message/Message';
+import MessageDisplay from './MessageDisplay';
 
 function Home({ session }) {
   const [values, setValues] = useState({
@@ -79,11 +78,7 @@ function Home({ session }) {
     <Layout session={session}>
       <div>Home</div>
 
-      <div id="message-display">
-        {messages.map((message) => (
-          <Message key={message.body} message={message} />
-        ))}
-      </div>
+      <MessageDisplay messages={messages} />
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="message">Message:</label>
