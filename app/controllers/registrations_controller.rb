@@ -1,6 +1,4 @@
 class RegistrationsController < ApplicationController
-  skip_before_action :authenticate
-
   def new
     @user = User.new
     render inertia: "registrations/New", props: { user: @user }
