@@ -11,7 +11,7 @@ class MessageChannel < ApplicationCable::Channel
   end
 
   def receive(data)
-    data["message"]["user_id"] = current_user
+    data["message"]["user_id"] = "guest"
     ActionCable.server.broadcast("message", data)
   end
 end
