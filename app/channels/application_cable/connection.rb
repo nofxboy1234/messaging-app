@@ -4,19 +4,19 @@ module ApplicationCable
 
     def connect
       puts "*** backend connecting"
-      self.current_user = find_verified_user
+      self.current_user = "guest"
     end
 
     private
 
-    def find_verified_user
-      if verified_user = "guest"
-        puts "*** backend verified actioncable connection"
-        verified_user
-      else
-        puts "*** backend rejected actioncable connection"
-        reject_unauthorized_connection
-      end
-    end
+    # def find_verified_user
+    #   if verified_user = "guest"
+    #     puts "*** backend verified actioncable connection"
+    #     verified_user
+    #   else
+    #     puts "*** backend rejected actioncable connection"
+    #     reject_unauthorized_connection
+    #   end
+    # end
   end
 end
