@@ -45,6 +45,7 @@ class MessagesController < ApplicationController
     puts serialize_message(@message)
     ActionCable.server.broadcast("message", serialize_message(@message))
 
+    redirect_to persisted_chat_index_url
     # if @message.save
     #   redirect_to @message, notice: "Message was successfully created."
     # else
