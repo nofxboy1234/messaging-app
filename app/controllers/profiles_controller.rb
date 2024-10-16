@@ -37,9 +37,9 @@ class ProfilesController < ApplicationController
 
   # POST /profiles
   def create
-    @profile = Profile.new(profile_params)
-    @profile.user = Current.user
-    # @profile = Current.user.profile.build(profile_params)
+    # @profile = Profile.new(profile_params)
+    # @profile.user = Current.user
+    @profile = Current.user.build_profile(profile_params)
 
     if @profile.save
       redirect_to @profile, notice: "Profile was successfully created."
