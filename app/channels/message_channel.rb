@@ -11,6 +11,8 @@ class MessageChannel < ApplicationCable::Channel
   end
 
   def receive(data)
-    ActionCable.server.broadcast("message", data)
+    puts "data"
+    puts data
+    ActionCable.server.broadcast("message", data["message"])
   end
 end

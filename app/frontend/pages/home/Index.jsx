@@ -23,10 +23,10 @@ function Home({ shared }) {
         console.log('*** frontend message channel disconnected');
       },
 
-      received(data) {
+      received(message) {
         console.log('*** frontend message channel received');
 
-        setMessages((messages) => [...messages, data.message]);
+        setMessages((messages) => [...messages, message]);
       },
     });
 
