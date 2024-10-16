@@ -3,16 +3,17 @@ import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from '../MessageDisplay/MessageDisplay';
 import styles from './Index.module.css';
+import { router } from '@inertiajs/react';
 
-function Home({ shared }) {
+function PersistedChat({ shared, message, messages: savedMessages }) {
   const [values, setValues] = useState({
-    message: '',
+    message: message.body || '',
   });
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(savedMessages);
   const [messageChannel, setMessageChannel] = useState(null);
 
   useEffect(() => {
-    console.log('*** Home useEffect');
+    console.log('*** PersistedChat useEffect');
     const consumer = createConsumer();
     const channel = consumer.subscriptions.create('MessageChannel', {
       connected() {
@@ -26,15 +27,14 @@ function Home({ shared }) {
       received(data) {
         console.log('*** frontend message channel received');
 
-        const message = data.message;
-        setMessages((messages) => [...messages, message]);
+        setMessages((messages) => [...messages, data]);
       },
     });
 
     setMessageChannel(channel);
 
     return () => {
-      console.log('*** Home useEffect cleanup');
+      console.log('*** PersistedChat useEffect cleanup');
       channel.unsubscribe();
       consumer.disconnect();
     };
@@ -60,18 +60,17 @@ function Home({ shared }) {
     e.preventDefault();
     if (values.message === '') return;
     const message = {
-      user: shared.current_user,
-      body: values.message,
+      message: { body: values.message },
     };
-    messageChannel.send({ message: message });
+    router.post('/messages', message);
     clearMessage();
   }
 
-  console.log('*** Home rendering');
+  console.log('*** PersistedChat rendering');
 
   return (
     <Layout>
-      <div>Home</div>
+      <div>PersistedChat</div>
 
       <MessageDisplay messages={messages} />
 
@@ -91,4 +90,4 @@ function Home({ shared }) {
   );
 }
 
-export default Home;
+export default PersistedChat;

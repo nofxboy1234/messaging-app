@@ -11,6 +11,7 @@ class MessageChannel < ApplicationCable::Channel
   end
 
   def receive(data)
+    puts "*** Current.user: #{Current.user}"
     ActionCable.server.broadcast("message", data)
   end
 end
