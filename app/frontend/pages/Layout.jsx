@@ -29,7 +29,7 @@ export default function Layout({ children }) {
         </div>
 
         <div>
-          <Link href={`/profiles/${shared.current_user.id}`}>Profile</Link>
+          <Link href={`/profiles/${shared.profile.id}`}>Profile</Link>
         </div>
       </header>
       <br></br>

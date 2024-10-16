@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
   inertia_share shared: {
     flash: -> { flash.to_hash },
     current_user: -> { Current.user },
-    session: -> { Current.session }
+    session: -> { Current.session },
+    profile: -> { Current.user&.profile }
   }
 
   private
