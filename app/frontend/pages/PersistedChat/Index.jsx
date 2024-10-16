@@ -5,9 +5,9 @@ import MessageDisplay from '../MessageDisplay/MessageDisplay';
 import styles from './Index.module.css';
 import { router } from '@inertiajs/react';
 
-function PersistedChat({ shared, message, messages: savedMessages }) {
+function PersistedChat({ shared, messages: savedMessages }) {
   const [values, setValues] = useState({
-    message: message.body || '',
+    message: '',
   });
   const [messages, setMessages] = useState(savedMessages);
   const [messageChannel, setMessageChannel] = useState(null);
@@ -24,10 +24,10 @@ function PersistedChat({ shared, message, messages: savedMessages }) {
         console.log('*** frontend message channel disconnected');
       },
 
-      received(data) {
+      received(message) {
         console.log('*** frontend message channel received');
 
-        setMessages((messages) => [...messages, data]);
+        setMessages((messages) => [...messages, message]);
       },
     });
 
@@ -59,10 +59,10 @@ function PersistedChat({ shared, message, messages: savedMessages }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (values.message === '') return;
-    const message = {
+    const data = {
       message: { body: values.message },
     };
-    router.post('/messages', message);
+    router.post('/messages', data);
     clearMessage();
   }
 

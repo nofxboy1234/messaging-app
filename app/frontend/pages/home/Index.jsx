@@ -26,8 +26,7 @@ function Home({ shared }) {
       received(data) {
         console.log('*** frontend message channel received');
 
-        const message = data.message;
-        setMessages((messages) => [...messages, message]);
+        setMessages((messages) => [...messages, data.message]);
       },
     });
 
@@ -59,11 +58,10 @@ function Home({ shared }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (values.message === '') return;
-    const message = {
-      user: shared.current_user,
-      body: values.message,
+    const data = {
+      message: { user: shared.current_user, body: values.message },
     };
-    messageChannel.send({ message: message });
+    messageChannel.send(data);
     clearMessage();
   }
 

@@ -40,9 +40,6 @@ class MessagesController < ApplicationController
     @message = Current.user.messages.build(message_params)
     # @message = Message.new(message_params)
     @message.save
-    puts "*** @message"
-    puts @message.user
-    puts serialize_message(@message)
     ActionCable.server.broadcast("message", serialize_message(@message))
 
     redirect_to persisted_chat_index_url
