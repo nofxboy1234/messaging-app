@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :profiles
   get "persisted_chat/index"
   resources :messages, only: [ :create ]
   get  "sign_in", to: "sessions#new"

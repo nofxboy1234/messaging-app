@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_10_204334) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_16_134416) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_10_204334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "username"
+    t.string "picture"
+    t.text "about"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "recovery_codes", force: :cascade do |t|
@@ -54,6 +64,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_10_204334) do
   end
 
   add_foreign_key "messages", "users"
+  add_foreign_key "profiles", "users"
   add_foreign_key "recovery_codes", "users"
   add_foreign_key "sessions", "users"
 end
