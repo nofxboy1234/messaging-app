@@ -22,19 +22,8 @@ export default function Show({ profile, shared }) {
 
       <div>
         <Link href={`/profiles/${profile.id}/edit`}>Edit this profile</Link>
-        {' | '}
-        <Link href="/profiles">Back to profiles</Link>
 
         <br />
-
-        <Link
-          href={`/profiles/${profile.id}`}
-          onClick={onDestroy}
-          as="button"
-          method="delete"
-        >
-          Destroy this profile
-        </Link>
       </div>
     </>
   );

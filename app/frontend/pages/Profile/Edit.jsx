@@ -1,5 +1,5 @@
-import { Link, Head } from '@inertiajs/react'
-import Form from './Form'
+import { Link, Head } from '@inertiajs/react';
+import Form from './Form';
 
 export default function Edit({ profile }) {
   return (
@@ -11,8 +11,8 @@ export default function Edit({ profile }) {
       <Form
         profile={profile}
         onSubmit={(form) => {
-          form.transform((data) => ({ profile: data }))
-          form.patch(`/profiles/${profile.id}`)
+          form.transform((data) => ({ profile: data }));
+          form.patch(`/profiles/${profile.id}`);
         }}
         submitText="Update profile"
       />
@@ -21,9 +21,7 @@ export default function Edit({ profile }) {
 
       <div>
         <Link href={`/profiles/${profile.id}`}>Show this profile</Link>
-        {' | '}
-        <Link href="/profiles">Back to profiles</Link>
       </div>
     </>
-  )
+  );
 }
