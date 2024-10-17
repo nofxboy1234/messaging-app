@@ -22,7 +22,9 @@ export default function Layout({ children }) {
         {' | '}
         <Link href={'/persisted_chat/index'}>Persisted chat</Link>
         {' | '}
-        <Link href={`/profiles/${shared.profile.id}`}>Profile</Link>
+        <Link href={`/profiles/${shared.profile.id}`}>
+          Profile ({shared.current_user.email.split('@')[0]})
+        </Link>
       </header>
       <br></br>
       <article>{children}</article>
