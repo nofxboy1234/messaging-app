@@ -8,6 +8,9 @@ class RegistrationsController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.build_profile(username: @user.email.split("@").first,
+                        picture: "",
+                        about: "")
 
     if @user.save
       session_record = @user.sessions.create!
