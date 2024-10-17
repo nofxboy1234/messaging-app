@@ -9,28 +9,20 @@ export default function Layout({ children }) {
         {shared.flash.alert && <div>{shared.flash.alert}</div>}
         {shared.flash.notice && <div>{shared.flash.notice}</div>}
 
-        <div>
-          <Link
-            href={`/sessions/${shared.session.id}`}
-            as="button"
-            type="button"
-            method="delete"
-          >
-            Log out
-          </Link>
-        </div>
-
-        <div>
-          <Link href={'/'}>Transient chat</Link>
-        </div>
-
-        <div>
-          <Link href={'/persisted_chat/index'}>Persisted chat</Link>
-        </div>
-
-        <div>
-          <Link href={`/profiles/${shared.profile.id}`}>Profile</Link>
-        </div>
+        <Link
+          href={`/sessions/${shared.session.id}`}
+          as="button"
+          type="button"
+          method="delete"
+        >
+          Log out
+        </Link>
+        {' | '}
+        <Link href={'/'}>Transient chat</Link>
+        {' | '}
+        <Link href={'/persisted_chat/index'}>Persisted chat</Link>
+        {' | '}
+        <Link href={`/profiles/${shared.profile.id}`}>Profile</Link>
       </header>
       <br></br>
       <article>{children}</article>

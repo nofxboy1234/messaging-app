@@ -1,5 +1,6 @@
 import { Link, Head } from '@inertiajs/react';
 import Profile from './Profile';
+import Layout from '../Layout';
 
 export default function Show({ profile, shared }) {
   const onDestroy = (e) => {
@@ -9,7 +10,7 @@ export default function Show({ profile, shared }) {
   };
 
   return (
-    <>
+    <Layout>
       <Head title={`Profile #${profile.id}`} />
 
       {shared.flash.notice && (
@@ -25,6 +26,6 @@ export default function Show({ profile, shared }) {
 
         <br />
       </div>
-    </>
+    </Layout>
   );
 }
