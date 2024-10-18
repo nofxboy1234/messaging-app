@@ -25,6 +25,8 @@ export default function Layout({ children }) {
         <Link href={`/profiles/${shared.profile.id}`}>
           Profile ({shared.current_user.email.split('@')[0]})
         </Link>
+        {' | '}
+        <Link href={'/chats/new'}>New Chat</Link>
       </header>
       <br></br>
       <article>{children}</article>

@@ -15,21 +15,24 @@ function PersistedChat({ shared, messages: savedMessages }) {
   useEffect(() => {
     console.log('*** PersistedChat useEffect');
     const consumer = createConsumer();
-    const channel = consumer.subscriptions.create('MessageChannel', {
-      connected() {
-        console.log('*** frontend message channel connected');
-      },
+    const channel = consumer.subscriptions.create(
+      { channel: 'ChatChannel', id: chatModel.id },
+      {
+        connected() {
+          console.log('*** frontend message channel connected');
+        },
 
-      disconnected() {
-        console.log('*** frontend message channel disconnected');
-      },
+        disconnected() {
+          console.log('*** frontend message channel disconnected');
+        },
 
-      received(message) {
-        console.log('*** frontend message channel received');
+        received(message) {
+          console.log('*** frontend message channel received');
 
-        setMessages((messages) => [...messages, message]);
+          setMessages((messages) => [...messages, message]);
+        },
       },
-    });
+    );
 
     setMessageChannel(channel);
 

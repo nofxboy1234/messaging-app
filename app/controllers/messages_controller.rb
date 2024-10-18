@@ -37,10 +37,13 @@ class MessagesController < ApplicationController
 
   # POST /messages
   def create
+    @chat = Chat.find(chat_params)
     @message = Current.user.messages.build(message_params)
+    @chat.messages << @message
     # @message = Message.new(message_params)
     @message.save
-    ActionCable.server.broadcast("message", serialize_message(@message))
+    ChatChannel.broadcast_to(@chat, @message)
+    # ActionCable.server.broadcast("message", serialize_message(@message))
 
     redirect_to persisted_chat_index_url
     # if @message.save
@@ -76,11 +79,15 @@ class MessagesController < ApplicationController
       params.require(:message).permit(:body)
     end
 
-  def serialize_message(message)
-    message.as_json(include: :user)
+    def chat_params
+      params.require(:message).permit(:chat_id)
+    end
 
-    # message.as_json(only: [
-    #   :id, :body, :user_id
-    # ])
-  end
+    def serialize_message(message)
+      message.as_json(include: :user)
+
+      # message.as_json(only: [
+      #   :id, :body, :user_id
+      # ])
+    end
 end
