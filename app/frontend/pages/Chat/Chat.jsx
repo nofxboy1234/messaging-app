@@ -70,7 +70,6 @@ export default function Chat({ chat }) {
       message: {
         body: values.message,
         chat_id: chat.id,
-        user_id: shared.current_user.id,
       },
     };
     router.post('/messages', data);

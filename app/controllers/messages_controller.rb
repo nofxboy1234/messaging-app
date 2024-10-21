@@ -43,6 +43,7 @@ class MessagesController < ApplicationController
     @chat = Chat.find(message_params[:chat_id])
     @chat.messages << @message
 
+    # debugger
     ChatChannel.broadcast_to(@chat, serialize_message(@message))
     # ActionCable.server.broadcast("message", serialize_message(@message))
 
@@ -77,7 +78,7 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:id, :body, :chat_id, :user_id)
+      params.require(:message).permit(:id, :body, :chat_id)
     end
 
     # def chat_params
