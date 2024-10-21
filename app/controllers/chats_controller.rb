@@ -15,6 +15,7 @@ class ChatsController < ApplicationController
 
   # GET /chats/1
   def show
+    # debugger
     @serialized_chat = serialize_chat(@chat)
     render inertia: "Chat/Show", props: {
       chat: @serialized_chat

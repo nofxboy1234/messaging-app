@@ -40,12 +40,7 @@ class MessagesController < ApplicationController
     @message = Current.user.messages.build(message_params)
     @message.save!
 
-    # @chat = Chat.find(message_params[:chat_id])
-    # @chat.messages << @message
-
-    # debugger
     ChatChannel.broadcast_to(@message.chat, serialize_message(@message))
-    # ActionCable.server.broadcast("message", serialize_message(@message))
 
     redirect_to @message.chat
     # if @message.save

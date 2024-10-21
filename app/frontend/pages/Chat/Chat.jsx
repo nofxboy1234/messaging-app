@@ -11,8 +11,6 @@ export default function Chat({ chat }) {
   const [values, setValues] = useState({
     message: '',
   });
-  console.log('*** chat');
-  console.log(chat);
   const [messages, setMessages] = useState(chat.messages);
   const [messageChannel, setMessageChannel] = useState(null);
 
