@@ -42,7 +42,6 @@ group :development, :test do
 
   gem "faker"
 
-  gem "pry-byebug"
 end
 
 group :development do
