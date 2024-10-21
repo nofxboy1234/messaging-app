@@ -5,6 +5,12 @@ import MessageDisplay from '../MessageDisplay/MessageDisplay';
 import styles from './Index.module.css';
 import { router, usePage } from '@inertiajs/react';
 
+router.on('invalid', (event) => {
+  event.preventDefault();
+  // console.log('An invalid Inertia response was received.');
+  // console.log(event.detail.response);
+});
+
 export default function Chat({ chat }) {
   const { shared } = usePage().props;
 

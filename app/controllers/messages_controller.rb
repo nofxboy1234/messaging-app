@@ -42,7 +42,9 @@ class MessagesController < ApplicationController
 
     ChatChannel.broadcast_to(@message.chat, serialize_message(@message))
 
-    redirect_to @message.chat
+    head :created
+    # head :ok
+    # redirect_to @message.chat
     # if @message.save
     #   redirect_to @message, notice: "Message was successfully created."
     # else
