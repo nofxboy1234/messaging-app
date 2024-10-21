@@ -37,15 +37,16 @@ class MessagesController < ApplicationController
 
   # POST /messages
   def create
-    @chat = Chat.find(chat_params)
     @message = Current.user.messages.build(message_params)
+    @message.save!
+
+    @chat = Chat.find(message_params[:chat_id])
     @chat.messages << @message
-    # @message = Message.new(message_params)
-    @message.save
-    ChatChannel.broadcast_to(@chat, @message)
+
+    ChatChannel.broadcast_to(@chat, serialize_message(@message))
     # ActionCable.server.broadcast("message", serialize_message(@message))
 
-    redirect_to persisted_chat_index_url
+    redirect_to @chat
     # if @message.save
     #   redirect_to @message, notice: "Message was successfully created."
     # else
@@ -76,12 +77,12 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:body)
+      params.require(:message).permit(:id, :body, :chat_id, :user_id)
     end
 
-    def chat_params
-      params.require(:message).permit(:chat_id)
-    end
+    # def chat_params
+    #   params.require(:message).permit(:chat_id)
+    # end
 
     def serialize_message(message)
       message.as_json(include: :user)

@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
     flash: -> { flash.to_hash },
     current_user: -> { Current.user },
     session: -> { Current.session },
-    profile: -> { Current.user&.profile }
+    profile: -> { Current.user&.profile },
+    chats: -> { Chat.all }
   }
 
   private

@@ -6,7 +6,7 @@ class ChatsController < ApplicationController
   # GET /chats
   def index
     @chats = Chat.all
-    render inertia: 'Chat/Index', props: {
+    render inertia: "Chat/Index", props: {
       chats: @chats.map do |chat|
         serialize_chat(chat)
       end
@@ -15,22 +15,23 @@ class ChatsController < ApplicationController
 
   # GET /chats/1
   def show
-    render inertia: 'Chat/Show', props: {
-      chat: serialize_chat(@chat)
+    @serialized_chat = serialize_chat(@chat)
+    render inertia: "Chat/Show", props: {
+      chat: @serialized_chat
     }
   end
 
   # GET /chats/new
   def new
     @chat = Chat.new
-    render inertia: 'Chat/New', props: {
+    render inertia: "Chat/New", props: {
       chat: serialize_chat(@chat)
     }
   end
 
   # GET /chats/1/edit
   def edit
-    render inertia: 'Chat/Edit', props: {
+    render inertia: "Chat/Edit", props: {
       chat: serialize_chat(@chat)
     }
   end
@@ -63,18 +64,18 @@ class ChatsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_chat
-      @chat = Chat.find(params[:id])
-    end
-
     # Only allow a list of trusted parameters through.
     def chat_params
       params.require(:chat).permit(:name)
     end
 
+    def set_chat
+      @chat = Chat.find(params[:id])
+      # @chat = Chat.includes(messages: [ :user ]).find(params[:id])
+      # @chat = Chat.includes(:messages).find(params[:id])
+    end
+
     def serialize_chat(chat)
-      chat.as_json(only: [
-        :id, :name
-      ])
+      chat.as_json(include: { messages: { include: :user } })
     end
 end

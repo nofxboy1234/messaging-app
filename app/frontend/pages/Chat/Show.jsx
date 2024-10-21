@@ -1,12 +1,12 @@
-import { Link, Head } from '@inertiajs/react'
-import Chat from './Chat'
+import { Link, Head } from '@inertiajs/react';
+import Chat from './Chat';
 
 export default function Show({ chat, flash }) {
   const onDestroy = (e) => {
     if (!confirm('Are you sure you want to delete this chat?')) {
-      e.preventDefault()
+      e.preventDefault();
     }
-  }
+  };
 
   return (
     <>
@@ -35,5 +35,5 @@ export default function Show({ chat, flash }) {
         </Link>
       </div>
     </>
-  )
+  );
 }
