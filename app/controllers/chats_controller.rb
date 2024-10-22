@@ -40,6 +40,7 @@ class ChatsController < ApplicationController
   # POST /chats
   def create
     @chat = Chat.new(chat_params)
+    Current.user.chats << @chat
 
     if @chat.save
       redirect_to @chat, notice: "Chat was successfully created."
