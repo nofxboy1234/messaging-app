@@ -3,7 +3,14 @@ import { defineConfig } from 'vite';
 import RubyPlugin from 'vite-plugin-ruby';
 
 export default defineConfig({
-  plugins: [react(), RubyPlugin()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [['babel-plugin-styled-components', { fileName: false }]],
+      },
+    }),
+    RubyPlugin(),
+  ],
   test: {
     globals: true,
     environment: 'jsdom',
