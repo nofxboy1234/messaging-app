@@ -1,16 +1,28 @@
 import Message from '../Message/Message';
-import styles from './MessageDisplay.module.css';
+import styled from 'styled-components';
 
-function MessageDisplay({ messages }) {
+const MessageDisplay = ({ className, messages }) => {
   return (
-    <div className={styles.container}>
-      <div id="message-display">
+    <div className={className}>
+      <div>
         {messages.map((message, index) => {
           return <Message key={message.id || index} message={message} />;
         })}
       </div>
     </div>
   );
-}
+};
 
-export default MessageDisplay;
+const StyledMessageDisplay = styled(MessageDisplay)`
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: auto;
+  height: 300px;
+  border: 1px solid black;
+
+  #hello {
+    background-color: red;
+  }
+`;
+
+export default StyledMessageDisplay;

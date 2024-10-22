@@ -1,12 +1,12 @@
 import { usePage, Link } from '@inertiajs/react';
-import Chat from './Chat/Chat';
+import styled from 'styled-components';
 
-export default function Layout({ children }) {
+const Layout = ({ className, children }) => {
   const { shared } = usePage().props;
 
   return (
-    <main>
-      <header>
+    <div className={className}>
+      <div>
         {shared.flash.alert && <div>{shared.flash.alert}</div>}
         {shared.flash.notice && <div>{shared.flash.notice}</div>}
 
@@ -35,9 +35,39 @@ export default function Layout({ children }) {
             </div>
           ))}
         </div>
-      </header>
+      </div>
       <br></br>
-      <article>{children}</article>
-    </main>
+      <div className={'content'}>
+        <div className={'children'}>{children}</div>
+        <div className={'users'}>users</div>
+      </div>
+    </div>
   );
-}
+};
+
+const StyledLayout = styled(Layout)`
+  .content {
+    display: flex;
+  }
+
+  .children {
+    flex: 4 1 0%;
+    background-color: greenyellow;
+  }
+
+  .users {
+    flex: 1 1 0%;
+    background-color: yellow;
+  }
+
+  /* .content div {
+    flex: 1 1 0%;
+  }
+
+  .content .children {
+    flex: 6 1 0%;
+    background-color: greenyellow;
+  } */
+`;
+
+export default StyledLayout;
