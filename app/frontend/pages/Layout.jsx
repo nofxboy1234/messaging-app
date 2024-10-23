@@ -39,7 +39,11 @@ const Layout = ({ className, children }) => {
       <br></br>
       <div className={'content'}>
         <div className={'children'}>{children}</div>
-        <div className={'users'}>users</div>
+        <div className={'users'}>
+          {shared.users.map((user) => (
+            <div key={user.id}>{user.email}</div>
+          ))}
+        </div>
       </div>
     </div>
   );

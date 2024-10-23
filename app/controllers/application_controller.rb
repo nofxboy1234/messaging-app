@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
     current_user: -> { Current.user },
     session: -> { Current.session },
     profile: -> { Current.user&.profile },
-    chats: -> { Chat.all }
+    chats: -> { Chat.all },
+    users: -> { User.all }
   }
 
   private
