@@ -26,6 +26,9 @@ export default function Show({ profile, shared }) {
 
         <br />
       </div>
+      <div>
+        <Link href={'#'}>Add Friend</Link>
+      </div>
     </Layout>
   );
 }
