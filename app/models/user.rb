@@ -12,11 +12,11 @@ class User < ApplicationRecord
 
   has_many :sessions, dependent: :destroy
   has_many :recovery_codes, dependent: :destroy
-  has_many :messages
-  has_one :profile
+  has_many :messages, dependent: :destroy
+  has_one :profile, dependent: :destroy
 
   has_many :member_lists
-  has_many :chats, through: :member_lists
+  has_many :chats, through: :member_lists, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
