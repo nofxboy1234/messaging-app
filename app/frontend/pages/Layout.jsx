@@ -41,7 +41,7 @@ const Layout = ({ className, children }) => {
         <div className={'children'}>{children}</div>
         <div className={'users'}>
           {shared.users.map((user) => (
-            <div key={user.id}>{user.email}</div>
+            <div key={user.id}>{user.profile.username}</div>
           ))}
         </div>
       </div>

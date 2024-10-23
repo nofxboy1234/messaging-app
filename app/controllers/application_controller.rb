@@ -8,7 +8,10 @@ class ApplicationController < ActionController::Base
     session: -> { Current.session },
     profile: -> { Current.user&.profile },
     chats: -> { Chat.all },
-    users: -> { User.all }
+    users: -> {
+      users = User.includes(:profile)
+      users.as_json(include: :profile)
+    }
   }
 
   private
