@@ -99,6 +99,7 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
+    hirb (0.7.3)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     inertia_rails (3.2.0)
@@ -322,6 +323,7 @@ DEPENDENCIES
   brakeman
   debug
   faker
+  hirb
   inertia_rails-contrib (~> 0.2.1)
   jbuilder
   omniauth

@@ -41,6 +41,8 @@ group :development, :test do
   gem "rspec-rails"
 
   gem "faker"
+
+  gem "hirb"
 end
 
 group :development do
