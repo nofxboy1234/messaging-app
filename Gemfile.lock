@@ -1,3 +1,13 @@
+GIT
+  remote: git@github.com:nofxboy1234/has_friendship.git
+  revision: 26960bac931886d35df45991e16dcf52627d9933
+  specs:
+    has_friendship (1.1.8)
+      activemodel (>= 4.2.0, < 8.0)
+      activerecord (>= 4.2.0, < 8.0)
+      activesupport (>= 4.2.0, < 8.0)
+      stateful_enum
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -282,6 +292,7 @@ GEM
       rubocop-rails
     ruby-progressbar (1.13.0)
     securerandom (0.3.1)
+    stateful_enum (0.7.0)
     stringio (3.1.1)
     thor (1.3.2)
     timeout (0.4.1)
@@ -323,6 +334,7 @@ DEPENDENCIES
   brakeman
   debug
   faker
+  has_friendship!
   hirb
   inertia_rails-contrib (~> 0.2.1)
   jbuilder
