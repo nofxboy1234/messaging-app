@@ -9,6 +9,8 @@ export default function Show({ profile, shared }) {
     }
   };
 
+  function handleAddFriend(e) {}
+
   return (
     <Layout>
       <Head title={`Profile #${profile.id}`} />
@@ -27,7 +29,15 @@ export default function Show({ profile, shared }) {
         <br />
       </div>
       <div>
-        <Link href={'#'}>Add Friend</Link>
+        <Link
+          as="button"
+          type="button"
+          href={'/friendships'}
+          method="post"
+          data={{ friendship: { foo: 'bar' } }}
+        >
+          Add Friend
+        </Link>
       </div>
     </Layout>
   );

@@ -1,5 +1,6 @@
 import { usePage, Link } from '@inertiajs/react';
 import styled from 'styled-components';
+import Index from './Friendships/Index';
 
 const Layout = ({ className, children }) => {
   const { shared } = usePage().props;
@@ -9,7 +10,6 @@ const Layout = ({ className, children }) => {
       <div>
         {shared.flash.alert && <div>{shared.flash.alert}</div>}
         {shared.flash.notice && <div>{shared.flash.notice}</div>}
-
         <Link
           href={`/sessions/${shared.session.id}`}
           as="button"
@@ -22,7 +22,13 @@ const Layout = ({ className, children }) => {
           Profile ({shared.current_user.email.split('@')[0]})
         </Link>
         {' | '}
-        <Link href="/chats/new">New chat</Link>
+        Friends
+        {' | '}
+        <Link href="/friendships">Online</Link>
+        <Link href="/friendships">All</Link>
+        <Link href="/friendships">Pending</Link>
+        <Link href="/friendships">Blocked</Link>
+        {/* <Link href="/chats/new">New chat</Link>
 
         <h1>Chats</h1>
         <div>
@@ -34,7 +40,7 @@ const Layout = ({ className, children }) => {
               </p>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
       <br></br>
       <div className={'content'}>
