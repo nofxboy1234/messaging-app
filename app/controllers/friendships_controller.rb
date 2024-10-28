@@ -18,10 +18,6 @@ class FriendshipsController < ApplicationController
     # render inertia: "Profile/Show", props: { status: :ok }
   end
 
-  def update
-    render inertia: "Friendships/Update"
-  end
-
   def destroy
     @friend = User.find(params[:id])
     Current.user.remove_friend(@friend)
