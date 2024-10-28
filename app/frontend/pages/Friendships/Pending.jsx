@@ -1,17 +1,27 @@
 import { Link, Head, router } from '@inertiajs/react';
 import Layout from '../Layout';
+import { useState } from 'react';
 
 export default function Index({ shared, outgoing, incoming }) {
+  const [outgoingRequests, setOutgoingRequests] = useState(outgoing);
+  const [incomingRequests, setIncomingRequests] = useState(incoming);
+
   function acceptFriendRequest(user) {
     const data = { friendship: { user_id: user.id } };
     router.post(`/friendships`, data, {
       onBefore: (visit) =>
         confirm(`Accept friend request from ${user.profile.username}?`),
       onFinish: (visit) => {
-        console.log('Friend request accepted');
+        const filtered = incomingRequests.filter(
+          (request) => request.id != user.id,
+        );
+        console.log(filtered);
+        setIncomingRequests(filtered);
       },
     });
   }
+
+  console.log('*** rendering Pending');
 
   return (
     <Layout>
@@ -19,7 +29,7 @@ export default function Index({ shared, outgoing, incoming }) {
 
       <h1>Outgoing Friend Requests - </h1>
       <div>
-        {outgoing.map((user) => (
+        {outgoingRequests.map((user) => (
           <div key={user.id}>
             <div>{user.profile.picture}</div>
             <div>{user.profile.username}</div>
@@ -29,7 +39,7 @@ export default function Index({ shared, outgoing, incoming }) {
 
       <h1>Incoming Friend Requests - </h1>
       <div>
-        {incoming.map((user) => (
+        {incomingRequests.map((user) => (
           <div key={user.id}>
             <div>{user.profile.picture}</div>
             <div>{user.profile.username}</div>
