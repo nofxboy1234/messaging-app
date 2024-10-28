@@ -11,15 +11,12 @@ class FriendshipsController < ApplicationController
   def create
     @friend = User.find(friendship_params[:friend_id])
     Current.user.friend_request(@friend)
-    @friend.accept_request(Current.user)
 
     head :created
-    # head :ok
-    # render inertia: "Profile/Show", props: { status: :ok }
   end
 
   def destroy
-    @friend = User.find(params[:id])
+    @friend = User.find(params[:user_id])
     Current.user.remove_friend(@friend)
 
     head :ok

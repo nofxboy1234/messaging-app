@@ -3,33 +3,65 @@ import Profile from './Profile';
 import Layout from '../Layout';
 import { useState } from 'react';
 
-export default function Show({ shared, profile, isFriend }) {
+export default function Show({ shared, profile, isFriend, isPendingFriend }) {
   const [isAFriend, setIsAFriend] = useState(isFriend);
+  const [isAPendingFriend, setIsAPendingFriend] = useState(isPendingFriend);
 
   function handleAddFriend(e) {
     e.preventDefault();
-    console.log('*** handleAddFriend');
 
-    const data = { friendship: { friend_id: profile.user_id } };
-    router.post('/friendships', data, {
+    const data = { friendship: { user_id: profile.user_id } };
+    router.post('/friendships/pending', data, {
+      onBefore: (visit) =>
+        confirm(`Send friend request to ${profile.username}?`),
       onFinish: (visit) => {
-        console.log('*** onFinish post');
-        setIsAFriend(true);
+        setIsAPendingFriend(true);
+      },
+    });
+  }
+
+  function handleRemovePendingFriend(e) {
+    e.preventDefault();
+
+    router.delete(`/friendships/pending/${profile.user_id}`, {
+      onBefore: (visit) =>
+        confirm(`Remove friend request to ${profile.username}?`),
+      onFinish: (visit) => {
+        setIsAPendingFriend(false);
       },
     });
   }
 
   function handleRemoveFriend(e) {
     e.preventDefault();
-    console.log('*** handleAddFriend');
 
     router.delete(`/friendships/${profile.user_id}`, {
       onBefore: (visit) => confirm(`Unfriend ${profile.username}?`),
       onFinish: (visit) => {
-        console.log('*** onFinish delete');
         setIsAFriend(false);
       },
     });
+  }
+
+  let friendButton;
+  if (isAFriend) {
+    friendButton = (
+      <Link as="button" type="button" onClick={handleRemoveFriend}>
+        Remove Friend
+      </Link>
+    );
+  } else if (isAPendingFriend) {
+    friendButton = (
+      <Link as="button" type="button" onClick={handleRemovePendingFriend}>
+        Remove Friend Request
+      </Link>
+    );
+  } else {
+    friendButton = (
+      <Link as="button" type="button" onClick={handleAddFriend}>
+        Add Friend
+      </Link>
+    );
   }
 
   return (
@@ -49,17 +81,7 @@ export default function Show({ shared, profile, isFriend }) {
 
         <br />
       </div>
-      <div>
-        {isAFriend ? (
-          <Link as="button" type="button" onClick={handleRemoveFriend}>
-            Remove Friend
-          </Link>
-        ) : (
-          <Link as="button" type="button" onClick={handleAddFriend}>
-            Add Friend
-          </Link>
-        )}
-      </div>
+      <div>{friendButton}</div>
     </Layout>
   );
 }

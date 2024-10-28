@@ -1,14 +1,25 @@
 Rails.application.routes.draw do
   resources :chats
   resources :profiles, only: [ :create, :edit, :show, :update ]
-  resources :friendships, only: [ :index, :create, :destroy ]
+  resources :messages, only: [ :create ]
+
+  # resources :friendships, only: [ :index, :create, :destroy ]
+
+  get "friendships", to: "friendships#index", as: "friendships"
+  post "friendships", to: "friendships#create", as: nil
+  delete "friendships/:user_id", to: "friendships#destroy", as: "friendship"
+
+  get "friendships/pending", to: "pending_friendships#index", as: "pending_friendships"
+  post "friendships/pending", to: "pending_friendships#create", as: nil
+  delete "friendships/pending/:user_id", to: "pending_friendships#destroy", as: "pending_friendship"
 
   get "persisted_chat/index"
-  resources :messages, only: [ :create ]
+
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get  "sign_up", to: "registrations#new"
   post "sign_up", to: "registrations#create"
+
   resources :sessions, only: [ :index, :show, :destroy ]
   resource  :password, only: [ :edit, :update ]
   namespace :identity do
@@ -26,6 +37,7 @@ Rails.application.routes.draw do
       resources :recovery_codes, only: [ :index, :create ]
     end
   end
+
   get  "/auth/failure",            to: "sessions/omniauth#failure"
   get  "/auth/:provider/callback", to: "sessions/omniauth#create"
   post "/auth/:provider/callback", to: "sessions/omniauth#create"
