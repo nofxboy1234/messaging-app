@@ -9,8 +9,8 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    @friend = User.find(friendship_params[:friend_id])
-    Current.user.friend_request(@friend)
+    @friend = User.find(friendship_params[:user_id])
+    Current.user.accept_request(@friend)
 
     head :created
   end
@@ -25,10 +25,10 @@ class FriendshipsController < ApplicationController
   private
 
   def friendship_params
-    params.require(:friendship).permit(:id, :friend_id)
+    params.require(:friendship).permit(:id, :user_id)
   end
 
-  def serialize_friend(friend)
-    friend.as_json(include: :profile)
+  def serialize_friend(user)
+    user.as_json(include: :profile)
   end
 end
