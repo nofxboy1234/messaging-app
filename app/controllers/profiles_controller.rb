@@ -15,8 +15,11 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1
   def show
+    isFriend = Current.user.friends_with?(@profile.user)
+
     render inertia: "Profile/Show", props: {
-      profile: serialize_profile(@profile)
+      profile: serialize_profile(@profile),
+      isFriend: isFriend
     }
   end
 

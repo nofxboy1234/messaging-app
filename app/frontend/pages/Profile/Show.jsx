@@ -1,22 +1,26 @@
 import { Link, Head, router } from '@inertiajs/react';
 import Profile from './Profile';
 import Layout from '../Layout';
+import { useState } from 'react';
 
-export default function Show({ profile, shared }) {
-  const onDestroy = (e) => {
-    if (!confirm('Are you sure you want to delete this profile?')) {
-      e.preventDefault();
-    }
-  };
+export default function Show({ shared, profile, isFriend }) {
+  const [isAFriend, setIsAFriend] = useState(isFriend);
 
   function handleAddFriend(e) {
     e.preventDefault();
-
     console.log('*** handleAddFriend');
+
     const data = { friendship: { friend_id: profile.user_id } };
     router.post('/friendships', data);
-    // href={'/friendships'}
-    // method="post"
+    setIsAFriend(true);
+  }
+
+  function handleRemoveFriend(e) {
+    e.preventDefault();
+    console.log('*** handleAddFriend');
+
+    // const data = { friendship: { friend_id: profile.user_id } };
+    // router.post('/friendships', data);
   }
 
   return (
@@ -37,9 +41,15 @@ export default function Show({ profile, shared }) {
         <br />
       </div>
       <div>
-        <Link as="button" type="button" onClick={handleAddFriend}>
-          Add Friend
-        </Link>
+        {isAFriend ? (
+          <Link as="button" type="button" onClick={handleRemoveFriend}>
+            Remove Friend
+          </Link>
+        ) : (
+          <Link as="button" type="button" onClick={handleAddFriend}>
+            Add Friend
+          </Link>
+        )}
       </div>
     </Layout>
   );
