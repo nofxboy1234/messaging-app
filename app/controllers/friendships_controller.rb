@@ -9,7 +9,10 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    puts "friendships#create"
+    @friend = User.find(friendship_params[:friend_id])
+    Current.user.friends << @friend
+
+    head :created
     # render inertia: "Friendships/Create"
   end
 
@@ -22,6 +25,10 @@ class FriendshipsController < ApplicationController
   end
 
   private
+
+  def friendship_params
+    params.require(:friendship).permit(:id, :friend_id)
+  end
 
   def serialize_friend(friend)
     friend.as_json(include: :profile)

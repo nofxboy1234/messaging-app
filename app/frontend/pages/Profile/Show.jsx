@@ -1,4 +1,4 @@
-import { Link, Head } from '@inertiajs/react';
+import { Link, Head, router } from '@inertiajs/react';
 import Profile from './Profile';
 import Layout from '../Layout';
 
@@ -9,7 +9,15 @@ export default function Show({ profile, shared }) {
     }
   };
 
-  function handleAddFriend(e) {}
+  function handleAddFriend(e) {
+    e.preventDefault();
+
+    console.log('*** handleAddFriend');
+    const data = { friendship: { friend_id: profile.user_id } };
+    router.post('/friendships', data);
+    // href={'/friendships'}
+    // method="post"
+  }
 
   return (
     <Layout>
@@ -29,13 +37,7 @@ export default function Show({ profile, shared }) {
         <br />
       </div>
       <div>
-        <Link
-          as="button"
-          type="button"
-          href={'/friendships'}
-          method="post"
-          data={{ friendship: { foo: 'bar' } }}
-        >
+        <Link as="button" type="button" onClick={handleAddFriend}>
           Add Friend
         </Link>
       </div>
