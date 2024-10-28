@@ -11,8 +11,12 @@ export default function Show({ shared, profile, isFriend }) {
     console.log('*** handleAddFriend');
 
     const data = { friendship: { friend_id: profile.user_id } };
-    router.post('/friendships', data);
-    setIsAFriend(true);
+    router.post('/friendships', data, {
+      onFinish: (visit) => {
+        console.log('*** onFinish');
+        setIsAFriend(true);
+      },
+    });
   }
 
   function handleRemoveFriend(e) {

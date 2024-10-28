@@ -13,7 +13,8 @@ class FriendshipsController < ApplicationController
     Current.user.friends << @friend
 
     head :created
-    # render inertia: "Friendships/Create"
+    # head :ok
+    # render inertia: "Profile/Show", props: { status: :ok }
   end
 
   def update
