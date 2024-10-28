@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :chats
   resources :profiles, only: [ :create, :edit, :show, :update ]
-  resources :friendships, only: [ :index, :create, :update, :destroy ]
+  resources :friendships, only: [ :index, :create, :destroy ]
 
   get "persisted_chat/index"
   resources :messages, only: [ :create ]

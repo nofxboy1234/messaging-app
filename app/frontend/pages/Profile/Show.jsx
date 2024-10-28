@@ -13,7 +13,7 @@ export default function Show({ shared, profile, isFriend }) {
     const data = { friendship: { friend_id: profile.user_id } };
     router.post('/friendships', data, {
       onFinish: (visit) => {
-        console.log('*** onFinish');
+        console.log('*** onFinish post');
         setIsAFriend(true);
       },
     });
@@ -23,8 +23,15 @@ export default function Show({ shared, profile, isFriend }) {
     e.preventDefault();
     console.log('*** handleAddFriend');
 
-    // const data = { friendship: { friend_id: profile.user_id } };
-    // router.post('/friendships', data);
+    router.delete(`/friendships/${profile.user_id}`, {
+      onBefore: (visit) => {
+        confirm(`Unfriend ${profile.username}?`);
+      },
+      onFinish: (visit) => {
+        console.log('*** onFinish delete');
+        setIsAFriend(false);
+      },
+    });
   }
 
   return (

@@ -10,7 +10,8 @@ class FriendshipsController < ApplicationController
 
   def create
     @friend = User.find(friendship_params[:friend_id])
-    Current.user.friends << @friend
+    Current.user.friend_request(@friend)
+    @friend.accept_request(Current.user)
 
     head :created
     # head :ok
@@ -22,7 +23,10 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    render inertia: "Friendships/Destroy"
+    @friend = User.find(params[:id])
+    Current.user.remove_friend(@friend)
+
+    head :ok
   end
 
   private
