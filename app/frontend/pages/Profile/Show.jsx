@@ -24,9 +24,7 @@ export default function Show({ shared, profile, isFriend }) {
     console.log('*** handleAddFriend');
 
     router.delete(`/friendships/${profile.user_id}`, {
-      onBefore: (visit) => {
-        confirm(`Unfriend ${profile.username}?`);
-      },
+      onBefore: (visit) => confirm(`Unfriend ${profile.username}?`),
       onFinish: (visit) => {
         console.log('*** onFinish delete');
         setIsAFriend(false);
