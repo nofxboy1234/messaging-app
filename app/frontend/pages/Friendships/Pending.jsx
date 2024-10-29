@@ -33,6 +33,19 @@ export default function Index({ shared, outgoing, incoming }) {
     });
   }
 
+  function handleRemovePendingFriend(user) {
+    router.delete(`/friendships/pending/${user.id}`, {
+      onBefore: (visit) =>
+        confirm(`Cancel friend request to ${user.profile.username}?`),
+      onFinish: (visit) => {
+        const filtered = incomingRequests.filter(
+          (request) => request.id != user.id,
+        );
+        setIncomingRequests(filtered);
+      },
+    });
+  }
+
   console.log('*** rendering Pending');
 
   return (
@@ -45,6 +58,16 @@ export default function Index({ shared, outgoing, incoming }) {
           <div key={user.id}>
             <div>{user.profile.picture}</div>
             <div>{user.profile.username}</div>
+            <Link
+              as="button"
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                handleRemovePendingFriend(user);
+              }}
+            >
+              Cancel
+            </Link>
           </div>
         ))}
       </div>
