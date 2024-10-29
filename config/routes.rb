@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "friendships", to: "friendships#index", as: "friendships"
   post "friendships", to: "friendships#create", as: nil
   delete "friendships/:user_id", to: "friendships#destroy", as: "friendship"
+  patch "friendships/:user_id", to: "friendships#update", as: nil
 
   get "friendships/pending", to: "pending_friendships#index", as: "pending_friendships"
   post "friendships/pending", to: "pending_friendships#create", as: nil
