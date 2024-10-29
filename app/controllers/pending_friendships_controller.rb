@@ -22,8 +22,9 @@ class PendingFriendshipsController < ApplicationController
 
   def destroy
     @friend = User.find(params[:user_id])
-    HasFriendship::Friendship.destroy_by(friendable: Current.user, friend: @friend, status: "pending")
-    HasFriendship::Friendship.destroy_by(friendable: @friend, friend: Current.user, status: "requested")
+    @friend.decline_request(Current.user)
+    # HasFriendship::Friendship.destroy_by(friendable: Current.user, friend: @friend, status: "pending")
+    # HasFriendship::Friendship.destroy_by(friendable: @friend, friend: Current.user, status: "requested")
 
     head :ok
   end

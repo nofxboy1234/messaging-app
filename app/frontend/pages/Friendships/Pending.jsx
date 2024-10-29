@@ -15,7 +15,19 @@ export default function Index({ shared, outgoing, incoming }) {
         const filtered = incomingRequests.filter(
           (request) => request.id != user.id,
         );
-        console.log(filtered);
+        setIncomingRequests(filtered);
+      },
+    });
+  }
+
+  function rejectFriendRequest(user) {
+    router.delete(`/friendships/pending/${user.id}`, {
+      onBefore: (visit) =>
+        confirm(`Reject friend request from ${user.profile.username}?`),
+      onFinish: (visit) => {
+        const filtered = incomingRequests.filter(
+          (request) => request.id != user.id,
+        );
         setIncomingRequests(filtered);
       },
     });
@@ -53,7 +65,14 @@ export default function Index({ shared, outgoing, incoming }) {
             >
               Accept
             </Link>
-            <Link as="button" type="button">
+            <Link
+              as="button"
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                rejectFriendRequest(user);
+              }}
+            >
               Reject
             </Link>
           </div>
