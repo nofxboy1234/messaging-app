@@ -15,6 +15,13 @@ class FriendshipsController < ApplicationController
     head :created
   end
 
+  def update
+    @friend = User.find(params[:user_id])
+    Current.user.block_friend(@friend)
+
+    head :ok
+  end
+
   def destroy
     @friend = User.find(params[:user_id])
     Current.user.remove_friend(@friend)

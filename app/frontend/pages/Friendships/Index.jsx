@@ -9,11 +9,29 @@ export default function Index({ shared, friends }) {
     router.delete(`/friendships/${friend.id}`, {
       onBefore: (visit) => confirm(`Unfriend ${friend.profile.username}?`),
       onFinish: (visit) => {
+        console.log('*** handleRemoveFriend');
         setCurrentFriends(
           currentFriends.filter((user) => user.id != friend.id),
         );
       },
     });
+  }
+
+  function handleBlockFriend(friend) {
+    router.patch(
+      `/friendships/${friend.id}`,
+      {},
+      {
+        onBefore: (visit) => confirm(`Block ${friend.profile.username}?`),
+        onFinish: (visit) => {
+          console.log('*** handleBlockFriend');
+          const filtered = currentFriends.filter(
+            (user) => user.id != friend.id,
+          );
+          setCurrentFriends(filtered);
+        },
+      },
+    );
   }
 
   return (
@@ -36,6 +54,16 @@ export default function Index({ shared, friends }) {
               }}
             >
               Remove Friend
+            </Link>
+            <Link
+              as="button"
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                handleBlockFriend(friend);
+              }}
+            >
+              Block Friend
             </Link>
           </div>
         ))}
