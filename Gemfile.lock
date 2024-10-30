@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:nofxboy1234/has_friendship.git
+  remote: https://github.com/nofxboy1234/has_friendship.git
   revision: 26960bac931886d35df45991e16dcf52627d9933
   specs:
     has_friendship (1.1.8)
