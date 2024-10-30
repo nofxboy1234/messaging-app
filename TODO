@@ -10,7 +10,7 @@ backend: ruby
 [x] - test: rspec
 [x] - debug: debugger
 
-[ ] - rails redirect_to path helpers
+[x] - test rails button_to using path helpers
 [ ] - frontend path helpers
 [ ] - postman path helper
 [ ] - postman - check if rails breakpoint is hit
