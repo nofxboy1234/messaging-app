@@ -24,10 +24,10 @@ const Layout = ({ className, children }) => {
         {' | '}
         Friends
         {' | '}
-        <Link href="/friendships">Online</Link>
-        <Link href="/friendships">All</Link>
+        <Link href="/friendships/accepted">Online</Link>
+        <Link href="/friendships/accepted">All</Link>
         <Link href="/friendships/pending">Pending</Link>
-        <Link href="/friendships">Blocked</Link>
+        <Link href="/friendships/blocked">Blocked</Link>
         {/* <Link href="/chats/new">New chat</Link>
 
         <h1>Chats</h1>

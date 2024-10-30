@@ -35,7 +35,7 @@ export default function Show({ shared, profile, isFriend, isPendingFriend }) {
   function handleRemoveFriend(e) {
     e.preventDefault();
 
-    router.delete(`/friendships/${profile.user_id}`, {
+    router.delete(`/friendships/accepted/${profile.user_id}`, {
       onBefore: (visit) => confirm(`Unfriend ${profile.username}?`),
       onFinish: (visit) => {
         setIsAFriend(false);

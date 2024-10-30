@@ -3,16 +3,23 @@ Rails.application.routes.draw do
   resources :profiles, only: [ :create, :edit, :show, :update ]
   resources :messages, only: [ :create ]
 
-  # resources :friendships, only: [ :index, :create, :destroy ]
+  get "friendships/pending", to: "friendships#pending", as: "pending_friends"
+  post "friendships/pending", to: "friendships#send_request", as: nil
+  delete "friendships/pending/:user_id", to: "friendships#cancel_request", as: "pending_friend"
 
-  get "friendships", to: "friendships#index", as: "friendships"
-  post "friendships", to: "friendships#create", as: nil
-  delete "friendships/:user_id", to: "friendships#destroy", as: "friendship"
-  patch "friendships/:user_id", to: "friendships#update", as: nil
+  get "friendships/requested", to: "friendships#requested", as: "requested_friends"
+  patch "friendships/requested/:user_id", to: "friendships#accept", as: nil
+  put "friendships/requested/:user_id", to: "friendships#accept", as: nil
+  delete "friendships/requested/:user_id", to: "friendships#decline", as: "requested_friend"
 
-  get "friendships/pending", to: "pending_friendships#index", as: "pending_friendships"
-  post "friendships/pending", to: "pending_friendships#create", as: nil
-  delete "friendships/pending/:user_id", to: "pending_friendships#destroy", as: "pending_friendship"
+  get "friendships/accepted", to: "friendships#accepted", as: "accepted_friends"
+  delete "friendships/accepted/:user_id", to: "friendships#remove", as: "accepted_friend"
+
+  get "friendships/blocked", to: "friendships#blocked", as: "blocked_friends"
+
+  patch "friendships/:user_id", to: "friendships#block", as: "friend"
+  put "friendships/:user_id", to: "friendships#block"
+  delete "friendships/:user_id", to: "friendships#unblock"
 
   get "persisted_chat/index"
 

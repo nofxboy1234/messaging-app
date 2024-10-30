@@ -7,8 +7,8 @@ export default function Index({ shared, outgoing, incoming }) {
   const [incomingRequests, setIncomingRequests] = useState(incoming);
 
   function acceptFriendRequest(user) {
-    const data = { friendship: { user_id: user.id } };
-    router.post(`/friendships`, data, {
+    const data = {};
+    router.patch(`/friendships/requested/${user.id}`, data, {
       onBefore: (visit) =>
         confirm(`Accept friend request from ${user.profile.username}?`),
       onFinish: (visit) => {
@@ -21,7 +21,7 @@ export default function Index({ shared, outgoing, incoming }) {
   }
 
   function rejectFriendRequest(user) {
-    router.delete(`/friendships/pending/${user.id}`, {
+    router.delete(`/friendships/requested/${user.id}`, {
       onBefore: (visit) =>
         confirm(`Reject friend request from ${user.profile.username}?`),
       onFinish: (visit) => {

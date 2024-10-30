@@ -6,7 +6,7 @@ export default function Index({ shared, friends }) {
   const [currentFriends, setCurrentFriends] = useState(friends);
 
   function handleRemoveFriend(friend) {
-    router.delete(`/friendships/${friend.id}`, {
+    router.delete(`/friendships/accepted/${friend.id}`, {
       onBefore: (visit) => confirm(`Unfriend ${friend.profile.username}?`),
       onFinish: (visit) => {
         console.log('*** handleRemoveFriend');
