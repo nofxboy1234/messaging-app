@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+heroku run DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rails db:schema:load
