@@ -9,3 +9,15 @@ backend: ruby
 [x] - format: rubocop
 [x] - test: rspec
 [x] - debug: debugger
+
+[ ] - rails redirect_to path helpers
+[ ] - frontend path helpers
+[ ] - postman path helper
+[ ] - postman - check if rails breakpoint is hit
+[ ] - test User <-> Chat relationship
+[ ] - create chat with user when clicking Chat button
+
+[ ] - style and make responsive
+[ ] - change authentication zero to Devise + Pundit
+[ ] - model validations and error handling
+[ ] - model (rspec) and integration (react testing library) tests
