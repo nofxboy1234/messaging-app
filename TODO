@@ -12,10 +12,10 @@ backend: ruby
  
  [x] - test rails button_to using path helpers
 
-[ ] - bundle remove has_friendship
+[x] - bundle remove has_friendship
+[x] - create Friendship model
+[x] - create User <- Friendship associations
 [ ] - create FriendRequest model
-[ ] - create Friendship model
-[ ] - create User <- Friendship associations
 [ ] - create User <- FriendRequest associations
 
 [ ] - update seeds with :friend_requests and :friendships
