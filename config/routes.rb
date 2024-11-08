@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
+  resources :profiles
+  resources :messages
+  resources :chats
   resources :friend_requests
   resources :friendships
-  resources :chats
-  resources :profiles, only: [ :create, :edit, :show, :update ]
-  resources :messages, only: [ :create ]
 
   # get "friendships/pending", to: "friendships#pending", as: "pending_friends"
   # post "friendships/pending", to: "friendships#send_request", as: nil

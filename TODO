@@ -20,7 +20,7 @@ backend: ruby
 
 [x] - update seeds with :friend_requests and :friendships
 [x] - test association in rails console
-[ ] - update backend routes using resourceful routes for :friend_request, :friendships
+[x] - update backend routes using resourceful routes for :friend_request, :friendships
 [ ] - frontend path helpers
 [ ] - postman - check if rails breakpoint is hit
 [ ] - create chat with user when clicking Chat button
