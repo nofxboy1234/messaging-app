@@ -73,5 +73,3 @@ gem "omniauth-rails_csrf_protection"
 gem "rotp"
 # Use rqrcode for creating and rendering QR codes into various formats [https://github.com/whomwah/rqrcode]
 gem "rqrcode"
-
-gem "has_friendship", git: "https://github.com/nofxboy1234/has_friendship.git"
