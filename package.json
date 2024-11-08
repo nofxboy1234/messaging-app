@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@inertiajs/react": "^1.2.0",
+    "@js-from-routes/client": "^1.0.4",
     "@rails/actioncable": "^7.2.100",
     "@vitejs/plugin-react": "^4.3.2",
     "react": "^18.3.1",

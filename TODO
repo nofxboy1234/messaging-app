@@ -8,15 +8,25 @@ backend: ruby
 [x] - lint: rubocop
 [x] - format: rubocop
 [x] - test: rspec
-[x] - debug: debugger
+ [x] - debug: debugger
+ 
+ [x] - test rails button_to using path helpers
 
-[x] - test rails button_to using path helpers
+[ ] - bundle remove has_friendship
+[ ] - create FriendRequest model
+[ ] - create Friendship model
+[ ] - create User <- Friendship associations
+[ ] - create User <- FriendRequest associations
+
+[ ] - update seeds with :friend_requests and :friendships
+[ ] - test association in rails console
+[ ] - update backend routes using resourceful routes for :friend_request, :friendships
 [ ] - frontend path helpers
-[ ] - postman path helper
 [ ] - postman - check if rails breakpoint is hit
-[ ] - test User <-> Chat relationship
 [ ] - create chat with user when clicking Chat button
+[ ] - check for any remaining funcionality needed to be implemented
 
+ 
 [ ] - style and make responsive
 [ ] - change authentication zero to Devise + Pundit
 [ ] - model validations and error handling

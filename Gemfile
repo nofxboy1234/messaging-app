@@ -43,6 +43,8 @@ group :development, :test do
   gem "faker"
 
   gem "hirb"
+
+  gem "js_from_routes"
 end
 
 group :development do

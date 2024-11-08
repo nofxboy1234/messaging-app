@@ -124,6 +124,8 @@ GEM
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    js_from_routes (4.0.0)
+      railties (>= 5.1, < 8)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
     logger (1.6.1)
@@ -338,6 +340,7 @@ DEPENDENCIES
   hirb
   inertia_rails-contrib (~> 0.2.1)
   jbuilder
+  js_from_routes
   omniauth
   omniauth-rails_csrf_protection
   overmind
