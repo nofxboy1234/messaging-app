@@ -15,11 +15,11 @@ backend: ruby
 [x] - bundle remove has_friendship
 [x] - create Friendship model
 [x] - create User <- Friendship associations
-[ ] - create FriendRequest model
-[ ] - create User <- FriendRequest associations
+[x] - create FriendRequest model
+[x] - create User <- FriendRequest associations
 
-[ ] - update seeds with :friend_requests and :friendships
-[ ] - test association in rails console
+[x] - update seeds with :friend_requests and :friendships
+[x] - test association in rails console
 [ ] - update backend routes using resourceful routes for :friend_request, :friendships
 [ ] - frontend path helpers
 [ ] - postman - check if rails breakpoint is hit
