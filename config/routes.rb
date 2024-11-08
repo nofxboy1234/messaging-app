@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :friend_requests
   resources :friendships
   resources :chats
   resources :profiles, only: [ :create, :edit, :show, :update ]
