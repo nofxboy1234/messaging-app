@@ -19,10 +19,6 @@ const api = {
   },
 };
 
-router.on('invalid', (event) => {
-  event.preventDefault();
-});
-
 export default function Chat({ chat }) {
   const { shared } = usePage().props;
 

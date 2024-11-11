@@ -10,6 +10,7 @@ const Layout = ({ className, children }) => {
       <div>
         {shared.flash.alert && <div>{shared.flash.alert}</div>}
         {shared.flash.notice && <div>{shared.flash.notice}</div>}
+        <Link href="/">Home</Link>
         <Link
           href={`/sessions/${shared.session.id}`}
           as="button"

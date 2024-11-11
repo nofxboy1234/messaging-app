@@ -1,9 +1,10 @@
 import { Link, Head } from '@inertiajs/react';
 import Friend from './Friend';
+import Layout from '../Layout';
 
 export default function Index({ friends, flash }) {
   return (
-    <>
+    <Layout>
       <Head title="Friends" />
 
       {flash.notice && <p style={{ color: 'green' }}>{flash.notice}</p>}
@@ -21,6 +22,6 @@ export default function Index({ friends, flash }) {
       </div>
 
       <Link href="/friends/new">New friend</Link>
-    </>
+    </Layout>
   );
 }
