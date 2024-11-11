@@ -5,8 +5,9 @@ class FriendshipsController < ApplicationController
 
   # GET /friendships
   def index
+    # @friendships = Current.user.friends
     @friendships = Friendship.all
-    render inertia: 'Friendship/Index', props: {
+    render inertia: "Friendship/Index", props: {
       friendships: @friendships.map do |friendship|
         serialize_friendship(friendship)
       end
@@ -15,7 +16,7 @@ class FriendshipsController < ApplicationController
 
   # GET /friendships/1
   def show
-    render inertia: 'Friendship/Show', props: {
+    render inertia: "Friendship/Show", props: {
       friendship: serialize_friendship(@friendship)
     }
   end
@@ -23,14 +24,14 @@ class FriendshipsController < ApplicationController
   # GET /friendships/new
   def new
     @friendship = Friendship.new
-    render inertia: 'Friendship/New', props: {
+    render inertia: "Friendship/New", props: {
       friendship: serialize_friendship(@friendship)
     }
   end
 
   # GET /friendships/1/edit
   def edit
-    render inertia: 'Friendship/Edit', props: {
+    render inertia: "Friendship/Edit", props: {
       friendship: serialize_friendship(@friendship)
     }
   end

@@ -11,6 +11,7 @@
 user1 = User.create!(email: 'user1@example.com', password: 'user1!@#$%^&')
 user2 = User.create!(email: 'user2@example.com', password: 'user2!@#$%^&')
 user3 = User.create!(email: 'user3@example.com', password: 'user3!@#$%^&')
+user4 = User.create!(email: 'user4@example.com', password: 'user4!@#$%^&')
 
 Profile.create!(
                 username: user1.email.split('@').first,
@@ -23,14 +24,21 @@ Profile.create!(
   picture: 'https://example.com/pictures/user2',
   about: "Hello, I am #{user2.email.split('@').first}!",
   user_id: user2.id
-  )
-Profile.create!(
+)
+
+  Profile.create!(
   username: user3.email.split('@').first,
   picture: 'https://example.com/pictures/user3',
   about: "Hello, I am #{user3.email.split('@').first}!",
   user_id: user3.id
-  )
+)
 
+Profile.create!(
+  username: user4.email.split('@').first,
+  picture: 'https://example.com/pictures/user4',
+  about: "Hello, I am #{user4.email.split('@').first}!",
+  user_id: user4.id
+)
 
 chat1 = Chat.create!(name: 'Chat1')
 chat1.users << [ user1, user2 ]
@@ -39,4 +47,5 @@ message1 = Message.create!(body: 'Hello user2!', user_id: user1.id, chat_id: cha
 message2 = Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: chat1.id)
 
 user1.friends << user2
+user2.friends << user4
 user2.pending_friends << user3
