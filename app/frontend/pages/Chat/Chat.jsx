@@ -21,8 +21,6 @@ const api = {
 
 router.on('invalid', (event) => {
   event.preventDefault();
-  // console.log('An invalid Inertia response was received.');
-  // console.log(event.detail.response);
 });
 
 export default function Chat({ chat }) {
@@ -93,7 +91,6 @@ export default function Chat({ chat }) {
     };
 
     api.messages.create(data);
-    // router.post('/messages', data);
     clearMessage();
   }
 
