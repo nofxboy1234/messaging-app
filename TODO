@@ -24,7 +24,7 @@ backend: ruby
 [ ] - frontend path helpers
 [ ] - postman - check if rails breakpoint is hit
 [ ] - create chat with user when clicking Chat button
-[ ] - check for any remaining funcionality needed to be implemented
+[ ] - check for any remaining functionality needed to be implemented
 
  
 [ ] - style and make responsive
