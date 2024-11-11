@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :friend_requests, export: true
   resources :friends, export: true
   resources :profiles
-  resources :messages
+  resources :messages, export: true
   resources :chats
   # resources :friendships, export: true
 

@@ -4,6 +4,20 @@ import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from '../MessageDisplay/MessageDisplay';
 import styles from './Index.module.css';
 import { router, usePage } from '@inertiajs/react';
+import helpers from '../../api';
+
+const api = {
+  messages: {
+    create: (data = { message: { body: 'hello', chat_id: 1 } }) => {
+      const helper = helpers.messages.create;
+
+      router.visit(helper.path(), {
+        method: helper.httpMethod,
+        data: data,
+      });
+    },
+  },
+};
 
 router.on('invalid', (event) => {
   event.preventDefault();
@@ -70,13 +84,16 @@ export default function Chat({ chat }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (values.message === '') return;
+
     const data = {
       message: {
         body: values.message,
         chat_id: chat.id,
       },
     };
-    router.post('/messages', data);
+
+    api.messages.create(data);
+    // router.post('/messages', data);
     clearMessage();
   }
 
