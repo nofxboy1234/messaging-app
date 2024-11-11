@@ -3,21 +3,8 @@ import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from '../MessageDisplay/MessageDisplay';
 import styles from './Index.module.css';
-import { router, usePage } from '@inertiajs/react';
-import helpers from '../../api';
-
-const api = {
-  messages: {
-    create: (data = { message: { body: 'hello', chat_id: 1 } }) => {
-      const helper = helpers.messages.create;
-
-      router.visit(helper.path(), {
-        method: helper.httpMethod,
-        data: data,
-      });
-    },
-  },
-};
+import { usePage } from '@inertiajs/react';
+import api from '../../pathHelpers';
 
 export default function Chat({ chat }) {
   const { shared } = usePage().props;
