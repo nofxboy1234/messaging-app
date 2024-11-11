@@ -1,5 +1,6 @@
 import { usePage, Link } from '@inertiajs/react';
 import styled from 'styled-components';
+import api from '../api';
 
 const Layout = ({ className, children }) => {
   const { shared } = usePage().props;
@@ -25,7 +26,7 @@ const Layout = ({ className, children }) => {
         {' | '}
         <Link href="/friendships/accepted">Online</Link>
         {' | '}
-        <Link href={`/friends`}>All</Link>
+        <Link href={api.friends.index.path()}>All</Link>
         {' | '}
         <Link href="/friendships/pending">Pending</Link>
         {/* <Link href="/chats/new">New chat</Link>
