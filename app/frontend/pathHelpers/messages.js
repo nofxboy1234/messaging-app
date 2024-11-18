@@ -3,11 +3,16 @@ import { router } from '@inertiajs/react';
 
 export default {
   create: (data = { message: { body: 'hello', chat_id: 1 } }) => {
-    const helper = helpers.messages.create;
+    const apiHelper = helpers.messages.create;
+    const helper = () => {
+      router.visit(apiHelper.path(), {
+        method: apiHelper.httpMethod,
+        data: data,
+      });
+    };
 
-    router.visit(helper.path(), {
-      method: helper.httpMethod,
-      data: data,
-    });
+    helper.path = () => apiHelper.path();
+    helper();
+    return helper;
   },
 };
