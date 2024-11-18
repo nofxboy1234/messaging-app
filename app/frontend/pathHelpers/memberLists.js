@@ -3,47 +3,50 @@ import helper from './helper';
 
 export default {
   index: () => {
-    const apiHelper = apiHelpers.messages.index;
+    const apiHelper = apiHelpers.memberLists.index;
     const pathHelper = helper({ apiHelper });
     pathHelper();
     return pathHelper;
   },
   create: (data = { body: 'hello', chat_id: 1 }) => {
-    const apiHelper = apiHelpers.messages.create;
-    const pathHelper = helper({ apiHelper, data: { message: { ...data } } });
+    const apiHelper = apiHelpers.memberLists.create;
+    const pathHelper = helper({
+      apiHelper,
+      data: { memberLists: { ...data } },
+    });
     pathHelper();
     return pathHelper;
   },
   new: () => {
-    const apiHelper = apiHelpers.messages.new;
+    const apiHelper = apiHelpers.memberLists.new;
     const pathHelper = helper({ apiHelper });
     pathHelper();
     return pathHelper;
   },
   edit: ({ id }) => {
-    const apiHelper = apiHelpers.messages.edit;
+    const apiHelper = apiHelpers.memberLists.edit;
     const pathHelper = helper({ apiHelper, id: id });
     pathHelper();
     return pathHelper;
   },
   show: ({ id }) => {
-    const apiHelper = apiHelpers.messages.show;
+    const apiHelper = apiHelpers.memberLists.show;
     const pathHelper = helper({ apiHelper, id: id });
     pathHelper();
     return pathHelper;
   },
   update: ({ id }, data = { body: 'hello', chat_id: 1 }) => {
-    const apiHelper = apiHelpers.messages.update;
+    const apiHelper = apiHelpers.memberLists.update;
     const pathHelper = helper({
       apiHelper,
       id: id,
-      data: { message: { ...data } },
+      data: { memberLists: { ...data } },
     });
     pathHelper();
     return pathHelper;
   },
   destroy: ({ id }) => {
-    const apiHelper = apiHelpers.messages.update;
+    const apiHelper = apiHelpers.memberLists.update;
     const pathHelper = helper({ apiHelper, id: id });
     pathHelper();
     return pathHelper;

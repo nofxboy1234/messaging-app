@@ -3,47 +3,47 @@ import helper from './helper';
 
 export default {
   index: () => {
-    const apiHelper = apiHelpers.messages.index;
+    const apiHelper = apiHelpers.chats.index;
     const pathHelper = helper({ apiHelper });
     pathHelper();
     return pathHelper;
   },
   create: (data = { body: 'hello', chat_id: 1 }) => {
-    const apiHelper = apiHelpers.messages.create;
-    const pathHelper = helper({ apiHelper, data: { message: { ...data } } });
+    const apiHelper = apiHelpers.chats.create;
+    const pathHelper = helper({ apiHelper, data: { chat: { ...data } } });
     pathHelper();
     return pathHelper;
   },
   new: () => {
-    const apiHelper = apiHelpers.messages.new;
+    const apiHelper = apiHelpers.chats.new;
     const pathHelper = helper({ apiHelper });
     pathHelper();
     return pathHelper;
   },
   edit: ({ id }) => {
-    const apiHelper = apiHelpers.messages.edit;
+    const apiHelper = apiHelpers.chats.edit;
     const pathHelper = helper({ apiHelper, id: id });
     pathHelper();
     return pathHelper;
   },
   show: ({ id }) => {
-    const apiHelper = apiHelpers.messages.show;
+    const apiHelper = apiHelpers.chats.show;
     const pathHelper = helper({ apiHelper, id: id });
     pathHelper();
     return pathHelper;
   },
   update: ({ id }, data = { body: 'hello', chat_id: 1 }) => {
-    const apiHelper = apiHelpers.messages.update;
+    const apiHelper = apiHelpers.chats.update;
     const pathHelper = helper({
       apiHelper,
       id: id,
-      data: { message: { ...data } },
+      data: { chat: { ...data } },
     });
     pathHelper();
     return pathHelper;
   },
   destroy: ({ id }) => {
-    const apiHelper = apiHelpers.messages.update;
+    const apiHelper = apiHelpers.chats.update;
     const pathHelper = helper({ apiHelper, id: id });
     pathHelper();
     return pathHelper;
