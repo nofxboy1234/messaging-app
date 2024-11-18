@@ -28,7 +28,6 @@ class User < ApplicationRecord
   # {4}AND "users"."id" != 1{4}
 
   has_many :friend_requests,
-  inverse_of: :user,
   dependent: :destroy
 
   has_many :outgoing_friend_requests,
