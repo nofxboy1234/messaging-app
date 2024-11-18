@@ -6,7 +6,6 @@ class User < ApplicationRecord
     query2 = Friendship.where(friend_id: user.id) # {2}
     query1.or(query2)
   },
-  inverse_of: :user,
   dependent: :destroy
 
   # SELECT "friendships".*
