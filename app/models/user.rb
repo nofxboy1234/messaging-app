@@ -1,10 +1,10 @@
 class User < ApplicationRecord
   has_many :friendships,
   ->(user) {
-   friendships = Friendship.unscope(where: :user_id)
-   query1 = friendships.where(user_id: user.id) # {1}
-   query2 = Friendship.where(friend_id: user.id) # {2}
-   query1.or(query2)
+    friendships = Friendship.unscope(where: :user_id)
+    query1 = friendships.where(user_id: user.id) # {1}
+    query2 = Friendship.where(friend_id: user.id) # {2}
+    query1.or(query2)
   },
   inverse_of: :user,
   dependent: :destroy
@@ -28,20 +28,10 @@ class User < ApplicationRecord
   # {4}AND "users"."id" != 1{4}
 
   has_many :friend_requests,
-  ->(user) {
-  friend_requests = FriendRequest.unscope(where: :user_id)
-  query1 = friend_requests.where(user_id: user.id) # {1}
-  query2 = FriendRequest.where(friend_id: user.id) # {2}
-  query1.or(query2)
-  },
   inverse_of: :user,
   dependent: :destroy
 
-  has_many :pending_friends,
-  ->(user) {
-    User.joins("OR users.id = friend_requests.user_id") # {3}
-      .where.not(id: user.id) # {4}
-  },
+  has_many :outgoing_friend_requests,
   through: :friend_requests,
   source: :friend
 

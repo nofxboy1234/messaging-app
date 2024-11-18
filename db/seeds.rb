@@ -48,4 +48,4 @@ message2 = Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: cha
 
 user1.friends << user2
 user2.friends << user4
-user2.pending_friends << user3
+user2.outgoing_friend_requests << user3
