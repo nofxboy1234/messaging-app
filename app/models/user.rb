@@ -9,11 +9,11 @@ class User < ApplicationRecord
   inverse_of: :user,
   dependent: :destroy
 
- # SELECT "friendships".*
- # FROM "friendships"
- # WHERE ({1}"friendships"."user_id" = 1{1} {2}OR "friendships"."friend_id" = 1{2})
+  # SELECT "friendships".*
+  # FROM "friendships"
+  # WHERE ({1}"friendships"."user_id" = 1{1} {2}OR "friendships"."friend_id" = 1{2})
 
- has_many :friends,
+  has_many :friends,
   ->(user) {
     User.joins("OR users.id = friendships.user_id") # {3}
       .where.not(id: user.id) # {4}

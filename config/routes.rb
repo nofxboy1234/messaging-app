@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
+  resources :chats, export: true
   resources :friend_requests, export: true
   resources :friends, export: true
   resources :profiles
   resources :messages, export: true
-  resources :chats
   # resources :friendships, export: true
 
   # get "friendships/pending", to: "friendships#pending", as: "pending_friends"
