@@ -41,7 +41,7 @@ Profile.create!(
 )
 
 chat1 = Chat.create!(name: 'Chat1')
-chat1.users << [ user1, user2 ]
+chat1.members << [ user1, user2 ]
 
 message1 = Message.create!(body: 'Hello user2!', user_id: user1.id, chat_id: chat1.id)
 message2 = Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: chat1.id)
