@@ -26,12 +26,23 @@ class User < ApplicationRecord
   # WHERE ({1}"friendships"."user_id" = 1{1} {2}OR "friendships"."friend_id" = 1{2})
   # {4}AND "users"."id" != 1{4}
 
-  has_many :friend_requests,
+  has_many :outgoing_friend_requests,
+  class_name: "FriendRequest",
+  foreign_key: "user_id",
   dependent: :destroy
 
-  has_many :outgoing_friend_requests,
-  through: :friend_requests,
+  has_many :outgoing_friends,
+  through: :outgoing_friend_requests,
   source: :friend
+
+  has_many :incoming_friend_requests,
+  class_name: "FriendRequest",
+  foreign_key: "friend_id",
+  dependent: :destroy
+
+  has_many :incoming_friends,
+  through: :incoming_friend_requests,
+  source: :user
 
   has_secure_password
 
