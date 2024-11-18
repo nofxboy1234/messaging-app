@@ -67,10 +67,8 @@ export default function Chat({ chat }) {
     if (values.message === '') return;
 
     const data = {
-      message: {
-        body: values.message,
-        chat_id: chat.id,
-      },
+      body: values.message,
+      chat_id: chat.id,
     };
 
     api.messages.create(data);
