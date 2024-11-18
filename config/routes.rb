@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   resources :chats, export: true
   resources :friend_requests, export: true
   resources :friends, export: true
-  resources :profiles
   resources :messages, export: true
+  resources :profiles, export: true
 
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
