@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  resources :chats, export: true
-  resources :friend_requests, export: true
-  resources :friends, export: true
-  resources :messages, export: true
-  resources :profiles, export: true
+  resources :chats, only: [ :index, :create, :show ], export: true
+  resources :friends, only: [ :index, :create ], export: true
+  resources :incoming_friends, only: [ :index ], export: true
+  resources :member_lists, only: [ :index, :create ], export: true
+  resources :messages, only: [ :create, :index ], export: true
+  resources :outgoing_friends, only: [ :create, :index ], export: true
+  resources :profiles, only: [ :edit, :show, :update ], export: true
+  resources :users, only: [ :index ], export: true
 
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
