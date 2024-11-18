@@ -47,5 +47,7 @@ message1 = Message.create!(body: 'Hello user2!', user_id: user1.id, chat_id: cha
 message2 = Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: chat1.id)
 
 user1.friends << user2
-user2.friends << user4
+
 user2.outgoing_friend_requests << user3
+user4.outgoing_friend_requests << user2
+user1.outgoing_friend_requests << user4
