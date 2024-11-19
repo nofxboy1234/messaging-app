@@ -84,6 +84,6 @@ class ProfilesController < ApplicationController
     def serialize_profile(profile)
       profile.as_json(only: [
         :id, :username, :picture, :about, :user_id
-      ])
+      ], include: :user)
     end
 end

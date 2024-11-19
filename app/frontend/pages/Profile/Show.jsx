@@ -57,11 +57,12 @@ export default function Show({ shared, profile, isFriend, isPendingFriend }) {
       </Link>
     );
   } else {
-    friendButton = (
-      <Link as="button" type="button" onClick={handleAddFriend}>
-        Add Friend
-      </Link>
-    );
+    friendButton =
+      shared.current_user.id !== profile.user.id ? (
+        <Link as="button" type="button" onClick={handleAddFriend}>
+          Add Friend
+        </Link>
+      ) : null;
   }
 
   return (
