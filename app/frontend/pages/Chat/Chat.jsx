@@ -71,7 +71,7 @@ export default function Chat({ chat }) {
       chat_id: chat.id,
     };
 
-    api.messages.create(data);
+    api.messages.create({ data: data });
     clearMessage();
   }
 
