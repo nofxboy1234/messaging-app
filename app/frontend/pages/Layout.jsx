@@ -12,7 +12,8 @@ const Layout = ({ className, children }) => {
         {shared.flash.notice && <div>{shared.flash.notice}</div>}
         <Link href="/">Home</Link>
         <Link
-          href={`/sessions/${shared.session.id}`}
+          href={api.sessions.destroy.path(shared.session)}
+          // href={`/sessions/${shared.session.id}`}
           as="button"
           type="button"
           method="delete"
