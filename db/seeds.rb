@@ -12,6 +12,7 @@ user1 = User.create!(email: 'user1@example.com', password: 'user1!@#$%^&')
 user2 = User.create!(email: 'user2@example.com', password: 'user2!@#$%^&')
 user3 = User.create!(email: 'user3@example.com', password: 'user3!@#$%^&')
 user4 = User.create!(email: 'user4@example.com', password: 'user4!@#$%^&')
+user5 = User.create!(email: 'user5@example.com', password: 'user5!@#$%^&')
 
 Profile.create!(
                 username: user1.email.split('@').first,
@@ -40,6 +41,13 @@ Profile.create!(
   user_id: user4.id
 )
 
+Profile.create!(
+  username: user5.email.split('@').first,
+  picture: 'https://example.com/pictures/user5',
+  about: "Hello, I am #{user5.email.split('@').first}!",
+  user_id: user5.id
+)
+
 chat1 = Chat.create!(name: 'Chat1')
 chat1.members << [ user1, user2 ]
 
@@ -53,3 +61,4 @@ user4.outgoing_friends << user2
 user1.outgoing_friends << user4
 
 user3.incoming_friends << user1
+user5.outgoing_friends << user1
