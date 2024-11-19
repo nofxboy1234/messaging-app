@@ -23,16 +23,9 @@ export default {
   //   pathHelper();
   //   return pathHelper;
   // },
-  // update: ({ id }, data = { body: 'hello', chat_id: 1 }) => {
-  //   const apiHelper = apiHelpers.friends.update;
-  //   const pathHelper = helper({
-  //     apiHelper,
-  //     id: id,
-  //     data: { friend: { ...data } },
-  //   });
-  //   pathHelper();
-  //   return pathHelper;
-  // },
+  update: helper({
+    apiHelper: apiHelpers.friends.update,
+  }),
   // destroy: ({ id }) => {
   //   const apiHelper = apiHelpers.friends.update;
   //   const pathHelper = helper({ apiHelper, id: id });
