@@ -27,10 +27,7 @@ const Layout = ({ className, children }) => {
         {' | '}
         <Link href="/friendships/accepted">Online</Link>
         {' | '}
-        <Link href={api.friends.update.path({ id: 1, name: 'hello' })}>
-          All
-        </Link>
-        {/* <Link href={api.friends.index.path()}>All</Link> */}
+        <Link href={api.friends.index.path()}>All</Link>
         {' | '}
         <Link href="/friendships/pending">Pending</Link>
         {/* <Link href="/chats/new">New chat</Link>
