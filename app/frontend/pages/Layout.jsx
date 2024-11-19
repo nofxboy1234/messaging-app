@@ -1,6 +1,6 @@
 import { usePage, Link } from '@inertiajs/react';
 import styled from 'styled-components';
-import api from '../api';
+import api from '../pathHelpers';
 
 const Layout = ({ className, children }) => {
   const { shared } = usePage().props;

@@ -45,10 +45,5 @@ export default {
   //   pathHelper();
   //   return pathHelper;
   // },
-  index: () => {
-    const apiHelper = apiHelpers.friends.index;
-    const pathHelper = helper({ apiHelper });
-    pathHelper();
-    return pathHelper;
-  },
+  index: helper({ apiHelper: apiHelpers.friends.index }),
 };
