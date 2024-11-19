@@ -2,39 +2,11 @@ import apiHelpers from '../api';
 import helper from './helper';
 
 export default {
-  // new: () => {
-  //   const apiHelper = apiHelpers.friends.new;
-  //   const pathHelper = helper({ apiHelper });
-  //   pathHelper();
-  //   return pathHelper;
-  // },
-  create: (data = { body: 'hello', chat_id: 1 }) => {
-    const apiHelper = apiHelpers.friends.create;
-    const pathHelper = helper({
-      apiHelper,
-      data: { friend: { ...data } },
-    });
-    pathHelper();
-    return pathHelper;
-  },
-  // edit: ({ id }) => {
-  //   const apiHelper = apiHelpers.friends.edit;
-  //   const pathHelper = helper({ apiHelper, id: id });
-  //   pathHelper();
-  //   return pathHelper;
-  // },
+  new: helper({ apiHelper: apiHelpers.friends.new, model: 'friend' }),
+  create: helper({ apiHelper: apiHelpers.friends.create, model: 'friend' }),
+  edit: helper({ apiHelper: apiHelpers.friends.edit, model: 'friend' }),
   update: helper({ apiHelper: apiHelpers.friends.update, model: 'friend' }),
-  // destroy: ({ id }) => {
-  //   const apiHelper = apiHelpers.friends.update;
-  //   const pathHelper = helper({ apiHelper, id: id });
-  //   pathHelper();
-  //   return pathHelper;
-  // },
-  // show: ({ id }) => {
-  //   const apiHelper = apiHelpers.friends.show;
-  //   const pathHelper = helper({ apiHelper, id: id });
-  //   pathHelper();
-  //   return pathHelper;
-  // },
+  destroy: helper({ apiHelper: apiHelpers.friends.destroy, model: 'friend' }),
+  show: helper({ apiHelper: apiHelpers.friends.show, model: 'friend' }),
   index: helper({ apiHelper: apiHelpers.friends.index }),
 };
