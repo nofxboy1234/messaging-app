@@ -1,4 +1,17 @@
 class User < ApplicationRecord
+  def friends_with?(user)
+    Current.user.friends.include?(user)
+  end
+
+  def has_outgoing_friend?(user)
+    Current.user.outgoing_friends.include?(user)
+  end
+
+  def has_incoming_friend?(user)
+    Current.user.incoming_friends.include?(user)
+  end
+
+
   has_many :friendships,
   ->(user) {
     friendships = Friendship.unscope(where: :user_id)
