@@ -10,4 +10,8 @@ export default {
     apiHelper: apiHelpers.outgoingFriends.create,
     model: 'outgoing_friend',
   }),
+  destroy: helper({
+    apiHelper: apiHelpers.outgoingFriends.destroy,
+    model: 'outgoing_friend',
+  }),
 };

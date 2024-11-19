@@ -57,14 +57,16 @@ class IncomingFriendsController < ApplicationController
 
   # DELETE /incoming_friends/1
   def destroy
-    @incoming_friend.destroy!
-    redirect_to incoming_friends_url, notice: "Incoming friend was successfully destroyed."
+    # @friend.destroy!
+    Current.user.incoming_friends.destroy(@incoming_friend)
+    # redirect_to friends_url, notice: "Friend was successfully destroyed."
+    head :ok
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_incoming_friend
-      @incoming_friend = IncomingFriend.find(params[:id])
+      @incoming_friend = User.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

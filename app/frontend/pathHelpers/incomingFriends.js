@@ -6,4 +6,8 @@ export default {
     apiHelper: apiHelpers.incomingFriends.index,
     model: 'incoming_friend',
   }),
+  destroy: helper({
+    apiHelper: apiHelpers.incomingFriends.destroy,
+    model: 'incoming_friend',
+  }),
 };

@@ -23,7 +23,8 @@ class ProfilesController < ApplicationController
     render inertia: "Profile/Show", props: {
       profile: serialize_profile(@profile),
       isFriend: is_friend,
-      isPendingFriend: is_outgoing_friend || is_incoming_friend
+      isOutgoingFriend: is_outgoing_friend,
+      isIncomingFriend: is_incoming_friend
     }
   end
 

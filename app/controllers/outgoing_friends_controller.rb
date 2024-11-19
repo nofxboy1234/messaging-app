@@ -1,5 +1,5 @@
 class OutgoingFriendsController < ApplicationController
-  # before_action :set_outgoing_friend, only: %i[ show edit update destroy ]
+  before_action :set_outgoing_friend, only: %i[ destroy ]
 
   inertia_share flash: -> { flash.to_hash }
 
@@ -56,16 +56,18 @@ class OutgoingFriendsController < ApplicationController
   # end
 
   # DELETE /outgoing_friends/1
-  # def destroy
-  #   @outgoing_friend.destroy!
-  #   redirect_to outgoing_friends_url, notice: "Outgoing friend was successfully destroyed."
-  # end
+  def destroy
+    # @friend.destroy!
+    Current.user.outgoing_friends.destroy(@outgoing_friend)
+    # redirect_to friends_url, notice: "Friend was successfully destroyed."
+    head :ok
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    # def set_outgoing_friend
-    #   @outgoing_friend = OutgoingFriend.find(params[:id])
-    # end
+    def set_outgoing_friend
+      @outgoing_friend = User.find(params[:id])
+    end
 
     # Only allow a list of trusted parameters through.
     def outgoing_friend_params

@@ -4,33 +4,32 @@ import Layout from '../Layout';
 import { useState } from 'react';
 import api from '../../pathHelpers';
 
-export default function Show({ shared, profile, isFriend, isPendingFriend }) {
+export default function Show({
+  shared,
+  profile,
+  isFriend,
+  isOutgoingFriend,
+  isIncomingFriend,
+}) {
   const [isAFriend, setIsAFriend] = useState(isFriend);
-  const [isAPendingFriend, setIsAPendingFriend] = useState(isPendingFriend);
+  const [isAnOutgoingFriend, setIsAnOutgoingFriend] =
+    useState(isOutgoingFriend);
+  const [isAnIncomingFriend, setIsAnIncomingFriend] =
+    useState(isIncomingFriend);
 
   function handleAddFriend(e) {
     e.preventDefault();
 
-    const data = { friendship: { user_id: profile.user_id } };
-    router.post('/friendships/pending', data, {
+    const data = { user_id: profile.user_id };
+
+    const options = {
       onBefore: (visit) =>
         confirm(`Send friend request to ${profile.username}?`),
       onFinish: (visit) => {
-        setIsAPendingFriend(true);
+        setIsAnOutgoingFriend(true);
       },
-    });
-  }
-
-  function handleRemovePendingFriend(e) {
-    e.preventDefault();
-
-    router.delete(`/friendships/pending/${profile.user_id}`, {
-      onBefore: (visit) =>
-        confirm(`Remove friend request to ${profile.username}?`),
-      onFinish: (visit) => {
-        setIsAPendingFriend(false);
-      },
-    });
+    };
+    api.friends.create({ data: data, options: options });
   }
 
   function handleRemoveFriend(e) {
@@ -42,29 +41,65 @@ export default function Show({ shared, profile, isFriend, isPendingFriend }) {
         setIsAFriend(false);
       },
     };
-    api.friends.destroy({ obj: profile.user, options });
+    api.friends.destroy({ obj: profile.user, options: options });
   }
 
-  let friendButton;
-  if (isAFriend) {
-    friendButton = (
-      <Link as="button" type="button" onClick={handleRemoveFriend}>
-        Remove Friend
-      </Link>
-    );
-  } else if (isAPendingFriend) {
-    friendButton = (
-      <Link as="button" type="button" onClick={handleRemovePendingFriend}>
-        Remove Friend Request
-      </Link>
-    );
-  } else {
-    friendButton =
-      shared.current_user.id !== profile.user.id ? (
-        <Link as="button" type="button" onClick={handleAddFriend}>
-          Add Friend
+  function handleRemoveOutgoingFriend(e) {
+    e.preventDefault();
+
+    const options = {
+      onBefore: (visit) =>
+        confirm(`Remove friend request to ${profile.username}?`),
+      onFinish: (visit) => {
+        setIsAnOutgoingFriend(false);
+      },
+    };
+    api.outgoingFriends.destroy({ obj: profile.user, options: options });
+  }
+
+  function handleRemoveIncomingFriend(e) {
+    e.preventDefault();
+
+    const options = {
+      onBefore: (visit) =>
+        confirm(`Reject friend request from ${profile.username}?`),
+      onFinish: (visit) => {
+        setIsAnIncomingFriend(false);
+      },
+    };
+    api.incomingFriends.destroy({ obj: profile.user, options: options });
+  }
+
+  function friendButton() {
+    let friendButton;
+    if (isAFriend) {
+      friendButton = (
+        <Link as="button" type="button" onClick={handleRemoveFriend}>
+          Remove Friend
         </Link>
-      ) : null;
+      );
+    } else if (isAnOutgoingFriend) {
+      friendButton = (
+        <Link as="button" type="button" onClick={handleRemoveOutgoingFriend}>
+          Remove Friend Request
+        </Link>
+      );
+    } else if (isAnIncomingFriend) {
+      friendButton = (
+        <Link as="button" type="button" onClick={handleRemoveIncomingFriend}>
+          Reject Friend Request
+        </Link>
+      );
+    } else {
+      friendButton =
+        shared.current_user.id !== profile.user.id ? (
+          <Link as="button" type="button" onClick={handleAddFriend}>
+            Add Friend
+          </Link>
+        ) : null;
+    }
+
+    return friendButton;
   }
 
   return (
@@ -84,7 +119,7 @@ export default function Show({ shared, profile, isFriend, isPendingFriend }) {
 
         <br />
       </div>
-      <div>{friendButton}</div>
+      <div>{friendButton()}</div>
     </Layout>
   );
 }
