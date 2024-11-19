@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :chats, only: [ :index, :create, :show ], export: true
-  resources :friends, only: [ :index, :create ], export: true
+  resources :friends, export: true
   resources :incoming_friends, only: [ :index ], export: true
   resources :member_lists, only: [ :index, :create ], export: true
   resources :messages, only: [ :create, :index ], export: true

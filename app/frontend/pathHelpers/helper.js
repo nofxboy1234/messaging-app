@@ -1,17 +1,11 @@
 import { router } from '@inertiajs/react';
 
 export default function helper({ apiHelper }) {
-  const path = ({ id } = {}) => {
-    let interpolatedPath;
-
-    if (id) {
-      interpolatedPath = apiHelper.path({ id: id });
-    } else {
-      interpolatedPath = apiHelper.path();
-    }
+  function path(obj) {
+    let interpolatedPath = apiHelper.path(obj);
 
     return interpolatedPath;
-  };
+  }
 
   const helper = ({ id }, { data = {} }) => {
     router.visit(path({ id }), {
