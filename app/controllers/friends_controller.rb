@@ -57,14 +57,16 @@ class FriendsController < ApplicationController
 
   # DELETE /friends/1
   def destroy
-    @friend.destroy!
-    redirect_to friends_url, notice: "Friend was successfully destroyed."
+    # @friend.destroy!
+    Current.user.friends.destroy(@friend)
+    # redirect_to friends_url, notice: "Friend was successfully destroyed."
+    head :ok
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_friend
-      @friend = Friend.find(params[:id])
+      @friend = User.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -2,6 +2,7 @@ import { Link, Head, router } from '@inertiajs/react';
 import Profile from './Profile';
 import Layout from '../Layout';
 import { useState } from 'react';
+import api from '../../pathHelpers';
 
 export default function Show({ shared, profile, isFriend, isPendingFriend }) {
   const [isAFriend, setIsAFriend] = useState(isFriend);
@@ -35,12 +36,14 @@ export default function Show({ shared, profile, isFriend, isPendingFriend }) {
   function handleRemoveFriend(e) {
     e.preventDefault();
 
-    router.delete(`/friendships/accepted/${profile.user_id}`, {
-      onBefore: (visit) => confirm(`Unfriend ${profile.username}?`),
-      onFinish: (visit) => {
-        setIsAFriend(false);
-      },
-    });
+    api.friends.destroy({ obj: profile.user });
+
+    // router.delete(`/friendships/accepted/${profile.user_id}`, {
+    //   onBefore: (visit) => confirm(`Unfriend ${profile.username}?`),
+    //   onFinish: (visit) => {
+    //     setIsAFriend(false);
+    //   },
+    // });
   }
 
   let friendButton;

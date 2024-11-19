@@ -4,4 +4,5 @@ import helper from './helper';
 export default {
   create: helper({ apiHelper: apiHelpers.friends.create, model: 'friend' }),
   index: helper({ apiHelper: apiHelpers.friends.index, model: 'friend' }),
+  destroy: helper({ apiHelper: apiHelpers.friends.destroy, model: 'friend' }),
 };
