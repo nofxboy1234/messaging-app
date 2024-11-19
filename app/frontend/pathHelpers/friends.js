@@ -23,7 +23,7 @@ export default {
   //   pathHelper();
   //   return pathHelper;
   // },
-  update: helper({ apiHelper: apiHelpers.friends.update }),
+  update: helper({ apiHelper: apiHelpers.friends.update, model: 'friend' }),
   // destroy: ({ id }) => {
   //   const apiHelper = apiHelpers.friends.update;
   //   const pathHelper = helper({ apiHelper, id: id });

@@ -1,12 +1,12 @@
 import { router } from '@inertiajs/react';
 
-export default function helper({ apiHelper }) {
+export default function helper({ apiHelper, model }) {
   const path = (obj) => apiHelper.path(obj);
 
-  const helper = ({ id }, { data = {} }) => {
-    router.visit(path({ id }), {
+  const helper = (obj, data = {}) => {
+    router.visit(path(obj), {
       method: apiHelper.httpMethod,
-      data: data,
+      data: { [model]: data },
     });
   };
 
