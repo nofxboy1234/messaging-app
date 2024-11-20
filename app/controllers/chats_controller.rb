@@ -1,5 +1,5 @@
 class ChatsController < ApplicationController
-  before_action :set_chat, only: %i[ show edit update destroy ]
+  before_action :set_chat, only: %i[ show ]
 
   inertia_share flash: -> { flash.to_hash }
 
@@ -22,19 +22,19 @@ class ChatsController < ApplicationController
   end
 
   # GET /chats/new
-  def new
-    @chat = Chat.new
-    render inertia: "Chat/New", props: {
-      chat: serialize_chat(@chat)
-    }
-  end
+  # def new
+  #   @chat = Chat.new
+  #   render inertia: "Chat/New", props: {
+  #     chat: serialize_chat(@chat)
+  #   }
+  # end
 
   # GET /chats/1/edit
-  def edit
-    render inertia: "Chat/Edit", props: {
-      chat: serialize_chat(@chat)
-    }
-  end
+  # def edit
+  #   render inertia: "Chat/Edit", props: {
+  #     chat: serialize_chat(@chat)
+  #   }
+  # end
 
   # POST /chats
   def create
@@ -49,19 +49,19 @@ class ChatsController < ApplicationController
   end
 
   # PATCH/PUT /chats/1
-  def update
-    if @chat.update(chat_params)
-      redirect_to @chat, notice: "Chat was successfully updated."
-    else
-      redirect_to edit_chat_url(@chat), inertia: { errors: @chat.errors }
-    end
-  end
+  # def update
+  #   if @chat.update(chat_params)
+  #     redirect_to @chat, notice: "Chat was successfully updated."
+  #   else
+  #     redirect_to edit_chat_url(@chat), inertia: { errors: @chat.errors }
+  #   end
+  # end
 
   # DELETE /chats/1
-  def destroy
-    @chat.destroy!
-    redirect_to chats_url, notice: "Chat was successfully destroyed."
-  end
+  # def destroy
+  #   @chat.destroy!
+  #   redirect_to chats_url, notice: "Chat was successfully destroyed."
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
