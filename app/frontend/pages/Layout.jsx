@@ -27,8 +27,6 @@ const Layout = ({ className, children }) => {
         {' | '}
         Friends
         {' | '}
-        {/* <Link href="/friendships/accepted">Online</Link>
-        {' | '} */}
         <Link href={api.friends.index.path()}>All</Link>
         {' | '}
         <Link href={api.outgoingFriends.index.path()}>
@@ -39,14 +37,18 @@ const Layout = ({ className, children }) => {
           Incoming Friend Requests
         </Link>
       </div>
+
       <br></br>
+
       <div className="container">
         <div className={'chats'}>
           <ChatIndex chats={shared.chats} />
         </div>
+
         <div className={'content'}>
           <div className={'children'}>{children}</div>
         </div>
+
         <div className={'users'}>
           <UserIndex users={shared.users} />
         </div>
@@ -60,6 +62,10 @@ const StyledLayout = styled(Layout)`
     display: flex;
   }
 
+  .chats {
+    background-color: #4df0d5;
+  }
+
   .content {
     display: flex;
     padding: 1rem;
@@ -68,24 +74,9 @@ const StyledLayout = styled(Layout)`
   }
 
   .users {
-    /* flex: 1 1 0%; */
     background-color: #4df0d5;
     padding: 1rem;
   }
-
-  .chats {
-    background-color: #4df0d5;
-    /* padding: 1rem; */
-  }
-
-  /* .content div {
-    flex: 1 1 0%;
-  }
-
-  .content .children {
-    flex: 6 1 0%;
-    background-color: greenyellow;
-  } */
 `;
 
 export default StyledLayout;
