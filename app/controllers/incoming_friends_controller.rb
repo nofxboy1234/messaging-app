@@ -77,6 +77,6 @@ class IncomingFriendsController < ApplicationController
     def serialize_incoming_friend(incoming_friend)
       incoming_friend.as_json(only: [
         :id, :email
-      ])
+      ], include: :profile)
     end
 end

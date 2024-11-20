@@ -1,6 +1,7 @@
 import { Link, Head } from '@inertiajs/react';
 import OutgoingFriend from './OutgoingFriend';
 import Layout from '../Layout';
+import api from '../../pathHelpers';
 
 export default function Index({ outgoing_friends, flash }) {
   return (
@@ -15,8 +16,8 @@ export default function Index({ outgoing_friends, flash }) {
           <div key={outgoing_friend.id}>
             <OutgoingFriend outgoing_friend={outgoing_friend} />
             <p>
-              <Link href={`/outgoing_friends/${outgoing_friend.id}`}>
-                Show this outgoing friend
+              <Link href={api.profiles.show.path(outgoing_friend.profile)}>
+                View profile
               </Link>
             </p>
           </div>
