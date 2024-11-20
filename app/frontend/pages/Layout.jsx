@@ -40,7 +40,7 @@ const Layout = ({ className, children }) => {
       </div>
       <br></br>
       <div className="container">
-        <ChatIndex chats={shared.chats}></ChatIndex>
+        <ChatIndex chats={shared.chats} />
         <div className={'content'}>
           <div className={'children'}>{children}</div>
         </div>

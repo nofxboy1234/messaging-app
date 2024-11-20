@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from '../MessageDisplay/MessageDisplay';
 import styles from './Index.module.css';
+import FriendIndex from '../Friend/Index';
 
 function Home({ shared }) {
   const [values, setValues] = useState({
@@ -68,24 +69,25 @@ function Home({ shared }) {
   console.log('*** Home rendering');
 
   return (
-    <Layout>
-      <div>Home</div>
+    <FriendIndex friends={shared.friends} />
+    // <Layout>
+    //   <div>Home</div>
 
-      <MessageDisplay messages={messages} />
+    //   <MessageDisplay messages={messages} />
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="message">Message:</label>
-        <input
-          className={styles.messageInput}
-          type="text"
-          id="message"
-          autoFocus
-          value={values.message}
-          onChange={handleChange}
-        />
-        <button type="submit">Send</button>
-      </form>
-    </Layout>
+    //   <form onSubmit={handleSubmit}>
+    //     <label htmlFor="message">Message:</label>
+    //     <input
+    //       className={styles.messageInput}
+    //       type="text"
+    //       id="message"
+    //       autoFocus
+    //       value={values.message}
+    //       onChange={handleChange}
+    //     />
+    //     <button type="submit">Send</button>
+    //   </form>
+    // </Layout>
   );
 }
 

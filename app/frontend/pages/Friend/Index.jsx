@@ -8,7 +8,7 @@ export default function Index({ friends, flash }) {
     <Layout>
       <Head title="Friends" />
 
-      {flash.notice && <p style={{ color: 'green' }}>{flash.notice}</p>}
+      {/* {flash.notice && <p style={{ color: 'green' }}>{flash.notice}</p>} */}
 
       <h1>Friends</h1>
       <div>
