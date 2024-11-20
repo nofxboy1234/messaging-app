@@ -41,7 +41,9 @@ const Layout = ({ className, children }) => {
       </div>
       <br></br>
       <div className="container">
-        <ChatIndex chats={shared.chats} />
+        <div className={'chats'}>
+          <ChatIndex chats={shared.chats} />
+        </div>
         <div className={'content'}>
           <div className={'children'}>{children}</div>
         </div>
@@ -61,15 +63,17 @@ const StyledLayout = styled(Layout)`
   .content {
     display: flex;
     padding: 1rem;
-  }
-
-  .children {
     flex: 4 1 0%;
     background-color: #ae87e0;
   }
 
   .users {
-    flex: 1 1 0%;
+    /* flex: 1 1 0%; */
+    background-color: #4df0d5;
+    padding: 1rem;
+  }
+
+  .chats {
     background-color: #4df0d5;
     padding: 1rem;
   }
