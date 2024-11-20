@@ -62,12 +62,12 @@ const StyledLayout = styled(Layout)`
 
   .children {
     flex: 4 1 0%;
-    background-color: greenyellow;
+    background-color: #ae87e0;
   }
 
   .users {
     flex: 1 1 0%;
-    background-color: yellow;
+    background-color: #4df0d5;
   }
 
   /* .content div {
