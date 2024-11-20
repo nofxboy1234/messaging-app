@@ -4,7 +4,7 @@ import api from '../pathHelpers';
 import ChatIndex from './Chat/Index';
 import UserIndex from './User/Index';
 
-const Layout = ({ className, children }) => {
+const Layout = ({ className, children, users }) => {
   const { shared } = usePage().props;
 
   return (
@@ -50,7 +50,7 @@ const Layout = ({ className, children }) => {
         </div>
 
         <div className={'users'}>
-          <UserIndex users={shared.users} />
+          <UserIndex users={users ? users : shared.users} />
         </div>
       </div>
     </div>

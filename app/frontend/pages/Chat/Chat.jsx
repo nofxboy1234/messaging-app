@@ -78,7 +78,7 @@ export default function Chat({ chat }) {
   console.log('*** Chat rendering');
 
   return (
-    <Layout>
+    <Layout users={chat.members}>
       <Head title="Friends" />
 
       <h1>{chat.name}</h1>
