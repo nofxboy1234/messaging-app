@@ -77,6 +77,6 @@ class FriendsController < ApplicationController
     def serialize_friend(friend)
       friend.as_json(only: [
         :id, :email
-      ])
+      ], include: :profile)
     end
 end

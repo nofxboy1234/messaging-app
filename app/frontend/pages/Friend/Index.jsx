@@ -1,6 +1,7 @@
 import { Link, Head } from '@inertiajs/react';
 import Friend from './Friend';
 import Layout from '../Layout';
+import api from '../../pathHelpers';
 
 export default function Index({ friends, flash }) {
   return (
@@ -15,13 +16,13 @@ export default function Index({ friends, flash }) {
           <div key={friend.id}>
             <Friend friend={friend} />
             <p>
-              <Link href={`/friends/${friend.id}`}>Show this friend</Link>
+              <Link href={api.profiles.show.path(friend.profile)}>
+                View profile
+              </Link>
             </p>
           </div>
         ))}
       </div>
-
-      <Link href="/friends/new">New friend</Link>
     </Layout>
   );
 }

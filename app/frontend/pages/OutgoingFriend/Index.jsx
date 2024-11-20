@@ -22,8 +22,6 @@ export default function Index({ outgoing_friends, flash }) {
           </div>
         ))}
       </div>
-
-      <Link href="/outgoing_friends/new">New outgoing friend</Link>
     </Layout>
   );
 }
