@@ -1,26 +1,33 @@
-import { Link, Head } from '@inertiajs/react'
-import Chat from './Chat'
+import { Link, Head } from '@inertiajs/react';
+import Chat from './Chat';
+import api from '../../pathHelpers';
+import styled from 'styled-components';
 
-export default function Index({ chats, flash }) {
+function Index({ chats, flash, className }) {
   return (
-    <>
+    <div className={className}>
       <Head title="Chats" />
 
-      {flash.notice && <p style={{ color: 'green' }}>{flash.notice}</p>}
+      {/* {flash.notice && <p style={{ color: 'green' }}>{flash.notice}</p>} */}
 
-      <h1>Chats</h1>
+      <div>
+        <h1>Chats</h1>
+      </div>
       <div>
         {chats.map((chat) => (
           <div key={chat.id}>
-            <Chat chat={chat} />
             <p>
-              <Link href={`/chats/${chat.id}`}>Show this chat</Link>
+              <Link href={api.chats.show.path(chat)}>{chat.name}</Link>
             </p>
           </div>
         ))}
       </div>
-
-      <Link href="/chats/new">New chat</Link>
-    </>
-  )
+    </div>
+  );
 }
+
+const StyledIndex = styled(Index)`
+  padding: 1rem;
+`;
+
+export default StyledIndex;
