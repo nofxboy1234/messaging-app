@@ -1,7 +1,6 @@
-import { Link, Head } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import Friend from './Friend';
 import Layout from '../Layout';
-import api from '../../pathHelpers';
 
 export default function Index({ friends }) {
   return (
@@ -13,11 +12,6 @@ export default function Index({ friends }) {
         {friends.map((friend) => (
           <div key={friend.id}>
             <Friend friend={friend} />
-            <p>
-              <Link href={api.profiles.show.path(friend.profile)}>
-                View profile
-              </Link>
-            </p>
           </div>
         ))}
       </div>
