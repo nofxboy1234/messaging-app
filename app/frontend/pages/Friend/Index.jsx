@@ -3,12 +3,10 @@ import Friend from './Friend';
 import Layout from '../Layout';
 import api from '../../pathHelpers';
 
-export default function Index({ friends, flash }) {
+export default function Index({ friends }) {
   return (
     <Layout>
       <Head title="Friends" />
-
-      {/* {flash.notice && <p style={{ color: 'green' }}>{flash.notice}</p>} */}
 
       <h1>Friends</h1>
       <div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from '../MessageDisplay/MessageDisplay';
 import styles from './Index.module.css';
-import { usePage } from '@inertiajs/react';
+import { usePage, Head } from '@inertiajs/react';
 import api from '../../pathHelpers';
 
 export default function Chat({ chat }) {
@@ -79,7 +79,9 @@ export default function Chat({ chat }) {
 
   return (
     <Layout>
-      <div>Chat</div>
+      <Head title="Friends" />
+
+      <h1>{chat.name}</h1>
 
       <MessageDisplay messages={messages} />
 
