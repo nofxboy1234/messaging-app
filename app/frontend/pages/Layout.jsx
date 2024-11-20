@@ -2,6 +2,7 @@ import { usePage, Link } from '@inertiajs/react';
 import styled from 'styled-components';
 import api from '../pathHelpers';
 import ChatIndex from './Chat/Index';
+import UserIndex from './User/Index';
 
 const Layout = ({ className, children }) => {
   const { shared } = usePage().props;
@@ -45,14 +46,7 @@ const Layout = ({ className, children }) => {
           <div className={'children'}>{children}</div>
         </div>
         <div className={'users'}>
-          {shared.users.map((user) => (
-            <div key={user.id}>
-              <Link href={`/profiles/${user.profile.id}`}>
-                {user.profile.username}
-              </Link>
-            </div>
-            // <div key={user.id}>{user.profile.username}</div>
-          ))}
+          <UserIndex users={shared.users} />
         </div>
       </div>
     </div>
