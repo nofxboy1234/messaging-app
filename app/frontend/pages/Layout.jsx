@@ -75,7 +75,7 @@ const StyledLayout = styled(Layout)`
 
   .chats {
     background-color: #4df0d5;
-    padding: 1rem;
+    /* padding: 1rem; */
   }
 
   /* .content div {
