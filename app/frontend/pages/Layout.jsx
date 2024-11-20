@@ -64,10 +64,11 @@ const StyledLayout = styled(Layout)`
 
   .chats {
     background-color: #4df0d5;
+    /* flex: 4 1 0%; */
   }
 
   .content {
-    display: flex;
+    /* display: flex; */
     padding: 1rem;
     flex: 4 1 0%;
     background-color: #ae87e0;
@@ -76,6 +77,7 @@ const StyledLayout = styled(Layout)`
   .users {
     background-color: #4df0d5;
     padding: 1rem;
+    /* flex: 4 1 0%; */
   }
 `;
 
