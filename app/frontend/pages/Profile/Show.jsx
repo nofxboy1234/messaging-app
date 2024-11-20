@@ -115,8 +115,9 @@ export default function Show({
       <Profile profile={profile} />
 
       <div>
-        <Link href={`/profiles/${profile.id}/edit`}>Edit this profile</Link>
-
+        {shared.current_user.id === profile.user.id ? (
+          <Link href={`/profiles/${profile.id}/edit`}>Edit this profile</Link>
+        ) : null}
         <br />
       </div>
       <div>{friendButton()}</div>
