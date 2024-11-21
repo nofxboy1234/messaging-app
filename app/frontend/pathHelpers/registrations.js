@@ -6,4 +6,8 @@ export default {
     apiHelper: apiHelpers.registrations.new,
     model: 'registration',
   }),
+  create: helper({
+    apiHelper: apiHelpers.registrations.create,
+    model: 'registration',
+  }),
 };

@@ -20,7 +20,8 @@ function New() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    router.post('/sign_in', values);
+    api.sessions.create({ data: values });
+    // router.post('/sign_in', values);
   }
 
   return (

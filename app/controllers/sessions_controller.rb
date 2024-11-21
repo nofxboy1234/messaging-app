@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = User.authenticate_by(email: params[:email], password: params[:password])
+    if user = User.authenticate_by(email: params[:session][:email], password: params[:session][:password])
       if user.otp_required_for_sign_in?
         session[:challenge_token] = user.signed_id(purpose: :authentication_challenge, expires_in: 20.minutes)
         redirect_to new_two_factor_authentication_challenge_totp_path
@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
         redirect_to root_path, notice: "Signed in successfully"
       end
     else
-      redirect_to sign_in_path(email_hint: params[:email]), alert: "That email or password is incorrect"
+      redirect_to sign_in_path(email_hint: params[:session][:email]), alert: "That email or password is incorrect"
     end
   end
 

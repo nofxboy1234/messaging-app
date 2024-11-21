@@ -14,4 +14,8 @@ export default {
     apiHelper: apiHelpers.sessions.destroy,
     model: 'session',
   }),
+  create: helper({
+    apiHelper: apiHelpers.sessions.create,
+    model: 'session',
+  }),
 };

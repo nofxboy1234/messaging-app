@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   resources :users, only: [ :index ], export: true
 
   get  "sign_in", to: "sessions#new"
-  post "sign_in", to: "sessions#create"
+  post "sign_in", to: "sessions#create", export: true
   get  "sign_up", to: "registrations#new", export: true
-  post "sign_up", to: "registrations#create"
+  post "sign_up", to: "registrations#create", export: true
 
   resources :sessions, only: [ :index, :show, :destroy ], export: true
   resource  :password, only: [ :edit, :update ]
