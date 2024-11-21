@@ -14,10 +14,11 @@ function Friend({ className, friend }) {
         <Link
           as="button"
           type="button"
-          href={api.chats.show.path(friend.directMessageChat)}
-          // onClick={() => {
-          //   api.chats.show({ obj: friend.directMessageChat });
-          // }}
+          // href={api.chats.show.path(friend.directMessageChat)}
+          onClick={(e) => {
+            e.preventDefault();
+            api.chats.show({ obj: friend.directMessageChat });
+          }}
         >
           Chat
         </Link>
