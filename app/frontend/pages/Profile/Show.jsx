@@ -116,7 +116,7 @@ export default function Show({
 
       <div>
         {shared.current_user.id === profile.user.id ? (
-          <Link href={`/profiles/${profile.id}/edit`}>Edit this profile</Link>
+          <Link href={api.profiles.edit.path(profile)}>Edit this profile</Link>
         ) : null}
         <br />
       </div>

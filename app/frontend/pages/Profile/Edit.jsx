@@ -1,6 +1,7 @@
 import { Link, Head } from '@inertiajs/react';
 import Form from './Form';
 import Layout from '../Layout';
+import api from '../../pathHelpers';
 
 export default function Edit({ profile }) {
   return (
@@ -21,7 +22,7 @@ export default function Edit({ profile }) {
       <br />
 
       <div>
-        <Link href={`/profiles/${profile.id}`}>Show this profile</Link>
+        <Link href={api.profiles.show.path(profile)}>Show this profile</Link>
       </div>
     </Layout>
   );
