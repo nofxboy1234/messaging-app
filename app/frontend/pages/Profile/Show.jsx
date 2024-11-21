@@ -57,6 +57,28 @@ export default function Show({
     api.outgoingFriends.destroy({ obj: profile.user, options: options });
   }
 
+  function handleAddIncomingFriend(e) {
+    e.preventDefault();
+
+    const options = {
+      onBefore: (visit) =>
+        confirm(`Accept friend request from ${profile.username}?`),
+      onFinish: (visit) => {
+        setIsAnIncomingFriend(false);
+
+        const options = {
+          onFinish: (visit) => {
+            setIsAFriend(true);
+          },
+        };
+
+        api.friends.create({ data: profile.user, options: options });
+      },
+    };
+
+    api.incomingFriends.destroy({ obj: profile.user, options: options });
+  }
+
   function handleRemoveIncomingFriend(e) {
     e.preventDefault();
 
@@ -86,9 +108,14 @@ export default function Show({
       );
     } else if (isAnIncomingFriend) {
       friendButton = (
-        <Link as="button" type="button" onClick={handleRemoveIncomingFriend}>
-          Reject Friend Request
-        </Link>
+        <>
+          <Link as="button" type="button" onClick={handleAddIncomingFriend}>
+            Accept Friend Request
+          </Link>
+          <Link as="button" type="button" onClick={handleRemoveIncomingFriend}>
+            Reject Friend Request
+          </Link>
+        </>
       );
     } else {
       friendButton =

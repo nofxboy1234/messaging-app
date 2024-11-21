@@ -18,9 +18,7 @@ class User < ApplicationRecord
 
     return direct_message_chat if direct_message_chat
 
-    direct_message_chat = Chat.create!(
-      name: `#{current_user.profile.username}_#{friend.profile.username}`
-    )
+    direct_message_chat = Chat.create!(name: "#{current_user.profile.username}_#{friend.profile.username}")
     direct_message_chat.members << [ current_user, friend ]
 
     direct_message_chat
