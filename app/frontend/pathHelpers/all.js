@@ -7,3 +7,4 @@ export { default as outgoingFriends } from './outgoingFriends';
 export { default as profiles } from './profiles';
 export { default as users } from './users';
 export { default as sessions } from './sessions';
+export { default as registrations } from './registrations';

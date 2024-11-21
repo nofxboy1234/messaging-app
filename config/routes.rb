@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
-  get  "sign_up", to: "registrations#new"
+  get  "sign_up", to: "registrations#new", export: true
   post "sign_up", to: "registrations#create"
 
   resources :sessions, only: [ :index, :show, :destroy ], export: true

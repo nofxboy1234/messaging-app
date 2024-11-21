@@ -1,6 +1,7 @@
 import { router, Link } from '@inertiajs/react';
 import { useState } from 'react';
 import Layout from '../Layout';
+import api from '../../pathHelpers';
 
 function New() {
   const [values, setValues] = useState({
@@ -44,7 +45,7 @@ function New() {
         <button type="submit">Log in</button>
       </form>
 
-      <Link href="/sign_up">Sign up</Link>
+      <Link href={api.registrations.new.path()}>Sign up</Link>
     </>
   );
 }
