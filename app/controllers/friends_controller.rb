@@ -1,14 +1,18 @@
 class FriendsController < ApplicationController
-  before_action :set_friend, only: %i[ show edit update destroy ]
+  before_action :set_friend, only: %i[ show update destroy ]
 
   inertia_share flash: -> { flash.to_hash }
 
   # GET /friends
   def index
-    @friends = Current.user.friends
+    current_user = Current.user
+    @friends = current_user.friends
     render inertia: "Friend/Index", props: {
       friends: @friends.map do |friend|
-        serialize_friend(friend)
+        serialized_friend = serialize_friend(friend)
+        serialized_friend["directMessageChat"] =
+        current_user.find_or_create_direct_message_chat_with(friend).as_json
+        serialized_friend
       end
     }
   end
@@ -21,19 +25,19 @@ class FriendsController < ApplicationController
   end
 
   # GET /friends/new
-  def new
-    @friend = Friend.new
-    render inertia: "Friend/New", props: {
-      friend: serialize_friend(@friend)
-    }
-  end
+  # def new
+  #   @friend = Friend.new
+  #   render inertia: "Friend/New", props: {
+  #     friend: serialize_friend(@friend)
+  #   }
+  # end
 
   # GET /friends/1/edit
-  def edit
-    render inertia: "Friend/Edit", props: {
-      friend: serialize_friend(@friend)
-    }
-  end
+  # def edit
+  #   render inertia: "Friend/Edit", props: {
+  #     friend: serialize_friend(@friend)
+  #   }
+  # end
 
   # POST /friends
   def create

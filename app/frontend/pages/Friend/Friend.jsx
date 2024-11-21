@@ -10,7 +10,18 @@ function Friend({ className, friend }) {
           {friend.profile.username}
         </Link>
       </div>
-      <div>Chat</div>
+      <div>
+        <Link
+          as="button"
+          type="button"
+          href={api.chats.show.path(friend.directMessageChat)}
+          // onClick={() => {
+          //   api.chats.show({ obj: friend.directMessageChat });
+          // }}
+        >
+          Chat
+        </Link>
+      </div>
     </div>
   );
 }

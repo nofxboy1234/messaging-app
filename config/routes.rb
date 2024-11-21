@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   get  "/auth/:provider/callback", to: "sessions/omniauth#create"
   post "/auth/:provider/callback", to: "sessions/omniauth#create"
 
-  root "home#index"
+  root "friends#index"
   # root "inertia_example#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
