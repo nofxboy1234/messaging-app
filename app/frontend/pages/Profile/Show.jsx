@@ -75,13 +75,13 @@ export default function Show({
     if (isAFriend) {
       friendButton = (
         <Link as="button" type="button" onClick={handleRemoveFriend}>
-          Remove Friend
+          Unfriend
         </Link>
       );
     } else if (isAnOutgoingFriend) {
       friendButton = (
         <Link as="button" type="button" onClick={handleRemoveOutgoingFriend}>
-          Remove Friend Request
+          Cancel Friend Request
         </Link>
       );
     } else if (isAnIncomingFriend) {
