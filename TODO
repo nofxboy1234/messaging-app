@@ -22,7 +22,7 @@ backend: ruby
 [x] - test association in rails console
 [x] - update backend routes using resourceful routes for :friend_request, :friendships
 [x] - frontend path helpers
-[ ] - create chat with user when clicking Chat button
+[x] - create chat with user when clicking Chat button
 [ ] - check for any remaining functionality needed to be implemented
 
  
