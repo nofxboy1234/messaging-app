@@ -30,3 +30,4 @@ backend: ruby
 [ ] - change authentication zero to Devise + Pundit
 [ ] - model validations and error handling
 [ ] - model (rspec) and integration (react testing library) tests
+[ ] - refactor: efficiency/readability, status codes
