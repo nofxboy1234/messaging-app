@@ -1,25 +1,17 @@
-import { Link, Head } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import OutgoingFriend from './OutgoingFriend';
 import Layout from '../Layout';
-import api from '../../pathHelpers';
 
-export default function Index({ outgoing_friends, flash }) {
+export default function Index({ outgoing_friends }) {
   return (
     <Layout>
-      <Head title="Outgoing friends" />
+      <Head title="Outgoing Friend Requests" />
 
-      {flash.notice && <p style={{ color: 'green' }}>{flash.notice}</p>}
-
-      <h1>Outgoing friends</h1>
+      <h1>Outgoing Friend Requests</h1>
       <div>
-        {outgoing_friends.map((outgoing_friend) => (
-          <div key={outgoing_friend.id}>
-            <OutgoingFriend outgoing_friend={outgoing_friend} />
-            <p>
-              <Link href={api.profiles.show.path(outgoing_friend.profile)}>
-                View profile
-              </Link>
-            </p>
+        {outgoing_friends.map((friend) => (
+          <div key={friend.id}>
+            <OutgoingFriend friend={friend} />
           </div>
         ))}
       </div>
