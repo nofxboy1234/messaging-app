@@ -17,10 +17,8 @@ export default function Show({
   const [isAnIncomingFriend, setIsAnIncomingFriend] =
     useState(isIncomingFriend);
 
-  function handleAddFriend(e) {
+  function handleAddOutgoingFriend(e) {
     e.preventDefault();
-
-    const data = { user_id: profile.user_id };
 
     const options = {
       onBefore: (visit) =>
@@ -29,7 +27,7 @@ export default function Show({
         setIsAnOutgoingFriend(true);
       },
     };
-    api.friends.create({ data: data, options: options });
+    api.outgoingFriends.create({ data: profile.user, options: options });
   }
 
   function handleRemoveFriend(e) {
@@ -120,8 +118,8 @@ export default function Show({
     } else {
       friendButton =
         shared.current_user.id !== profile.user.id ? (
-          <Link as="button" type="button" onClick={handleAddFriend}>
-            Add Friend
+          <Link as="button" type="button" onClick={handleAddOutgoingFriend}>
+            Send Friend Request
           </Link>
         ) : null;
     }

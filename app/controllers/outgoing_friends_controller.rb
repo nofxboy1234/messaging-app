@@ -37,13 +37,10 @@ class OutgoingFriendsController < ApplicationController
 
   # POST /outgoing_friends
   def create
-    @outgoing_friend = OutgoingFriend.new(outgoing_friend_params)
+    @outgoing_friend = User.find(outgoing_friend_params[:id])
+    Current.user.outgoing_friends << @outgoing_friend
 
-    if @outgoing_friend.save
-      redirect_to @outgoing_friend, notice: "Outgoing friend was successfully created."
-    else
-      redirect_to new_outgoing_friend_url, inertia: { errors: @outgoing_friend.errors }
-    end
+    head :created
   end
 
   # PATCH/PUT /outgoing_friends/1

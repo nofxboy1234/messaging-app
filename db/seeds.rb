@@ -48,17 +48,14 @@ Profile.create!(
   user_id: user5.id
 )
 
-chat1 = Chat.create!(name: 'Chat1')
-chat1.members << [ user1, user2 ]
+# chat1 = Chat.create!(name: 'Chat1')
+# chat1.members << [ user1, user2 ]
 
-message1 = Message.create!(body: 'Hello user2!', user_id: user1.id, chat_id: chat1.id)
-message2 = Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: chat1.id)
+# message1 = Message.create!(body: 'Hello user2!', user_id: user1.id, chat_id: chat1.id)
+# message2 = Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: chat1.id)
 
-user1.friends << user2
+# user1.friends << user2
 
-user2.outgoing_friends << user3
-user4.outgoing_friends << user2
-user1.outgoing_friends << user4
-
-user3.incoming_friends << user1
-user5.outgoing_friends << user1
+user1.outgoing_friends << user2
+user4.outgoing_friends << user1
+user3.outgoing_friends << user1
