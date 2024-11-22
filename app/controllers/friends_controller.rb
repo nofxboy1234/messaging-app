@@ -10,7 +10,6 @@ class FriendsController < ApplicationController
     render inertia: "Friend/Index", props: {
       friends: @friends.map do |friend|
         serialized_friend = serialize_friend(friend)
-        serialized_friend["directMessageChat"] = current_user.find_or_create_direct_message_chat_with(friend).as_json
         serialized_friend
       end
     }

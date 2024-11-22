@@ -11,17 +11,10 @@ class User < ApplicationRecord
     Current.user.incoming_friends.include?(user)
   end
 
-  def find_or_create_direct_message_chat_with(friend)
+  def find_direct_message_chat_with(friend)
     current_user = Current.user
     mutual_chats = current_user.chats.to_a.intersection(friend.chats.to_a)
-    direct_message_chat = mutual_chats.find { |chat| chat.members.count === 2 }
-
-    return direct_message_chat if direct_message_chat
-
-    direct_message_chat = Chat.create!(name: "#{current_user.profile.username}_#{friend.profile.username}")
-    direct_message_chat.members << [ current_user, friend ]
-
-    direct_message_chat
+    mutual_chats.find { |chat| chat.members.count === 2 }
   end
 
   has_many :friendships,

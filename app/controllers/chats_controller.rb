@@ -38,14 +38,19 @@ class ChatsController < ApplicationController
 
   # POST /chats
   def create
-    @chat = Chat.new(chat_params)
-    Current.user.chats << @chat
+    debugger
+    current_user = Current.user
+    @friend = User.find(chat_params[:id])
+    @direct_message_chat = current_user.find_direct_message_chat_with(@friend)
 
-    if @chat.save
-      redirect_to @chat, notice: "Chat was successfully created."
-    else
-      redirect_to new_chat_url, inertia: { errors: @chat.errors }
+    unless @direct_message_chat
+      @direct_message_chat = Chat.create!(
+        name: "#{current_user.profile.username}_#{@friend.profile.username}"
+      )
+      @direct_message_chat.members << [ current_user, @friend ]
     end
+
+    redirect_to @direct_message_chat
   end
 
   # PATCH/PUT /chats/1
@@ -67,7 +72,8 @@ class ChatsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     # Only allow a list of trusted parameters through.
     def chat_params
-      params.require(:chat).permit(:name)
+      params.fetch(:chat)
+      # params.require(:chat).permit(:friend)
     end
 
     def set_chat

@@ -16,7 +16,7 @@ function Friend({ className, friend }) {
           type="button"
           onClick={(e) => {
             e.preventDefault();
-            api.chats.show({ obj: friend.directMessageChat });
+            api.chats.create({ data: friend });
           }}
         >
           Chat
