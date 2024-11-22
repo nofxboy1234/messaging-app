@@ -43,8 +43,10 @@ class ChatsController < ApplicationController
     @direct_message_chat = current_user.find_direct_message_chat_with(@friend)
 
     unless @direct_message_chat
+      @friendship = current_user.friendships.where(user: @friend).or(current_user.friendships.where(friend: @friend)).take
       @direct_message_chat = Chat.create!(
-        name: "#{current_user.profile.username}_#{@friend.profile.username}"
+        name: "#{current_user.profile.username}_#{@friend.profile.username}",
+        friendship: @friendship
       )
       @direct_message_chat.members << [ current_user, @friend ]
     end
