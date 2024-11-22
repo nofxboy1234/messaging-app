@@ -38,7 +38,6 @@ class ChatsController < ApplicationController
 
   # POST /chats
   def create
-    debugger
     current_user = Current.user
     @friend = User.find(chat_params[:id])
     @direct_message_chat = current_user.find_direct_message_chat_with(@friend)
