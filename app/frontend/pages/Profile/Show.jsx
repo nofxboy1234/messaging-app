@@ -1,9 +1,10 @@
-import { Link, Head, router } from '@inertiajs/react';
+import { Link, Head } from '@inertiajs/react';
 import Profile from './Profile';
 import Layout from '../Layout';
 import { useState, useContext } from 'react';
 import api from '../../pathHelpers';
 import { ChatsContext } from '../Layout';
+import IncomingFriendActions from '../IncomingFriend/IncomingFriendActions';
 
 function Show({
   shared,
@@ -69,68 +70,31 @@ function Show({
     api.outgoingFriends.destroy({ obj: profile.user, options: options });
   }
 
-  function handleAddIncomingFriend(e) {
-    e.preventDefault();
-
-    const options = {
-      onBefore: (visit) =>
-        confirm(`Accept friend request from ${profile.username}?`),
-      onFinish: (visit) => {
-        setIsAnIncomingFriend(false);
-
-        const options = {
-          onFinish: (visit) => {
-            setIsAFriend(true);
-          },
-        };
-
-        api.friends.create({ data: profile.user, options: options });
-      },
-    };
-
-    api.incomingFriends.destroy({ obj: profile.user, options: options });
-  }
-
-  function handleRemoveIncomingFriend(e) {
-    e.preventDefault();
-
-    const options = {
-      onBefore: (visit) =>
-        confirm(`Reject friend request from ${profile.username}?`),
-      onFinish: (visit) => {
-        setIsAnIncomingFriend(false);
-      },
-    };
-    api.incomingFriends.destroy({ obj: profile.user, options: options });
-  }
-
-  function friendButton() {
-    let friendButton;
+  function friendActions() {
+    let friendActions;
     if (isAFriend) {
-      friendButton = (
+      friendActions = (
         <Link as="button" type="button" onClick={handleRemoveFriend}>
           Unfriend
         </Link>
       );
     } else if (isAnOutgoingFriend) {
-      friendButton = (
+      friendActions = (
         <Link as="button" type="button" onClick={handleRemoveOutgoingFriend}>
           Cancel Friend Request
         </Link>
       );
     } else if (isAnIncomingFriend) {
-      friendButton = (
-        <>
-          <Link as="button" type="button" onClick={handleAddIncomingFriend}>
-            Accept Friend Request
-          </Link>
-          <Link as="button" type="button" onClick={handleRemoveIncomingFriend}>
-            Reject Friend Request
-          </Link>
-        </>
+      friendActions = (
+        <IncomingFriendActions
+          user={profile.user}
+          username={profile.username}
+          setIsAnIncomingFriend={setIsAnIncomingFriend}
+          setIsAFriend={setIsAFriend}
+        />
       );
     } else {
-      friendButton =
+      friendActions =
         shared.current_user.id !== profile.user.id ? (
           <Link as="button" type="button" onClick={handleAddOutgoingFriend}>
             Send Friend Request
@@ -138,16 +102,12 @@ function Show({
         ) : null;
     }
 
-    return friendButton;
+    return friendActions;
   }
 
   return (
     <>
       <Head title={`Profile #${profile.id}`} />
-
-      {/* {shared.flash.notice && (
-        <p style={{ color: 'green' }}>{shared.flash.notice}</p>
-      )} */}
 
       <h1>Profile #{profile.id}</h1>
 
@@ -159,7 +119,7 @@ function Show({
         ) : null}
         <br />
       </div>
-      <div>{friendButton()}</div>
+      <div>{friendActions()}</div>
     </>
   );
 }
