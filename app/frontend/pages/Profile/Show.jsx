@@ -61,7 +61,7 @@ function Show({
 
     const options = {
       onBefore: (visit) =>
-        confirm(`Remove friend request to ${profile.username}?`),
+        confirm(`Cancel friend request to ${profile.username}?`),
       onFinish: (visit) => {
         setIsAnOutgoingFriend(false);
       },
