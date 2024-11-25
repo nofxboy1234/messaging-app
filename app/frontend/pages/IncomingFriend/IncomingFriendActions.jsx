@@ -1,27 +1,15 @@
 import { Link } from '@inertiajs/react';
 import api from '../../pathHelpers';
 
-function IncomingFriendActions({
-  user,
-  username,
-  setIsAnIncomingFriend,
-  setIsAFriend,
-}) {
+function IncomingFriendActions({ user }) {
   function handleAddIncomingFriend(e) {
     e.preventDefault();
 
     const options = {
-      onBefore: () => confirm(`Accept friend request from ${username}?`),
+      onBefore: () =>
+        confirm(`Accept friend request from ${user.profile.username}?`),
       onFinish: () => {
-        setIsAnIncomingFriend(false);
-
-        const options = {
-          onFinish: () => {
-            setIsAFriend(true);
-          },
-        };
-
-        api.friends.create({ data: user, options: options });
+        api.friends.create({ data: user });
       },
     };
 
@@ -32,10 +20,8 @@ function IncomingFriendActions({
     e.preventDefault();
 
     const options = {
-      onBefore: () => confirm(`Reject friend request from ${username}?`),
-      onFinish: () => {
-        setIsAnIncomingFriend(false);
-      },
+      onBefore: () =>
+        confirm(`Reject friend request from ${user.profile.username}?`),
     };
     api.incomingFriends.destroy({ obj: user, options: options });
   }

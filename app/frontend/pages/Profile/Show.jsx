@@ -86,12 +86,7 @@ function Show({
       );
     } else if (isAnIncomingFriend) {
       friendActions = (
-        <IncomingFriendActions
-          user={profile.user}
-          username={profile.username}
-          setIsAnIncomingFriend={setIsAnIncomingFriend}
-          setIsAFriend={setIsAFriend}
-        />
+        <IncomingFriendActions user={{ ...profile.user, profile: profile }} />
       );
     } else {
       friendActions =
