@@ -42,8 +42,8 @@ class FriendsController < ApplicationController
     @friend = User.find(friend_params[:id])
     Current.user.friends << @friend
 
-    # redirect_to incoming_friends_path, notice: "You are now friends with #{@friend.profile.username}"
-    head :created
+    redirect_to incoming_friends_path, notice: "You are now friends with #{@friend.profile.username}"
+    # head :created
   end
 
   # PATCH/PUT /friends/1

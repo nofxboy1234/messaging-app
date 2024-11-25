@@ -2,11 +2,13 @@ frontend: js
 [x] - lint: eslint
 [x] - format: prettier
 [x] - test: vitest + react testing library
+[x] - debug: built-in vscode node debugger
 
 backend: ruby
 [x] - lint: rubocop
 [x] - format: rubocop
 [x] - test: rspec
+ [x] - debug: debugger
  
  [x] - test rails button_to using path helpers
 
