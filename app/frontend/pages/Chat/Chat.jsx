@@ -16,22 +16,15 @@ export default function Chat({ chat }) {
   const [messageChannel, setMessageChannel] = useState(null);
 
   useEffect(() => {
-    console.log('*** Chat useEffect');
     const consumer = createConsumer();
     const channel = consumer.subscriptions.create(
       { channel: 'ChatChannel', id: chat.id },
       {
-        connected() {
-          console.log('*** frontend message channel connected');
-        },
+        connected() {},
 
-        disconnected() {
-          console.log('*** frontend message channel disconnected');
-        },
+        disconnected() {},
 
         received(message) {
-          console.log('*** frontend message channel received');
-
           setMessages((messages) => [...messages, message]);
         },
       },
@@ -40,7 +33,6 @@ export default function Chat({ chat }) {
     setMessageChannel(channel);
 
     return () => {
-      console.log('*** Chat useEffect cleanup');
       channel.unsubscribe();
       consumer.disconnect();
     };
@@ -74,8 +66,6 @@ export default function Chat({ chat }) {
     api.messages.create({ data: data });
     clearMessage();
   }
-
-  console.log('*** Chat rendering');
 
   return (
     <Layout users={chat.members}>

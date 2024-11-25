@@ -1,16 +1,19 @@
 import { Link, Head, router } from '@inertiajs/react';
 import Profile from './Profile';
 import Layout from '../Layout';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import api from '../../pathHelpers';
+import { ChatsContext } from '../Layout';
 
-export default function Show({
+function Show({
   shared,
   profile,
   isFriend,
   isOutgoingFriend,
   isIncomingFriend,
 }) {
+  const { setChats } = useContext(ChatsContext);
+
   const [isAFriend, setIsAFriend] = useState(isFriend);
   const [isAnOutgoingFriend, setIsAnOutgoingFriend] =
     useState(isOutgoingFriend);
@@ -37,8 +40,19 @@ export default function Show({
       onBefore: (visit) => confirm(`Unfriend ${profile.username}?`),
       onFinish: (visit) => {
         setIsAFriend(false);
+        setChats((chats) => {
+          const user1 = shared.profile.username;
+          const user2 = profile.username;
+          const updatedChats = chats.filter(
+            (chat) =>
+              chat.name !== `${user1}_${user2}` &&
+              chat.name !== `${user2}_${user1}`,
+          );
+          return updatedChats;
+        });
       },
     };
+
     api.friends.destroy({ obj: profile.user, options: options });
   }
 
@@ -128,7 +142,7 @@ export default function Show({
   }
 
   return (
-    <Layout>
+    <>
       <Head title={`Profile #${profile.id}`} />
 
       {shared.flash.notice && (
@@ -146,6 +160,10 @@ export default function Show({
         <br />
       </div>
       <div>{friendButton()}</div>
-    </Layout>
+    </>
   );
 }
+
+Show.layout = (page) => <Layout children={page} />;
+
+export default Show;

@@ -3,9 +3,16 @@ import styled from 'styled-components';
 import api from '../pathHelpers';
 import ChatIndex from './Chat/Index';
 import UserIndex from './User/Index';
+import { useState, createContext } from 'react';
+
+export const ChatsContext = createContext({
+  setChats: () => {},
+});
 
 const Layout = ({ className, children, users }) => {
   const { shared } = usePage().props;
+
+  const [chats, setChats] = useState(shared.chats);
 
   return (
     <div className={className}>
@@ -42,11 +49,13 @@ const Layout = ({ className, children, users }) => {
 
       <div className="container">
         <div className={'chats'}>
-          <ChatIndex chats={shared.chats} />
+          <ChatIndex chats={chats} />
         </div>
 
         <div className={'content'}>
-          <div className={'children'}>{children}</div>
+          <ChatsContext.Provider value={{ setChats }}>
+            <div className={'children'}>{children}</div>
+          </ChatsContext.Provider>
         </div>
 
         <div className={'users'}>
