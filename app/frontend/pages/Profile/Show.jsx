@@ -145,9 +145,9 @@ function Show({
     <>
       <Head title={`Profile #${profile.id}`} />
 
-      {shared.flash.notice && (
+      {/* {shared.flash.notice && (
         <p style={{ color: 'green' }}>{shared.flash.notice}</p>
-      )}
+      )} */}
 
       <h1>Profile #{profile.id}</h1>
 

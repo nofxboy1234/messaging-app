@@ -17,8 +17,8 @@ const Layout = ({ className, children, users }) => {
   return (
     <div className={className}>
       <div>
-        {shared.flash.alert && <div>{shared.flash.alert}</div>}
-        {shared.flash.notice && <div>{shared.flash.notice}</div>}
+        {/* {shared.flash.alert && <div>{shared.flash.alert}</div>} */}
+        {/* {shared.flash.notice && <div>{shared.flash.notice}</div>} */}
         <Link href="/">Home</Link>
         <Link
           href={api.sessions.destroy.path(shared.session)}

@@ -57,9 +57,8 @@ class IncomingFriendsController < ApplicationController
 
   # DELETE /incoming_friends/1
   def destroy
-    # @friend.destroy!
     Current.user.incoming_friends.destroy(@incoming_friend)
-    # redirect_to friends_url, notice: "Friend was successfully destroyed."
+    # redirect_to incoming_friends_path, notice: "Friend was successfully destroyed."
     head :ok
   end
 
