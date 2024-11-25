@@ -59,8 +59,8 @@ class FriendsController < ApplicationController
   def destroy
     # @friend.destroy!
     Current.user.friends.destroy(@friend)
-    # redirect_to friends_url, notice: "Friend was successfully destroyed."
-    head :ok
+    redirect_to friends_path
+    # head :ok
   end
 
   private
