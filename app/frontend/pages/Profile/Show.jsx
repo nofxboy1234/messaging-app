@@ -1,110 +1,10 @@
 import { Link, Head } from '@inertiajs/react';
 import Profile from './Profile';
 import Layout from '../Layout';
-import { useState, useContext } from 'react';
 import api from '../../pathHelpers';
-import { ChatsContext } from '../Layout';
-import IncomingFriendActions from '../IncomingFriend/IncomingFriendActions';
+import UserActions from '../UserActions/UserActions';
 
-function Show({
-  shared,
-  profile,
-  isFriend,
-  isOutgoingFriend,
-  isIncomingFriend,
-}) {
-  const { setChats } = useContext(ChatsContext);
-
-  const [isAFriend, setIsAFriend] = useState(isFriend);
-  const [isAnOutgoingFriend, setIsAnOutgoingFriend] =
-    useState(isOutgoingFriend);
-  const [isAnIncomingFriend, setIsAnIncomingFriend] =
-    useState(isIncomingFriend);
-
-  function handleAddOutgoingFriend(e) {
-    e.preventDefault();
-
-    const options = {
-      onBefore: (visit) =>
-        confirm(`Send friend request to ${profile.username}?`),
-      onFinish: (visit) => {
-        setIsAnOutgoingFriend(true);
-      },
-    };
-    api.outgoingFriends.create({ data: profile.user, options: options });
-  }
-
-  function handleRemoveFriend(e) {
-    e.preventDefault();
-
-    const options = {
-      onBefore: (visit) => confirm(`Unfriend ${profile.username}?`),
-      onFinish: (visit) => {
-        setIsAFriend(false);
-        setChats((chats) => {
-          const user1 = shared.profile.username;
-          const user2 = profile.username;
-          const updatedChats = chats.filter(
-            (chat) =>
-              chat.name !== `${user1}_${user2}` &&
-              chat.name !== `${user2}_${user1}`,
-          );
-          return updatedChats;
-        });
-      },
-    };
-
-    api.friends.destroy({ obj: profile.user, options: options });
-  }
-
-  function handleRemoveOutgoingFriend(e) {
-    e.preventDefault();
-
-    const options = {
-      onBefore: (visit) =>
-        confirm(`Cancel friend request to ${profile.username}?`),
-      onFinish: (visit) => {
-        setIsAnOutgoingFriend(false);
-      },
-    };
-    api.outgoingFriends.destroy({ obj: profile.user, options: options });
-  }
-
-  function friendActions() {
-    let friendActions;
-    if (isAFriend) {
-      friendActions = (
-        <Link as="button" type="button" onClick={handleRemoveFriend}>
-          Unfriend
-        </Link>
-      );
-    } else if (isAnOutgoingFriend) {
-      friendActions = (
-        <Link as="button" type="button" onClick={handleRemoveOutgoingFriend}>
-          Cancel Friend Request
-        </Link>
-      );
-    } else if (isAnIncomingFriend) {
-      friendActions = (
-        <IncomingFriendActions
-          user={profile.user}
-          username={profile.username}
-          setIsAnIncomingFriend={setIsAnIncomingFriend}
-          setIsAFriend={setIsAFriend}
-        />
-      );
-    } else {
-      friendActions =
-        shared.current_user.id !== profile.user.id ? (
-          <Link as="button" type="button" onClick={handleAddOutgoingFriend}>
-            Send Friend Request
-          </Link>
-        ) : null;
-    }
-
-    return friendActions;
-  }
-
+function Show({ shared, profile, userType }) {
   return (
     <>
       <Head title={`Profile #${profile.id}`} />
@@ -119,7 +19,9 @@ function Show({
         ) : null}
         <br />
       </div>
-      <div>{friendActions()}</div>
+      <div>
+        <UserActions user={profile.user} userType={userType} />
+      </div>
     </>
   );
 }

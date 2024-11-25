@@ -16,15 +16,20 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   def show
     user = @profile.user
-    is_friend = Current.user.friends_with?(user)
-    is_outgoing_friend = Current.user.has_outgoing_friend?(user)
-    is_incoming_friend = Current.user.has_incoming_friend?(user)
+
+    if Current.user.friends_with?(user)
+      user_type = "friend"
+    elsif Current.user.has_outgoing_friend?(user)
+      user_type = "outgoing"
+    elsif Current.user.has_incoming_friend?(user)
+      user_type = "incoming"
+    else
+      user_type = "stranger"
+    end
 
     render inertia: "Profile/Show", props: {
       profile: serialize_profile(@profile),
-      isFriend: is_friend,
-      isOutgoingFriend: is_outgoing_friend,
-      isIncomingFriend: is_incoming_friend
+      userType: user_type
     }
   end
 
