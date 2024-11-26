@@ -61,7 +61,7 @@ const Layout = ({ className, children }) => {
         </div>
 
         <div className={'users'}>
-          <UserIndex users={users ? users : shared.users} />
+          <UserIndex users={users} />
         </div>
       </div>
     </div>

@@ -2,11 +2,13 @@ import { useEffect, useState, useContext } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from '../MessageDisplay/MessageDisplay';
 import styles from './Index.module.css';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import api from '../../pathHelpers';
 import { LayoutContext } from '../Layout';
 
 export default function Chat({ chat }) {
+  const { shared } = usePage().props;
+
   const { setUsers } = useContext(LayoutContext);
   const [values, setValues] = useState({
     message: '',
@@ -39,7 +41,11 @@ export default function Chat({ chat }) {
 
   useEffect(() => {
     setUsers(chat.members);
-  }, [chat.members, setUsers]);
+
+    return () => {
+      setUsers(shared.users);
+    };
+  }, [chat.members, setUsers, shared.users]);
 
   function handleChange(e) {
     const key = e.target.id;
