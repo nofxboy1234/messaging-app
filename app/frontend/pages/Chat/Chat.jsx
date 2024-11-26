@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import MessageDisplay from '../MessageDisplay/MessageDisplay';
 import styles from './Index.module.css';
 import { Head } from '@inertiajs/react';
 import api from '../../pathHelpers';
-import Layout from '../Layout';
+import { LayoutContext } from '../Layout';
 
 export default function Chat({ chat }) {
+  const { setUsers } = useContext(LayoutContext);
   const [values, setValues] = useState({
     message: '',
   });
@@ -35,6 +36,10 @@ export default function Chat({ chat }) {
       consumer.disconnect();
     };
   }, [chat.id]);
+
+  useEffect(() => {
+    setUsers(chat.members);
+  }, [chat.members, setUsers]);
 
   function handleChange(e) {
     const key = e.target.id;
@@ -88,6 +93,3 @@ export default function Chat({ chat }) {
     </>
   );
 }
-
-// Chat.layout = (page) => <Layout users={chat.members}>{page}</Layout>;
-// Chat.layout = (page) => <Layout children={page} users={chat.members} />;

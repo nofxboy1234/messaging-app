@@ -3,12 +3,12 @@ import Profile from './Profile';
 import Layout from '../Layout';
 import { useState, useContext } from 'react';
 import api from '../../pathHelpers';
-import { ChatsContext } from '../Layout';
+import { LayoutContext } from '../Layout';
 import IncomingFriendActions from '../IncomingFriend/IncomingFriendActions';
 
 function Show({ profile, isFriend, isOutgoingFriend, isIncomingFriend }) {
   const { shared } = usePage().props;
-  const { setChats } = useContext(ChatsContext);
+  const { setChats } = useContext(LayoutContext);
 
   const [isAFriend, setIsAFriend] = useState(isFriend);
   const [isAnOutgoingFriend, setIsAnOutgoingFriend] =

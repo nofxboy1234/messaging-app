@@ -5,14 +5,16 @@ import ChatIndex from './Chat/Index';
 import UserIndex from './User/Index';
 import { useState, createContext } from 'react';
 
-export const ChatsContext = createContext({
+export const LayoutContext = createContext({
   setChats: () => {},
+  setUsers: () => {},
 });
 
-const Layout = ({ className, children, users }) => {
+const Layout = ({ className, children }) => {
   const { shared } = usePage().props;
 
   const [chats, setChats] = useState(shared.chats);
+  const [users, setUsers] = useState(shared.users);
 
   console.log('render Layout');
 
@@ -53,9 +55,9 @@ const Layout = ({ className, children, users }) => {
         </div>
 
         <div className={'content'}>
-          <ChatsContext.Provider value={{ setChats }}>
+          <LayoutContext.Provider value={{ setChats, setUsers }}>
             {children}
-          </ChatsContext.Provider>
+          </LayoutContext.Provider>
         </div>
 
         <div className={'users'}>
