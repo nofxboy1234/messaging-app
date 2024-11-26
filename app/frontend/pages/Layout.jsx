@@ -14,6 +14,8 @@ const Layout = ({ className, children, users }) => {
 
   const [chats, setChats] = useState(shared.chats);
 
+  console.log('render Layout');
+
   return (
     <div className={className}>
       <div>
@@ -52,7 +54,7 @@ const Layout = ({ className, children, users }) => {
 
         <div className={'content'}>
           <ChatsContext.Provider value={{ setChats }}>
-            <div className={'children'}>{children}</div>
+            {children}
           </ChatsContext.Provider>
         </div>
 
