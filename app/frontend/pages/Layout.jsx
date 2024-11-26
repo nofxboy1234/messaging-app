@@ -17,8 +17,6 @@ const Layout = ({ className, children, users }) => {
   return (
     <div className={className}>
       <div>
-        {/* {shared.flash.alert && <div>{shared.flash.alert}</div>} */}
-        {/* {shared.flash.notice && <div>{shared.flash.notice}</div>} */}
         <Link href="/">Home</Link>
         <Link
           href={api.sessions.destroy.path(shared.session)}
@@ -73,11 +71,9 @@ const StyledLayout = styled(Layout)`
 
   .chats {
     background-color: #4df0d5;
-    /* flex: 4 1 0%; */
   }
 
   .content {
-    /* display: flex; */
     padding: 1rem;
     flex: 4 1 0%;
     background-color: #ae87e0;
@@ -86,7 +82,6 @@ const StyledLayout = styled(Layout)`
   .users {
     background-color: #4df0d5;
     padding: 1rem;
-    /* flex: 4 1 0%; */
   }
 `;
 

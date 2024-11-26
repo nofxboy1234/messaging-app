@@ -1,10 +1,9 @@
 import { Head } from '@inertiajs/react';
 import Friend from './Friend';
-import Layout from '../Layout';
 
 export default function Index({ friends }) {
   return (
-    <Layout>
+    <>
       <Head title="Friends" />
 
       <h1>Friends</h1>
@@ -15,6 +14,6 @@ export default function Index({ friends }) {
           </div>
         ))}
       </div>
-    </Layout>
+    </>
   );
 }

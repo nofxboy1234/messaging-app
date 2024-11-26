@@ -1,4 +1,4 @@
-import { Link, Head } from '@inertiajs/react';
+import { Link, Head, usePage } from '@inertiajs/react';
 import Profile from './Profile';
 import Layout from '../Layout';
 import { useState, useContext } from 'react';
@@ -6,13 +6,8 @@ import api from '../../pathHelpers';
 import { ChatsContext } from '../Layout';
 import IncomingFriendActions from '../IncomingFriend/IncomingFriendActions';
 
-function Show({
-  shared,
-  profile,
-  isFriend,
-  isOutgoingFriend,
-  isIncomingFriend,
-}) {
+function Show({ profile, isFriend, isOutgoingFriend, isIncomingFriend }) {
+  const { shared } = usePage().props;
   const { setChats } = useContext(ChatsContext);
 
   const [isAFriend, setIsAFriend] = useState(isFriend);
@@ -118,7 +113,5 @@ function Show({
     </>
   );
 }
-
-Show.layout = (page) => <Layout children={page} />;
 
 export default Show;
