@@ -13,6 +13,7 @@ user2 = User.create!(email: 'user2@example.com', password: 'user2!@#$%^&')
 user3 = User.create!(email: 'user3@example.com', password: 'user3!@#$%^&')
 user4 = User.create!(email: 'user4@example.com', password: 'user4!@#$%^&')
 user5 = User.create!(email: 'user5@example.com', password: 'user5!@#$%^&')
+nofxboy1234 = User.create!(email: 'nofxboy1234@gmail.com', password: 'nofxboy1234!@#$%^&')
 
 Profile.create!(
                 username: user1.email.split('@').first,
@@ -47,6 +48,14 @@ Profile.create!(
   about: "Hello, I am #{user5.email.split('@').first}!",
   user_id: user5.id
 )
+
+Profile.create!(
+  username: nofxboy1234.email.split('@').first,
+  picture: nofxboy1234.profile_picture,
+  about: "Hello, I am #{nofxboy1234.email.split('@').first}!",
+  user_id: nofxboy1234.id
+)
+
 
 # chat1 = Chat.create!(name: 'Chat1')
 # chat1.members << [ user1, user2 ]

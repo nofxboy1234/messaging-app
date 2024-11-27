@@ -191,7 +191,7 @@ const user1 = {
   id: 1,
   profile: {
     id: 1,
-    picture: '',
+    picture: 'https://www.gravatar.com/avatar/192e66a3b157be5b9ce37273e72fce12',
     username: 'user1',
     about: 'Hello I am user1 :)',
   },
