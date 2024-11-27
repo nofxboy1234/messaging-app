@@ -12,6 +12,15 @@ class FriendsController < ApplicationController
         serialized_friend = serialize_friend(friend)
         serialized_friend
       end
+      # user: current_user.as_json(include: [
+      #   profile: {},
+      #   chats: {
+      #     include: {
+      #       messages: { include: { user: { include: :profile } } },
+      #       members: { include: :profile }
+      #     }
+      #   }
+      # ])
     }
   end
 
