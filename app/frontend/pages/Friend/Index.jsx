@@ -208,12 +208,9 @@ const user2 = {
 };
 
 const currentUser = {
-  id: 1,
+  id: user1.id,
   profile: {
-    id: 1,
-    picture: '',
-    username: 'user1',
-    about: 'Hello I am user1 :)',
+    ...user1.profile,
   },
   chats: [
     {
