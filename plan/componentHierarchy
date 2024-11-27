@@ -1,0 +1,27 @@
+Layout/Layout
+  Layout/NavBar
+  Chat/Index
+    Chat/Link
+  Chat/Show
+    Chat/Chat
+      Message/Message
+        Profile/Picture
+    Chat/MessageBox
+  MemberList/Index ||
+    Chat/MemberTotal
+    User/User
+      Profile/Picture
+  User/Index ||
+    User/Total
+    User/User
+      Profile/Picture
+  Profile/Show
+    Profile/Profile
+    User/Actions
+      IncomingFriend/Actions
+        AcceptButton
+        RejectButton
+      OutgongFriend/Actions
+        CancelButton
+      Friend/Actions
+        UnfriendButton
