@@ -96,7 +96,7 @@ function User({ user }) {
 }
 
 function UserTotal({ users }) {
-  return <div>USERS-{users.count}</div>;
+  return <div>USERS-{users.length}</div>;
 }
 
 function Profile({ profile }) {
@@ -143,7 +143,7 @@ function ChatIndex({ chats = currentUser.chats }) {
   );
 }
 
-function ChatShow({ chat }) {
+function ChatShow({ chat = currentUser.chats[0] }) {
   return (
     <div style={{ border: '2px solid orange' }}>
       <Chat chat={chat} />
@@ -152,7 +152,7 @@ function ChatShow({ chat }) {
   );
 }
 
-function MemberListIndex({ chat }) {
+function MemberListIndex({ chat = currentUser.chats[0] }) {
   return (
     <div style={{ border: '2px solid fuchsia' }}>
       <MemberTotal chat={chat} />
@@ -165,7 +165,7 @@ function MemberListIndex({ chat }) {
   );
 }
 
-function UserIndex({ users }) {
+function UserIndex({ users = currentUser.chats[0].members }) {
   return (
     <div>
       <UserTotal users={users} />
@@ -178,7 +178,7 @@ function UserIndex({ users }) {
   );
 }
 
-function ProfileShow({ profile }) {
+function ProfileShow({ profile = currentUser.profile }) {
   return (
     <div>
       <Profile profile={profile} />
@@ -236,4 +236,4 @@ function Layout({ user = currentUser }) {
   );
 }
 
-export default ChatIndex;
+export default ProfileShow;
