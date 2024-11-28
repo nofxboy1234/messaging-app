@@ -56,15 +56,16 @@ Profile.create!(
   user_id: nofxboy1234.id
 )
 
+user1.friends << user2
 
-# chat1 = Chat.create!(name: 'Chat1')
-# chat1.members << [ user1, user2 ]
+current_user = user1
+@friend = user2
+@friendship = current_user.friendships.where(user: @friend).or(current_user.friendships.where(friend: @friend)).take
+chat1 = Chat.create!(
+  name: "#{current_user.profile.username}_#{@friend.profile.username}",
+  friendship: @friendship
+)
+chat1.members << [ current_user, @friend ]
 
-# message1 = Message.create!(body: 'Hello user2!', user_id: user1.id, chat_id: chat1.id)
-# message2 = Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: chat1.id)
-
-# user1.friends << user2
-
-user1.outgoing_friends << user2
-user4.outgoing_friends << user1
-user3.outgoing_friends << user1
+Message.create!(body: 'Hello user2!', user_id: user1.id, chat_id: chat1.id)
+Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: chat1.id)
