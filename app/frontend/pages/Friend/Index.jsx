@@ -16,6 +16,10 @@ function UnfriendButton() {
   return <button>Unfriend</button>;
 }
 
+function ChatButton() {
+  return <button>Chat</button>;
+}
+
 function SendFriendRequestButton() {
   return <button>Send Friend Request</button>;
 }
@@ -55,6 +59,7 @@ function FriendActions() {
   return (
     <div>
       <UnfriendButton />
+      <ChatButton />
     </div>
   );
 }
