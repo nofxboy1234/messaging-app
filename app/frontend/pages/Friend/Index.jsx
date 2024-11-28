@@ -133,7 +133,7 @@ function NavBar({ user }) {
   );
 }
 
-function ChatIndex({ chats }) {
+function ChatIndex({ chats = currentUser.chats }) {
   return (
     <div style={{ border: '2px solid blue' }}>
       {chats.map((chat) => (
@@ -238,4 +238,4 @@ function Layout({ user = currentUser }) {
   );
 }
 
-export default Layout;
+export default ChatIndex;
