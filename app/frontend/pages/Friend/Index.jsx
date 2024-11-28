@@ -226,8 +226,6 @@ const currentUser = {
 };
 
 function Layout({ user = currentUser }) {
-  console.log('render Layout');
-
   return (
     <div>
       <NavBar user={user} />
