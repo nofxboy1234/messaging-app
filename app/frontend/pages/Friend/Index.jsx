@@ -192,6 +192,32 @@ function ProfileShow({ profile = currentUser.profile }) {
   );
 }
 
+function Friend({ friend }) {
+  return (
+    <div>
+      <User user={friend} />
+      <FriendActions />
+    </div>
+  );
+}
+
+function FriendTotal({ friends }) {
+  return <div>friends-{friends.length}</div>;
+}
+
+function FriendIndex({ friends = currentUser.friends }) {
+  return (
+    <div>
+      <FriendTotal friends={friends} />
+      <div>
+        {friends.map((friend) => (
+          <Friend key={friend.id} friend={friend} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const user1 = {
   id: 1,
   profile: {
@@ -228,6 +254,7 @@ const currentUser = {
       members: [user1, user2],
     },
   ],
+  friends: [user2],
 };
 
 function Layout({ user = currentUser }) {
@@ -241,4 +268,4 @@ function Layout({ user = currentUser }) {
   );
 }
 
-export default ProfileShow;
+export default FriendIndex;

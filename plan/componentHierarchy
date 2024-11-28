@@ -26,4 +26,10 @@ Layout/Layout
         *OutgongFriend/CancelFriendRequestButton
       *Friend/Actions
         *Friend/UnfriendButton
+        *Friend/ChatButton
       *User/SendFriendRequestButton
+  Friend/Index
+    *Friend/Total
+    *Friend/Friend
+      *User/User
+      *Friend/Actions
