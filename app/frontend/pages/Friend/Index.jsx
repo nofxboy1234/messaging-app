@@ -218,6 +218,61 @@ function FriendIndex({ friends = currentUser.friends }) {
   );
 }
 
+function IncomingFriend({ incomingFriend }) {
+  return (
+    <div>
+      <User user={incomingFriend} />
+      <IncomingFriendActions />
+    </div>
+  );
+}
+
+function IncomingFriendTotal({ incomingFriends }) {
+  return <div>Incoming Friend Requests-{incomingFriends.length}</div>;
+}
+
+function OutgoingFriend({ outgoingFriend }) {
+  return (
+    <div>
+      <User user={outgoingFriend} />
+      <OutgoingFriendActions />
+    </div>
+  );
+}
+
+function OutgoingFriendTotal({ outgoingFriends }) {
+  return <div>Outgoing Friend Requests-{outgoingFriends.length}</div>;
+}
+
+function PendingFriendIndex({
+  incomingFriends = currentUser.incomingFriends,
+  outgoingFriends = currentUser.outgoingFriends,
+}) {
+  return (
+    <div>
+      <IncomingFriendTotal incomingFriends={incomingFriends} />
+      <div>
+        {incomingFriends.map((incomingFriend) => (
+          <IncomingFriend
+            key={incomingFriend.id}
+            incomingFriend={incomingFriend}
+          />
+        ))}
+      </div>
+
+      <OutgoingFriendTotal outgoingFriends={outgoingFriends} />
+      <div>
+        {outgoingFriends.map((outgoingFriend) => (
+          <OutgoingFriend
+            key={outgoingFriend.id}
+            outgoingFriend={outgoingFriend}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const user1 = {
   id: 1,
   profile: {
@@ -238,6 +293,36 @@ const user2 = {
   },
 };
 
+const user3 = {
+  id: 3,
+  profile: {
+    id: 3,
+    picture: '',
+    username: 'user3',
+    about: 'Hello I am user3 :)',
+  },
+};
+
+const user4 = {
+  id: 4,
+  profile: {
+    id: 4,
+    picture: '',
+    username: 'user4',
+    about: 'Hello I am user4 :)',
+  },
+};
+
+const user5 = {
+  id: 5,
+  profile: {
+    id: 5,
+    picture: '',
+    username: 'user5',
+    about: 'Hello I am user5 :)',
+  },
+};
+
 const currentUser = {
   id: user1.id,
   profile: {
@@ -255,6 +340,8 @@ const currentUser = {
     },
   ],
   friends: [user2],
+  incomingFriends: [user3, user4],
+  outgoingFriends: [user5],
 };
 
 function Layout({ user = currentUser }) {
@@ -268,4 +355,4 @@ function Layout({ user = currentUser }) {
   );
 }
 
-export default FriendIndex;
+export default PendingFriendIndex;
