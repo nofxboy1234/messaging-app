@@ -28,8 +28,17 @@ Layout/Layout
         *Friend/UnfriendButton
         *Friend/ChatButton
       *User/SendFriendRequestButton
-  Friend/Index
+  *Friend/Index
     *Friend/Total
     *Friend/Friend
       *User/User
       *Friend/Actions
+  *PendingFriend/Index
+    *IncomingFriend/Total
+    *IncomingFriend/IncomingFriend
+      *User/User
+      *IncomingFriend/Actions
+    *OutgoingFriend/Total
+    *OutgoingFriend/OutgoingFriend
+      *User/User
+      *OutgoingFriend/Actions
