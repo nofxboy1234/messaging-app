@@ -142,7 +142,7 @@ function NavBar({ user }) {
 }
 
 function ChatIndex({ initialChats = currentUser.chats }) {
-  // const [chats, setChats] = useState(initialChats);
+  const [chats, setChats] = useState(initialChats);
 
   return (
     <div style={{ border: '2px solid blue' }}>
@@ -398,9 +398,9 @@ function Layout({ user = currentUser }) {
 
 // export default ChatIndex;
 // export default MemberListIndex;
-export default UserIndex;
+// export default UserIndex;
 // export default ChatShow;
 // export default ProfileShow;
-// export default ProfileEdit;
+export default ProfileEdit;
 // export default FriendIndex;
 // export default PendingFriendIndex;
