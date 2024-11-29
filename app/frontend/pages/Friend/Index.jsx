@@ -80,7 +80,7 @@ function Chat({ chat }) {
 }
 
 function MessageBox() {
-  // const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('');
 
   return (
     <div>
@@ -175,7 +175,7 @@ function MemberListIndex({ chat = currentUser.chats[0] }) {
   );
 }
 
-function UserIndex({ users = currentUser.chats[0].members }) {
+function UserIndex({ users = allUsers }) {
   return (
     <div>
       <UserTotal users={users} />
@@ -383,6 +383,8 @@ const currentUser = {
   outgoingFriends: [user5],
 };
 
+const allUsers = [user1, user2, user3, user4, user5];
+
 function Layout({ user = currentUser }) {
   return (
     <div>
@@ -396,9 +398,9 @@ function Layout({ user = currentUser }) {
 
 // export default ChatIndex;
 // export default MemberListIndex;
-// export default UserIndex;
+export default UserIndex;
 // export default ChatShow;
 // export default ProfileShow;
 // export default ProfileEdit;
 // export default FriendIndex;
-export default PendingFriendIndex;
+// export default PendingFriendIndex;
