@@ -399,6 +399,6 @@ function Layout({ user = currentUser }) {
 // export default UserIndex;
 // export default ChatShow;
 // export default ProfileShow;
-export default ProfileEdit;
+// export default ProfileEdit;
 // export default FriendIndex;
-// export default PendingFriendIndex;
+export default PendingFriendIndex;
