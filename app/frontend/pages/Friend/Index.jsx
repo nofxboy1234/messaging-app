@@ -206,15 +206,15 @@ function ProfileForm({ profile }) {
     <div>
       <div>
         <label htmlFor="username">Username</label>
-        <input type="text" id="username" />
+        <input type="text" id="username" value={username} />
       </div>
       <div>
         <label htmlFor="picture">Picture</label>
-        <input type="text" id="picture" />
+        <input type="text" id="picture" value={picture} />
       </div>
       <div>
         <label htmlFor="about">About</label>
-        <input type="text" id="about" />
+        <input type="text" id="about" value={about} />
       </div>
       <div>
         <button type="submit">Save</button>
