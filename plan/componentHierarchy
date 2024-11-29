@@ -28,6 +28,8 @@ Layout/Layout
         *Friend/UnfriendButton
         *Friend/ChatButton
       *User/SendFriendRequestButton
+  *Profile/Edit
+    *Profile/Form
   *Friend/Index
     *Friend/Total
     *Friend/Friend

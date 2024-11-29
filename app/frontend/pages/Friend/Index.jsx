@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { useState } from 'react';
 
 function AcceptFriendRequestButton() {
   return <button>Accept Friend Request</button>;
@@ -79,6 +80,8 @@ function Chat({ chat }) {
 }
 
 function MessageBox() {
+  // const [message, setMessage] = useState('');
+
   return (
     <div>
       <input type="text" />
@@ -138,7 +141,9 @@ function NavBar({ user }) {
   );
 }
 
-function ChatIndex({ chats = currentUser.chats }) {
+function ChatIndex({ initialChats = currentUser.chats }) {
+  // const [chats, setChats] = useState(initialChats);
+
   return (
     <div style={{ border: '2px solid blue' }}>
       {chats.map((chat) => (
@@ -188,6 +193,40 @@ function ProfileShow({ profile = currentUser.profile }) {
     <div>
       <Profile profile={profile} />
       <UserActions />
+    </div>
+  );
+}
+
+function ProfileForm({ profile }) {
+  const [username, setUsername] = useState(profile.username);
+  const [picture, setPicture] = useState(profile.picture);
+  const [about, setAbout] = useState(profile.about);
+
+  return (
+    <div>
+      <div>
+        <label htmlFor="username">Username</label>
+        <input type="text" id="username" />
+      </div>
+      <div>
+        <label htmlFor="picture">Picture</label>
+        <input type="text" id="picture" />
+      </div>
+      <div>
+        <label htmlFor="about">About</label>
+        <input type="text" id="about" />
+      </div>
+      <div>
+        <button type="submit">Save</button>
+      </div>
+    </div>
+  );
+}
+
+function ProfileEdit({ profile = currentUser.profile }) {
+  return (
+    <div>
+      <ProfileForm profile={profile} />
     </div>
   );
 }
@@ -355,4 +394,11 @@ function Layout({ user = currentUser }) {
   );
 }
 
-export default PendingFriendIndex;
+// export default ChatIndex;
+// export default MemberListIndex;
+// export default UserIndex;
+// export default ChatShow;
+// export default ProfileShow;
+export default ProfileEdit;
+// export default FriendIndex;
+// export default PendingFriendIndex;
