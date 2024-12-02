@@ -1,8 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
 
-  # inertia_share flash: -> { flash.to_hash }
-
   # GET /profiles
   def index
     @profiles = Profile.all
@@ -16,15 +14,18 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   def show
     user = @profile.user
-    is_friend = Current.user.friends_with?(user)
-    is_outgoing_friend = Current.user.has_outgoing_friend?(user)
-    is_incoming_friend = Current.user.has_incoming_friend?(user)
+
+    if Current.user.friends_with?(user)
+      relationship = "friend"
+    elsif Current.user.has_outgoing_friend?(user)
+      relationship = "outgoingRequest"
+    elsif Current.user.has_incoming_friend?(user)
+      relationship = "incomingRequest"
+    end
 
     render inertia: "Profile/Show", props: {
       profile: serialize_profile(@profile),
-      isFriend: is_friend,
-      isOutgoingFriend: is_outgoing_friend,
-      isIncomingFriend: is_incoming_friend
+      relationship: relationship
     }
   end
 

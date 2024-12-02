@@ -1,27 +1,15 @@
 import { Link } from '@inertiajs/react';
 import api from '../../pathHelpers';
 import styled from 'styled-components';
+import User from '../User/User';
+import UserActions from '../User/Actions';
+import Relationship from '../Profile/Relationship';
 
 function Friend({ className, friend }) {
   return (
     <div className={className}>
-      <div>
-        <Link href={api.profiles.show.path(friend.profile)}>
-          {friend.profile.username}
-        </Link>
-      </div>
-      <div>
-        <Link
-          as="button"
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            api.chats.create({ data: friend });
-          }}
-        >
-          Chat
-        </Link>
-      </div>
+      <User user={friend} />
+      <UserActions user={friend} initialRelationship={Relationship.FRIEND} />
     </div>
   );
 }

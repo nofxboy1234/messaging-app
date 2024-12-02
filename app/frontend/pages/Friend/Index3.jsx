@@ -1,19 +1,15 @@
-import { Head } from '@inertiajs/react';
 import Friend from './Friend';
+import Total from './Total';
 
 export default function Index({ friends }) {
   return (
-    <>
-      <Head title="Friends" />
-
-      <h1>Friends</h1>
+    <div>
+      <Total friends={friends} />
       <div>
         {friends.map((friend) => (
-          <div key={friend.id}>
-            <Friend friend={friend} />
-          </div>
+          <Friend key={friend.id} friend={friend} />
         ))}
       </div>
-    </>
+    </div>
   );
 }

@@ -4,11 +4,7 @@ import api from '../../pathHelpers';
 
 export default function Edit({ profile }) {
   return (
-    <>
-      <Head title="Editing profile" />
-
-      <h1>Editing profile</h1>
-
+    <div>
       <Form
         profile={profile}
         onSubmit={(form) => {
@@ -23,6 +19,6 @@ export default function Edit({ profile }) {
       <div>
         <Link href={api.profiles.show.path(profile)}>Show this profile</Link>
       </div>
-    </>
+    </div>
   );
 }

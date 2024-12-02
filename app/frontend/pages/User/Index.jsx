@@ -1,25 +1,17 @@
-import { Link, Head } from '@inertiajs/react';
-import api from '../../pathHelpers';
+import Total from './Total';
+import User from './User';
 
-export default function Index({ users, flash }) {
+function Index({ users }) {
   return (
     <div>
-      <Head title="Users" />
-
-      {/* {flash.notice && <p style={{ color: 'green' }}>{flash.notice}</p>} */}
-
-      <h1>Users</h1>
+      <Total users={users} />
       <div>
         {users.map((user) => (
-          <div key={user.id}>
-            <p>
-              <Link href={api.profiles.show.path(user.profile)}>
-                {user.profile.username}
-              </Link>
-            </p>
-          </div>
+          <User key={user.id} user={user} />
         ))}
       </div>
     </div>
   );
 }
+
+export default Index;

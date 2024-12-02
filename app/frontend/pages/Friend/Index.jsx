@@ -142,8 +142,6 @@ function NavBar({ user }) {
 }
 
 function ChatIndex({ initialChats = currentUser.chats }) {
-  const [chats, setChats] = useState(initialChats);
-
   return (
     <div style={{ border: '2px solid blue' }}>
       {chats.map((chat) => (

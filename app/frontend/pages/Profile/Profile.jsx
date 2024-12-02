@@ -1,18 +1,22 @@
-export default function Profile({ profile }) {
+import Picture from './Picture';
+import api from '../../pathHelpers';
+import { Link } from '@inertiajs/react';
+
+export default function Profile({ currentUser, profile }) {
+  function currentUserProfile() {
+    return currentUser.id === profile.user.id;
+  }
+
   return (
     <div>
-      <p>
-        <strong>Username:</strong>
-        {profile.username.toString()}
-      </p>
-      <p>
-        <strong>Picture:</strong>
-        {profile.picture.toString()}
-      </p>
-      <p>
-        <strong>About:</strong>
-        {profile.about.toString()}
-      </p>
+      <div>
+        <Picture src={profile.picture} />
+        <div>{profile.username}</div>
+        <div>{profile.about}</div>
+      </div>
+      {currentUserProfile ? (
+        <Link href={api.profiles.edit.path(profile)}>Edit this profile</Link>
+      ) : null}
     </div>
   );
 }

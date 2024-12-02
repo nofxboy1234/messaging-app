@@ -1,10 +1,14 @@
 import styles from './Message.module.css';
+import Picture from '../Profile/Picture';
 
-export default function Message({ message }) {
+function Message({ message }) {
   return (
-    <div className={styles.message}>
-      <div className={styles.username}>{message.user.email.toString()}</div>
-      <div>{message.body.toString()}</div>
+    <div>
+      <Picture src={message.user.profile.picture} />
+      <div>{message.user.profile.username}</div>
+      <div>{message.body}</div>
     </div>
   );
 }
+
+export default Message;
