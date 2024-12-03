@@ -1,5 +1,3 @@
-import { Link } from '@inertiajs/react';
-import api from '../../pathHelpers';
 import styled from 'styled-components';
 import User from '../User/User';
 import UserActions from '../User/Actions';

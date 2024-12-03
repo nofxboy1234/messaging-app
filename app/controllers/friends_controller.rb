@@ -8,10 +8,10 @@ class FriendsController < ApplicationController
     current_user = Current.user
     @friends = current_user.friends
     render inertia: "Friend/Index", props: {
-      # friends: @friends.map do |friend|
-      #   serialized_friend = serialize_friend(friend)
-      #   serialized_friend
-      # end
+      friends: @friends.map do |friend|
+        serialized_friend = serialize_friend(friend)
+        serialized_friend
+      end
       # user: current_user.as_json(include: [
       #   profile: {},
       #   chats: {
