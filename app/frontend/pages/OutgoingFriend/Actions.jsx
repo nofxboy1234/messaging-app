@@ -1,5 +1,5 @@
 import CancelFriendRequestButton from './CancelFriendRequestButton';
-function Actions({ user, setRelationship }) {
+function OutgoingFriendActions({ user, setRelationship }) {
   return (
     <div>
       <CancelFriendRequestButton
@@ -10,4 +10,4 @@ function Actions({ user, setRelationship }) {
   );
 }
 
-export default Actions;
+export default OutgoingFriendActions;

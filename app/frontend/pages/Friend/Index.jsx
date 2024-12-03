@@ -1,10 +1,10 @@
 import Friend from './Friend';
-import Total from './Total';
+import FriendTotal from './Total';
 
-export default function Index({ friends }) {
+function FriendIndex({ friends }) {
   return (
     <div>
-      <Total friends={friends} />
+      <FriendTotal friends={friends} />
       <div>
         {friends.map((friend) => (
           <Friend key={friend.id} friend={friend} />
@@ -13,3 +13,5 @@ export default function Index({ friends }) {
     </div>
   );
 }
+
+export default FriendIndex;

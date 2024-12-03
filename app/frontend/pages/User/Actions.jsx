@@ -5,7 +5,7 @@ import FriendActions from '../Friend/Actions';
 import StrangerActions from '../Stranger/Actions';
 import { useState } from 'react';
 
-function Actions({ user, initialRelationship }) {
+function UserActions({ user, initialRelationship }) {
   const [relationship, setRelationship] = useState(initialRelationship);
 
   let actions;
@@ -35,4 +35,4 @@ function Actions({ user, initialRelationship }) {
   return <div>{actions}</div>;
 }
 
-export default Actions;
+export default UserActions;

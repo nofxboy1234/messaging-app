@@ -1,7 +1,7 @@
 import UnfriendButton from './UnfriendButton';
 import ChatButton from './ChatButton';
 
-function Actions({ friend, setRelationship }) {
+function FriendActions({ friend, setRelationship }) {
   return (
     <div>
       <ChatButton friend={friend} />
@@ -10,4 +10,4 @@ function Actions({ friend, setRelationship }) {
   );
 }
 
-export default Actions;
+export default FriendActions;

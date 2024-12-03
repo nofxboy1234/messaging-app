@@ -1,5 +1,5 @@
-function Picture({ src }) {
+function ProfilePicture({ src }) {
   return <img src={src} alt="Profile picture" />;
 }
 
-export default Picture;
+export default ProfilePicture;

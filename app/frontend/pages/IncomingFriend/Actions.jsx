@@ -1,7 +1,7 @@
 import AcceptFriendRequestButton from './AcceptFriendRequestButton';
 import RejectFriendRequestButton from './RejectFriendRequestButton';
 
-function Actions({ user, setRelationship }) {
+function IncomingFriendActions({ user, setRelationship }) {
   return (
     <div>
       <AcceptFriendRequestButton
@@ -16,4 +16,4 @@ function Actions({ user, setRelationship }) {
   );
 }
 
-export default Actions;
+export default IncomingFriendActions;

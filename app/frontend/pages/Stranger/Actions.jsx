@@ -1,6 +1,6 @@
 import SendFriendRequestButton from './SendFriendRequestButton';
 
-function Actions({ user, setRelationship }) {
+function StrangerActions({ user, setRelationship }) {
   return (
     <div>
       <SendFriendRequestButton user={user} setRelationship={setRelationship} />
@@ -8,4 +8,4 @@ function Actions({ user, setRelationship }) {
   );
 }
 
-export default Actions;
+export default StrangerActions;
