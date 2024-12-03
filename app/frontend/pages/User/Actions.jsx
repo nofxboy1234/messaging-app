@@ -11,7 +11,9 @@ function Actions({ user, initialRelationship }) {
   let actions;
   switch (relationship) {
     case Relationship.FRIEND:
-      actions = <FriendActions user={user} setRelationship={setRelationship} />;
+      actions = (
+        <FriendActions friend={user} setRelationship={setRelationship} />
+      );
       break;
     case Relationship.INCOMING_REQUEST:
       actions = (

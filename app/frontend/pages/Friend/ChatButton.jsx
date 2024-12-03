@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
 import api from '../../pathHelpers';
 
-function ChatButton({ friend, setRelationship }) {
+function ChatButton({ friend }) {
   function handleChat(e) {
     e.preventDefault();
     api.chats.create({ data: friend });
