@@ -1,16 +1,4 @@
 class User < ApplicationRecord
-  def friends_with?(user)
-    Current.user.friends.include?(user)
-  end
-
-  def has_outgoing_friend?(user)
-    Current.user.outgoing_friends.include?(user)
-  end
-
-  def has_incoming_friend?(user)
-    Current.user.incoming_friends.include?(user)
-  end
-
   def find_direct_message_chat_with(friend)
     current_user = Current.user
     mutual_chats = current_user.chats.to_a.intersection(friend.chats.to_a)
@@ -62,6 +50,24 @@ class User < ApplicationRecord
   through: :incoming_friend_requests,
   source: :user
 
+  has_many :messages, dependent: :destroy
+  has_one :profile, dependent: :destroy
+
+  has_many :member_lists
+  has_many :chats, through: :member_lists, dependent: :destroy
+
+  def friends_with?(user)
+    Current.user.friends.include?(user)
+  end
+
+  def has_outgoing_friend?(user)
+    Current.user.outgoing_friends.include?(user)
+  end
+
+  def has_incoming_friend?(user)
+    Current.user.incoming_friends.include?(user)
+  end
+
   def profile_picture
     email_address = email.downcase
     hash = Digest::MD5.hexdigest(email_address)
@@ -78,14 +84,8 @@ class User < ApplicationRecord
     password_salt.last(10)
   end
 
-
   has_many :sessions, dependent: :destroy
   has_many :recovery_codes, dependent: :destroy
-  has_many :messages, dependent: :destroy
-  has_one :profile, dependent: :destroy
-
-  has_many :member_lists
-  has_many :chats, through: :member_lists, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
