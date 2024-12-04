@@ -1,15 +1,37 @@
-// import Friend from './Friend';
-// import Total from './Total';
+import PropTypes from 'prop-types';
+import IncomingFriend from '../IncomingFriend/IncomingFriend';
+import IncomingFriendTotal from '../IncomingFriend/Total';
+import OutgoingFriend from '../OutgoingFriend/OutgoingFriend';
+import OutgoingFriendTotal from '../OutgoingFriend/Total';
 
-// export default function Index({ friends }) {
-//   return (
-//     <div>
-//       <Total friends={friends} />
-//       <div>
-//         {friends.map((friend) => (
-//           <Friend key={friend.id} friend={friend} />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+function PendingFriendIndex({ pendingFriends }) {
+  return (
+    <div>
+      <IncomingFriendTotal incomingFriends={pendingFriends.incoming} />
+      <div>
+        {pendingFriends.incoming.map((incomingFriend) => (
+          <IncomingFriend
+            key={incomingFriend.id}
+            incomingFriend={incomingFriend}
+          />
+        ))}
+      </div>
+
+      <OutgoingFriendTotal outgoingFriends={pendingFriends.outgoing} />
+      <div>
+        {pendingFriends.outgoing.map((outgoingFriend) => (
+          <OutgoingFriend
+            key={outgoingFriend.id}
+            outgoingFriend={outgoingFriend}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+PendingFriendIndex.propTypes = {
+  pendingFriends: PropTypes.array,
+};
+
+export default PendingFriendIndex;

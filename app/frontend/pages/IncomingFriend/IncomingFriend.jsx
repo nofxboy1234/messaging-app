@@ -1,22 +1,29 @@
-import { Link } from '@inertiajs/react';
-import api from '../../pathHelpers';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import User from '../User/User';
+import UserActions from '../User/Actions';
+import Relationship from '../Profile/Relationship';
 
-function IncomingFriend({ className, friend }) {
+function IncomingFriend({ className, incomingFriend }) {
   return (
     <div className={className}>
-      <div>
-        <Link href={api.profiles.show.path(friend.profile)}>
-          {friend.profile.username}
-        </Link>
-      </div>
+      <User user={incomingFriend} />
+      <UserActions
+        user={incomingFriend}
+        initialRelationship={Relationship.INCOMING_REQUEST}
+      />
     </div>
   );
 }
 
-const IncomingStyledFriend = styled(IncomingFriend)`
+IncomingFriend.propTypes = {
+  className: PropTypes.string,
+  incomingFriend: PropTypes.object,
+};
+
+const StyledIncomingFriend = styled(IncomingFriend)`
   display: flex;
   justify-content: space-between;
 `;
 
-export default IncomingStyledFriend;
+export default StyledIncomingFriend;
