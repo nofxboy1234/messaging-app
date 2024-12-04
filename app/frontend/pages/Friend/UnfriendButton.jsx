@@ -3,6 +3,7 @@ import api from '../../pathHelpers';
 import Relationship from '../Profile/Relationship';
 import { useContext } from 'react';
 import { LayoutContext } from '../Layout';
+import PropTypes from 'prop-types';
 
 function UnfriendButton({ friend, setRelationship }) {
   const { setChats } = useContext(LayoutContext);
@@ -31,11 +32,18 @@ function UnfriendButton({ friend, setRelationship }) {
     api.friends.destroy({ obj: friend, options: options });
   }
 
+  console.log('render Friend/UnfriendButton');
+
   return (
     <Link as="button" type="button" onClick={handleUnfriend}>
       Unfriend
     </Link>
   );
 }
+
+UnfriendButton.propTypes = {
+  friend: PropTypes.object,
+  setRelationship: PropTypes.func,
+};
 
 export default UnfriendButton;

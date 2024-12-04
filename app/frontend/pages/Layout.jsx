@@ -1,9 +1,12 @@
+import { useState, createContext } from 'react';
 import { usePage, Link } from '@inertiajs/react';
 import styled from 'styled-components';
+
 import api from '../pathHelpers';
+
 import ChatIndex from './Chat/Index';
 import UserIndex from './User/Index';
-import { useState, createContext } from 'react';
+import PropTypes from 'prop-types';
 
 export const LayoutContext = createContext({
   setChats: () => {},
@@ -13,8 +16,11 @@ export const LayoutContext = createContext({
 const Layout = ({ className, children }) => {
   const { shared } = usePage().props;
 
-  const [chats, setChats] = useState(shared.chats);
-  const [users, setUsers] = useState(shared.users);
+  const initialChats = shared.chats;
+  const initialUsers = shared.users;
+
+  const [chats, setChats] = useState(initialChats);
+  const [users, setUsers] = useState(initialUsers);
 
   console.log('render Layout');
 
@@ -22,6 +28,16 @@ const Layout = ({ className, children }) => {
     <div className={className}>
       <div>
         <Link href="/">Home</Link>
+        {' | '}
+        Friends
+        {' | '}
+        <Link href={api.friends.index.path()}>All</Link>
+        {' | '}
+        <Link href={api.outgoingFriends.index.path()}>Pending</Link>
+        {' | '}
+        <Link href={api.profiles.show.path(shared.profile)}>
+          Profile ({shared.current_user.email.split('@')[0]})
+        </Link>
         <Link
           href={api.sessions.destroy.path(shared.session)}
           as="button"
@@ -30,28 +46,13 @@ const Layout = ({ className, children }) => {
         >
           Log out
         </Link>
-        <Link href={api.profiles.show.path(shared.profile)}>
-          Profile ({shared.current_user.email.split('@')[0]})
-        </Link>
-        {' | '}
-        Friends
-        {' | '}
-        <Link href={api.friends.index.path()}>All</Link>
-        {' | '}
-        <Link href={api.outgoingFriends.index.path()}>
-          Outgoing Friend Requests
-        </Link>
-        {' | '}
-        <Link href={api.incomingFriends.index.path()}>
-          Incoming Friend Requests
-        </Link>
       </div>
 
       <br></br>
 
       <div className="container">
         <div className={'chats'}>
-          <ChatIndex chats={chats} />
+          <ChatIndex initialChats={chats} />
         </div>
 
         <div className={'content'}>
@@ -66,6 +67,11 @@ const Layout = ({ className, children }) => {
       </div>
     </div>
   );
+};
+
+Layout.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.element,
 };
 
 const StyledLayout = styled(Layout)`

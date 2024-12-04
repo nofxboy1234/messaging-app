@@ -4,6 +4,7 @@ import OutgoingFriendActions from '../OutgoingFriend/Actions';
 import FriendActions from '../Friend/Actions';
 import StrangerActions from '../Stranger/Actions';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function UserActions({ user, initialRelationship }) {
   const [relationship, setRelationship] = useState(initialRelationship);
@@ -32,7 +33,14 @@ function UserActions({ user, initialRelationship }) {
       break;
   }
 
+  console.log('render User/Actions');
+
   return <div>{actions}</div>;
 }
+
+UserActions.propTypes = {
+  user: PropTypes.object,
+  initialRelationship: PropTypes.string,
+};
 
 export default UserActions;

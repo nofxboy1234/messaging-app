@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import ChatLink from './Link';
+import PropTypes from 'prop-types';
 
-function Index({ className, initialChats }) {
+function ChatIndex({ className, initialChats }) {
+  console.log('render Chat/Index');
+
   return (
     <div className={className}>
       <div>
@@ -13,8 +16,13 @@ function Index({ className, initialChats }) {
   );
 }
 
-const StyledIndex = styled(Index)`
+ChatIndex.propTypes = {
+  className: PropTypes.string,
+  initialChats: PropTypes.array,
+};
+
+const StyledChatIndex = styled(ChatIndex)`
   padding: 1rem;
 `;
 
-export default StyledIndex;
+export default StyledChatIndex;

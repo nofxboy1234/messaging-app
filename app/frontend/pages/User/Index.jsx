@@ -1,10 +1,13 @@
-import Total from './Total';
+import UserTotal from './Total';
 import User from './User';
+import PropTypes from 'prop-types';
 
-function Index({ users }) {
+function UserIndex({ users }) {
+  console.log('render User/Index');
+
   return (
     <div>
-      <Total users={users} />
+      <UserTotal users={users} />
       <div>
         {users.map((user) => (
           <User key={user.id} user={user} />
@@ -14,4 +17,8 @@ function Index({ users }) {
   );
 }
 
-export default Index;
+UserIndex.propTypes = {
+  users: PropTypes.array,
+};
+
+export default UserIndex;
