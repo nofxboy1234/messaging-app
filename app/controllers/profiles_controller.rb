@@ -21,11 +21,13 @@ class ProfilesController < ApplicationController
       relationship = "outgoingRequest"
     elsif Current.user.has_incoming_friend?(user)
       relationship = "incomingRequest"
+    else
+      relationship = "stranger"
     end
 
     render inertia: "Profile/Show", props: {
       profile: serialize_profile(@profile),
-      relationship: relationship
+      initialRelationship: relationship
     }
   end
 

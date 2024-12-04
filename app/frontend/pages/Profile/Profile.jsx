@@ -1,11 +1,14 @@
 import Picture from './Picture';
 import api from '../../pathHelpers';
 import { Link } from '@inertiajs/react';
+import PropTypes from 'prop-types';
 
-export default function Profile({ currentUser, profile }) {
+function Profile({ currentUser, profile }) {
   function currentUserProfile() {
     return currentUser.id === profile.user.id;
   }
+
+  console.log('render Profile/Profile');
 
   return (
     <div>
@@ -14,9 +17,16 @@ export default function Profile({ currentUser, profile }) {
         <div>{profile.username}</div>
         <div>{profile.about}</div>
       </div>
-      {currentUserProfile ? (
+      {currentUserProfile() ? (
         <Link href={api.profiles.edit.path(profile)}>Edit this profile</Link>
       ) : null}
     </div>
   );
 }
+
+Profile.propTypes = {
+  currentUser: PropTypes.object,
+  profile: PropTypes.object,
+};
+
+export default Profile;

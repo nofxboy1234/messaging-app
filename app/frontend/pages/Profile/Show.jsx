@@ -1,9 +1,12 @@
 import { usePage } from '@inertiajs/react';
 import Profile from './Profile';
 import UserActions from '../User/Actions';
+import PropTypes from 'prop-types';
 
-function Show({ profile, initialRelationship }) {
+function ProfileShow({ profile, initialRelationship }) {
   const { shared } = usePage().props;
+
+  console.log('render Profile/Show');
 
   return (
     <div>
@@ -16,4 +19,9 @@ function Show({ profile, initialRelationship }) {
   );
 }
 
-export default Show;
+ProfileShow.propTypes = {
+  profile: PropTypes.object,
+  initialRelationship: PropTypes.string,
+};
+
+export default ProfileShow;
