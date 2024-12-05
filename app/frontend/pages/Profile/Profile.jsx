@@ -2,8 +2,6 @@ import Picture from './Picture';
 import PropTypes from 'prop-types';
 
 function Profile({ profile }) {
-  console.log('render Profile/Profile');
-
   return (
     <div>
       <Picture src={profile.picture} />

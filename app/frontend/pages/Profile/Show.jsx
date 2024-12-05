@@ -12,8 +12,6 @@ function ProfileShow({ profile, initialRelationship }) {
     return shared.current_user.id === profile.user.id;
   }
 
-  console.log('render Profile/Show');
-
   return (
     <div>
       <Profile profile={profile} />

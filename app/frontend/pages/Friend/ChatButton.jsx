@@ -8,8 +8,6 @@ function ChatButton({ friend }) {
     api.chats.create({ data: friend });
   }
 
-  console.log('render Friend/ChatButton');
-
   return (
     <Link as="button" type="button" onClick={handleChat}>
       Chat

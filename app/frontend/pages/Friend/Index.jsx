@@ -3,8 +3,6 @@ import FriendTotal from './Total';
 import PropTypes from 'prop-types';
 
 function FriendIndex({ friends }) {
-  console.log('render Friend/Index');
-
   return (
     <div>
       <FriendTotal friends={friends} />

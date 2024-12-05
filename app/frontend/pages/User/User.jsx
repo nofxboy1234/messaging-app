@@ -3,8 +3,6 @@ import UserLink from './Link';
 import PropTypes from 'prop-types';
 
 function User({ user }) {
-  console.log('render User/User');
-
   return (
     <div>
       <ProfilePicture src={user.profile.picture} />

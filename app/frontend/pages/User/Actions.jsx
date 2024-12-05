@@ -33,8 +33,6 @@ function UserActions({ user, initialRelationship }) {
       break;
   }
 
-  console.log('render User/Actions');
-
   return <div>{actions}</div>;
 }
 

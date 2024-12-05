@@ -3,8 +3,6 @@ import User from './User';
 import PropTypes from 'prop-types';
 
 function UserIndex({ users }) {
-  console.log('render User/Index');
-
   return (
     <div>
       <UserTotal users={users} />

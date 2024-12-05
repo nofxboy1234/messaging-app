@@ -5,8 +5,6 @@ import Relationship from '../Profile/Relationship';
 import PropTypes from 'prop-types';
 
 function Friend({ className, friend }) {
-  console.log('render Friend/Friend');
-
   return (
     <div className={className}>
       <User user={friend} />

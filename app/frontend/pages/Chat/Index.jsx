@@ -3,8 +3,6 @@ import ChatLink from './Link';
 import PropTypes from 'prop-types';
 
 function ChatIndex({ className, initialChats }) {
-  console.log('render Chat/Index');
-
   return (
     <div className={className}>
       <div>

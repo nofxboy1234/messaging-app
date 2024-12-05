@@ -32,8 +32,6 @@ function UnfriendButton({ friend, setRelationship }) {
     api.friends.destroy({ obj: friend, options: options });
   }
 
-  console.log('render Friend/UnfriendButton');
-
   return (
     <Link as="button" type="button" onClick={handleUnfriend}>
       Unfriend

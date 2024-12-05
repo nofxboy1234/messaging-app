@@ -22,8 +22,6 @@ const Layout = ({ className, children }) => {
   const [chats, setChats] = useState(initialChats);
   const [users, setUsers] = useState(initialUsers);
 
-  console.log('render Layout');
-
   return (
     <div className={className}>
       <div>
