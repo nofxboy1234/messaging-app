@@ -83,7 +83,7 @@ class MessagesController < ApplicationController
     # end
 
     def serialize_message(message)
-      message.as_json(include: :user)
+      message.as_json(include: { user: { include: :profile } })
 
       # message.as_json(only: [
       #   :id, :body, :user_id
