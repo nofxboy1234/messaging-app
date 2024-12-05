@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   root "friends#index"
 
+  resources :outgoing_friends, only: [ :create, :index, :destroy ], export: true
+  resources :incoming_friends, only: [ :index, :destroy ], export: true
+
   resources :chats, only: [ :index, :create, :show ], export: true
   resources :friends, only: [ :index, :create, :destroy ], export: true
-  resources :incoming_friends, only: [ :index, :destroy ], export: true
   resources :member_lists, only: [ :index, :create ], export: true
   resources :messages, only: [ :create, :index ], export: true
-  resources :outgoing_friends, only: [ :create, :index, :destroy ], export: true
   resources :profiles, only: [ :edit, :show, :update ], export: true
   resources :users, only: [ :index ], export: true
 
