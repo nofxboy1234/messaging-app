@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import api from '../../pathHelpers';
 import Relationship from '../Profile/Relationship';
+import PropTypes from 'prop-types';
 
 function RejectFriendRequestButton({ user, setRelationship }) {
   function handleReject(e) {
@@ -10,7 +11,6 @@ function RejectFriendRequestButton({ user, setRelationship }) {
       onBefore: () =>
         confirm(`Accept friend request from ${user.profile.username}?`),
       onFinish: () => {
-        api.friends.create({ data: user });
         setRelationship(Relationship.STRANGER);
       },
     };
@@ -24,5 +24,10 @@ function RejectFriendRequestButton({ user, setRelationship }) {
     </Link>
   );
 }
+
+RejectFriendRequestButton.propTypes = {
+  user: PropTypes.object,
+  setRelationship: PropTypes.func,
+};
 
 export default RejectFriendRequestButton;

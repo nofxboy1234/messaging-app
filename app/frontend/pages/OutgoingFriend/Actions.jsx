@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import CancelFriendRequestButton from './CancelFriendRequestButton';
+
 function OutgoingFriendActions({ user, setRelationship }) {
   return (
     <div>
@@ -9,5 +11,10 @@ function OutgoingFriendActions({ user, setRelationship }) {
     </div>
   );
 }
+
+OutgoingFriendActions.propTypes = {
+  user: PropTypes.object,
+  setRelationship: PropTypes.func,
+};
 
 export default OutgoingFriendActions;

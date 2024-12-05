@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import AcceptFriendRequestButton from './AcceptFriendRequestButton';
 import RejectFriendRequestButton from './RejectFriendRequestButton';
 
@@ -15,5 +16,10 @@ function IncomingFriendActions({ user, setRelationship }) {
     </div>
   );
 }
+
+IncomingFriendActions.propTypes = {
+  user: PropTypes.object,
+  setRelationship: PropTypes.func,
+};
 
 export default IncomingFriendActions;

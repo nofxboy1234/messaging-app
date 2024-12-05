@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import SendFriendRequestButton from './SendFriendRequestButton';
 
 function StrangerActions({ user, setRelationship }) {
@@ -7,5 +8,10 @@ function StrangerActions({ user, setRelationship }) {
     </div>
   );
 }
+
+StrangerActions.propTypes = {
+  user: PropTypes.object,
+  setRelationship: PropTypes.func,
+};
 
 export default StrangerActions;

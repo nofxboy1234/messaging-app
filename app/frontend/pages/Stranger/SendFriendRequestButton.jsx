@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import api from '../../pathHelpers';
 import Relationship from '../Profile/Relationship';
+import PropTypes from 'prop-types';
 
 function SendFriendRequestButton({ user, setRelationship }) {
   function handleSendFriendRequest(e) {
@@ -18,9 +19,14 @@ function SendFriendRequestButton({ user, setRelationship }) {
 
   return (
     <Link as="button" type="button" onClick={handleSendFriendRequest}>
-      Unfriend
+      Send Friend Request
     </Link>
   );
 }
+
+SendFriendRequestButton.propTypes = {
+  user: PropTypes.object,
+  setRelationship: PropTypes.func,
+};
 
 export default SendFriendRequestButton;
