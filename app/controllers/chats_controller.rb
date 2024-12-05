@@ -84,6 +84,6 @@ class ChatsController < ApplicationController
     end
 
     def serialize_chat(chat)
-      chat.as_json(include: [ { messages: { include: :user } }, { members: { include: :profile } } ])
+      chat.as_json(include: [ { messages: { include: { user: { include: :profile } } } }, { members: { include: :profile } } ])
     end
 end
