@@ -18,15 +18,15 @@ createInertiaApp({
 
   resolve: (name) => {
     const pages = import.meta.glob('../pages/**/*.jsx', { eager: true });
-    return pages[`../pages/${name}.jsx`];
+    // return pages[`../pages/${name}.jsx`];
 
     // To use a default layout, import the Layout component
     // and use the following lines.
     // see https://inertia-rails.netlify.app/guide/pages#default-layouts
     //
-    // const page = pages[`../pages/${name}.jsx`];
-    // page.default.layout ||= (page) => createElement(Layout, null, page);
-    // return page;
+    const page = pages[`../pages/${name}.jsx`];
+    page.default.layout ||= (page) => createElement(Layout, null, page);
+    return page;
   },
 
   setup({ el, App, props }) {

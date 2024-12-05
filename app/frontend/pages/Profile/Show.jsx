@@ -4,7 +4,6 @@ import UserActions from '../User/Actions';
 import PropTypes from 'prop-types';
 import { Link } from '@inertiajs/react';
 import api from '../../pathHelpers';
-import Layout from '../Layout';
 
 function ProfileShow({ profile, initialRelationship }) {
   const { shared } = usePage().props;
@@ -34,7 +33,5 @@ ProfileShow.propTypes = {
   profile: PropTypes.object,
   initialRelationship: PropTypes.string,
 };
-
-ProfileShow.layout = (page) => <Layout>{page}</Layout>;
 
 export default ProfileShow;
