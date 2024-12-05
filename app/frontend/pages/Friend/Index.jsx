@@ -7,21 +7,21 @@ function FriendIndex({ friends }) {
   console.log('render Friend/Index');
 
   return (
-    <Layout>
+    <div>
+      <FriendTotal friends={friends} />
       <div>
-        <FriendTotal friends={friends} />
-        <div>
-          {friends.map((friend) => (
-            <Friend key={friend.id} friend={friend} />
-          ))}
-        </div>
+        {friends.map((friend) => (
+          <Friend key={friend.id} friend={friend} />
+        ))}
       </div>
-    </Layout>
+    </div>
   );
 }
 
 FriendIndex.propTypes = {
   friends: PropTypes.array,
 };
+
+FriendIndex.layout = (page) => <Layout>{page}</Layout>;
 
 export default FriendIndex;

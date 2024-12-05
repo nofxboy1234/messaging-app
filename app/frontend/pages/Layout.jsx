@@ -53,6 +53,9 @@ const Layout = ({ className, children }) => {
       <div className="container">
         <div className={'chats'}>
           <ChatIndex initialChats={chats} />
+          <div>
+            <input type="text" />
+          </div>
         </div>
 
         <div className={'content'}>
