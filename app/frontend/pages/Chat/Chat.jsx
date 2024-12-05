@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import Message from '../Message/Message';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-export default function Chat({ chat }) {
+function Chat({ className, chat }) {
   const [messages, setMessages] = useState(chat.messages);
 
   useEffect(() => {
@@ -27,10 +29,26 @@ export default function Chat({ chat }) {
   }, [chat.id]);
 
   return (
-    <div>
-      {messages.map((message) => {
-        return <Message key={message.id} message={message} />;
-      })}
+    <div className={className}>
+      <div>
+        {messages.map((message) => {
+          return <Message key={message.id} message={message} />;
+        })}
+      </div>
     </div>
   );
 }
+
+Chat.propTypes = {
+  chat: PropTypes.object,
+};
+
+const StyledChat = styled(Chat)`
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: auto;
+  height: 300px;
+  border: 1px solid black;
+`;
+
+export default StyledChat;
