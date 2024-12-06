@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   root "friends#index"
 
+  # resources :photos, only: %i[new edit create update] do
+  #   resource :featured_flag, only: %i[create destroy]
+  # end
+
+  resources :pending_friends, controller: :friend_requests, only: %i[index create destroy]
+  # friends -> friendships#index
+
   resources :outgoing_friends, only: [ :create, :index, :destroy ], export: true
   resources :incoming_friends, only: [ :index, :destroy ], export: true
 
