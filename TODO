@@ -30,3 +30,4 @@ backend: ruby
 [ ] - client-side form validations, server-side model validations, error handling
 [ ] - model (rspec) and integration (react testing library) tests
 [ ] - refactor~: rendering/efficiency/readability, status codes
+[ ] - singular resources: e.g /profile
