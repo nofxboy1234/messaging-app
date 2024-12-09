@@ -29,6 +29,6 @@ backend: ruby
 [ ] - change authentication zero to Devise + Pundit
 [ ] - client-side form validations, server-side model validations, error handling
 [ ] - model (rspec) and integration (react testing library) tests
-[ ] - refactor~: rendering/efficiency/readability, status codes
+[ ] - refactor~: rendering/efficiency/readability, status codes, unused functions
 [ ] - singular resources: e.g /profile
 [ ] - compare .includes vs include:
