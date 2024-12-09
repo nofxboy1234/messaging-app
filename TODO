@@ -32,3 +32,4 @@ backend: ruby
 [ ] - refactor~: rendering/efficiency/readability, status codes, unused functions
 [ ] - singular resources: e.g /profile
 [ ] - compare .includes vs include:
+[ ] - compare array.intersection vs inner_join:
