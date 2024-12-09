@@ -1,26 +1,46 @@
-import { Link, Head } from '@inertiajs/react'
-import FriendRequest from './FriendRequest'
+import FriendRequest from './FriendRequest';
+import Direction from './Direction';
+import PropTypes from 'prop-types';
+import { usePage } from '@inertiajs/react';
 
-export default function Index({ friend_requests, flash }) {
+function FriendRequestIndex({ outgoingFriends, incomingFriends }) {
+  const { shared } = usePage().props;
+
   return (
-    <>
-      <Head title="Friend requests" />
+    <div>
+      {shared.flash.notice && (
+        <p style={{ color: 'green' }}>{shared.flash.notice}</p>
+      )}
 
-      {flash.notice && <p style={{ color: 'green' }}>{flash.notice}</p>}
-
-      <h1>Friend requests</h1>
+      <h1>Outgoing Friend Requests</h1>
       <div>
-        {friend_requests.map((friend_request) => (
-          <div key={friend_request.id}>
-            <FriendRequest friend_request={friend_request} />
-            <p>
-              <Link href={`/friend_requests/${friend_request.id}`}>Show this friend request</Link>
-            </p>
-          </div>
+        {outgoingFriends.map((pendingFriend) => (
+          <FriendRequest
+            key={pendingFriend.id}
+            pendingFriend={pendingFriend}
+            direction={Direction.OUTGOING}
+          />
         ))}
       </div>
 
-      <Link href="/friend_requests/new">New friend request</Link>
-    </>
-  )
+      <h1>Incoming Friend Requests</h1>
+      <div>
+        {incomingFriends.map((pendingFriend) => (
+          <FriendRequest
+            key={pendingFriend.id}
+            pendingFriend={pendingFriend}
+            direction={Direction.INCOMING}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
+
+FriendRequestIndex.propTypes = {
+  flash: PropTypes.object,
+  outgoingFriends: PropTypes.array,
+  incomingFriends: PropTypes.array,
+};
+
+export default FriendRequestIndex;

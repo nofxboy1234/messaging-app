@@ -1,33 +1,36 @@
 class FriendRequestsController < ApplicationController
   before_action :set_friend_request, only: %i[ destroy ]
 
-  inertia_share flash: -> { flash.to_hash }
-
-  # GET /friend_requests
   def index
     @friend_requests = FriendRequest.all
+
+    @outgoing_friends = Current.user.outgoing_friends
+    @incoming_friends = Current.user.incoming_friends
+
     render inertia: "FriendRequest/Index", props: {
-      friend_requests: @friend_requests.map do |friend_request|
-        serialize_friend_request(friend_request)
+      outgoingFriends: @outgoing_friends.map do |friend_request|
+        serialize_pending_friend(friend_request)
+      end,
+      incomingFriends: @incoming_friends.map do |friend_request|
+        serialize_pending_friend(friend_request)
       end
     }
   end
 
-  # POST /friend_requests
   def create
     @friend_request = FriendRequest.new(friend_request_params)
+    @friend = User.find(friend_request_params[:friend_id])
 
     if @friend_request.save
-      redirect_to @friend_request, notice: "Friend request was successfully created."
+      redirect_to @friend.profile, notice: "Friend request was successfully created."
     else
-      redirect_to new_friend_request_url, inertia: { errors: @friend_request.errors }
+      redirect_to @friend.profile, inertia: { errors: @friend_request.errors }
     end
   end
 
-  # DELETE /friend_requests/1
   def destroy
     @friend_request.destroy!
-    redirect_to friend_requests_url, notice: "Friend request was successfully destroyed."
+    redirect_back_or_to pending_friends_url, notice: "Friend request was successfully destroyed."
   end
 
   private
@@ -38,12 +41,17 @@ class FriendRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def friend_request_params
-      params.fetch(:friend_request, {})
+      params.require(:friend_request).permit(:user_id, :friend_id)
     end
 
     def serialize_friend_request(friend_request)
-      friend_request.as_json(only: [
-        :id
+      friend_request.as_json(include: [
+        { user: { include: :profile } },
+        { friend: { include: :profile } }
       ])
+    end
+
+    def serialize_pending_friend(pending_friend)
+      pending_friend.as_json(include: :profile)
     end
 end

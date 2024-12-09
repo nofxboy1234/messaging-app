@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # end
 
   resources :pending_friends, controller: :friend_requests,
-             only: %i[index create destroy]
+             only: %i[index create destroy], export: true
   # friends -> friendships#index
 
   resources :outgoing_friends, only: [ :create, :index, :destroy ], export: true

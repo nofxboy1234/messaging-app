@@ -3,7 +3,6 @@ class OutgoingFriendsController < ApplicationController
 
   inertia_share flash: -> { flash.to_hash }
 
-  # GET /outgoing_friends
   def index
     @outgoing_friends = Current.user.outgoing_friends
     render inertia: "OutgoingFriend/Index", props: {
@@ -13,29 +12,6 @@ class OutgoingFriendsController < ApplicationController
     }
   end
 
-  # GET /outgoing_friends/1
-  # def show
-  #   render inertia: "OutgoingFriend/Show", props: {
-  #     outgoing_friend: serialize_outgoing_friend(@outgoing_friend)
-  #   }
-  # end
-
-  # GET /outgoing_friends/new
-  # def new
-  #   @outgoing_friend = OutgoingFriend.new
-  #   render inertia: "OutgoingFriend/New", props: {
-  #     outgoing_friend: serialize_outgoing_friend(@outgoing_friend)
-  #   }
-  # end
-
-  # GET /outgoing_friends/1/edit
-  # def edit
-  #   render inertia: "OutgoingFriend/Edit", props: {
-  #     outgoing_friend: serialize_outgoing_friend(@outgoing_friend)
-  #   }
-  # end
-
-  # POST /outgoing_friends
   def create
     @outgoing_friend = User.find(outgoing_friend_params[:id])
     Current.user.outgoing_friends << @outgoing_friend
@@ -43,16 +19,6 @@ class OutgoingFriendsController < ApplicationController
     head :created
   end
 
-  # PATCH/PUT /outgoing_friends/1
-  # def update
-  #   if @outgoing_friend.update(outgoing_friend_params)
-  #     redirect_to @outgoing_friend, notice: "Outgoing friend was successfully updated."
-  #   else
-  #     redirect_to edit_outgoing_friend_url(@outgoing_friend), inertia: { errors: @outgoing_friend.errors }
-  #   end
-  # end
-
-  # DELETE /outgoing_friends/1
   def destroy
     # @friend.destroy!
     Current.user.outgoing_friends.destroy(@outgoing_friend)
