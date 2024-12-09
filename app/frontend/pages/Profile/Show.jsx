@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from '@inertiajs/react';
 import api from '../../pathHelpers';
 
-function ProfileShow({ profile, initialRelationship }) {
+function ProfileShow({ profile, relationship, friendRequest }) {
   const { shared } = usePage().props;
 
   function currentUserProfile() {
@@ -20,7 +20,8 @@ function ProfileShow({ profile, initialRelationship }) {
       ) : (
         <UserActions
           user={profile.user}
-          initialRelationship={initialRelationship}
+          relationship={relationship}
+          friendRequest={friendRequest}
         />
       )}
     </div>
@@ -29,7 +30,8 @@ function ProfileShow({ profile, initialRelationship }) {
 
 ProfileShow.propTypes = {
   profile: PropTypes.object,
-  initialRelationship: PropTypes.string,
+  relationship: PropTypes.string,
+  friendRequest: PropTypes.object,
 };
 
 export default ProfileShow;

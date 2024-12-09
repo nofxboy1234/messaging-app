@@ -31,7 +31,7 @@ const Layout = ({ className, children }) => {
         {' | '}
         <Link href={api.friends.index.path()}>All</Link>
         {' | '}
-        <Link href={api.pendingFriends.index.path()}>Pending</Link>
+        <Link href={api.friendRequests.index.path()}>Pending</Link>
         {' | '}
         <Link href={api.profiles.show.path(shared.profile)}>
           Profile ({shared.current_user.email.split('@')[0]})

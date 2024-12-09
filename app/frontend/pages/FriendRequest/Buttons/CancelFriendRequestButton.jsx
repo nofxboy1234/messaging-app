@@ -1,18 +1,20 @@
 import { Link } from '@inertiajs/react';
-import api from '../../pathHelpers';
-import Relationship from '../Profile/Relationship';
+import api from '../../../pathHelpers';
 import PropTypes from 'prop-types';
 
-function CancelFriendRequestButton({ user }) {
+function CancelFriendRequestButton({ friendRequest }) {
   function handleCancel(e) {
     e.preventDefault();
 
     const options = {
       onBefore: () =>
-        confirm(`Cancel friend request to ${user.profile.username}?`),
+        confirm(
+          `Cancel friend request to ${friendRequest.friend.profile.username}?`,
+        ),
       onFinish: () => {},
     };
-    api.outgoingFriends.destroy({ obj: user, options: options });
+
+    api.friendRequests.destroy({ obj: friendRequest, options: options });
   }
 
   return (
@@ -23,7 +25,7 @@ function CancelFriendRequestButton({ user }) {
 }
 
 CancelFriendRequestButton.propTypes = {
-  user: PropTypes.object,
+  friendRequest: PropTypes.object,
 };
 
 export default CancelFriendRequestButton;

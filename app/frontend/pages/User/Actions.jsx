@@ -1,34 +1,45 @@
 import Relationship from '../Profile/Relationship';
-import IncomingFriendActions from '../IncomingFriend/Actions';
-import OutgoingFriendActions from '../OutgoingFriend/Actions';
-import FriendActions from '../Friend/Actions';
-import StrangerActions from '../Stranger/Actions';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function UserActions({ user, initialRelationship }) {
-  const [relationship, setRelationship] = useState(initialRelationship);
+import ChatButton from '../Friend/Buttons/ChatButton';
+import UnfriendButton from '../Friend/Buttons/UnfriendButton';
 
+import AcceptFriendRequestButton from '../FriendRequest/Buttons/AcceptFriendRequestButton';
+import CancelFriendRequestButton from '../FriendRequest/Buttons/CancelFriendRequestButton';
+import RejectFriendRequestButton from '../FriendRequest/Buttons/RejectFriendRequestButton';
+import SendFriendRequestButton from '../FriendRequest/Buttons/SendFriendRequestButton';
+
+function UserActions({ user, relationship, friendRequest }) {
   let actions;
   switch (relationship) {
     case Relationship.FRIEND:
       actions = (
-        <FriendActions friend={user} setRelationship={setRelationship} />
+        <div>
+          <ChatButton friend={user} />
+          <UnfriendButton friend={user} />
+        </div>
       );
       break;
     case Relationship.INCOMING_REQUEST:
       actions = (
-        <IncomingFriendActions user={user} setRelationship={setRelationship} />
+        <div>
+          <AcceptFriendRequestButton friendRequest={friendRequest} />
+          <RejectFriendRequestButton friendRequest={friendRequest} />
+        </div>
       );
       break;
     case Relationship.OUTGOING_REQUEST:
       actions = (
-        <OutgoingFriendActions user={user} setRelationship={setRelationship} />
+        <div>
+          <CancelFriendRequestButton friendRequest={friendRequest} />
+        </div>
       );
       break;
     case Relationship.STRANGER:
       actions = (
-        <StrangerActions user={user} setRelationship={setRelationship} />
+        <div>
+          <SendFriendRequestButton user={user} />
+        </div>
       );
       break;
   }
@@ -38,7 +49,8 @@ function UserActions({ user, initialRelationship }) {
 
 UserActions.propTypes = {
   user: PropTypes.object,
-  initialRelationship: PropTypes.string,
+  relationship: PropTypes.string,
+  friendRequest: PropTypes.object,
 };
 
 export default UserActions;

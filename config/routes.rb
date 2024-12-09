@@ -5,12 +5,12 @@ Rails.application.routes.draw do
   #   resource :featured_flag, only: %i[create destroy]
   # end
 
-  resources :pending_friends, controller: :friend_requests,
+  resources :pending_friends, as: :friend_requests, controller: :friend_requests,
              only: %i[index create destroy], export: true
   # friends -> friendships#index
 
-  resources :outgoing_friends, only: [ :create, :index, :destroy ], export: true
-  resources :incoming_friends, only: [ :index, :destroy ], export: true
+  # resources :outgoing_friends, only: [ :create, :index, :destroy ], export: true
+  # resources :incoming_friends, only: [ :index, :destroy ], export: true
 
   resources :chats, only: [ :index, :create, :show ], export: true
   resources :friends, only: [ :index, :create, :destroy ], export: true

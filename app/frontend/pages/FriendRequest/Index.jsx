@@ -1,9 +1,12 @@
-import FriendRequest from './FriendRequest';
-import Direction from './Direction';
+import OutgoingFriendRequest from './OutgoingFriendRequest';
+import IncomingFriendRequest from './IncomingFriendRequest';
 import PropTypes from 'prop-types';
 import { usePage } from '@inertiajs/react';
 
-function FriendRequestIndex({ outgoingFriends, incomingFriends }) {
+function FriendRequestIndex({
+  outgoingFriendRequests,
+  incomingFriendRequests,
+}) {
   const { shared } = usePage().props;
 
   return (
@@ -14,22 +17,20 @@ function FriendRequestIndex({ outgoingFriends, incomingFriends }) {
 
       <h1>Outgoing Friend Requests</h1>
       <div>
-        {outgoingFriends.map((pendingFriend) => (
-          <FriendRequest
-            key={pendingFriend.id}
-            pendingFriend={pendingFriend}
-            direction={Direction.OUTGOING}
+        {outgoingFriendRequests.map((friendRequest) => (
+          <OutgoingFriendRequest
+            key={friendRequest.id}
+            friendRequest={friendRequest}
           />
         ))}
       </div>
 
       <h1>Incoming Friend Requests</h1>
       <div>
-        {incomingFriends.map((pendingFriend) => (
-          <FriendRequest
-            key={pendingFriend.id}
-            pendingFriend={pendingFriend}
-            direction={Direction.INCOMING}
+        {incomingFriendRequests.map((friendRequest) => (
+          <IncomingFriendRequest
+            key={friendRequest.id}
+            friendRequest={friendRequest}
           />
         ))}
       </div>
@@ -39,8 +40,8 @@ function FriendRequestIndex({ outgoingFriends, incomingFriends }) {
 
 FriendRequestIndex.propTypes = {
   flash: PropTypes.object,
-  outgoingFriends: PropTypes.array,
-  incomingFriends: PropTypes.array,
+  outgoingFriendRequests: PropTypes.array,
+  incomingFriendRequests: PropTypes.array,
 };
 
 export default FriendRequestIndex;

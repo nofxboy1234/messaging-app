@@ -2,17 +2,15 @@ class FriendRequestsController < ApplicationController
   before_action :set_friend_request, only: %i[ destroy ]
 
   def index
-    @friend_requests = FriendRequest.all
-
-    @outgoing_friends = Current.user.outgoing_friends
-    @incoming_friends = Current.user.incoming_friends
+    @outgoing_friend_requests = Current.user.outgoing_friend_requests
+    @incoming_friend_requests = Current.user.incoming_friend_requests
 
     render inertia: "FriendRequest/Index", props: {
-      outgoingFriends: @outgoing_friends.map do |friend_request|
-        serialize_pending_friend(friend_request)
+      outgoingFriendRequests: @outgoing_friend_requests.map do |friend_request|
+        serialize_friend_request(friend_request)
       end,
-      incomingFriends: @incoming_friends.map do |friend_request|
-        serialize_pending_friend(friend_request)
+      incomingFriendRequests: @incoming_friend_requests.map do |friend_request|
+        serialize_friend_request(friend_request)
       end
     }
   end
@@ -30,7 +28,7 @@ class FriendRequestsController < ApplicationController
 
   def destroy
     @friend_request.destroy!
-    redirect_back_or_to pending_friends_url, notice: "Friend request was successfully destroyed."
+    redirect_back_or_to friend_requests_url, notice: "Friend request was successfully destroyed."
   end
 
   private
@@ -49,9 +47,5 @@ class FriendRequestsController < ApplicationController
         { user: { include: :profile } },
         { friend: { include: :profile } }
       ])
-    end
-
-    def serialize_pending_friend(pending_friend)
-      pending_friend.as_json(include: :profile)
     end
 end

@@ -24,7 +24,7 @@ class FriendsController < ApplicationController
     @friend = User.find(friend_params[:id])
     Current.user.friends << @friend
 
-    redirect_to incoming_friends_path, notice: "You are now friends with #{@friend.profile.username}"
+    redirect_back_or_to friend_requests_url, notice: "You are now friends with #{@friend.profile.username}"
   end
 
   def destroy

@@ -1,20 +1,25 @@
-import { Link } from '@inertiajs/react';
-import api from '../../pathHelpers';
-import Relationship from '../Profile/Relationship';
+import { Link, usePage } from '@inertiajs/react';
+import api from '../../../pathHelpers';
 import PropTypes from 'prop-types';
 
-function SendFriendRequestButton({ user, setRelationship }) {
+function SendFriendRequestButton({ user }) {
+  const { shared } = usePage().props;
+
   function handleSendFriendRequest(e) {
     e.preventDefault();
 
     const options = {
       onBefore: () =>
         confirm(`Send friend request to ${user.profile.username}?`),
-      onFinish: () => {
-        setRelationship(Relationship.OUTGOING_REQUEST);
-      },
+      onFinish: () => {},
     };
-    api.outgoingFriends.create({ data: user, options });
+
+    const data = {
+      user_id: shared.current_user.id,
+      friend_id: user.id,
+    };
+
+    api.friendRequests.create({ data: data, options });
   }
 
   return (
@@ -26,7 +31,6 @@ function SendFriendRequestButton({ user, setRelationship }) {
 
 SendFriendRequestButton.propTypes = {
   user: PropTypes.object,
-  setRelationship: PropTypes.func,
 };
 
 export default SendFriendRequestButton;

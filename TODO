@@ -31,3 +31,4 @@ backend: ruby
 [ ] - model (rspec) and integration (react testing library) tests
 [ ] - refactor~: rendering/efficiency/readability, status codes
 [ ] - singular resources: e.g /profile
+[ ] - compare .includes vs include:

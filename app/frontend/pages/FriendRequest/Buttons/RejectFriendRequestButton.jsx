@@ -1,19 +1,20 @@
 import { Link } from '@inertiajs/react';
-import api from '../../pathHelpers';
-import Relationship from '../Profile/Relationship';
+import api from '../../../pathHelpers';
 import PropTypes from 'prop-types';
 
-function RejectFriendRequestButton({ user }) {
+function RejectFriendRequestButton({ friendRequest }) {
   function handleReject(e) {
     e.preventDefault();
 
     const options = {
       onBefore: () =>
-        confirm(`Accept friend request from ${user.profile.username}?`),
+        confirm(
+          `Reject friend request from ${friendRequest.user.profile.username}?`,
+        ),
       onFinish: () => {},
     };
 
-    api.incomingFriends.destroy({ obj: user, options: options });
+    api.friendRequests.destroy({ obj: friendRequest, options: options });
   }
 
   return (
@@ -24,7 +25,7 @@ function RejectFriendRequestButton({ user }) {
 }
 
 RejectFriendRequestButton.propTypes = {
-  user: PropTypes.object,
+  friendRequest: PropTypes.object,
 };
 
 export default RejectFriendRequestButton;

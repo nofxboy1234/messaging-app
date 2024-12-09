@@ -1,15 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: %i[ show edit update destroy ]
-
-  # GET /profiles
-  def index
-    @profiles = Profile.all
-    render inertia: "Profile/Index", props: {
-      profiles: @profiles.map do |profile|
-        serialize_profile(profile)
-      end
-    }
-  end
+  before_action :set_profile, only: %i[ show edit update ]
 
   # GET /profiles/1
   def show
@@ -19,23 +9,18 @@ class ProfilesController < ApplicationController
       relationship = "friend"
     elsif Current.user.has_outgoing_friend?(user)
       relationship = "outgoingRequest"
+      friend_request = Current.user.outgoing_friend_requests.find_by(friend: user)
     elsif Current.user.has_incoming_friend?(user)
       relationship = "incomingRequest"
+      friend_request = Current.user.incoming_friend_requests.find_by(user: user)
     else
       relationship = "stranger"
     end
 
     render inertia: "Profile/Show", props: {
       profile: serialize_profile(@profile),
-      initialRelationship: relationship
-    }
-  end
-
-  # GET /profiles/new
-  def new
-    @profile = Profile.new
-    render inertia: "Profile/New", props: {
-      profile: serialize_profile(@profile)
+      relationship: relationship,
+      friendRequest: serialize_friend_request(friend_request)
     }
   end
 
@@ -46,19 +31,6 @@ class ProfilesController < ApplicationController
     }
   end
 
-  # POST /profiles
-  def create
-    # @profile = Profile.new(profile_params)
-    # @profile.user = Current.user
-    @profile = Current.user.build_profile(profile_params)
-
-    if @profile.save
-      redirect_to @profile, notice: "Profile was successfully created."
-    else
-      redirect_to new_profile_url, inertia: { errors: @profile.errors }
-    end
-  end
-
   # PATCH/PUT /profiles/1
   def update
     if @profile.update(profile_params)
@@ -66,12 +38,6 @@ class ProfilesController < ApplicationController
     else
       redirect_to edit_profile_url(@profile), inertia: { errors: @profile.errors }
     end
-  end
-
-  # DELETE /profiles/1
-  def destroy
-    @profile.destroy!
-    redirect_to profiles_url, notice: "Profile was successfully destroyed."
   end
 
   private
@@ -86,8 +52,13 @@ class ProfilesController < ApplicationController
     end
 
     def serialize_profile(profile)
-      profile.as_json(only: [
-        :id, :username, :picture, :about, :user_id
-      ], include: { user: { include: :profile } })
+      profile.as_json(include: { user: { include: :profile } })
+    end
+
+    def serialize_friend_request(friend_request)
+      friend_request.as_json(include: [
+        { user: { include: :profile } },
+        { friend: { include: :profile } }
+      ])
     end
 end

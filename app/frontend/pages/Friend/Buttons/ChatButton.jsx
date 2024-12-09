@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import api from '../../pathHelpers';
+import api from '../../../pathHelpers';
 import PropTypes from 'prop-types';
 
 function ChatButton({ friend }) {

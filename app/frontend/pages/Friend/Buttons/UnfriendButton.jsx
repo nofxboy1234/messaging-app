@@ -1,11 +1,10 @@
 import { Link, usePage } from '@inertiajs/react';
-import api from '../../pathHelpers';
-import Relationship from '../Profile/Relationship';
+import api from '../../../pathHelpers';
 import { useContext } from 'react';
-import { LayoutContext } from '../Layout';
+import { LayoutContext } from '../../Layout';
 import PropTypes from 'prop-types';
 
-function UnfriendButton({ friend, setRelationship }) {
+function UnfriendButton({ friend }) {
   const { setChats } = useContext(LayoutContext);
   const { shared } = usePage().props;
 
@@ -15,7 +14,6 @@ function UnfriendButton({ friend, setRelationship }) {
     const options = {
       onBefore: () => confirm(`Unfriend ${friend.profile.username}?`),
       onFinish: () => {
-        setRelationship(Relationship.STRANGER);
         setChats((chats) => {
           const user1 = shared.profile.username;
           const user2 = friend.profile.username;
@@ -41,7 +39,6 @@ function UnfriendButton({ friend, setRelationship }) {
 
 UnfriendButton.propTypes = {
   friend: PropTypes.object,
-  setRelationship: PropTypes.func,
 };
 
 export default UnfriendButton;
