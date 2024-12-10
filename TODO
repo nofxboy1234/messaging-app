@@ -21,8 +21,8 @@ backend: ruby
 [x] - update backend routes using resourceful routes for :friend_request, :friendships
 [x] - frontend path helpers
 [x] - create chat with user when clicking Chat button
-[.] - refactor controllers
-[ ] - check for any remaining functionality needed to be implemented
+[x] - refactor controllers
+[.] - check for any remaining functionality needed to be implemented
 
  
 [ ] - style and make responsive
