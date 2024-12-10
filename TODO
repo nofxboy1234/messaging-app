@@ -31,5 +31,5 @@ backend: ruby
 [ ] - model (rspec) and integration (react testing library) tests
 [ ] - refactor~: rendering/efficiency/readability, status codes, unused functions
 [ ] - singular resources: e.g /profile
-[ ] - compare .includes vs include:
+[ ] - compare .includes vs include: does as_json include perform a query?
 [ ] - compare array.intersection vs inner_join:
