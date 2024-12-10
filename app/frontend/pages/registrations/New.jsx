@@ -1,9 +1,7 @@
-import { router, Link } from '@inertiajs/react';
 import { useState } from 'react';
-import Layout from '../Layout';
 import api from '../../pathHelpers';
 
-function New({ user }) {
+function New() {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -22,7 +20,6 @@ function New({ user }) {
   function handleSubmit(e) {
     e.preventDefault();
     api.registrations.create({ data: values });
-    // router.post('/sign_up', values);
   }
 
   return (

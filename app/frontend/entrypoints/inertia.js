@@ -25,9 +25,10 @@ createInertiaApp({
     // see https://inertia-rails.netlify.app/guide/pages#default-layouts
     //
     const page = pages[`../pages/${name}.jsx`];
-    page.default.layout ||= name.startsWith('sessions/')
-      ? undefined
-      : (page) => createElement(Layout, null, page);
+    page.default.layout ||=
+      name.startsWith('sessions/') || name.startsWith('registrations/')
+        ? undefined
+        : (page) => createElement(Layout, null, page);
     return page;
   },
 
