@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
     current_user: -> { Current.user },
     session: -> { Current.session },
     profile: -> { Current.user&.profile },
-    chats: -> { Current.user&.chats },
+    chats: -> {
+      chats = Current.user&.chats&.includes(friendship: [ :user, :friend ])
+      # chats = Current.user&.chats
+      chats.as_json(include: { friendship: { include: [ :user, :friend ] } })
+    },
     users: -> {
       users = User.includes(:profile)
       users.as_json(include: :profile)
