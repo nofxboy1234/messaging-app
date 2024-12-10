@@ -22,7 +22,8 @@ backend: ruby
 [x] - frontend path helpers
 [x] - create chat with user when clicking Chat button
 [x] - refactor controllers
-[.] - check for any remaining functionality needed to be implemented
+[.] - Implement profile picture
+[ ] - Reload chats when adding/removing a friend
 
  
 [ ] - style and make responsive
