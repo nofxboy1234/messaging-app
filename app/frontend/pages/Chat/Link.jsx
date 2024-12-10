@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 
 function ChatLink({ chat, friend }) {
   return (
-    <Link href={api.chats.show.path(chat)}>{friend.profile.username}</Link>
+    <div>
+      <Link href={api.chats.show.path(chat)}>{friend.profile.username}</Link>
+    </div>
   );
 }
 
