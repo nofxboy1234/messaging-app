@@ -22,15 +22,14 @@ backend: ruby
 [x] - frontend path helpers
 [x] - create chat with user when clicking Chat button
 [x] - refactor controllers
+[x] - compare .includes vs include: does as_json include perform a query?
+ 
 [.] - Implement profile picture
 [ ] - Reload chats when adding/removing a friend
-
- 
 [ ] - style and make responsive
 [ ] - change authentication zero to Devise + Pundit
 [ ] - client-side form validations, server-side model validations, error handling
 [ ] - model (rspec) and integration (react testing library) tests
-[ ] - refactor~: rendering/efficiency/readability, status codes, unused functions
-[ ] - singular resources: e.g /profile
-[ ] - compare .includes vs include: does as_json include perform a query?
-[ ] - compare array.intersection vs inner_join:
+[ ] - ~refactor: rendering/efficiency/readability, status codes, unused functions
+[ ] - ~singular resources: e.g /profile
+[ ] - ~compare array.intersection vs inner_join:
