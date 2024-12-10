@@ -7,7 +7,11 @@ function ChatIndex({ className, initialChats }) {
     <div className={className}>
       <div>
         {initialChats.map((chat) => (
-          <ChatLink key={chat.id} chat={chat} />
+          <ChatLink
+            key={chat.friend.id}
+            chat={chat.chat}
+            friend={chat.friend}
+          />
         ))}
       </div>
     </div>

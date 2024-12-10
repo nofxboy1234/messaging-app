@@ -2,21 +2,26 @@ class FriendshipsController < ApplicationController
   before_action :set_friendship, only: %i[ destroy ]
 
   def index
-    @friendships_as_sender = Current.user.friendships_as_sender
-    @friendships_as_receiver = Current.user.friendships_as_receiver
+    @friendships = Current.user&.friends&.includes(:profile)&.map do |friend|
+      chat = Current.user&.find_direct_message_chat_with(friend)
+      friendship = Current.user&.find_friendship_with(friend)
+      { friend: friend.as_json(include: :profile),
+        chat: chat,
+        friendship: friendship }
+    end
 
     render inertia: "Friendship/Index", props: {
-      friendshipsAsSender: @friendships_as_sender.map do |friendship|
-        serialize_friendship(friendship)
-      end,
-      friendshipsAsReceiver: @friendships_as_receiver.map do |friendship|
-        serialize_friendship(friendship)
-      end
+      friendships: @friendships
     }
   end
 
   def create
     @friendship = Friendship.new(friendship_params)
+    chat = Chat.new
+    user1 = User.find(@friendship[:user_id])
+    user2 = User.find(@friendship[:friend_id])
+    chat.members << [ user1, user2 ]
+    @friendship.chat = chat
 
     if @friendship.save
       redirect_back_or_to friendships_url, notice: "Friendship was successfully created."

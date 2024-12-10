@@ -3,7 +3,7 @@ import { usePage } from '@inertiajs/react';
 import Friendship from './Friendship';
 import FriendshipTotal from './Total';
 
-function FriendshipIndex({ friendshipsAsSender, friendshipsAsReceiver }) {
+function FriendshipIndex({ friendships }) {
   const { shared } = usePage().props;
 
   return (
@@ -12,24 +12,15 @@ function FriendshipIndex({ friendshipsAsSender, friendshipsAsReceiver }) {
         <p style={{ color: 'green' }}>{shared.flash.notice}</p>
       )}
 
-      <FriendshipTotal
-        friendships={friendshipsAsSender.concat(friendshipsAsReceiver)}
-      />
+      <FriendshipTotal friendships={friendships} />
 
       <div>
-        {friendshipsAsSender.map((friendship) => (
+        {friendships.map((friendship) => (
           <Friendship
-            key={friendship.id}
-            friendship={friendship}
+            key={friendship.friendship.id}
+            friendship={friendship.friendship}
             user={friendship.friend}
-          />
-        ))}
-
-        {friendshipsAsReceiver.map((friendship) => (
-          <Friendship
-            key={friendship.id}
-            friendship={friendship}
-            user={friendship.user}
+            chat={friendship.chat}
           />
         ))}
       </div>
@@ -43,8 +34,7 @@ FriendshipIndex.propTypes = {
 
 FriendshipIndex.propTypes = {
   flash: PropTypes.object,
-  friendshipsAsSender: PropTypes.array,
-  friendshipsAsReceiver: PropTypes.array,
+  friendships: PropTypes.array,
 };
 
 export default FriendshipIndex;

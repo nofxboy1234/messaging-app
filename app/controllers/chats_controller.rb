@@ -8,24 +8,6 @@ class ChatsController < ApplicationController
     }
   end
 
-  def create
-    friendship = chat_params[:friendship]
-    @friendship = Friendship.find(friendship[:id])
-    @direct_message_chat = Chat.find_by(friendship: @friendship)
-
-    unless @direct_message_chat
-      @direct_message_chat = Chat.create!(
-        friendship: @friendship
-      )
-
-      user1 = User.find(friendship[:user_id])
-      user2 = User.find(friendship[:friend_id])
-      @direct_message_chat.members << [ user1, user2 ]
-    end
-
-    redirect_to @direct_message_chat
-  end
-
   private
     def chat_params
       params.require(:chat).permit(friendship: [ :id, :user_id, :friend_id ])

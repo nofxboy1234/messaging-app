@@ -8,9 +8,14 @@ class ApplicationController < ActionController::Base
     session: -> { Current.session },
     profile: -> { Current.user&.profile },
     chats: -> {
-      chats = Current.user&.chats&.includes(friendship: [ :user, :friend ])
+      Current.user&.friends&.includes(:profile)&.map do |friend|
+        chat = Current.user&.find_direct_message_chat_with(friend)
+        { friend: friend.as_json(include: :profile), chat: chat }
+      end
+
+      # chats = Current.user&.chats&.includes(friendship: [ :user, :friend ])
       # chats = Current.user&.chats
-      chats.as_json(include: { friendship: { include: [ :user, :friend ] } })
+      # chats.as_json(include: { hello: {} })
     },
     users: -> {
       users = User.includes(:profile)

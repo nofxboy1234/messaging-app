@@ -8,6 +8,7 @@ class ProfilesController < ApplicationController
     if Current.user.friends_with?(user)
       relationship = "friend"
       friendship = Current.user.friendships.find_by(friend: user)
+      chat = Current.user.find_direct_message_chat_with(user)
     elsif Current.user.has_outgoing_friend?(user)
       relationship = "outgoingRequest"
       friend_request = Current.user.outgoing_friend_requests.find_by(friend: user)
@@ -22,7 +23,8 @@ class ProfilesController < ApplicationController
       profile: serialize_profile(@profile),
       relationship: relationship,
       friendRequest: serialize_friend_request(friend_request),
-      friendship: friendship
+      friendship: friendship,
+      chat: chat
     }
   end
 

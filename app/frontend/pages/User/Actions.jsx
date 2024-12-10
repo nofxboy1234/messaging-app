@@ -9,13 +9,13 @@ import CancelFriendRequestButton from '../FriendRequest/Buttons/CancelFriendRequ
 import RejectFriendRequestButton from '../FriendRequest/Buttons/RejectFriendRequestButton';
 import SendFriendRequestButton from '../FriendRequest/Buttons/SendFriendRequestButton';
 
-function UserActions({ user, relationship, friendRequest, friendship }) {
+function UserActions({ user, relationship, friendRequest, friendship, chat }) {
   let actions;
   switch (relationship) {
     case Relationship.FRIEND:
       actions = (
         <div>
-          <ChatButton friendship={friendship} />
+          <ChatButton chat={chat} />
           <UnfriendButton friendship={friendship} user={user} />
         </div>
       );
@@ -52,6 +52,7 @@ UserActions.propTypes = {
   relationship: PropTypes.string,
   friendRequest: PropTypes.object,
   friendship: PropTypes.object,
+  chat: PropTypes.object,
 };
 
 export default UserActions;

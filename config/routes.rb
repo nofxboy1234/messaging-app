@@ -12,7 +12,7 @@ Rails.application.routes.draw do
              only: %i[index create destroy], export: true
 
   resources :users, only: [ :index ], export: true
-  resources :chats, only: [ :index, :create, :show ], export: true
+  resources :chats, only: [ :index, :show ], export: true
   resources :member_lists, only: [ :index, :create ], export: true
   resources :messages, only: [ :create, :index ], export: true
   resources :profiles, only: [ :edit, :show, :update ], export: true

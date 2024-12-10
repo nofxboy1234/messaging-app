@@ -18,7 +18,6 @@ export default function Show({ chat }) {
 
   return (
     <div>
-      <h1>{chat.name}</h1>
       <Chat chat={chat} />
       <MessageBox chat={chat} />
     </div>
