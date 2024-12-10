@@ -2,10 +2,12 @@ import { Link } from '@inertiajs/react';
 import api from '../../../pathHelpers';
 import PropTypes from 'prop-types';
 
-function ChatButton({ friend }) {
+function ChatButton({ friendship }) {
   function handleChat(e) {
     e.preventDefault();
-    api.chats.create({ data: friend });
+
+    const data = { friendship: { ...friendship } };
+    api.chats.create({ data: data });
   }
 
   return (
@@ -16,7 +18,7 @@ function ChatButton({ friend }) {
 }
 
 ChatButton.propTypes = {
-  friend: PropTypes.object,
+  friendship: PropTypes.object,
 };
 
 export default ChatButton;

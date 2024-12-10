@@ -1,19 +1,6 @@
 class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show ]
 
-  inertia_share flash: -> { flash.to_hash }
-
-  # GET /chats
-  def index
-    @chats = Chat.all
-    render inertia: "Chat/Index", props: {
-      chats: @chats.map do |chat|
-        serialize_chat(chat)
-      end
-    }
-  end
-
-  # GET /chats/1
   def show
     @serialized_chat = serialize_chat(@chat)
     render inertia: "Chat/Show", props: {
@@ -21,66 +8,31 @@ class ChatsController < ApplicationController
     }
   end
 
-  # GET /chats/new
-  # def new
-  #   @chat = Chat.new
-  #   render inertia: "Chat/New", props: {
-  #     chat: serialize_chat(@chat)
-  #   }
-  # end
-
-  # GET /chats/1/edit
-  # def edit
-  #   render inertia: "Chat/Edit", props: {
-  #     chat: serialize_chat(@chat)
-  #   }
-  # end
-
-  # POST /chats
   def create
-    current_user = Current.user
-    @friend = User.find(chat_params[:id])
-    @direct_message_chat = current_user.find_direct_message_chat_with(@friend)
+    friendship = chat_params[:friendship]
+    @friendship = Friendship.find(friendship[:id])
+    @direct_message_chat = Chat.find_by(friendship: @friendship)
 
     unless @direct_message_chat
-      @friendship = current_user.friendships.where(user: @friend).or(current_user.friendships.where(friend: @friend)).take
       @direct_message_chat = Chat.create!(
-        name: "#{current_user.profile.username}_#{@friend.profile.username}",
         friendship: @friendship
       )
-      @direct_message_chat.members << [ current_user, @friend ]
+
+      user1 = User.find(friendship[:user_id])
+      user2 = User.find(friendship[:friend_id])
+      @direct_message_chat.members << [ user1, user2 ]
     end
 
     redirect_to @direct_message_chat
   end
 
-  # PATCH/PUT /chats/1
-  # def update
-  #   if @chat.update(chat_params)
-  #     redirect_to @chat, notice: "Chat was successfully updated."
-  #   else
-  #     redirect_to edit_chat_url(@chat), inertia: { errors: @chat.errors }
-  #   end
-  # end
-
-  # DELETE /chats/1
-  # def destroy
-  #   @chat.destroy!
-  #   redirect_to chats_url, notice: "Chat was successfully destroyed."
-  # end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    # Only allow a list of trusted parameters through.
     def chat_params
-      params.fetch(:chat)
-      # params.require(:chat).permit(:friend)
+      params.require(:chat).permit(friendship: [ :id, :user_id, :friend_id ])
     end
 
     def set_chat
       @chat = Chat.includes(messages: [ :user ]).find(params[:id])
-      # @chat = Chat.includes(:messages).find(params[:id])
-      # @chat = Chat.find(params[:id])
     end
 
     def serialize_chat(chat)

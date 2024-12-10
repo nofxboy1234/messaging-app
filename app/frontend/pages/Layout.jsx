@@ -29,7 +29,7 @@ const Layout = ({ className, children }) => {
         {' | '}
         Friends
         {' | '}
-        <Link href={api.friends.index.path()}>All</Link>
+        <Link href={api.friendships.index.path()}>All</Link>
         {' | '}
         <Link href={api.friendRequests.index.path()}>Pending</Link>
         {' | '}

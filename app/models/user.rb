@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  def find_friendship_with(friend)
+    friendships.where(user: friend).or(friendships.where(friend: friend)).take
+  end
+
   def find_direct_message_chat_with(friend)
     current_user = Current.user
     mutual_chats = current_user.chats.to_a.intersection(friend.chats.to_a)
@@ -24,6 +28,17 @@ class User < ApplicationRecord
       .where.not(id: user.id) # {4}
   },
   through: :friendships
+
+  has_many :friendships_as_sender,
+  class_name: "Friendship",
+  foreign_key: "user_id",
+  dependent: :destroy
+
+  has_many :friendships_as_receiver,
+  class_name: "Friendship",
+  foreign_key: "friend_id",
+  dependent: :destroy
+
 
   # SELECT "users".*
   # FROM "users"

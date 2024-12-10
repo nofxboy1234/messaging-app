@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "friends#index"
+  root "friendships#index"
 
   # resources :photos, only: %i[new edit create update] do
   #   resource :featured_flag, only: %i[create destroy]
@@ -7,17 +7,15 @@ Rails.application.routes.draw do
 
   resources :pending_friends, as: :friend_requests, controller: :friend_requests,
              only: %i[index create destroy], export: true
-  # friends -> friendships#index
 
-  # resources :outgoing_friends, only: [ :create, :index, :destroy ], export: true
-  # resources :incoming_friends, only: [ :index, :destroy ], export: true
+  resources :friends, as: :friendships, controller: :friendships,
+             only: %i[index create destroy], export: true
 
+  resources :users, only: [ :index ], export: true
   resources :chats, only: [ :index, :create, :show ], export: true
-  resources :friends, only: [ :index, :create, :destroy ], export: true
   resources :member_lists, only: [ :index, :create ], export: true
   resources :messages, only: [ :create, :index ], export: true
   resources :profiles, only: [ :edit, :show, :update ], export: true
-  resources :users, only: [ :index ], export: true
 
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create", export: true

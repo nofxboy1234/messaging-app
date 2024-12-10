@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
 
     if Current.user.friends_with?(user)
       relationship = "friend"
+      friendship = Current.user.friendships.find_by(friend: user)
     elsif Current.user.has_outgoing_friend?(user)
       relationship = "outgoingRequest"
       friend_request = Current.user.outgoing_friend_requests.find_by(friend: user)
@@ -20,7 +21,8 @@ class ProfilesController < ApplicationController
     render inertia: "Profile/Show", props: {
       profile: serialize_profile(@profile),
       relationship: relationship,
-      friendRequest: serialize_friend_request(friend_request)
+      friendRequest: serialize_friend_request(friend_request),
+      friendship: friendship
     }
   end
 
