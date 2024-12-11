@@ -24,7 +24,7 @@ backend: ruby
 [x] - refactor controllers
 [x] - compare .includes vs include: does as_json include perform a query?
  
-[.] - Implement profile picture
+[x] - Implement profile picture
 [ ] - Reload chats when adding/removing a friend
 [ ] - style and make responsive
 [ ] - change authentication zero to Devise + Pundit
