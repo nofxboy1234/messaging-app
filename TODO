@@ -25,7 +25,7 @@ backend: ruby
 [x] - compare .includes vs include: does as_json include perform a query?
  
 [x] - Implement profile picture
-[ ] - Reload chats when adding/removing a friend
+[.] - Reload chats when adding/removing a friend
 [ ] - style and make responsive
 [ ] - change authentication zero to Devise + Pundit
 [ ] - client-side form validations, server-side model validations, error handling
