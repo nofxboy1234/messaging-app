@@ -61,7 +61,7 @@ gem "authentication-zero", "~> 4.0"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 # Use Redis adapter to run additional authentication features
-gem "redis", "~> 4.0"
+gem "redis", "~> 5.3"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # Use Pwned to check if a password has been found in any of the huge data breaches [https://github.com/philnash/pwned]
 gem "pwned"
