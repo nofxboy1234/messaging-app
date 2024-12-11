@@ -3,7 +3,6 @@ import { useForm } from '@inertiajs/react';
 export default function Form({ profile, onSubmit, submitText }) {
   const form = useForm({
     username: profile.username || '',
-    picture: profile.picture || '',
     about: profile.about || '',
   });
   const { data, setData, errors, processing } = form;
@@ -28,21 +27,6 @@ export default function Form({ profile, onSubmit, submitText }) {
         />
         {errors.username && (
           <div style={{ color: 'red' }}>{errors.username.join(', ')}</div>
-        )}
-      </div>
-      <div>
-        <label style={{ display: 'block' }} htmlFor="picture">
-          Picture
-        </label>
-        <input
-          type="text"
-          name="picture"
-          id="picture"
-          value={data.picture}
-          onChange={(e) => setData('picture', e.target.value)}
-        />
-        {errors.picture && (
-          <div style={{ color: 'red' }}>{errors.picture.join(', ')}</div>
         )}
       </div>
       <div>
