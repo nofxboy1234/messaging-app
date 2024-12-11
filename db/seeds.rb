@@ -8,56 +8,56 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user1 = User.create!(email: 'user1@example.com', password: 'user1!@#$%^&')
-user2 = User.create!(email: 'user2@example.com', password: 'user2!@#$%^&')
-user3 = User.create!(email: 'user3@example.com', password: 'user3!@#$%^&')
-user4 = User.create!(email: 'user4@example.com', password: 'user4!@#$%^&')
-user5 = User.create!(email: 'user5@example.com', password: 'user5!@#$%^&')
+# user1 = User.create!(email: 'user1@example.com', password: 'user1!@#$%^&')
+# user2 = User.create!(email: 'user2@example.com', password: 'user2!@#$%^&')
+# user3 = User.create!(email: 'user3@example.com', password: 'user3!@#$%^&')
+# user4 = User.create!(email: 'user4@example.com', password: 'user4!@#$%^&')
+# user5 = User.create!(email: 'user5@example.com', password: 'user5!@#$%^&')
 
-Profile.create!(
-                username: user1.email.split('@').first,
-                picture: '',
-                about: "Hello, I am #{user1.email.split('@').first}!",
-                user_id: user1.id
-                )
-Profile.create!(
-  username: user2.email.split('@').first,
-  picture: '',
-  about: "Hello, I am #{user2.email.split('@').first}!",
-  user_id: user2.id
-)
+# Profile.create!(
+#                 username: user1.email.split('@').first,
+#                 picture: '',
+#                 about: "Hello, I am #{user1.email.split('@').first}!",
+#                 user_id: user1.id
+#                 )
+# Profile.create!(
+#   username: user2.email.split('@').first,
+#   picture: '',
+#   about: "Hello, I am #{user2.email.split('@').first}!",
+#   user_id: user2.id
+# )
 
-  Profile.create!(
-  username: user3.email.split('@').first,
-  picture: '',
-  about: "Hello, I am #{user3.email.split('@').first}!",
-  user_id: user3.id
-)
+#   Profile.create!(
+#   username: user3.email.split('@').first,
+#   picture: '',
+#   about: "Hello, I am #{user3.email.split('@').first}!",
+#   user_id: user3.id
+# )
 
-Profile.create!(
-  username: user4.email.split('@').first,
-  picture: '',
-  about: "Hello, I am #{user4.email.split('@').first}!",
-  user_id: user4.id
-)
+# Profile.create!(
+#   username: user4.email.split('@').first,
+#   picture: '',
+#   about: "Hello, I am #{user4.email.split('@').first}!",
+#   user_id: user4.id
+# )
 
-Profile.create!(
-  username: user5.email.split('@').first,
-  picture: '',
-  about: "Hello, I am #{user5.email.split('@').first}!",
-  user_id: user5.id
-)
+# Profile.create!(
+#   username: user5.email.split('@').first,
+#   picture: '',
+#   about: "Hello, I am #{user5.email.split('@').first}!",
+#   user_id: user5.id
+# )
 
-user1.friends << user2
+# user1.friends << user2
 
-current_user = user1
-@friend = user2
-@friendship = current_user.friendships.where(user: @friend).or(current_user.friendships.where(friend: @friend)).take
-chat1 = Chat.create!(
-  name: "#{current_user.profile.username}_#{@friend.profile.username}",
-  friendship: @friendship
-)
-chat1.members << [ current_user, @friend ]
+# current_user = user1
+# @friend = user2
+# @friendship = current_user.friendships.where(user: @friend).or(current_user.friendships.where(friend: @friend)).take
+# chat1 = Chat.create!(
+#   name: "#{current_user.profile.username}_#{@friend.profile.username}",
+#   friendship: @friendship
+# )
+# chat1.members << [ current_user, @friend ]
 
-Message.create!(body: 'Hello user2!', user_id: user1.id, chat_id: chat1.id)
-Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: chat1.id)
+# Message.create!(body: 'Hello user2!', user_id: user1.id, chat_id: chat1.id)
+# Message.create!(body: 'Hello user1!', user_id: user2.id, chat_id: chat1.id)
