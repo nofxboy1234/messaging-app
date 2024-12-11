@@ -1,11 +1,12 @@
-import { Link, Head } from '@inertiajs/react';
-import Form from './Form';
+import { Link } from '@inertiajs/react';
+import ProfileForm from './Form';
 import api from '../../pathHelpers';
+import PropTypes from 'prop-types';
 
-export default function Edit({ profile }) {
+function ProfileEdit({ profile }) {
   return (
     <div>
-      <Form
+      <ProfileForm
         profile={profile}
         onSubmit={(form) => {
           form.transform((data) => ({ profile: data }));
@@ -22,3 +23,9 @@ export default function Edit({ profile }) {
     </div>
   );
 }
+
+ProfileEdit.propTypes = {
+  profile: PropTypes.object,
+};
+
+export default ProfileEdit;

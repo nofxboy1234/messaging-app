@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
-function OutgoingFriendTotal({ outgoingFriends }) {
+function FriendRequestTotal({ outgoingFriends }) {
   return <div>OUTGOING FRIEND REQUESTS-{outgoingFriends.length}</div>;
 }
 
-OutgoingFriendTotal.propTypes = {
+FriendRequestTotal.propTypes = {
   outgoingFriends: PropTypes.array,
 };
 
-export default OutgoingFriendTotal;
+export default FriendRequestTotal;

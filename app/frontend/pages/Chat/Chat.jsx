@@ -40,6 +40,7 @@ function Chat({ className, chat }) {
 }
 
 Chat.propTypes = {
+  className: PropTypes.string,
   chat: PropTypes.object,
 };
 

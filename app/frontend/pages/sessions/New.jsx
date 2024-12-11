@@ -1,9 +1,8 @@
-import { router, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { useState } from 'react';
-import Layout from '../Layout';
 import api from '../../pathHelpers';
 
-function New() {
+function SessionsNew() {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -51,4 +50,4 @@ function New() {
   );
 }
 
-export default New;
+export default SessionsNew;

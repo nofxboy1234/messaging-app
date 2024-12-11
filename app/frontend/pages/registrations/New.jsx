@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import api from '../../pathHelpers';
 
-function New() {
+function RegistrationsNew() {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -53,4 +53,4 @@ function New() {
   );
 }
 
-export default New;
+export default RegistrationsNew;

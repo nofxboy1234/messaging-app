@@ -6,6 +6,7 @@ function ProfilePicture({ className, src }) {
 }
 
 ProfilePicture.propTypes = {
+  className: PropTypes.string,
   src: PropTypes.string,
 };
 

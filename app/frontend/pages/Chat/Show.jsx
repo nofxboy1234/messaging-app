@@ -3,8 +3,9 @@ import MessageBox from './MessageBox';
 import { useEffect, useContext } from 'react';
 import { LayoutContext } from '../Layout';
 import { usePage } from '@inertiajs/react';
+import PropTypes from 'prop-types';
 
-export default function Show({ chat }) {
+function ChatShow({ chat }) {
   const { shared } = usePage().props;
   const { setUsers } = useContext(LayoutContext);
 
@@ -23,3 +24,9 @@ export default function Show({ chat }) {
     </div>
   );
 }
+
+ChatShow.propTypes = {
+  chat: PropTypes.object,
+};
+
+export default ChatShow;

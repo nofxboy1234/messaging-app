@@ -1,4 +1,3 @@
-import styles from './Message.module.css';
 import Picture from '../Profile/Picture';
 
 function Message({ message }) {
@@ -10,5 +9,7 @@ function Message({ message }) {
     </div>
   );
 }
+
+Message.propTypes;
 
 export default Message;

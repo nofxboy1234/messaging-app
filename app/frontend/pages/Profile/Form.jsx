@@ -1,6 +1,7 @@
 import { useForm } from '@inertiajs/react';
+import PropTypes from 'prop-types';
 
-export default function Form({ profile, onSubmit, submitText }) {
+function ProfileForm({ profile, onSubmit, submitText }) {
   const form = useForm({
     username: profile.username || '',
     about: profile.about || '',
@@ -51,3 +52,11 @@ export default function Form({ profile, onSubmit, submitText }) {
     </form>
   );
 }
+
+ProfileForm.propTypes = {
+  profile: PropTypes.object,
+  onSubmit: PropTypes.func,
+  submitText: PropTypes.string,
+};
+
+export default ProfileForm;
