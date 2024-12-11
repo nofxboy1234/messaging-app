@@ -83,12 +83,6 @@ class User < ApplicationRecord
     Current.user.incoming_friends.include?(user)
   end
 
-  def profile_picture
-    email_address = email.downcase
-    hash = Digest::MD5.hexdigest(email_address)
-    "https://www.gravatar.com/avatar/#{hash}"
-  end
-
   has_secure_password
 
   generates_token_for :email_verification, expires_in: 2.days do
