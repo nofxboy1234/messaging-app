@@ -12,7 +12,13 @@ function AcceptFriendRequestButton({ friendRequest }) {
           `Accept friend request from ${friendRequest.user.profile.username}?`,
         ),
       onFinish: () => {
-        api.friendships.create({ data: friendRequest });
+        const options = {
+          onFinish: () => {
+            api.chats.index();
+          },
+        };
+
+        api.friendships.create({ data: friendRequest, options: options });
       },
     };
 
