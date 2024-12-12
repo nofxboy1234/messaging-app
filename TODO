@@ -30,7 +30,8 @@ backend: ruby
 [ ] - change authentication zero to Devise + Pundit
 [ ] - client-side form validations, server-side model validations, error handling
 [ ] - model (rspec) and integration (react testing library) tests
+
 [ ] - ~refactor: rendering/efficiency/readability, status codes, unused functions
 [ ] - ~singular resources: e.g /profile
 [ ] - ~compare array.intersection vs inner_join:
-[ ] - Test out creating a React/Rails app without Vite, Inertia, Turbo-mount etc
+[ ] - ~Test out creating a React/Rails app without Vite, Inertia, Turbo-mount etc
