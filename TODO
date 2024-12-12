@@ -28,8 +28,8 @@ backend: ruby
 [.] - Reload chats when adding/removing a friend
 [ ] - style and make responsive
 [ ] - change authentication zero to Devise + Pundit
-[ ] - client-side form validations, server-side model validations, error handling
 [ ] - model (rspec) and integration (react testing library) tests
+[ ] - ~client-side form validations, server-side model validations, error handling
 
 [ ] - ~refactor: rendering/efficiency/readability, status codes, unused functions
 [ ] - ~singular resources: e.g /profile
