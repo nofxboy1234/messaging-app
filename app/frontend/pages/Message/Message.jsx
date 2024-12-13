@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Picture from '../Profile/Picture';
 import { memo } from 'react';
 
-function Message({ message }) {
+const Message = memo(function Message({ message }) {
   return (
     <div>
       <Picture src={message.user.profile.picture} />
@@ -10,10 +10,10 @@ function Message({ message }) {
       <div>{message.body}</div>
     </div>
   );
-}
+});
 
 Message.propTypes = {
   message: PropTypes.object,
 };
 
-export default memo(Message);
+export default Message;
