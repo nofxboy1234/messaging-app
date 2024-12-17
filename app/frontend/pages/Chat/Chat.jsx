@@ -10,7 +10,7 @@ function Chat({ className, chat }) {
   useEffect(() => {
     const consumer = createConsumer();
     const channel = consumer.subscriptions.create(
-      { channel: 'ChatChannel', id: chat.id },
+      { channel: 'MessageChannel', id: chat.id },
       {
         connected() {},
 

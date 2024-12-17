@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
     @message = Current.user.messages.build(message_params)
     @message.save!
 
-    ChatChannel.broadcast_to(@message.chat, serialize_message(@message))
+    MessageChannel.broadcast_to(@message.chat, serialize_message(@message))
 
     head :created
   end
