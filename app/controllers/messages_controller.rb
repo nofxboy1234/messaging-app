@@ -4,6 +4,7 @@ class MessagesController < ApplicationController
     @message.save!
 
     MessageChannel.broadcast_to(@message.chat, serialize_message(@message))
+    puts "*** backend MessageChannel broadcast_to ***"
 
     head :created
   end

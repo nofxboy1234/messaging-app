@@ -12,11 +12,16 @@ function Chat({ className, chat }) {
     const channel = consumer.subscriptions.create(
       { channel: 'MessageChannel', id: chat.id },
       {
-        connected() {},
+        connected() {
+          console.log('*** frontend MessageChannel connected ***');
+        },
 
-        disconnected() {},
+        disconnected() {
+          console.log('*** frontend MessageChannel disconnected ***');
+        },
 
         received(message) {
+          console.log('*** frontend MessageChannel received ***');
           setMessages((messages) => [...messages, message]);
         },
       },
