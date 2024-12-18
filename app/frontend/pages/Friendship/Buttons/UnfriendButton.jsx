@@ -25,7 +25,10 @@ function UnfriendButton({ friendship, user }) {
       },
     };
 
-    api.friendships.destroy({ obj: friendship, options: options });
+    api.friendships.destroy({
+      obj: friendship,
+      options: options,
+    });
   }
 
   return (

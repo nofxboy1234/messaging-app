@@ -32,6 +32,25 @@ class FriendshipsController < ApplicationController
 
   def destroy
     @friendship.destroy!
+
+    ex_user = User.find(@friendship.user_id)
+    ex_friend = User.find(@friendship.friend_id)
+
+    ex_user_chats = ex_user&.friends&.includes(:profile)&.map do |friend|
+      chat = ex_user&.find_direct_message_chat_with(friend)
+      { friend: friend.as_json(include: :profile), chat: chat }
+    end
+
+    ex_friend_chats = ex_friend&.friends&.includes(:profile)&.map do |friend|
+      chat = ex_friend&.find_direct_message_chat_with(friend)
+      { friend: friend.as_json(include: :profile), chat: chat }
+    end
+
+    ChatChannel.broadcast_to(ex_user, ex_user_chats)
+    ChatChannel.broadcast_to(ex_friend, ex_friend_chats)
+
+    puts "*** backend MessageChannel broadcast_to ***"
+
     redirect_back_or_to friendships_url, notice: "Friendship was successfully destroyed."
   end
 

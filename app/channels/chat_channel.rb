@@ -1,16 +1,15 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
-    puts "*** backend chat channel subscribed"
-    chat = Chat.find(params[:id])
-    stream_for chat
+    puts "*** backend ChatChannel subscribed ***"
+    current_user = User.find(params[:id])
+    stream_for current_user
   end
 
   def unsubscribed
-    puts "*** backend chat channel unsubscribed"
-
-    # Any cleanup needed when channel is unsubscribed
+    puts "*** backend ChatChannel unsubscribed ***"
   end
 
   def receive(data)
+    puts "*** backend ChatChannel receive ***"
   end
 end
