@@ -2,9 +2,40 @@ import PropTypes from 'prop-types';
 import { usePage } from '@inertiajs/react';
 import Friendship from './Friendship';
 import FriendshipTotal from './Total';
+import { useEffect, useState } from 'react';
+import { createConsumer } from '@rails/actioncable';
 
-function FriendshipIndex({ friendships }) {
+function FriendshipIndex({ initialFriendships }) {
+  const [friendships, setFriendships] = useState(initialFriendships);
+
   const { shared } = usePage().props;
+
+  useEffect(() => {
+    const consumer = createConsumer();
+    const channel = consumer.subscriptions.create(
+      { channel: 'FriendshipChannel', id: shared.current_user.id },
+      {
+        connected() {
+          console.log('*** frontend FriendshipChannel connected ***');
+        },
+
+        disconnected() {
+          console.log('*** frontend FriendshipChannel disconnected ***');
+        },
+
+        received(updatedFriendships) {
+          console.log('*** frontend FriendshipChannel received ***');
+          console.log(`updatedFriendships: ${updatedFriendships}`);
+          setFriendships(updatedFriendships);
+        },
+      },
+    );
+
+    return () => {
+      channel.unsubscribe();
+      consumer.disconnect();
+    };
+  }, [shared.current_user]);
 
   return (
     <div>
@@ -29,12 +60,8 @@ function FriendshipIndex({ friendships }) {
 }
 
 FriendshipIndex.propTypes = {
-  friendships: PropTypes.array,
-};
-
-FriendshipIndex.propTypes = {
   flash: PropTypes.object,
-  friendships: PropTypes.array,
+  initialFriendships: PropTypes.array,
 };
 
 export default FriendshipIndex;

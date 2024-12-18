@@ -2,16 +2,10 @@ class FriendshipsController < ApplicationController
   before_action :set_friendship, only: %i[ destroy ]
 
   def index
-    @friendships = Current.user&.friends&.includes(:profile)&.map do |friend|
-      chat = Current.user&.find_direct_message_chat_with(friend)
-      friendship = Current.user&.find_friendship_with(friend)
-      { friend: friend.as_json(include: :profile),
-        chat: chat,
-        friendship: friendship }
-    end
+    @friendships = friendships(Current.user)
 
     render inertia: "Friendship/Index", props: {
-      friendships: @friendships
+      initialFriendships: @friendships
     }
   end
 
@@ -33,28 +27,40 @@ class FriendshipsController < ApplicationController
   def destroy
     @friendship.destroy!
 
-    ex_user = User.find(@friendship.user_id)
-    ex_friend = User.find(@friendship.friend_id)
+    user = User.find(@friendship.user_id)
 
-    ex_user_chats = ex_user&.friends&.includes(:profile)&.map do |friend|
-      chat = ex_user&.find_direct_message_chat_with(friend)
-      { friend: friend.as_json(include: :profile), chat: chat }
-    end
+    ChatChannel.broadcast_to(user, chats(user))
+    FriendshipChannel.broadcast_to(user, friendships(user))
 
-    ex_friend_chats = ex_friend&.friends&.includes(:profile)&.map do |friend|
-      chat = ex_friend&.find_direct_message_chat_with(friend)
-      { friend: friend.as_json(include: :profile), chat: chat }
-    end
+    friend = User.find(@friendship.friend_id)
 
-    ChatChannel.broadcast_to(ex_user, ex_user_chats)
-    ChatChannel.broadcast_to(ex_friend, ex_friend_chats)
+    ChatChannel.broadcast_to(friend, chats(friend))
+    FriendshipChannel.broadcast_to(friend, friendships(friend))
 
-    puts "*** backend MessageChannel broadcast_to ***"
+    profile = User.find(friendship_params[:friend_id]).profile
+    ProfileChannel.broadcast_to(profile, profile.show_data)
 
-    redirect_back_or_to friendships_url, notice: "Friendship was successfully destroyed."
+    head :ok
   end
 
   private
+    def chats(user)
+      user&.friends&.includes(:profile)&.map do |friend|
+        chat = user&.find_direct_message_chat_with(friend)
+        { friend: friend.as_json(include: :profile), chat: chat }
+      end
+    end
+
+    def friendships(user)
+      user&.friends&.includes(:profile)&.map do |friend|
+        chat = user&.find_direct_message_chat_with(friend)
+        friendship = user&.find_friendship_with(friend)
+        { friend: friend.as_json(include: :profile),
+          chat: chat,
+          friendship: friendship }
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_friendship
       @friendship = Friendship.find(params[:id])

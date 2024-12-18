@@ -3,29 +3,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1
   def show
-    user = @profile.user
-
-    if Current.user.friends_with?(user)
-      relationship = "friend"
-      friendship = Current.user.friendships.find_by(friend: user)
-      chat = Current.user.find_direct_message_chat_with(user)
-    elsif Current.user.has_outgoing_friend?(user)
-      relationship = "outgoingRequest"
-      friend_request = Current.user.outgoing_friend_requests.find_by(friend: user)
-    elsif Current.user.has_incoming_friend?(user)
-      relationship = "incomingRequest"
-      friend_request = Current.user.incoming_friend_requests.find_by(user: user)
-    else
-      relationship = "stranger"
-    end
-
-    render inertia: "Profile/Show", props: {
-      profile: serialize_profile(@profile),
-      relationship: relationship,
-      friendRequest: serialize_friend_request(friend_request),
-      friendship: friendship,
-      chat: chat
-    }
+    render inertia: "Profile/Show", props: @profile.show_data
   end
 
   # GET /profiles/1/edit
