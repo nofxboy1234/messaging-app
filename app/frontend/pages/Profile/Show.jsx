@@ -27,8 +27,15 @@ function ProfileShow({
 
   useEffect(() => {
     const consumer = createConsumer();
+    console.log(
+      `Subscribe Profile/Show to ProfileChannel_${profile.id}_${shared.current_user.id}`,
+    );
     const channel = consumer.subscriptions.create(
-      { channel: 'ProfileChannel', id: profile.id },
+      {
+        channel: 'ProfileChannel',
+        profile_id: profile.id,
+        current_user_id: shared.current_user.id,
+      },
       {
         connected() {
           console.log('*** frontend ProfileChannel connected ***');
@@ -40,7 +47,9 @@ function ProfileShow({
 
         received(data) {
           console.log('*** frontend ProfileChannel received ***');
-          console.log(`data: ${data}`);
+          console.log(`ProfileChannel_${profile.id}_${shared.current_user.id}`);
+          console.log(data);
+
           setProfile(data.initialProfile);
           setRelationship(data.initialRelationship);
           setFriendRequest(data.initialFriendRequest);

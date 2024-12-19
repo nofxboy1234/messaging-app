@@ -14,7 +14,7 @@ function AcceptFriendRequestButton({ friendRequest }) {
       onFinish: () => {
         const options = {
           onFinish: () => {
-            api.chats.index();
+            // api.chats.index();
           },
         };
 

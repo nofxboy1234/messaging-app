@@ -26,10 +26,10 @@ function ChatIndex({ className, initialChats }) {
           console.log('*** frontend ChatChannel disconnected ***');
         },
 
-        received(updatedChats) {
+        received(data) {
           console.log('*** frontend ChatChannel received ***');
-          console.log(`updatedChats: ${updatedChats}`);
-          setChats(updatedChats);
+          console.log(data);
+          setChats(data);
         },
       },
     );

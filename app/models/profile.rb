@@ -7,17 +7,21 @@ class Profile < ApplicationRecord
     "https://www.gravatar.com/avatar/#{hash}"
   end
 
-  def show_data
-    if Current.user.friends_with?(user)
+  def show_data(target_user)
+    if target_user.has_friend_as_sender?(user)
       relationship = "friend"
-      friendship = Current.user.friendships.find_by(friend: user)
-      chat = Current.user.find_direct_message_chat_with(user)
-    elsif Current.user.has_outgoing_friend?(user)
+      friendship = target_user.friendships.find_by(friend: user)
+      chat = target_user.find_direct_message_chat_with(user)
+    elsif target_user.has_friend_as_receiver?(user)
+      relationship = "friend"
+      friendship = target_user.friendships.find_by(user: user)
+      chat = target_user.find_direct_message_chat_with(user)
+    elsif target_user.has_outgoing_friend?(user)
       relationship = "outgoingRequest"
-      friend_request = Current.user.outgoing_friend_requests.find_by(friend: user)
-    elsif Current.user.has_incoming_friend?(user)
+      friend_request = target_user.outgoing_friend_requests.find_by(friend: user)
+    elsif target_user.has_incoming_friend?(user)
       relationship = "incomingRequest"
-      friend_request = Current.user.incoming_friend_requests.find_by(user: user)
+      friend_request = target_user.incoming_friend_requests.find_by(user: user)
     else
       relationship = "stranger"
     end

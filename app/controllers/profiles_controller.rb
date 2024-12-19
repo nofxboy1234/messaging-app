@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1
   def show
-    render inertia: "Profile/Show", props: @profile.show_data
+    render inertia: "Profile/Show", props: @profile.show_data(Current.user)
   end
 
   # GET /profiles/1/edit

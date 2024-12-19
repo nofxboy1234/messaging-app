@@ -27,7 +27,7 @@ function UnfriendButton({ friendship, user }) {
 
     api.friendships.destroy({
       obj: friendship,
-      data: { friend_id: user.id },
+      // data: { profile_id: user.profile.id },
       options: options,
     });
   }

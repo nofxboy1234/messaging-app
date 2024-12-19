@@ -4,8 +4,8 @@ class User < ApplicationRecord
   end
 
   def find_direct_message_chat_with(friend)
-    current_user = Current.user
-    mutual_chats = current_user.chats.to_a.intersection(friend.chats.to_a)
+    # current_user = Current.user
+    mutual_chats = chats.to_a.intersection(friend.chats.to_a)
     mutual_chats.find { |chat| chat.members.count === 2 }
   end
 
@@ -34,11 +34,18 @@ class User < ApplicationRecord
   foreign_key: "user_id",
   dependent: :destroy
 
+  has_many :friends_as_sender,
+  through: :friendships_as_sender,
+  source: :friend
+
   has_many :friendships_as_receiver,
   class_name: "Friendship",
   foreign_key: "friend_id",
   dependent: :destroy
 
+  has_many :friends_as_receiver,
+  through: :friendships_as_receiver,
+  source: :user
 
   # SELECT "users".*
   # FROM "users"
@@ -71,16 +78,29 @@ class User < ApplicationRecord
   has_many :member_lists
   has_many :chats, through: :member_lists, dependent: :destroy
 
-  def friends_with?(user)
-    Current.user.friends.include?(user)
+  # def friends_with?(user)
+  #   Current.user.friends.include?(user)
+  # end
+
+  def has_friend_as_sender?(user)
+    friends_as_sender.include?(user)
+    # Current.user.friends_as_sender.include?(user)
   end
 
+  def has_friend_as_receiver?(user)
+    friends_as_receiver.include?(user)
+    # Current.user.friends_as_receiver.include?(user)
+  end
+
+
   def has_outgoing_friend?(user)
-    Current.user.outgoing_friends.include?(user)
+    outgoing_friends.include?(user)
+    # Current.user.outgoing_friends.include?(user)
   end
 
   def has_incoming_friend?(user)
-    Current.user.incoming_friends.include?(user)
+    incoming_friends.include?(user)
+    # Current.user.incoming_friends.include?(user)
   end
 
   has_secure_password
