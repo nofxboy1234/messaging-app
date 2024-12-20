@@ -37,6 +37,18 @@ class FriendRequestsController < ApplicationController
       initialIncomingFriendRequests: friend_requests(friend)[:incoming_friend_requests]
     })
 
+    friend_profile_show_data = user.profile.show_data(friend)
+    ActionCable.server.broadcast(
+      "ProfileChannel_#{user.profile.id}_#{friend.id}",
+      friend_profile_show_data
+    )
+
+    user_profile_show_data = friend.profile.show_data(user)
+    ActionCable.server.broadcast(
+      "ProfileChannel_#{friend.profile.id}_#{user.id}",
+      user_profile_show_data
+    )
+
     head :ok
   end
 
