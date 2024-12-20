@@ -12,13 +12,31 @@ class FriendshipsController < ApplicationController
   def create
     @friendship = Friendship.new(friendship_params)
     chat = Chat.new
-    user1 = User.find(@friendship[:user_id])
-    user2 = User.find(@friendship[:friend_id])
-    chat.members << [ user1, user2 ]
+    user = User.find(@friendship[:user_id])
+    friend = User.find(@friendship[:friend_id])
+    chat.members << [ user, friend ]
     @friendship.chat = chat
 
     if @friendship.save
-      redirect_back_or_to friendships_url, notice: "Friendship was successfully created."
+      ChatChannel.broadcast_to(user, chats(user))
+      ChatChannel.broadcast_to(friend, chats(friend))
+
+      FriendshipChannel.broadcast_to(user, friendships(user))
+      FriendshipChannel.broadcast_to(friend, friendships(friend))
+
+      friend_profile_show_data = user.profile.show_data(friend)
+      ActionCable.server.broadcast(
+        "ProfileChannel_#{user.profile.id}_#{friend.id}",
+        friend_profile_show_data
+      )
+
+      user_profile_show_data = friend.profile.show_data(user)
+      ActionCable.server.broadcast(
+        "ProfileChannel_#{friend.profile.id}_#{user.id}",
+        user_profile_show_data
+      )
+
+      head :ok
     else
       redirect_back_or_to friendships_url, inertia: { errors: @friendship.errors }
     end

@@ -2,12 +2,49 @@ import OutgoingFriendRequest from './OutgoingFriendRequest';
 import IncomingFriendRequest from './IncomingFriendRequest';
 import PropTypes from 'prop-types';
 import { usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
+import { createConsumer } from '@rails/actioncable';
 
 function FriendRequestIndex({
-  outgoingFriendRequests,
-  incomingFriendRequests,
+  initialOutgoingFriendRequests,
+  initialIncomingFriendRequests,
 }) {
+  const [outgoingFriendRequests, setOutgoingFriendRequests] = useState(
+    initialOutgoingFriendRequests,
+  );
+  const [incomingFriendRequests, setIncomingFriendRequests] = useState(
+    initialIncomingFriendRequests,
+  );
+
   const { shared } = usePage().props;
+
+  useEffect(() => {
+    const consumer = createConsumer();
+    const channel = consumer.subscriptions.create(
+      { channel: 'FriendRequestChannel', id: shared.current_user.id },
+      {
+        connected() {
+          console.log('*** frontend FriendRequestChannel connected ***');
+        },
+
+        disconnected() {
+          console.log('*** frontend FriendRequestChannel disconnected ***');
+        },
+
+        received(data) {
+          console.log('*** frontend FriendRequestChannel received ***');
+          console.log(data);
+          setOutgoingFriendRequests(data.initialOutgoingFriendRequests);
+          setIncomingFriendRequests(data.initialIncomingFriendRequests);
+        },
+      },
+    );
+
+    return () => {
+      channel.unsubscribe();
+      consumer.disconnect();
+    };
+  }, [shared.current_user]);
 
   return (
     <div>
@@ -39,9 +76,8 @@ function FriendRequestIndex({
 }
 
 FriendRequestIndex.propTypes = {
-  flash: PropTypes.object,
-  outgoingFriendRequests: PropTypes.array,
-  incomingFriendRequests: PropTypes.array,
+  initialOutgoingFriendRequests: PropTypes.array,
+  initialIncomingFriendRequests: PropTypes.array,
 };
 
 export default FriendRequestIndex;

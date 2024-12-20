@@ -2,16 +2,11 @@ class FriendRequestsController < ApplicationController
   before_action :set_friend_request, only: %i[ destroy ]
 
   def index
-    @outgoing_friend_requests = Current.user.outgoing_friend_requests
-    @incoming_friend_requests = Current.user.incoming_friend_requests
+    @friend_requests = friend_requests(Current.user)
 
     render inertia: "FriendRequest/Index", props: {
-      outgoingFriendRequests: @outgoing_friend_requests.map do |friend_request|
-        serialize_friend_request(friend_request)
-      end,
-      incomingFriendRequests: @incoming_friend_requests.map do |friend_request|
-        serialize_friend_request(friend_request)
-      end
+      initialOutgoingFriendRequests: @friend_requests.outgoing_friend_requests,
+      initialIncomingFriendRequests: @friend_requests.incoming_friend_requests
     }
   end
 
@@ -27,11 +22,36 @@ class FriendRequestsController < ApplicationController
   end
 
   def destroy
+    user = User.find(@friend_request.user_id)
+    friend = User.find(@friend_request.friend_id)
+
     @friend_request.destroy!
-    redirect_back_or_to friend_requests_url, notice: "Friend request was successfully destroyed."
+
+    FriendRequestChannel.broadcast_to(user, {
+      initialOutgoingFriendRequests: friend_requests(user)[:outgoing_friend_requests],
+      initialIncomingFriendRequests: friend_requests(user)[:incoming_friend_requests]
+    })
+
+    FriendRequestChannel.broadcast_to(friend, {
+      initialOutgoingFriendRequests: friend_requests(friend)[:outgoing_friend_requests],
+      initialIncomingFriendRequests: friend_requests(friend)[:incoming_friend_requests]
+    })
+
+    head :ok
   end
 
   private
+    def friend_requests(user)
+      {
+        outgoing_friend_requests: user.outgoing_friend_requests.map do |friend_request|
+          serialize_friend_request(friend_request)
+        end,
+        incoming_friend_requests: user.incoming_friend_requests.map do |friend_request|
+          serialize_friend_request(friend_request)
+        end
+      }
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_friend_request
       @friend_request = FriendRequest.find(params[:id])
