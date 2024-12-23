@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
   before_action :set_friendship, only: %i[ destroy ]
 
   def index
-    @friendships = friendships(Current.user)
+    @friendships = Current.user.friendships_data
 
     render inertia: "Friendship/Index", props: {
       initialFriendships: @friendships
@@ -18,24 +18,6 @@ class FriendshipsController < ApplicationController
     @friendship.chat = chat
 
     if @friendship.save
-      ChatChannel.broadcast_to(user, chats(user))
-      ChatChannel.broadcast_to(friend, chats(friend))
-
-      FriendshipChannel.broadcast_to(user, friendships(user))
-      FriendshipChannel.broadcast_to(friend, friendships(friend))
-
-      friend_profile_show_data = user.profile.show_data(friend)
-      ActionCable.server.broadcast(
-        "ProfileChannel_#{user.profile.id}_#{friend.id}",
-        friend_profile_show_data
-      )
-
-      user_profile_show_data = friend.profile.show_data(user)
-      ActionCable.server.broadcast(
-        "ProfileChannel_#{friend.profile.id}_#{user.id}",
-        user_profile_show_data
-      )
-
       head :ok
     else
       redirect_back_or_to friendships_url, inertia: { errors: @friendship.errors }
@@ -48,15 +30,15 @@ class FriendshipsController < ApplicationController
 
     @friendship.destroy!
 
-    ChatChannel.broadcast_to(user, chats(user))
-    FriendshipChannel.broadcast_to(user, friendships(user))
+    ChatChannel.broadcast_to(user, user.chats_data)
+    FriendshipChannel.broadcast_to(user, user.friendships_data)
     ActionCable.server.broadcast(
       "ProfileChannel_#{user.profile.id}_#{friend.id}",
       user.profile.show_data(friend)
     )
 
-    ChatChannel.broadcast_to(friend, chats(friend))
-    FriendshipChannel.broadcast_to(friend, friendships(friend))
+    ChatChannel.broadcast_to(friend, friend.chats_data)
+    FriendshipChannel.broadcast_to(friend, friend.friendships_data)
     ActionCable.server.broadcast(
       "ProfileChannel_#{friend.profile.id}_#{user.id}",
       friend.profile.show_data(user)
@@ -66,23 +48,6 @@ class FriendshipsController < ApplicationController
   end
 
   private
-    def chats(user)
-      user&.friends&.includes(:profile)&.map do |friend|
-        chat = user&.find_direct_message_chat_with(friend)
-        { friend: friend.as_json(include: :profile), chat: chat }
-      end
-    end
-
-    def friendships(user)
-      user&.friends&.includes(:profile)&.map do |friend|
-        chat = user&.find_direct_message_chat_with(friend)
-        friendship = user&.find_friendship_with(friend)
-        { friend: friend.as_json(include: :profile),
-          chat: chat,
-          friendship: friendship }
-      end
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_friendship
       @friendship = Friendship.find(params[:id])

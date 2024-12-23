@@ -1,14 +1,4 @@
 class User < ApplicationRecord
-  def find_friendship_with(friend)
-    friendships.where(user: friend).or(friendships.where(friend: friend)).take
-  end
-
-  def find_direct_message_chat_with(friend)
-    # current_user = Current.user
-    mutual_chats = chats.to_a.intersection(friend.chats.to_a)
-    mutual_chats.find { |chat| chat.members.count === 2 }
-  end
-
   has_many :friendships,
   ->(user) {
     friendships = Friendship.unscope(where: :user_id)
@@ -81,6 +71,52 @@ class User < ApplicationRecord
   # def friends_with?(user)
   #   Current.user.friends.include?(user)
   # end
+
+  def friend_requests
+    {
+      outgoing_friend_requests: outgoing_friend_requests.map do |friend_request|
+        friend_request.serialize
+      end,
+      incoming_friend_requests: incoming_friend_requests.map do |friend_request|
+        friend_request.serialize
+      end
+    }
+  end
+
+  def find_friendship_with(friend)
+    friendships.where(user: friend).or(friendships.where(friend: friend)).take
+  end
+
+  def find_direct_message_chat_with(friend)
+    # current_user = Current.user
+    mutual_chats = chats.to_a.intersection(friend.chats.to_a)
+    mutual_chats.find { |chat| chat.members.count === 2 }
+  end
+
+  def friendships_data
+    friends.includes(:profile).map do |friend|
+      chat = find_direct_message_chat_with(friend)
+      friendship = find_friendship_with(friend)
+
+      {
+        friend: friend.as_json(include: :profile),
+        chat: chat,
+        friendship: friendship
+      }
+    end
+  end
+
+  def chats_data
+    friends.includes(:profile)&.map do |friend|
+      chat = find_direct_message_chat_with(friend)
+
+      {
+        friend: friend.as_json(include: :profile),
+        chat: chat
+      }
+    end
+  end
+
 
   def has_friend_as_sender?(user)
     friends_as_sender.include?(user)
