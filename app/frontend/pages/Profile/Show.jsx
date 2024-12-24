@@ -24,7 +24,17 @@ function ProfileShow({
     <div>
       <Profile profile={profile} />
       {currentUserProfile() ? (
-        <Link href={api.profiles.edit.path(profile)}>Edit this profile</Link>
+        <div>
+          <Link href={api.profiles.edit.path(profile)}>Edit this profile</Link>
+          <div>
+            <a
+              href="https://gravatar.com/connect/?gravatar_from=signup"
+              target="_blank"
+            >
+              Update avatar
+            </a>
+          </div>
+        </div>
       ) : (
         <UserActions
           profileUser={profile.user}
