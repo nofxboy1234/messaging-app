@@ -8,15 +8,17 @@ function SendFriendRequestButton({ user }) {
   function handleSendFriendRequest(e) {
     e.preventDefault();
 
-    const options = {
-      onBefore: () =>
-        confirm(`Send friend request to ${user.profile.username}?`),
-      onFinish: () => {},
-    };
-
     const data = {
       user_id: shared.current_user.id,
       friend_id: user.id,
+    };
+
+    const options = {
+      onBefore: () =>
+        confirm(`Send friend request to ${user.profile.username}?`),
+      onFinish: () => {
+        api.sendFriendRequestBroadcast.create({ data: data });
+      },
     };
 
     api.friendRequests.create({ data: data, options });

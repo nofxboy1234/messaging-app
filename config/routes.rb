@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :member_lists, only: [ :index, :create ], export: true
   resources :messages, only: [ :create, :index ], export: true
   resources :profiles, only: [ :edit, :show, :update ], export: true
+  resources :send_friend_request_broadcast, only: [ :create ], export: true
   resources :accept_friend_request_broadcast, only: [ :create ], export: true
   resources :cancel_friend_request_broadcast, only: [ :create ], export: true
   resources :unfriend_broadcast, only: [ :create ], export: true

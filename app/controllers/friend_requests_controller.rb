@@ -5,8 +5,8 @@ class FriendRequestsController < ApplicationController
     @friend_requests = Current.user.friend_requests
 
     render inertia: "FriendRequest/Index", props: {
-      initialOutgoingFriendRequests: @friend_requests.outgoing_friend_requests,
-      initialIncomingFriendRequests: @friend_requests.incoming_friend_requests
+      initialOutgoingFriendRequests: @friend_requests[:outgoing_friend_requests],
+      initialIncomingFriendRequests: @friend_requests[:incoming_friend_requests]
     }
   end
 
@@ -15,7 +15,7 @@ class FriendRequestsController < ApplicationController
     @friend = User.find(friend_request_params[:friend_id])
 
     if @friend_request.save
-      redirect_to @friend.profile, notice: "Friend request was successfully created."
+      head :ok
     else
       redirect_to @friend.profile, inertia: { errors: @friend_request.errors }
     end
