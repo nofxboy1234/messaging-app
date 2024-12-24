@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :profiles, only: [ :edit, :show, :update ], export: true
   resources :send_friend_request_broadcast, only: [ :create ], export: true
   resources :accept_friend_request_broadcast, only: [ :create ], export: true
+  resources :reject_friend_request_broadcast, only: [ :create ], export: true
   resources :cancel_friend_request_broadcast, only: [ :create ], export: true
   resources :unfriend_broadcast, only: [ :create ], export: true
 
