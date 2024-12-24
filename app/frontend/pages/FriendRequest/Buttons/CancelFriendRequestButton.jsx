@@ -11,7 +11,9 @@ function CancelFriendRequestButton({ friendRequest }) {
         confirm(
           `Cancel friend request to ${friendRequest.friend.profile.username}?`,
         ),
-      onFinish: () => {},
+      onFinish: () => {
+        api.cancelFriendRequestBroadcast.create({ data: friendRequest });
+      },
     };
 
     api.friendRequests.destroy({ obj: friendRequest, options: options });

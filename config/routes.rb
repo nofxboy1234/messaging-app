@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :messages, only: [ :create, :index ], export: true
   resources :profiles, only: [ :edit, :show, :update ], export: true
   resources :accept_friend_request_broadcast, only: [ :create ], export: true
+  resources :cancel_friend_request_broadcast, only: [ :create ], export: true
 
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create", export: true
