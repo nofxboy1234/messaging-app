@@ -7,3 +7,4 @@ export { default as sessions } from './sessions';
 export { default as registrations } from './registrations';
 export { default as acceptFriendRequestBroadcast } from './acceptFriendRequestBroadcast';
 export { default as cancelFriendRequestBroadcast } from './cancelFriendRequestBroadcast';
+export { default as unfriendBroadcast } from './unfriendBroadcast';

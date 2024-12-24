@@ -12,22 +12,12 @@ function UnfriendButton({ friendship, user }) {
     const options = {
       onBefore: () => confirm(`Unfriend ${user.profile.username}?`),
       onFinish: () => {
-        // setChats((chats) => {
-        //   const user1 = shared.profile.username;
-        //   const user2 = friend.profile.username;
-        //   const updatedChats = chats.filter(
-        //     (chat) =>
-        //       chat.name !== `${user1}_${user2}` &&
-        //       chat.name !== `${user2}_${user1}`,
-        //   );
-        //   return updatedChats;
-        // });
+        api.unfriendBroadcast.create({ data: friendship });
       },
     };
 
     api.friendships.destroy({
       obj: friendship,
-      // data: { profile_id: user.profile.id },
       options: options,
     });
   }

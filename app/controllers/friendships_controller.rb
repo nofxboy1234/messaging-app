@@ -25,25 +25,7 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    user = User.find(@friendship.user_id)
-    friend = User.find(@friendship.friend_id)
-
     @friendship.destroy!
-
-    ChatChannel.broadcast_to(user, user.chats_data)
-    FriendshipChannel.broadcast_to(user, user.friendships_data)
-    ActionCable.server.broadcast(
-      "ProfileChannel_#{user.profile.id}_#{friend.id}",
-      user.profile.show_data(friend)
-    )
-
-    ChatChannel.broadcast_to(friend, friend.chats_data)
-    FriendshipChannel.broadcast_to(friend, friend.friendships_data)
-    ActionCable.server.broadcast(
-      "ProfileChannel_#{friend.profile.id}_#{user.id}",
-      friend.profile.show_data(user)
-    )
-
     head :ok
   end
 
