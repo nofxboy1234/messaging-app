@@ -28,10 +28,10 @@ class Profile < ApplicationRecord
 
     {
       initialProfile: serialize,
-      initialRelationship: relationship,
-      initialFriendRequest: friend_request&.serialize,
-      initialFriendship: friendship,
-      initialChat: chat
+      relationship: relationship,
+      friendRequest: friend_request&.serialize,
+      friendship: friendship,
+      chat: chat
     }
   end
 

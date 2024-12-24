@@ -23,17 +23,11 @@ function FriendRequestIndex({
     const channel = consumer.subscriptions.create(
       { channel: 'FriendRequestChannel', id: shared.current_user.id },
       {
-        connected() {
-          console.log('*** frontend FriendRequestChannel connected ***');
-        },
+        connected() {},
 
-        disconnected() {
-          console.log('*** frontend FriendRequestChannel disconnected ***');
-        },
+        disconnected() {},
 
         received(data) {
-          console.log('*** frontend FriendRequestChannel received ***');
-          console.log(data);
           setOutgoingFriendRequests(data.initialOutgoingFriendRequests);
           setIncomingFriendRequests(data.initialIncomingFriendRequests);
         },

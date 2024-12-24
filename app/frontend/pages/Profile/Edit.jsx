@@ -11,6 +11,7 @@ function ProfileEdit({ profile }) {
         onSubmit={(form) => {
           form.transform((data) => ({ profile: data }));
           form.patch(`/profiles/${profile.id}`);
+          //
         }}
         submitText="Update profile"
       />

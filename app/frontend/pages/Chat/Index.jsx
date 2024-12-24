@@ -10,25 +10,16 @@ function ChatIndex({ className, initialChats }) {
 
   const { shared } = usePage().props;
 
-  // console.log('chats');
-  // console.log(chats);
-
   useEffect(() => {
     const consumer = createConsumer();
     const channel = consumer.subscriptions.create(
       { channel: 'ChatChannel', id: shared.current_user.id },
       {
-        connected() {
-          console.log('*** frontend ChatChannel connected ***');
-        },
+        connected() {},
 
-        disconnected() {
-          console.log('*** frontend ChatChannel disconnected ***');
-        },
+        disconnected() {},
 
         received(data) {
-          console.log('*** frontend ChatChannel received ***');
-          console.log(data);
           setChats(data);
         },
       },

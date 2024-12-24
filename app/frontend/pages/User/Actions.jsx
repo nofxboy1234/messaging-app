@@ -9,14 +9,57 @@ import CancelFriendRequestButton from '../FriendRequest/Buttons/CancelFriendRequ
 import RejectFriendRequestButton from '../FriendRequest/Buttons/RejectFriendRequestButton';
 import SendFriendRequestButton from '../FriendRequest/Buttons/SendFriendRequestButton';
 
-function UserActions({ user, relationship, friendRequest, friendship, chat }) {
+import { useEffect, useState } from 'react';
+import { createConsumer } from '@rails/actioncable';
+import { usePage } from '@inertiajs/react';
+
+function UserActions({
+  profileUser,
+  initialRelationship,
+  initialFriendRequest,
+  initialFriendship,
+  initialChat,
+}) {
+  const [chat, setChat] = useState(initialChat);
+  const [friendRequest, setFriendRequest] = useState(initialFriendRequest);
+  const [friendship, setFriendship] = useState(initialFriendship);
+  const [relationship, setRelationship] = useState(initialRelationship);
+
+  const { shared } = usePage().props;
+
+  useEffect(() => {
+    const consumer = createConsumer();
+    const channel = consumer.subscriptions.create(
+      {
+        channel: 'RelationshipChannel',
+        profile_id: profileUser.profile.id,
+        current_user_id: shared.current_user.id,
+      },
+      {
+        connected() {},
+        disconnected() {},
+        received(data) {
+          setRelationship(data.relationship);
+          setFriendRequest(data.friendRequest);
+          setFriendship(data.friendship);
+          setChat(data.chat);
+        },
+      },
+    );
+
+    return () => {
+      channel.unsubscribe();
+      consumer.disconnect();
+    };
+  }, [profileUser.profile.id, shared.current_user.id]);
+
   let actions;
   switch (relationship) {
     case Relationship.FRIEND:
       actions = (
         <div>
           <ChatButton chat={chat} />
-          <UnfriendButton friendship={friendship} user={user} />
+          <UnfriendButton friendship={friendship} user={profileUser} />
         </div>
       );
       break;
@@ -38,7 +81,7 @@ function UserActions({ user, relationship, friendRequest, friendship, chat }) {
     case Relationship.STRANGER:
       actions = (
         <div>
-          <SendFriendRequestButton user={user} />
+          <SendFriendRequestButton user={profileUser} />
         </div>
       );
       break;
@@ -48,11 +91,11 @@ function UserActions({ user, relationship, friendRequest, friendship, chat }) {
 }
 
 UserActions.propTypes = {
-  user: PropTypes.object,
-  relationship: PropTypes.string,
-  friendRequest: PropTypes.object,
-  friendship: PropTypes.object,
-  chat: PropTypes.object,
+  profileUser: PropTypes.object,
+  initialRelationship: PropTypes.string,
+  initialFriendRequest: PropTypes.object,
+  initialFriendship: PropTypes.object,
+  initialChat: PropTypes.object,
 };
 
 export default UserActions;

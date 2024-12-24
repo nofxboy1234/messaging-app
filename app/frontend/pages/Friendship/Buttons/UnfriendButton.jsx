@@ -3,9 +3,6 @@ import api from '../../../pathHelpers';
 import PropTypes from 'prop-types';
 
 function UnfriendButton({ friendship, user }) {
-  // const { setChats } = useContext(LayoutContext);
-  // const { shared } = usePage().props;
-
   function handleUnfriend(e) {
     e.preventDefault();
 

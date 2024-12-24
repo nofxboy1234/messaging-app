@@ -15,17 +15,11 @@ function FriendshipIndex({ initialFriendships }) {
     const channel = consumer.subscriptions.create(
       { channel: 'FriendshipChannel', id: shared.current_user.id },
       {
-        connected() {
-          console.log('*** frontend FriendshipChannel connected ***');
-        },
+        connected() {},
 
-        disconnected() {
-          console.log('*** frontend FriendshipChannel disconnected ***');
-        },
+        disconnected() {},
 
         received(updatedFriendships) {
-          console.log('*** frontend FriendshipChannel received ***');
-          console.log(`updatedFriendships: ${updatedFriendships}`);
           setFriendships(updatedFriendships);
         },
       },
