@@ -9,9 +9,15 @@ function ProfileEdit({ profile }) {
       <ProfileForm
         profile={profile}
         onSubmit={(form) => {
+          const options = {
+            onFinish: () => {
+              api.profileBroadcast.create({ data: profile });
+            },
+          };
+
           form.transform((data) => ({ profile: data }));
-          form.patch(`/profiles/${profile.id}`);
-          //
+          form.patch(api.profiles.update.path(profile), options);
+          // form.patch(`/profiles/${profile.id}`);
         }}
         submitText="Update profile"
       />

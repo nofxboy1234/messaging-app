@@ -16,6 +16,7 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   def update
     if @profile.update(profile_params)
+      # head :ok
       redirect_to @profile, notice: "Profile was successfully updated."
     else
       redirect_to edit_profile_url(@profile), inertia: { errors: @profile.errors }
@@ -30,7 +31,7 @@ class ProfilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def profile_params
-      params.require(:profile).permit(:username, :picture, :about)
+      params.require(:profile).permit(:username, :about)
     end
 
     def serialize_profile(profile)

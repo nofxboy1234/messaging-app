@@ -23,6 +23,10 @@ class BroadcastController < ApplicationController
       ActionCable.server.broadcast(
         "RelationshipChannel_#{profile_owner.profile.id}_#{viewer.id}",
         profile_show_data
-      )
+        )
+    end
+
+    def broadcast_profile(profile)
+      ProfileChannel.broadcast_to(profile, profile.serialize)
     end
 end

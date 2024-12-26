@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :reject_friend_request_broadcast, only: [ :create ], export: true
   resources :cancel_friend_request_broadcast, only: [ :create ], export: true
   resources :unfriend_broadcast, only: [ :create ], export: true
+  resources :profile_broadcast, only: [ :create ], export: true
 
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create", export: true

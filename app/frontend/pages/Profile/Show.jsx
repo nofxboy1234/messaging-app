@@ -4,16 +4,14 @@ import UserActions from '../User/Actions';
 import PropTypes from 'prop-types';
 import { Link } from '@inertiajs/react';
 import api from '../../pathHelpers';
-import { useState } from 'react';
 
 function ProfileShow({
-  initialProfile,
+  profile,
   relationship,
   friendRequest,
   friendship,
   chat,
 }) {
-  const [profile, setProfile] = useState(initialProfile);
   const { shared } = usePage().props;
 
   function currentUserProfile() {
@@ -22,7 +20,7 @@ function ProfileShow({
 
   return (
     <div>
-      <Profile profile={profile} />
+      <Profile initialProfile={profile} />
       {currentUserProfile() ? (
         <div>
           <Link href={api.profiles.edit.path(profile)}>Edit this profile</Link>
@@ -49,7 +47,7 @@ function ProfileShow({
 }
 
 ProfileShow.propTypes = {
-  initialProfile: PropTypes.object,
+  profile: PropTypes.object,
   relationship: PropTypes.string,
   friendRequest: PropTypes.object,
   friendship: PropTypes.object,

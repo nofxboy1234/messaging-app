@@ -27,7 +27,7 @@ class Profile < ApplicationRecord
     end
 
     {
-      initialProfile: serialize,
+      profile: serialize,
       relationship: relationship,
       friendRequest: friend_request&.serialize,
       friendship: friendship,

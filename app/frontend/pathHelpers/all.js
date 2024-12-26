@@ -10,3 +10,4 @@ export { default as acceptFriendRequestBroadcast } from './acceptFriendRequestBr
 export { default as rejectFriendRequestBroadcast } from './rejectFriendRequestBroadcast';
 export { default as cancelFriendRequestBroadcast } from './cancelFriendRequestBroadcast';
 export { default as unfriendBroadcast } from './unfriendBroadcast';
+export { default as profileBroadcast } from './profileBroadcast';
