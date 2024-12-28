@@ -1,4 +1,3 @@
-import { useState, createContext } from 'react';
 import { usePage, Link } from '@inertiajs/react';
 import styled from 'styled-components';
 
@@ -8,19 +7,8 @@ import ChatIndex from './Chat/Index';
 import UserIndex from './User/Index';
 import PropTypes from 'prop-types';
 
-export const LayoutContext = createContext({
-  setChats: () => {},
-  setUsers: () => {},
-});
-
 const Layout = ({ className, children }) => {
   const { shared } = usePage().props;
-
-  const initialChats = shared.chats;
-  const initialUsers = shared.users;
-
-  const [chats, setChats] = useState(initialChats);
-  const [users, setUsers] = useState(initialUsers);
 
   return (
     <div className={className}>
@@ -50,17 +38,13 @@ const Layout = ({ className, children }) => {
 
       <div className="container">
         <div className={'chats'}>
-          <ChatIndex initialChats={chats} />
+          <ChatIndex initialChats={shared.chats} />
         </div>
 
-        <div className={'content'}>
-          <LayoutContext.Provider value={{ setChats, setUsers }}>
-            {children}
-          </LayoutContext.Provider>
-        </div>
+        <div className={'content'}>{children}</div>
 
         <div className={'users'}>
-          <UserIndex users={users} />
+          <UserIndex initialUsers={shared.users} />
         </div>
       </div>
     </div>

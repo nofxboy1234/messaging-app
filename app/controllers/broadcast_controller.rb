@@ -18,6 +18,16 @@ class BroadcastController < ApplicationController
       ChatChannel.broadcast_to(user, user.chats_data)
     end
 
+    def broadcast_users(user, chat)
+      if chat
+        users = chat.members.includes(:profile).as_json(include: :profile)
+      else
+        users = User.includes(:profile).as_json(include: :profile)
+      end
+
+      UserChannel.broadcast_to(user, users)
+    end
+
     def broadcast_relationship(profile_owner, viewer)
       profile_show_data = profile_owner.profile.show_data(viewer)
       ActionCable.server.broadcast(

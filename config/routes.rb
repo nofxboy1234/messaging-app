@@ -11,8 +11,7 @@ Rails.application.routes.draw do
   resources :friends, as: :friendships, controller: :friendships,
              only: %i[index create destroy], export: true
 
-  resources :users, only: [ :index ], export: true
-  resources :chats, only: [ :index, :show ], export: true
+  resources :chats, only: [ :show ], export: true
   resources :member_lists, only: [ :index, :create ], export: true
   resources :messages, only: [ :create, :index ], export: true
   resources :profiles, only: [ :edit, :show, :update ], export: true
@@ -22,6 +21,7 @@ Rails.application.routes.draw do
   resources :cancel_friend_request_broadcast, only: [ :create ], export: true
   resources :unfriend_broadcast, only: [ :create ], export: true
   resources :profile_broadcast, only: [ :create ], export: true
+  resources :users_broadcast, only: [ :create ], export: true
 
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create", export: true

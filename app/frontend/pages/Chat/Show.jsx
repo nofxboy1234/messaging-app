@@ -1,21 +1,24 @@
 import Chat from './Chat';
 import MessageBox from './MessageBox';
-import { useEffect, useContext } from 'react';
-import { LayoutContext } from '../Layout';
+import { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 import PropTypes from 'prop-types';
+import api from '../../pathHelpers';
 
 function ChatShow({ chat }) {
   const { shared } = usePage().props;
-  const { setUsers } = useContext(LayoutContext);
 
   useEffect(() => {
-    setUsers(chat.members);
+    api.usersBroadcast.create({
+      data: { user_id: shared.current_user.id, chat_id: chat.id },
+    });
 
     return () => {
-      setUsers(shared.users);
+      api.usersBroadcast.create({
+        data: { user_id: shared.current_user.id, chat_id: undefined },
+      });
     };
-  }, [chat.members, setUsers, shared.users]);
+  }, [chat.id, shared.current_user.id]);
 
   return (
     <div>
