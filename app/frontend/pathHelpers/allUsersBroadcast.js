@@ -3,7 +3,7 @@ import helper from './helper';
 
 export default {
   create: helper({
-    apiHelper: apiHelpers.usersBroadcast.create,
-    model: 'users_broadcast',
+    apiHelper: apiHelpers.allUsersBroadcast.create,
+    model: 'all_users_broadcast',
   }),
 };

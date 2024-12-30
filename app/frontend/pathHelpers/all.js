@@ -11,4 +11,5 @@ export { default as rejectFriendRequestBroadcast } from './rejectFriendRequestBr
 export { default as cancelFriendRequestBroadcast } from './cancelFriendRequestBroadcast';
 export { default as unfriendBroadcast } from './unfriendBroadcast';
 export { default as profileBroadcast } from './profileBroadcast';
-export { default as usersBroadcast } from './usersBroadcast';
+export { default as chatUsersBroadcast } from './chatUsersBroadcast';
+export { default as allUsersBroadcast } from './allUsersBroadcast';

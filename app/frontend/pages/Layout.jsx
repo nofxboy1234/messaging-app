@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 
 const Layout = ({ className, children }) => {
   const { shared } = usePage().props;
+  const { chat } = usePage().props;
+  const component = usePage().component;
 
   return (
     <div className={className}>
@@ -44,7 +46,12 @@ const Layout = ({ className, children }) => {
         <div className={'content'}>{children}</div>
 
         <div className={'users'}>
-          <UserIndex initialUsers={shared.users} />
+          <UserIndex
+            initialUsers={
+              component === 'Chat/Show' ? chat.members : shared.users
+            }
+            chat={chat}
+          />
         </div>
       </div>
     </div>
