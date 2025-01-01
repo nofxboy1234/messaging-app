@@ -13,3 +13,4 @@ export { default as unfriendBroadcast } from './unfriendBroadcast';
 export { default as profileBroadcast } from './profileBroadcast';
 export { default as chatUsersBroadcast } from './chatUsersBroadcast';
 export { default as allUsersBroadcast } from './allUsersBroadcast';
+export { default as perUserAllUsersBroadcast } from './perUserAllUsersBroadcast';

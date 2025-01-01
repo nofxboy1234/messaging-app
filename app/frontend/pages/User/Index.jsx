@@ -14,7 +14,12 @@ function UserIndex({ initialUsers, chat }) {
     const consumer = createConsumer();
     let channel;
 
-    function subscribe(channelName, params, connectedCallback) {
+    function subscribe(
+      channelName,
+      params,
+      connectedCallback,
+      receivedCallback,
+    ) {
       console.log(`subscribe to ${channelName}`);
 
       channel = consumer.subscriptions.create(
@@ -22,12 +27,19 @@ function UserIndex({ initialUsers, chat }) {
         {
           connected() {
             console.log(`${channelName} connected`);
-            connectedCallback();
+
+            if (connectedCallback) {
+              connectedCallback();
+            }
           },
 
           received(users) {
             console.log(`${channelName} received`);
             setUsers(users);
+
+            if (receivedCallback) {
+              receivedCallback();
+            }
           },
         },
       );
@@ -48,10 +60,22 @@ function UserIndex({ initialUsers, chat }) {
         );
       } else {
         const connectedCallback = () => {
-          api.allUsersBroadcast.create();
+          api.perUserAllUsersBroadcast.create({
+            data: { user_id: shared.current_user.id },
+          });
         };
 
-        subscribe('AllUserChannel', {}, connectedCallback);
+        const receivedCallback = () => {
+          channel.unsubscribe();
+          subscribe('AllUserChannel');
+        };
+
+        subscribe(
+          'PerUserAllUserChannel',
+          { id: shared.current_user.id },
+          connectedCallback,
+          receivedCallback,
+        );
       }
     }
 

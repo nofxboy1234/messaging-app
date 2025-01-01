@@ -28,6 +28,10 @@ class BroadcastController < ApplicationController
       ActionCable.server.broadcast("AllUserChannel", users)
     end
 
+    def broadcast_all_users_to_user(user)
+      users = User.includes(:profile).as_json(include: :profile)
+      PerUserAllUserChannel.broadcast_to(user, users)
+    end
 
     def broadcast_relationship(profile_owner, viewer)
       profile_show_data = profile_owner.profile.show_data(viewer)

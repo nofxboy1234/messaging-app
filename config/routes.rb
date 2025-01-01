@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :profile_broadcast, only: [ :create ], export: true
   resources :chat_users_broadcast, only: [ :create ], export: true
   resources :all_users_broadcast, only: [ :create ], export: true
+  resources :per_user_all_users_broadcast, only: [ :create ], export: true
 
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create", export: true
