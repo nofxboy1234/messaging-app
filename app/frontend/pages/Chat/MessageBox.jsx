@@ -1,8 +1,11 @@
 import api from '../../pathHelpers';
 import { useState } from 'react';
+import { usePage } from '@inertiajs/react';
+import PropTypes from 'prop-types';
 
 function MessageBox({ chat }) {
   const [message, setMessage] = useState('');
+  const { shared } = usePage().props;
 
   function handleChange(e) {
     setMessage(e.target.value);
@@ -14,6 +17,7 @@ function MessageBox({ chat }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     if (message === '') return;
 
     const data = {
@@ -21,7 +25,15 @@ function MessageBox({ chat }) {
       chat_id: chat.id,
     };
 
-    api.messages.create({ data: data });
+    const options = {
+      onFinish: () => {
+        api.sendMessageBroadcast.create({
+          data: { user_id: shared.current_user.id, chat_id: chat.id },
+        });
+      },
+    };
+
+    api.messages.create({ data: data, options: options });
     clearMessage();
   }
 
@@ -41,5 +53,9 @@ function MessageBox({ chat }) {
     </div>
   );
 }
+
+MessageBox.propTypes = {
+  chat: PropTypes.object,
+};
 
 export default MessageBox;

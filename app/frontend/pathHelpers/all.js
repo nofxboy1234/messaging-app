@@ -14,3 +14,4 @@ export { default as profileBroadcast } from './profileBroadcast';
 export { default as chatUsersBroadcast } from './chatUsersBroadcast';
 export { default as allUsersBroadcast } from './allUsersBroadcast';
 export { default as perUserAllUsersBroadcast } from './perUserAllUsersBroadcast';
+export { default as sendMessageBroadcast } from './sendMessageBroadcast';

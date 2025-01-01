@@ -18,6 +18,15 @@ class BroadcastController < ApplicationController
       ChatChannel.broadcast_to(user, user.chats_data)
     end
 
+    def serialize_message(message)
+      message.as_json(include: { user: { include: :profile } })
+    end
+
+    def broadcast_last_message(chat, user)
+      message = chat.messages.where(user: user).last
+      MessageChannel.broadcast_to(chat, serialize_message(message))
+    end
+
     def broadcast_chat_users(user, chat)
       users = chat.members.includes(:profile).as_json(include: :profile)
       ChatUserChannel.broadcast_to(user, users)
