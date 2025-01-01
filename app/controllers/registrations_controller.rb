@@ -15,12 +15,9 @@ class RegistrationsController < ApplicationController
     if @user.save
       session_record = @user.sessions.create!
       cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
-
-      # send_email_verification
       redirect_to root_path, notice: "Welcome! You have signed up successfully"
     else
       render inertia: "registrations/New", props: { user: @user, errors: @user.errors, status: :unprocessable_entity }
-      # render :new, status: :unprocessable_entity
     end
   end
 

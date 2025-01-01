@@ -19,7 +19,14 @@ function RegistrationsNew() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    api.registrations.create({ data: values });
+
+    const options = {
+      onFinish: () => {
+        api.allUsersBroadcast.create();
+      },
+    };
+
+    api.registrations.create({ data: values, options: options });
   }
 
   return (
