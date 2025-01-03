@@ -5,13 +5,15 @@ import styled from 'styled-components';
 
 function ChatLink({ className, chat, friend }) {
   return (
-    <div className={className}>
-      <Link href={api.chats.show.path(chat)}>{friend.profile.username}</Link>
+    <div className={className} onClick={() => api.chats.show({ obj: chat })}>
+      {friend.profile.username}
+      {/* <Link href={api.chats.show.path(chat)}>{friend.profile.username}</Link> */}
     </div>
   );
 }
 
 ChatLink.propTypes = {
+  className: PropTypes.string,
   chat: PropTypes.object,
   friend: PropTypes.object,
 };
