@@ -19,6 +19,8 @@ const StyledOutgoingFriendRequest = styled(OutgoingFriendRequest)`
   justify-content: space-between;
   background-color: #3ca7ff;
   border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.3rem;
 `;
 
 OutgoingFriendRequest.propTypes = {

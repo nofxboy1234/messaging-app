@@ -21,7 +21,8 @@ const StyledFriendship = styled(Friendship)`
   justify-content: space-between;
   background-color: #ffc444;
   border: 1px solid black;
-  padding: 0.5rem;
+  border-radius: 5px;
+  padding: 0.3rem;
 `;
 
 Friendship.propTypes = {

@@ -21,6 +21,8 @@ const StyledIncomingFriendRequest = styled(IncomingFriendRequest)`
   justify-content: space-between;
   background-color: rgb(110, 255, 97);
   border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.3rem;
 `;
 
 IncomingFriendRequest.propTypes = {
