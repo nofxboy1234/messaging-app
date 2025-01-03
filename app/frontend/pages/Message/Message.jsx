@@ -17,6 +17,9 @@ const StyledMessage = styled(Message)`
   background-color: #9e63fd;
   border-radius: 5px;
   margin: 0.5rem;
+  &:hover {
+    background-color: white;
+  }
 `;
 
 Message.propTypes = {

@@ -22,6 +22,10 @@ const StyledChatLink = styled(ChatLink)`
   border-radius: 5px;
   margin: 0.5rem;
   padding: 0.3rem;
+  &:hover {
+    background-color: white;
+    cursor: pointer;
+  }
 `;
 
 export default StyledChatLink;
