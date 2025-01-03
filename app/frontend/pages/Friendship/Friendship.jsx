@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import User from '../User/User';
 import ChatButton from './Buttons/ChatButton';
 import UnfriendButton from './Buttons/UnfriendButton';
+import ProfileLink from '../Profile/Link';
 
 function Friendship({ className, friendship, user, chat }) {
   return (
     <div className={className}>
-      <User user={user} />
+      <ProfileLink user={user} />
       <div>
         <ChatButton chat={chat} />
         <UnfriendButton friendship={friendship} user={user} />

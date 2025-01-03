@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import User from '../User/User';
 import CancelFriendRequestButton from './Buttons/CancelFriendRequestButton';
+import ProfileLink from '../Profile/Link';
 
 function OutgoingFriendRequest({ className, friendRequest }) {
   return (
     <div className={className}>
-      <User user={friendRequest.friend} />
+      <ProfileLink user={friendRequest.friend} />
       <div>
         <CancelFriendRequestButton friendRequest={friendRequest} />
       </div>
