@@ -46,15 +46,17 @@ const StyledLayout = styled(Layout)`
   }
 
   .chats {
+    flex: 1;
   }
 
   .content {
     padding: 1rem;
-    flex: 4 1 0%;
+    flex: 6 1 0%;
     background-color: #ae87e0;
   }
 
   .users {
+    flex: 1.5;
     background-color: #fff893;
     padding: 1rem;
   }
