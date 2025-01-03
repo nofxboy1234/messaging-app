@@ -1,6 +1,7 @@
 import { usePage } from '@inertiajs/react';
 import Profile from './Profile';
 import UserActions from '../User/Actions';
+import ProfileActions from './Actions';
 import PropTypes from 'prop-types';
 import { Link } from '@inertiajs/react';
 import api from '../../pathHelpers';
@@ -22,17 +23,7 @@ function ProfileShow({
     <div>
       <Profile initialProfile={profile} />
       {currentUserProfile() ? (
-        <div>
-          <Link href={api.profiles.edit.path(profile)}>Edit this profile</Link>
-          <div>
-            <a
-              href="https://gravatar.com/connect/?gravatar_from=signup"
-              target="_blank"
-            >
-              Update avatar
-            </a>
-          </div>
-        </div>
+        <ProfileActions profile={profile} />
       ) : (
         <UserActions
           profileUser={profile.user}
