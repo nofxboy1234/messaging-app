@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import UserTotal from './Total';
-import User from './User';
 import PropTypes from 'prop-types';
 import { createConsumer } from '@rails/actioncable';
 import { usePage } from '@inertiajs/react';
 import api from '../../pathHelpers';
+import ProfileLink from '../Profile/Link';
 
 function UserIndex({ initialUsers, chat }) {
   const [users, setUsers] = useState(initialUsers);
@@ -97,7 +97,7 @@ function UserIndex({ initialUsers, chat }) {
       <UserTotal users={users} />
       <div>
         {users.map((user) => (
-          <User key={user.id} user={user} />
+          <ProfileLink key={user.id} user={user} />
         ))}
       </div>
     </div>

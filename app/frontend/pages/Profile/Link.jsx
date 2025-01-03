@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import User from '../User/User';
 
-function ChatLink({ chat, friend }) {
-  return <User user={friend} targetPath={api.chats.show.path(chat)} />;
+function ProfileLink({ user }) {
+  return <User user={user} targetPath={api.profiles.show.path(user.profile)} />;
 }
 
-ChatLink.propTypes = {
-  chat: PropTypes.object,
-  friend: PropTypes.object,
+ProfileLink.propTypes = {
+  user: PropTypes.object,
 };
 
-const StyledChatLink = styled(ChatLink)`
+const StyledProfileLink = styled(ProfileLink)`
   border: 1px solid black;
   background-color: #ffe46c;
   border-radius: 5px;
@@ -24,4 +23,4 @@ const StyledChatLink = styled(ChatLink)`
   }
 `;
 
-export default StyledChatLink;
+export default StyledProfileLink;

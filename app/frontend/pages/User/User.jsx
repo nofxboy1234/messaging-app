@@ -3,17 +3,19 @@ import ProfilePicture from '../Profile/Picture';
 import UserLink from './Link';
 import PropTypes from 'prop-types';
 
-function User({ className, user }) {
+function User({ className, user, targetPath }) {
   return (
     <div className={className}>
       <ProfilePicture src={user.profile.picture} />
-      <UserLink user={user} />
+      <UserLink user={user} targetPath={targetPath} />
     </div>
   );
 }
 
 User.propTypes = {
+  className: PropTypes.string,
   user: PropTypes.object,
+  targetPath: PropTypes.string,
 };
 
 const StyledUser = styled(User)`

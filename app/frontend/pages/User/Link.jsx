@@ -1,17 +1,13 @@
 import { Link } from '@inertiajs/react';
-import api from '../../pathHelpers';
 import PropTypes from 'prop-types';
 
-function UserLink({ user }) {
-  return (
-    <Link href={api.profiles.show.path(user.profile)}>
-      {user.profile.username}
-    </Link>
-  );
+function UserLink({ user, targetPath }) {
+  return <Link href={targetPath}>{user.profile.username}</Link>;
 }
 
 UserLink.propTypes = {
   user: PropTypes.object,
+  targetPath: PropTypes.string,
 };
 
 export default UserLink;
