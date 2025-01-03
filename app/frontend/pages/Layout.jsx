@@ -1,11 +1,10 @@
-import { usePage, Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import styled from 'styled-components';
-
-import api from '../pathHelpers';
 
 import ChatIndex from './Chat/Index';
 import UserIndex from './User/Index';
 import PropTypes from 'prop-types';
+import NavBar from './NavBar';
 
 const Layout = ({ className, children }) => {
   const { shared } = usePage().props;
@@ -13,27 +12,7 @@ const Layout = ({ className, children }) => {
 
   return (
     <div className={className}>
-      <div>
-        <Link href="/">Home</Link>
-        {' | '}
-        Friends
-        {' | '}
-        <Link href={api.friendships.index.path()}>All</Link>
-        {' | '}
-        <Link href={api.friendRequests.index.path()}>Pending</Link>
-        {' | '}
-        <Link href={api.profiles.show.path(shared.profile)}>
-          Profile ({shared.current_user.email.split('@')[0]})
-        </Link>
-        <Link
-          href={api.sessions.destroy.path(shared.session)}
-          as="button"
-          type="button"
-          method="delete"
-        >
-          Log out
-        </Link>
-      </div>
+      <NavBar />
 
       <br></br>
 
