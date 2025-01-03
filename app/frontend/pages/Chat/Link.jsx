@@ -19,6 +19,9 @@ ChatLink.propTypes = {
 const StyledChatLink = styled(ChatLink)`
   border: 1px solid black;
   background-color: #ffe46c;
+  border-radius: 5px;
+  margin: 0.5rem;
+  padding: 0.3rem;
 `;
 
 export default StyledChatLink;

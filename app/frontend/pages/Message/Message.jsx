@@ -14,8 +14,8 @@ function Message({ className, message }) {
 
 const StyledMessage = styled(Message)`
   border: 1px solid black;
-  border-radius: 5px;
   background-color: #9e63fd;
+  border-radius: 5px;
   margin: 0.5rem;
 `;
 

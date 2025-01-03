@@ -55,7 +55,7 @@ const StyledChatIndex = styled(ChatIndex)`
   display: flex;
   flex-direction: column;
   height: 1170px;
-  padding: 1rem;
+  padding: 0.1rem;
   background-color: #4df0d5;
 `;
 

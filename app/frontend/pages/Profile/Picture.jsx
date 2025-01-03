@@ -11,7 +11,7 @@ ProfilePicture.propTypes = {
 };
 
 const StyledProfilePicture = styled(ProfilePicture)`
-  width: 42px;
+  width: 32px;
   border-radius: 50%;
 `;
 

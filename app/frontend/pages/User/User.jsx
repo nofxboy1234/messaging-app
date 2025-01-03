@@ -19,7 +19,8 @@ User.propTypes = {
 const StyledUser = styled(User)`
   background-color: #5fffaf;
   border: 1px solid black;
-  padding: 0.5rem;
+  border-radius: 5px;
+  padding: 0.3rem;
 `;
 
 export default StyledUser;
