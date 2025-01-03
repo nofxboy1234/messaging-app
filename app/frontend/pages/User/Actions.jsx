@@ -12,8 +12,10 @@ import SendFriendRequestButton from '../FriendRequest/Buttons/SendFriendRequestB
 import { useEffect, useState } from 'react';
 import { createConsumer } from '@rails/actioncable';
 import { usePage } from '@inertiajs/react';
+import styled from 'styled-components';
 
 function UserActions({
+  className,
   profileUser,
   initialRelationship,
   initialFriendRequest,
@@ -87,7 +89,7 @@ function UserActions({
       break;
   }
 
-  return <div>{actions}</div>;
+  return <div className={className}>{actions}</div>;
 }
 
 UserActions.propTypes = {
@@ -98,4 +100,10 @@ UserActions.propTypes = {
   initialChat: PropTypes.object,
 };
 
-export default UserActions;
+const StyledUserActions = styled(UserActions)`
+  border: 1px solid black;
+  background-color: #00ffdd;
+  padding: 0.5rem;
+`;
+
+export default StyledUserActions;

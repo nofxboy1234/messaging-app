@@ -19,6 +19,8 @@ function IncomingFriendRequest({ className, friendRequest }) {
 const StyledIncomingFriendRequest = styled(IncomingFriendRequest)`
   display: flex;
   justify-content: space-between;
+  background-color: rgb(110, 255, 97);
+  border: 1px solid black;
 `;
 
 IncomingFriendRequest.propTypes = {

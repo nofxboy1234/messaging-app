@@ -63,10 +63,10 @@ Layout.propTypes = {
 const StyledLayout = styled(Layout)`
   .container {
     display: flex;
+    /* height: 100vh; */
   }
 
   .chats {
-    background-color: #4df0d5;
   }
 
   .content {
@@ -76,7 +76,7 @@ const StyledLayout = styled(Layout)`
   }
 
   .users {
-    background-color: #4df0d5;
+    background-color: #fff893;
     padding: 1rem;
   }
 `;

@@ -2,8 +2,9 @@ import Picture from './Picture';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { createConsumer } from '@rails/actioncable';
+import styled from 'styled-components';
 
-function Profile({ initialProfile }) {
+function Profile({ className, initialProfile }) {
   const [profile, setProfile] = useState(initialProfile);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function Profile({ initialProfile }) {
   }, [profile.id]);
 
   return (
-    <div>
+    <div className={className}>
       <Picture src={profile.picture} />
       <div>{profile.username}</div>
       <div>{profile.about}</div>
@@ -37,8 +38,13 @@ function Profile({ initialProfile }) {
   );
 }
 
+const StyledProfile = styled(Profile)`
+  border: 1px solid black;
+  background-color: whitesmoke;
+`;
+
 Profile.propTypes = {
   initialProfile: PropTypes.object,
 };
 
-export default Profile;
+export default StyledProfile;

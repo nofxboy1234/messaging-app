@@ -17,6 +17,8 @@ function OutgoingFriendRequest({ className, friendRequest }) {
 const StyledOutgoingFriendRequest = styled(OutgoingFriendRequest)`
   display: flex;
   justify-content: space-between;
+  background-color: #3ca7ff;
+  border: 1px solid black;
 `;
 
 OutgoingFriendRequest.propTypes = {

@@ -19,6 +19,9 @@ function Friendship({ className, friendship, user, chat }) {
 const StyledFriendship = styled(Friendship)`
   display: flex;
   justify-content: space-between;
+  background-color: #ffc444;
+  border: 1px solid black;
+  padding: 0.5rem;
 `;
 
 Friendship.propTypes = {
