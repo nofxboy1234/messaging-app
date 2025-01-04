@@ -26,7 +26,6 @@ function ChatIndex({ className, initialChats }) {
 
     return () => {
       channel.unsubscribe();
-      consumer.disconnect();
     };
   }, [shared.current_user.id]);
 

@@ -23,7 +23,6 @@ function Chat({ className, chat }) {
 
     return () => {
       channel.unsubscribe();
-      consumer.disconnect();
     };
   }, [chat.id]);
 

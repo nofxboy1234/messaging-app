@@ -35,7 +35,6 @@ function FriendRequestIndex({
 
     return () => {
       channel.unsubscribe();
-      consumer.disconnect();
     };
   }, [shared.current_user.id]);
 

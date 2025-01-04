@@ -77,7 +77,6 @@ function UserIndex({ initialUsers, isShowingChat, chat_id }) {
 
     return () => {
       channel.unsubscribe();
-      consumer.disconnect();
     };
   }, [shared.current_user.id, isShowingChat, chat_id]);
 

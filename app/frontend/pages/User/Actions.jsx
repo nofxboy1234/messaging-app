@@ -50,7 +50,6 @@ function UserActions({
 
     return () => {
       channel.unsubscribe();
-      consumer.disconnect();
     };
   }, [profileUser.profile.id, shared.current_user.id]);
 

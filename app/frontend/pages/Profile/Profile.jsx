@@ -24,7 +24,6 @@ function Profile({ className, initialProfile }) {
 
     return () => {
       channel.unsubscribe();
-      consumer.disconnect();
     };
   }, [profile.id]);
 
