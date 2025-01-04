@@ -1,10 +1,12 @@
 import api from '../../pathHelpers';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import User from '../User/User';
+import UserLink from '../User/Link';
 
 function ProfileLink({ user }) {
-  return <User user={user} targetPath={api.profiles.show.path(user.profile)} />;
+  return (
+    <UserLink user={user} targetPath={api.profiles.show.path(user.profile)} />
+  );
 }
 
 ProfileLink.propTypes = {

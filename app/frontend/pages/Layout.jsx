@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import NavBar from './NavBar';
 
 const Layout = ({ className, children }) => {
-  const { shared } = usePage().props;
-  const { chat } = usePage().props;
+  const { shared, chat } = usePage().props;
+  const component = usePage().component;
 
   return (
     <div className={className}>
@@ -26,7 +26,8 @@ const Layout = ({ className, children }) => {
         <div className={'users'}>
           <UserIndex
             initialUsers={chat ? chat.members : shared.users}
-            chat={chat}
+            chat={component === 'Chat/Show' ? chat : undefined}
+            // chat_id={chat ? chat.id : undefined}
           />
         </div>
       </div>

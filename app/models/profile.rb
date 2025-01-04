@@ -8,6 +8,11 @@ class Profile < ApplicationRecord
   end
 
   def show_data(target_user)
+    relationship = nil
+    friend_request = nil
+    friendship = nil
+    chat = nil
+
     if target_user.has_friend_as_sender?(user)
       relationship = "friend"
       friendship = target_user.friendships.find_by(friend: user)

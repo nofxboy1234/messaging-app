@@ -1,10 +1,10 @@
 import api from '../../pathHelpers';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import User from '../User/User';
+import UserLink from '../User/Link';
 
 function ChatLink({ chat, friend }) {
-  return <User user={friend} targetPath={api.chats.show.path(chat)} />;
+  return <UserLink user={friend} targetPath={api.chats.show.path(chat)} />;
 }
 
 ChatLink.propTypes = {
