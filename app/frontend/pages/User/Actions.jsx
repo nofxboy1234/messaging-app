@@ -10,7 +10,7 @@ import RejectFriendRequestButton from '../FriendRequest/Buttons/RejectFriendRequ
 import SendFriendRequestButton from '../FriendRequest/Buttons/SendFriendRequestButton';
 
 import { useEffect, useState } from 'react';
-import { createConsumer } from '@rails/actioncable';
+import consumer from '../../channels/consumer';
 import { usePage } from '@inertiajs/react';
 import styled from 'styled-components';
 
@@ -30,7 +30,6 @@ function UserActions({
   const { shared } = usePage().props;
 
   useEffect(() => {
-    const consumer = createConsumer();
     const channel = consumer.subscriptions.create(
       {
         channel: 'RelationshipChannel',

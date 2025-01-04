@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ChatLink from './Link';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { createConsumer } from '@rails/actioncable';
+import consumer from '../../channels/consumer';
 import { usePage } from '@inertiajs/react';
 
 function ChatIndex({ className, initialChats }) {
@@ -11,7 +11,6 @@ function ChatIndex({ className, initialChats }) {
   const { shared } = usePage().props;
 
   useEffect(() => {
-    const consumer = createConsumer();
     const channel = consumer.subscriptions.create(
       { channel: 'ChatChannel', id: shared.current_user.id },
       {
@@ -31,6 +30,7 @@ function ChatIndex({ className, initialChats }) {
     };
   }, [shared.current_user]);
 
+  console.log('render Chat/Index');
   return (
     <div className={className}>
       {chats.map((chat) => (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { createConsumer } from '@rails/actioncable';
+import consumer from '../../channels/consumer';
 import Message from '../Message/Message';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -8,7 +8,6 @@ function Chat({ className, chat }) {
   const [messages, setMessages] = useState(chat.messages);
 
   useEffect(() => {
-    const consumer = createConsumer();
     const channel = consumer.subscriptions.create(
       { channel: 'MessageChannel', id: chat.id },
       {

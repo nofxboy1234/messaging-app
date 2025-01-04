@@ -26,7 +26,7 @@ console.log(
 //
 // // Import all channels.
 // const channels = import.meta.globEager('./**/*_channel.js');
-import.meta.glob('../channels/**/*_channel.js', { eager: true });
+// import.meta.glob('../channels/**/*_channel.js', { eager: true });
 
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'

@@ -1,14 +1,13 @@
 import Picture from './Picture';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { createConsumer } from '@rails/actioncable';
+import consumer from '../../channels/consumer';
 import styled from 'styled-components';
 
 function Profile({ className, initialProfile }) {
   const [profile, setProfile] = useState(initialProfile);
 
   useEffect(() => {
-    const consumer = createConsumer();
     const channel = consumer.subscriptions.create(
       {
         channel: 'ProfileChannel',

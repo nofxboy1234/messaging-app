@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import UserTotal from './Total';
 import PropTypes from 'prop-types';
-import { createConsumer } from '@rails/actioncable';
+import consumer from '../../channels/consumer';
 import { usePage } from '@inertiajs/react';
 import api from '../../pathHelpers';
 import ProfileLink from '../Profile/Link';
@@ -11,7 +11,6 @@ function UserIndex({ initialUsers, isShowingChat, chat_id }) {
   const { shared } = usePage().props;
 
   useEffect(() => {
-    const consumer = createConsumer();
     let channel;
 
     function subscribe(
@@ -91,7 +90,6 @@ function UserIndex({ initialUsers, isShowingChat, chat_id }) {
   }, [shared.current_user.id, isShowingChat, chat_id]);
 
   console.log('render UserIndex');
-
   return (
     <div>
       <UserTotal users={users} />

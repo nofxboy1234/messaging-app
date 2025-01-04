@@ -3,7 +3,7 @@ import IncomingFriendRequest from './IncomingFriendRequest';
 import PropTypes from 'prop-types';
 import { usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import { createConsumer } from '@rails/actioncable';
+import consumer from '../../channels/consumer';
 
 function FriendRequestIndex({
   initialOutgoingFriendRequests,
@@ -19,7 +19,6 @@ function FriendRequestIndex({
   const { shared } = usePage().props;
 
   useEffect(() => {
-    const consumer = createConsumer();
     const channel = consumer.subscriptions.create(
       { channel: 'FriendRequestChannel', id: shared.current_user.id },
       {

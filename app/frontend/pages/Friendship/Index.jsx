@@ -3,7 +3,7 @@ import { usePage } from '@inertiajs/react';
 import Friendship from './Friendship';
 import FriendshipTotal from './Total';
 import { useEffect, useState } from 'react';
-import { createConsumer } from '@rails/actioncable';
+import consumer from '../../channels/consumer';
 
 function FriendshipIndex({ initialFriendships }) {
   const [friendships, setFriendships] = useState(initialFriendships);
@@ -11,7 +11,6 @@ function FriendshipIndex({ initialFriendships }) {
   const { shared } = usePage().props;
 
   useEffect(() => {
-    const consumer = createConsumer();
     const channel = consumer.subscriptions.create(
       { channel: 'FriendshipChannel', id: shared.current_user.id },
       {
@@ -31,6 +30,7 @@ function FriendshipIndex({ initialFriendships }) {
     };
   }, [shared.current_user]);
 
+  console.log('render Friendship/Index');
   return (
     <div>
       {shared.flash.notice && (
