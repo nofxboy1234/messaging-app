@@ -19,21 +19,16 @@ function UserIndex({ initialUsers, isShowingChat, chat_id }) {
       connectedCallback,
       receivedCallback,
     ) {
-      console.log(`subscribe to ${channelName}`);
-
       channel = consumer.subscriptions.create(
         { channel: channelName, ...params },
         {
           connected() {
-            console.log(`${channelName} connected`);
-
             if (connectedCallback) {
               connectedCallback();
             }
           },
 
           received(users) {
-            console.log(`${channelName} received`);
             setUsers(users);
 
             if (receivedCallback) {
@@ -78,18 +73,14 @@ function UserIndex({ initialUsers, isShowingChat, chat_id }) {
       }
     }
 
-    console.log('UserIndex effect');
     setup();
 
     return () => {
-      console.log('UserIndex effect cleanup');
-
       channel.unsubscribe();
       consumer.disconnect();
     };
   }, [shared.current_user.id, isShowingChat, chat_id]);
 
-  console.log('render UserIndex');
   return (
     <div>
       <UserTotal users={users} />

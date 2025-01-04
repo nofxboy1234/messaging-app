@@ -28,9 +28,8 @@ function FriendshipIndex({ initialFriendships }) {
       channel.unsubscribe();
       consumer.disconnect();
     };
-  }, [shared.current_user]);
+  }, [shared.current_user.id]);
 
-  console.log('render Friendship/Index');
   return (
     <div>
       {shared.flash.notice && (

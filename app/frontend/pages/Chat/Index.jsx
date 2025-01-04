@@ -28,9 +28,10 @@ function ChatIndex({ className, initialChats }) {
       channel.unsubscribe();
       consumer.disconnect();
     };
-  }, [shared.current_user]);
+  }, [shared.current_user.id]);
 
-  console.log('render Chat/Index');
+  console.log([shared.current_user.id]);
+
   return (
     <div className={className}>
       {chats.map((chat) => (
