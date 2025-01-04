@@ -10,6 +10,8 @@ const Layout = ({ className, children }) => {
   const { shared, chat } = usePage().props;
   const component = usePage().component;
 
+  const isShowingChat = () => component === 'Chat/Show';
+
   return (
     <div className={className}>
       <NavBar />
@@ -26,7 +28,8 @@ const Layout = ({ className, children }) => {
         <div className={'users'}>
           <UserIndex
             initialUsers={chat ? chat.members : shared.users}
-            chat_id={component === 'Chat/Show' ? chat.id : undefined}
+            isShowingChat={isShowingChat()}
+            chat_id={isShowingChat() ? chat.id : undefined}
             // chat_id={chat ? chat.id : undefined}
           />
         </div>
