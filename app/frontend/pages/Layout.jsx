@@ -26,7 +26,7 @@ const Layout = ({ className, children }) => {
         <div className={'users'}>
           <UserIndex
             initialUsers={chat ? chat.members : shared.users}
-            chat={component === 'Chat/Show' ? chat : undefined}
+            chat_id={component === 'Chat/Show' ? chat.id : undefined}
             // chat_id={chat ? chat.id : undefined}
           />
         </div>

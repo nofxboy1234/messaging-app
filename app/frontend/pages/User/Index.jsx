@@ -6,7 +6,7 @@ import { usePage } from '@inertiajs/react';
 import api from '../../pathHelpers';
 import ProfileLink from '../Profile/Link';
 
-function UserIndex({ initialUsers, chat }) {
+function UserIndex({ initialUsers, chat_id }) {
   const [users, setUsers] = useState(initialUsers);
   const { shared } = usePage().props;
 
@@ -46,10 +46,10 @@ function UserIndex({ initialUsers, chat }) {
     }
 
     function setup() {
-      if (chat) {
+      if (chat_id) {
         const connectedCallback = () => {
           api.chatUsersBroadcast.create({
-            data: { user_id: shared.current_user.id, chat_id: chat.id },
+            data: { user_id: shared.current_user.id, chat_id: chat_id },
           });
         };
 
@@ -88,7 +88,7 @@ function UserIndex({ initialUsers, chat }) {
       channel.unsubscribe();
       consumer.disconnect();
     };
-  }, [shared.current_user.id, chat]);
+  }, [shared.current_user.id, chat_id]);
 
   console.log('render UserIndex');
 
@@ -106,7 +106,7 @@ function UserIndex({ initialUsers, chat }) {
 
 UserIndex.propTypes = {
   initialUsers: PropTypes.array,
-  chat: PropTypes.object,
+  chat_id: PropTypes.number,
 };
 
 export default UserIndex;
