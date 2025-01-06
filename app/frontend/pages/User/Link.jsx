@@ -17,7 +17,10 @@ UserLink.propTypes = {
 };
 
 const StyledUserLink = styled(UserLink)`
-  display: block;
+  /* display: block; */
+  display: flex;
+  justify-content: space-between;
+
   background-color: #5fffaf;
   border: 1px solid black;
   border-radius: 5px;

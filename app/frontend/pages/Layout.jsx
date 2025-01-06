@@ -40,7 +40,7 @@ const Layout = ({ className, children }) => {
 
 Layout.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.element,
+  children: PropTypes.object,
 };
 
 const StyledLayout = styled(Layout)`
