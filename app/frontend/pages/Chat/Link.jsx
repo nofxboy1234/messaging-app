@@ -2,9 +2,15 @@ import api from '../../pathHelpers';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import UserLink from '../User/Link';
+import ProfilePicture from '../Profile/Picture';
 
 function ChatLink({ chat, friend }) {
-  return <UserLink user={friend} targetPath={api.chats.show.path(chat)} />;
+  return (
+    <UserLink user={friend} targetPath={api.chats.show.path(chat)}>
+      <ProfilePicture src={friend.profile.picture} />
+      <div>{friend.profile.username}</div>
+    </UserLink>
+  );
 }
 
 ChatLink.propTypes = {

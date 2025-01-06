@@ -1,20 +1,18 @@
 import { Link } from '@inertiajs/react';
 import PropTypes from 'prop-types';
-import ProfilePicture from '../Profile/Picture';
 import styled from 'styled-components';
 
-function UserLink({ className, user, targetPath }) {
+function UserLink({ className, children, targetPath }) {
   return (
     <Link className={className} href={targetPath}>
-      <ProfilePicture src={user.profile.picture} />
-      <div>{user.profile.username}</div>
+      {children}
     </Link>
   );
 }
 
 UserLink.propTypes = {
   className: PropTypes.string,
-  user: PropTypes.object,
+  children: PropTypes.array,
   targetPath: PropTypes.string,
 };
 
