@@ -5,12 +5,11 @@ import ProfileLink from '../Profile/Link';
 
 function OutgoingFriendRequest({ className, friendRequest }) {
   return (
-    <div className={className}>
-      <ProfileLink user={friendRequest.friend} />
+    <ProfileLink className={className} user={friendRequest.friend}>
       <div>
         <CancelFriendRequestButton friendRequest={friendRequest} />
       </div>
-    </div>
+    </ProfileLink>
   );
 }
 
