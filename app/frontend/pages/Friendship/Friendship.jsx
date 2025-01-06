@@ -4,11 +4,9 @@ import ChatButton from './Buttons/ChatButton';
 import UnfriendButton from './Buttons/UnfriendButton';
 import ProfileLink from '../Profile/Link';
 
-function Friendship({ friendship, user, chat }) {
+function Friendship({ className, friendship, user, chat }) {
   return (
-    // <div className={className}>
-    // </div>
-    <ProfileLink user={user}>
+    <ProfileLink className={className} user={user}>
       <div>
         <ChatButton chat={chat} />
         <UnfriendButton friendship={friendship} user={user} />
@@ -18,16 +16,17 @@ function Friendship({ friendship, user, chat }) {
 }
 
 const StyledFriendship = styled(Friendship)`
-  /* display: flex;
+  display: flex;
   justify-content: space-between;
-  background-color: #ffc444;
+
+  background-color: #5fffaf;
   border: 1px solid black;
   border-radius: 5px;
   padding: 0.3rem;
   &:hover {
     background-color: white;
     cursor: pointer;
-  } */
+  }
 `;
 
 Friendship.propTypes = {

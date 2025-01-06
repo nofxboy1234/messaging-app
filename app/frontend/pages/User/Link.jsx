@@ -1,6 +1,5 @@
 import { Link } from '@inertiajs/react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 function UserLink({ className, children, targetPath }) {
   return (
@@ -16,19 +15,4 @@ UserLink.propTypes = {
   targetPath: PropTypes.string,
 };
 
-const StyledUserLink = styled(UserLink)`
-  /* display: block; */
-  display: flex;
-  justify-content: space-between;
-
-  background-color: #5fffaf;
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 0.3rem;
-  &:hover {
-    background-color: white;
-    cursor: pointer;
-  }
-`;
-
-export default StyledUserLink;
+export default UserLink;
