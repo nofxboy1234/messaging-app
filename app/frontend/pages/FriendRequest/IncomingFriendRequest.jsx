@@ -6,20 +6,19 @@ import ProfileLink from '../Profile/Link';
 
 function IncomingFriendRequest({ className, friendRequest }) {
   return (
-    <div className={className}>
-      <ProfileLink user={friendRequest.user} />
+    <ProfileLink className={className} user={friendRequest.user}>
       <div>
         <AcceptFriendRequestButton friendRequest={friendRequest} />
         <RejectFriendRequestButton friendRequest={friendRequest} />
       </div>
-    </div>
+    </ProfileLink>
   );
 }
 
 const StyledIncomingFriendRequest = styled(IncomingFriendRequest)`
   display: flex;
   justify-content: space-between;
-  background-color: rgb(110, 255, 97);
+  background-color: #fff383;
   border: 1px solid black;
   border-radius: 5px;
   padding: 0.3rem;
