@@ -29,7 +29,8 @@ backend: ruby
 [.] - style and make responsive
 [ ] - change authentication zero to Devise + Pundit
 [ ] - model (rspec) and integration (react testing library) tests
-[ ] - ~client-side form validations, server-side model validations, error handling, refactor, redis clients
+[ ] - ~client-side form validations, server-side model validations, error handling, 
+      refactor, redis client connections/UserIndex subscriptions
 
 [ ] - ~refactor: rendering/efficiency/readability, status codes, unused functions
 [ ] - ~singular resources: e.g /profile
