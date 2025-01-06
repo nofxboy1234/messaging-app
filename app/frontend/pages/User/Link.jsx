@@ -28,6 +28,7 @@ const StyledUserLink = styled(UserLink)`
     background-color: white;
     cursor: pointer;
   }
+  text-decoration: none;
 `;
 
 export default StyledUserLink;
