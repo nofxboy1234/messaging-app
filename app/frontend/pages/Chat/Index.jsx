@@ -29,8 +29,6 @@ function ChatIndex({ className, initialChats }) {
     };
   }, [shared.current_user.id]);
 
-  console.log([shared.current_user.id]);
-
   return (
     <div className={className}>
       {chats.map((chat) => (
