@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import ChatLink from './Link';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
@@ -43,11 +42,4 @@ ChatIndex.propTypes = {
   initialChats: PropTypes.array,
 };
 
-const StyledChatIndex = styled(ChatIndex)`
-  display: flex;
-  flex-direction: column;
-  padding: 0.1rem;
-  background-color: #4df0d5;
-`;
-
-export default StyledChatIndex;
+export default ChatIndex;

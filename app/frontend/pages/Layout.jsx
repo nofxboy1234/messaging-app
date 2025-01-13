@@ -18,21 +18,21 @@ const Layout = ({ className, children }) => {
     <div className={className}>
       <NavBar />
 
-      <div className="container">
-        <div className={'chats'}>
+      <Container>
+        <Chats>
           <ChatIndex initialChats={shared.chats} />
-        </div>
+        </Chats>
 
-        <div className={'content'}>{children}</div>
+        <Content>{children}</Content>
 
-        <div className={'users'}>
+        <Users>
           <UserIndex
             initialUsers={isShowingChat() ? chat.members : shared.users}
             isShowingChat={isShowingChat()}
             chat_id={isShowingChat() ? chat.id : undefined}
           />
-        </div>
-      </div>
+        </Users>
+      </Container>
     </div>
   );
 };
@@ -42,26 +42,33 @@ Layout.propTypes = {
   children: PropTypes.object,
 };
 
+const Container = styled.div`
+  display: flex;
+  height: 100vh;
+`;
+
+const Chats = styled.div`
+  flex: 1;
+  background-color: #4df08b;
+  padding: 1rem;
+`;
+
+const Content = styled.div`
+  padding: 1rem;
+  flex: 6 1 0%;
+  background-color: #ae87e0;
+`;
+
+const Users = styled.div`
+  flex: 1.5;
+  background-color: #fff893;
+  padding: 1rem;
+`;
+
 const StyledLayout = styled(Layout)`
-  .container {
-    display: flex;
-  }
-
-  .chats {
-    flex: 1;
-  }
-
-  .content {
-    padding: 1rem;
-    flex: 6 1 0%;
-    background-color: #ae87e0;
-  }
-
-  .users {
-    flex: 1.5;
-    background-color: #fff893;
-    padding: 1rem;
-  }
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 `;
 
 export default StyledLayout;

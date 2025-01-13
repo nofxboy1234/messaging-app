@@ -42,7 +42,7 @@ NavBar.propTypes = {
 const StyledNavBar = styled(NavBar)`
   display: flex;
   justify-content: space-between;
-  background-color: #fff679;
+  background-color: #79ffe2;
 `;
 
 export default StyledNavBar;
