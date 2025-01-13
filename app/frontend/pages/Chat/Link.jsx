@@ -24,17 +24,7 @@ ChatLink.propTypes = {
 };
 
 const StyledChatLink = styled(ChatLink)`
-  display: flex;
-  justify-content: space-between;
-
   background-color: #f9b7ff;
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 0.3rem;
-  &:hover {
-    background-color: white;
-    cursor: pointer;
-  }
 `;
 
 export default StyledChatLink;
