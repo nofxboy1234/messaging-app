@@ -6,6 +6,8 @@ import UserIndex from './User/Index';
 import PropTypes from 'prop-types';
 import NavBar from './NavBar';
 
+import styles from './Layout.module.css';
+
 const Layout = ({ className, children }) => {
   const { shared, chat } = usePage().props;
   const component = usePage().component;
@@ -15,8 +17,6 @@ const Layout = ({ className, children }) => {
   return (
     <div className={className}>
       <NavBar />
-
-      <br></br>
 
       <div className="container">
         <div className={'chats'}>
