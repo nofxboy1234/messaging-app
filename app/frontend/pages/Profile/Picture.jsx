@@ -8,7 +8,7 @@ function ProfilePicture({ className, src }) {
       alt="Profile picture"
       className={className}
       width={'32px'}
-      height={'auto'}
+      height={'32px'}
     />
   );
 }
@@ -20,7 +20,7 @@ ProfilePicture.propTypes = {
 
 const StyledProfilePicture = styled(ProfilePicture)`
   width: 32px;
-  height: auto;
+  height: 32px;
   border-radius: 50%;
 `;
 
