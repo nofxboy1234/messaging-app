@@ -45,7 +45,6 @@ Layout.propTypes = {
 const StyledLayout = styled(Layout)`
   .container {
     display: flex;
-    /* height: 100vh; */
   }
 
   .chats {

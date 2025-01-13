@@ -46,7 +46,6 @@ const StyledChat = styled(Chat)`
   display: flex;
   flex-direction: column-reverse;
   overflow: auto;
-  height: 1170px;
 
   border: 1px solid black;
   background-color: #ff7cd3;
