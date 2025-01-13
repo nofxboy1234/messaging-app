@@ -1,0 +1,37 @@
+support 320px -> max-width
+
+viewport meta tag: <meta name="viewport" content="width=device-width, initial-scale=1">
+
+natural responsiveness
+
+rem
+max-width
+avoid fixed width and height
+avoid heights altogether: prefer using margina + padding
+appropriate for fixed widths: 32px icon etc, 250px sidebar
+use static margin instead of %
+
+grid: grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))
+Responsive Holy Grail Layout with Grid
+flex: flex-wrap
+
+calc()
+min()
+max()
+clamp()
+
+responsive images:
+  background-size, background-position -> body { background-image: url(); background-size: cover;}
+  object-fit -> img { object-fit: cover; }
+  <picture>
+
+media queries:
+  body {
+    margin: 24px;
+  }
+
+  @media (max-width: 600px) {
+    body {
+      margin: 8px;
+    }
+  }
