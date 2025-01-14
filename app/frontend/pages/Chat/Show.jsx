@@ -19,7 +19,7 @@ ChatShow.propTypes = {
 const StyledChatShow = styled(ChatShow)`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: calc(100vh - 19px);
 `;
 
 export default StyledChatShow;
