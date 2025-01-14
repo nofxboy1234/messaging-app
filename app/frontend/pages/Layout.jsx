@@ -54,7 +54,6 @@ const Chats = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 1rem;
   flex: 6 1 0%;
   background-color: #ae87e0;
 `;
