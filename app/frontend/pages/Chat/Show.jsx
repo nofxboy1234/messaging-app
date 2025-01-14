@@ -1,10 +1,11 @@
+import styled from 'styled-components';
 import Chat from './Chat';
 import MessageBox from './MessageBox';
 import PropTypes from 'prop-types';
 
-function ChatShow({ chat }) {
+function ChatShow({ className, chat }) {
   return (
-    <div>
+    <div className={className}>
       <Chat chat={chat} />
       <MessageBox chat={chat} />
     </div>
@@ -15,4 +16,10 @@ ChatShow.propTypes = {
   chat: PropTypes.object,
 };
 
-export default ChatShow;
+const StyledChatShow = styled(ChatShow)`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+export default StyledChatShow;
