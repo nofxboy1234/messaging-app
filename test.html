@@ -11,7 +11,28 @@
       <div id="main">
         main
         <div id="chats">chats</div>
-        <div id="content">content</div>
+        <div id="content">
+          content
+          <div id="chat-show">
+            chat-show
+            <div id="chat">
+              chat
+              <div id="messages">
+                messages
+                <div class="message">message</div>
+                <div class="message">message</div>
+                <div class="message">message</div>
+                <div class="message">message</div>
+                <div class="message">message</div>
+                <div class="message">message</div>
+                <div class="message">message</div>
+                <div class="message">message</div>
+                <div class="message">message</div>
+              </div>
+            </div>
+            <div id="message-box">message-box</div>
+          </div>
+        </div>
         <div id="users">users</div>
       </div>
     </div>
@@ -28,32 +49,60 @@
         padding: 0.3rem;
       }
 
-      div#layout {
+      #layout {
         height: 100vh;
         display: flex;
         flex-direction: column;
       }
 
-      div#nav-bar {
+      #nav-bar {
         /* flex: 1; */
       }
 
-      div#main {
+      #main {
         flex: 1;
 
         display: flex;
       }
 
-      div#chats {
+      #chats {
         flex: 1;
       }
 
-      div#content {
+      #content {
         flex: 4;
       }
 
-      div#users {
+      #users {
         flex: 1;
+      }
+
+      #chat-show {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+      }
+
+      #chat {
+        flex: 1;
+        border-color: black;
+      }
+
+      #messages {
+        display: flex;
+        flex-direction: column;
+
+        border-color: blue;
+      }
+
+      .message {
+        flex: 1;
+
+        border-color: blue;
+      }
+
+      #message-box {
+        border-color: black;
       }
     </style>
   </body>
