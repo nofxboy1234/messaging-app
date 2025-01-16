@@ -21,15 +21,96 @@
         </div>
       </div>
       <div id="main">
-        main
-        <div id="chats">
-          <div class="chat-link">user1</div>
-          <div class="chat-link">user2</div>
-          <div class="chat-link">user3</div>
+        <div id="chats-container">
+          <div id="chats">
+            <div id="chat-index">
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+              <div class="chat-link">chat-link</div>
+            </div>
+          </div>
         </div>
         <div id="content">
-          content
-          <div id="chat-show">
+          <!-- <div id="friend-index">
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+            <div class="friend">user</div>
+          </div> -->
+
+          <!-- <div id="chat-show">
             chat-show
             <div id="chat">
               chat
@@ -70,7 +151,7 @@
               </div>
             </div>
             <div id="message-box">message-box</div>
-          </div>
+          </div> -->
         </div>
         <div id="users">users</div>
       </div>
@@ -114,7 +195,15 @@
       }
 
       #chats {
-        flex: 1;
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column-reverse;
+        overflow: auto;
+      }
+
+      #chat-index {
+        display: flex;
+        flex-direction: column;
       }
 
       #content {
@@ -129,6 +218,12 @@
       }
 
       #chat-show {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #chats-container {
         flex: 1;
         display: flex;
         flex-direction: column;
