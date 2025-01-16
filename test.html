@@ -7,10 +7,26 @@
   </head>
   <body>
     <div id="layout">
-      <div id="nav-bar">nav-bar</div>
+      <div id="nav-bar">
+        <div id="friend-links">
+          <div>Home</div>
+          <div>Friends</div>
+          <div>All</div>
+          <div>Pending</div>
+        </div>
+
+        <div id="user-links">
+          <div>Profile</div>
+          <div>Log Out</div>
+        </div>
+      </div>
       <div id="main">
         main
-        <div id="chats">chats</div>
+        <div id="chats">
+          <div class="chat-link">user1</div>
+          <div class="chat-link">user2</div>
+          <div class="chat-link">user3</div>
+        </div>
         <div id="content">
           content
           <div id="chat-show">
@@ -80,7 +96,16 @@
       }
 
       #nav-bar {
-        /* flex: 1; */
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #user-links {
+        display: flex;
+      }
+
+      #friend-links {
+        display: flex;
       }
 
       #main {
