@@ -21,7 +21,7 @@
         </div>
       </div>
       <div id="main">
-        <div id="chats" class="flex-column">
+        <div id="chats" class="flex-column side-bar">
           <div class="flex-column overflow-auto">
             <div class="flex-column">
               <div class="chat-link">chat-link</div>
@@ -116,7 +116,7 @@
           </div>
         </div>
 
-        <div id="users" class="flex-column">
+        <div id="users" class="flex-column side-bar">
           <div class="flex-column overflow-auto">
             <div class="flex-column">
               <div class="user-link">user-link</div>
@@ -193,6 +193,7 @@
       #nav-bar {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
       }
 
       #user-links {
@@ -215,8 +216,8 @@
         border-color: rgb(0, 255, 42);
       }
 
-      #users {
-        flex: 1;
+      .side-bar {
+        min-width: 12rem;
       }
 
       .flex-column {
@@ -243,6 +244,9 @@
       #message-box {
         border-color: black;
       }
+
+      /* @media (max-width: 800px) {
+      } */
     </style>
   </body>
 </html>
