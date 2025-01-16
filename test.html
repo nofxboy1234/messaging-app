@@ -21,7 +21,7 @@
         </div>
       </div>
       <div id="main">
-        <div id="chats-container">
+        <div class="flex-column">
           <div id="chats">
             <div id="chat-index">
               <div class="chat-link">chat-link</div>
@@ -155,18 +155,6 @@
         display: flex;
       }
 
-      #chats {
-        flex: 1 1 0;
-        display: flex;
-        flex-direction: column;
-        overflow: auto;
-      }
-
-      #chat-index {
-        display: flex;
-        flex-direction: column;
-      }
-
       #content {
         flex: 4;
         display: flex;
@@ -184,8 +172,36 @@
         flex-direction: column;
       }
 
+      .flex-column {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .flex-column-reverse {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column-reverse;
+      }
+
+      .overflow-auto {
+        overflow: auto;
+      }
+
       #chats-container {
-        flex: 1;
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #chats {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+      }
+
+      #chat-index {
         display: flex;
         flex-direction: column;
       }
