@@ -16,23 +16,22 @@ const Layout = ({ className, children }) => {
 
   return (
     <div className={className}>
-      <NavBar />
-
-      <Container>
-        <Chats>
-          <ChatIndex initialChats={shared.chats} />
-        </Chats>
-
-        <Content>{children}</Content>
-
-        <Users>
-          <UserIndex
-            initialUsers={isShowingChat() ? chat.members : shared.users}
-            isShowingChat={isShowingChat()}
-            chat_id={isShowingChat() ? chat.id : undefined}
-          />
-        </Users>
-      </Container>
+      <div id="layout">
+        <NavBar />
+        <Main>
+          <Chats>
+            <ChatIndex initialChats={shared.chats} />
+          </Chats>
+          <Content>{children}</Content>
+          <Users>
+            <UserIndex
+              initialUsers={isShowingChat() ? chat.members : shared.users}
+              isShowingChat={isShowingChat()}
+              chat_id={isShowingChat() ? chat.id : undefined}
+            />
+          </Users>
+        </Main>
+      </div>
     </div>
   );
 };
@@ -42,7 +41,7 @@ Layout.propTypes = {
   children: PropTypes.object,
 };
 
-const Container = styled.div`
+const Main = styled.div`
   display: flex;
   height: 100vh;
 `;
@@ -66,8 +65,23 @@ const Users = styled.div`
 
 const StyledLayout = styled(Layout)`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   height: 100vh;
+  border: 4px solid blueviolet;
+  padding: 0.3rem;
+
+  div {
+    border: 4px solid rgb(255, 0, 140);
+    padding: 0.3rem;
+  }
+
+  #layout {
+    flex: 1 1 0;
+    max-width: 2560px;
+    display: flex;
+    flex-direction: column;
+    border-color: aqua;
+  }
 `;
 
 export default StyledLayout;
