@@ -4,8 +4,9 @@ import Friendship from './Friendship';
 import FriendshipTotal from './Total';
 import { useEffect, useState } from 'react';
 import consumer from '../../channels/consumer';
+import styled from 'styled-components';
 
-function FriendshipIndex({ initialFriendships }) {
+function FriendshipIndex({ className, initialFriendships }) {
   const [friendships, setFriendships] = useState(initialFriendships);
 
   const { shared } = usePage().props;
@@ -30,14 +31,9 @@ function FriendshipIndex({ initialFriendships }) {
   }, [shared.current_user.id]);
 
   return (
-    <div id="friend-index">
-      {shared.flash.notice && (
-        <p style={{ color: 'green' }}>{shared.flash.notice}</p>
-      )}
-
+    <div id="friend-index" className={className}>
       <FriendshipTotal friendships={friendships} />
-
-      <div>
+      <div id="friendships">
         {friendships.map((friendship) => (
           <Friendship
             key={friendship.friendship.id}
@@ -56,4 +52,17 @@ FriendshipIndex.propTypes = {
   initialFriendships: PropTypes.array,
 };
 
-export default FriendshipIndex;
+const StyledFriendshipIndex = styled(FriendshipIndex)`
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  > div#friendships {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+export default StyledFriendshipIndex;
