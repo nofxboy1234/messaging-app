@@ -5,8 +5,9 @@ import consumer from '../../channels/consumer';
 import { usePage } from '@inertiajs/react';
 import api from '../../pathHelpers';
 import ProfileLink from '../Profile/Link';
+import styled from 'styled-components';
 
-function UserIndex({ initialUsers, isShowingChat, chat_id }) {
+function UserIndex({ className, initialUsers, isShowingChat, chat_id }) {
   const [users, setUsers] = useState(initialUsers);
   const { shared } = usePage().props;
 
@@ -81,9 +82,9 @@ function UserIndex({ initialUsers, isShowingChat, chat_id }) {
   }, [shared.current_user.id, isShowingChat, chat_id]);
 
   return (
-    <div>
+    <div className={className}>
       <UserTotal users={users} />
-      <div>
+      <div id="users">
         {users.map((user) => (
           <ProfileLink key={user.id} user={user} />
         ))}
@@ -93,9 +94,23 @@ function UserIndex({ initialUsers, isShowingChat, chat_id }) {
 }
 
 UserIndex.propTypes = {
+  className: PropTypes.string,
   initialUsers: PropTypes.array,
   isShowingChat: PropTypes.bool,
   chat_id: PropTypes.number,
 };
 
-export default UserIndex;
+const StyledUserIndex = styled(UserIndex)`
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  > div#users {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+export default StyledUserIndex;

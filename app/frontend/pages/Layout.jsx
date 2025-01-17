@@ -59,9 +59,10 @@ const Content = styled.div`
 `;
 
 const Users = styled.div`
-  flex: 1.5;
-  background-color: #fff893;
-  padding: 1rem;
+  min-width: 14rem;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledLayoutContainer = styled(LayoutContainer)`
