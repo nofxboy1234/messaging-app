@@ -11,17 +11,20 @@ const NavBar = ({ className }) => {
     <div className={className}>
       <div>
         <Link href="/">Home</Link>
-        {' | '}
-        Friends
-        {' | '}
+      </div>
+      <div>Friends</div>
+      <div>
         <Link href={api.friendships.index.path()}>All</Link>
-        {' | '}
+      </div>
+      <div>
         <Link href={api.friendRequests.index.path()}>Pending</Link>
       </div>
       <div>
         <Link href={api.profiles.show.path(shared.profile)}>
           Profile ({shared.current_user.email.split('@')[0]})
         </Link>
+      </div>
+      <div>
         <Link
           href={api.sessions.destroy.path(shared.session)}
           as="button"
@@ -41,8 +44,9 @@ NavBar.propTypes = {
 
 const StyledNavBar = styled(NavBar)`
   display: flex;
-  justify-content: space-between;
-  background-color: #79ffe2;
+  justify-content: center;
+  column-gap: 1rem;
+  flex-wrap: wrap;
 `;
 
 export default StyledNavBar;
