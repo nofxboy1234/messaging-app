@@ -30,7 +30,7 @@ function FriendshipIndex({ initialFriendships }) {
   }, [shared.current_user.id]);
 
   return (
-    <div>
+    <div id="friend-index">
       {shared.flash.notice && (
         <p style={{ color: 'green' }}>{shared.flash.notice}</p>
       )}

@@ -54,8 +54,10 @@ const Chats = styled.div`
 `;
 
 const Content = styled.div`
-  flex: 6 1 0%;
-  background-color: #ae87e0;
+  flex: 4 1 0;
+  display: flex;
+  flex-direction: column;
+  border-color: rgb(0, 255, 42);
 `;
 
 const Users = styled.div`
