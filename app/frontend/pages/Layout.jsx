@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 
 import styles from './Layout.module.css';
 
-const Layout = ({ className, children }) => {
+const LayoutContainer = ({ className, children }) => {
   const { shared, chat } = usePage().props;
   const component = usePage().component;
 
@@ -36,7 +36,7 @@ const Layout = ({ className, children }) => {
   );
 };
 
-Layout.propTypes = {
+LayoutContainer.propTypes = {
   className: PropTypes.string,
   children: PropTypes.object,
 };
@@ -63,7 +63,7 @@ const Users = styled.div`
   padding: 1rem;
 `;
 
-const StyledLayout = styled(Layout)`
+const StyledLayoutContainer = styled(LayoutContainer)`
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -84,4 +84,4 @@ const StyledLayout = styled(Layout)`
   }
 `;
 
-export default StyledLayout;
+export default StyledLayoutContainer;
