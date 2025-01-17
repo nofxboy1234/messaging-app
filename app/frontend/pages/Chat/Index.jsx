@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import consumer from '../../channels/consumer';
 import { usePage } from '@inertiajs/react';
+import styled from 'styled-components';
 
 function ChatIndex({ className, initialChats }) {
   const [chats, setChats] = useState(initialChats);
@@ -30,9 +31,15 @@ function ChatIndex({ className, initialChats }) {
 
   return (
     <div className={className}>
-      {chats.map((chat) => (
-        <ChatLink key={chat.friend.id} chat={chat.chat} friend={chat.friend} />
-      ))}
+      <div>
+        {chats.map((chat) => (
+          <ChatLink
+            key={chat.friend.id}
+            chat={chat.chat}
+            friend={chat.friend}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -42,4 +49,17 @@ ChatIndex.propTypes = {
   initialChats: PropTypes.array,
 };
 
-export default ChatIndex;
+const StyledChatIndex = styled(ChatIndex)`
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  > div {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+export default StyledChatIndex;

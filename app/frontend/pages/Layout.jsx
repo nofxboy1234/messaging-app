@@ -47,9 +47,10 @@ const Main = styled.div`
 `;
 
 const Chats = styled.div`
-  flex: 1;
-  background-color: #4df08b;
-  padding: 1rem;
+  min-width: 14rem;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Content = styled.div`
