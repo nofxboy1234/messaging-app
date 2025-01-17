@@ -11,14 +11,12 @@
         <div id="nav-bar">
           <div>Home</div>
           <div>Friends</div>
+          <div id="nav-bar-chats">Chats</div>
+          <div id="nav-bar-users">Users</div>
           <div>Profile</div>
           <div>Log Out</div>
         </div>
         <div id="main">
-          <div id="side-bar-nav">
-            <div>chats</div>
-            <div>users</div>
-          </div>
           <div id="chats" class="flex-column side-bar">
             <div class="flex-column overflow-auto">
               <div class="flex-column">
@@ -204,6 +202,11 @@
         flex-wrap: wrap;
       }
 
+      #nav-bar-chats,
+      #nav-bar-users {
+        display: none;
+      }
+
       #left-links {
         display: flex;
       }
@@ -226,10 +229,6 @@
         display: flex;
         flex-direction: column;
         border-color: rgb(0, 255, 42);
-      }
-
-      #side-bar-nav {
-        display: none;
       }
 
       .side-bar {
@@ -267,11 +266,9 @@
           display: none;
         }
 
-        #side-bar-nav {
-          flex: 1 1 0;
-          display: flex;
-          flex-direction: column;
-          max-width: 4rem;
+        #nav-bar-chats,
+        #nav-bar-users {
+          display: block;
         }
       }
     </style>
