@@ -75,18 +75,6 @@ const StyledFriendRequestIndex = styled(FriendRequestIndex)`
   display: flex;
   flex-direction: column;
   overflow: auto;
-
-  > div#outgoing-friendrequests {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  > div#incoming-friendrequests {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-  }
 `;
 
 export default StyledFriendRequestIndex;
