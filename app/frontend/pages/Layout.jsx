@@ -87,16 +87,21 @@ const StyledLayoutContainer = styled(LayoutContainer)`
     border-color: aqua;
   }
 
+  #nav-bar-chats,
+  #nav-bar-users {
+    display: none;
+  }
+
   @media (max-width: 900px) {
     #chats,
     #users {
       display: none;
     }
 
-    /* #nav-bar-chats,
+    #nav-bar-chats,
     #nav-bar-users {
       display: block;
-    } */
+    }
   }
 `;
 

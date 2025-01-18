@@ -13,12 +13,14 @@ const NavBar = ({ className }) => {
         <Link href="/">Home</Link>
       </div>
       <div>Friends</div>
-      <div>
+      <div id="nav-bar-chats">Chats</div>
+      <div id="nav-bar-users">Users</div>
+      {/* <div>
         <Link href={api.friendships.index.path()}>All</Link>
       </div>
       <div>
         <Link href={api.friendRequests.index.path()}>Pending</Link>
-      </div>
+      </div> */}
       <div>
         <Link href={api.profiles.show.path(shared.profile)}>
           Profile ({shared.current_user.email.split('@')[0]})
