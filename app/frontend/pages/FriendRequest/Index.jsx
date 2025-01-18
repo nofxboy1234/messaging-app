@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import { usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import consumer from '../../channels/consumer';
+import styled from 'styled-components';
 
 function FriendRequestIndex({
+  className,
   initialOutgoingFriendRequests,
   initialIncomingFriendRequests,
 }) {
@@ -39,13 +41,9 @@ function FriendRequestIndex({
   }, [shared.current_user.id]);
 
   return (
-    <div>
-      {shared.flash.notice && (
-        <p style={{ color: 'green' }}>{shared.flash.notice}</p>
-      )}
-
+    <div id="friendrequest-index" className={className}>
       <h1>Outgoing Friend Requests</h1>
-      <div>
+      <div id="outgoing-friendrequests">
         {outgoingFriendRequests.map((friendRequest) => (
           <OutgoingFriendRequest
             key={friendRequest.id}
@@ -55,7 +53,7 @@ function FriendRequestIndex({
       </div>
 
       <h1>Incoming Friend Requests</h1>
-      <div>
+      <div id="incoming-friendrequests">
         {incomingFriendRequests.map((friendRequest) => (
           <IncomingFriendRequest
             key={friendRequest.id}
@@ -72,4 +70,23 @@ FriendRequestIndex.propTypes = {
   initialIncomingFriendRequests: PropTypes.array,
 };
 
-export default FriendRequestIndex;
+const StyledFriendRequestIndex = styled(FriendRequestIndex)`
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  > div#outgoing-friendrequests {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  > div#incoming-friendrequests {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+export default StyledFriendRequestIndex;
