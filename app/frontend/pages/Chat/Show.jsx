@@ -13,13 +13,14 @@ function ChatShow({ className, chat }) {
 }
 
 ChatShow.propTypes = {
+  className: PropTypes.string,
   chat: PropTypes.object,
 };
 
 const StyledChatShow = styled(ChatShow)`
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 19px);
 `;
 
 export default StyledChatShow;

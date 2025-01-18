@@ -43,12 +43,10 @@ Chat.propTypes = {
 };
 
 const StyledChat = styled(Chat)`
+  flex: 1 1 0;
   display: flex;
   flex-direction: column-reverse;
   overflow: auto;
-
-  border: 1px solid black;
-  background-color: #ff7cd3;
 `;
 
 export default StyledChat;
