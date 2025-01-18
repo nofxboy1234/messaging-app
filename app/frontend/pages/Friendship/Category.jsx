@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from '@inertiajs/react';
+import api from '../../pathHelpers';
 
 function FriendshipCategory({ className }) {
   return (
     <div className={className}>
+      <div>Friends:</div>
       <div>
-        <div>Friends:</div>
-        <div>All</div>
-        <div>Pending</div>
+        <Link href={api.friendships.index.path()}>All</Link>
+      </div>
+      <div>
+        <Link href={api.friendRequests.index.path()}>Pending</Link>
       </div>
     </div>
   );
