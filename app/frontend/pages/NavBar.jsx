@@ -12,7 +12,9 @@ const NavBar = ({ className }) => {
       <div>
         <Link href="/">Home</Link>
       </div>
-      <div>Friends</div>
+      <div>
+        <Link href={api.friendshipCategories.index.path()}>Friends</Link>
+      </div>
       <div id="nav-bar-chats">Chats</div>
       <div id="nav-bar-users">Users</div>
       {/* <div>

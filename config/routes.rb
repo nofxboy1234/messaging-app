@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :friends, as: :friendships, controller: :friendships,
              only: %i[index create destroy], export: true
+  resources :friend_categories, controller: :friendship_categories, only: [ :index ], export: true
 
   resources :chats, only: [ :show ], export: true
   resources :member_lists, only: [ :index, :create ], export: true

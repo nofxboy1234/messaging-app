@@ -1,4 +1,4 @@
-class FriendshipsController < ApplicationController
+class FriendshipCategoriesController < ApplicationController
   def index
     render inertia: "Friendship/Category", props: {}
   end
