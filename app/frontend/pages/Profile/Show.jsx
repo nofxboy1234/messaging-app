@@ -3,8 +3,10 @@ import Profile from './Profile';
 import UserActions from '../User/Actions';
 import ProfileActions from './Actions';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 function ProfileShow({
+  className,
   profile,
   relationship,
   friendRequest,
@@ -18,7 +20,7 @@ function ProfileShow({
   }
 
   return (
-    <div>
+    <div id="profile-show" className={className}>
       <Profile initialProfile={profile} />
       {currentUserProfile() ? (
         <ProfileActions profile={profile} />
@@ -36,6 +38,7 @@ function ProfileShow({
 }
 
 ProfileShow.propTypes = {
+  className: PropTypes.string,
   profile: PropTypes.object,
   relationship: PropTypes.string,
   friendRequest: PropTypes.object,
@@ -43,4 +46,11 @@ ProfileShow.propTypes = {
   chat: PropTypes.object,
 };
 
-export default ProfileShow;
+const StyledProfileShow = styled(ProfileShow)`
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+`;
+
+export default StyledProfileShow;
