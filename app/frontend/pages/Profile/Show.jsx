@@ -3,8 +3,6 @@ import Profile from './Profile';
 import UserActions from '../User/Actions';
 import ProfileActions from './Actions';
 import PropTypes from 'prop-types';
-import { Link } from '@inertiajs/react';
-import api from '../../pathHelpers';
 
 function ProfileShow({
   profile,
