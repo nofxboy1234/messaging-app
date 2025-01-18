@@ -19,11 +19,11 @@ const LayoutContainer = ({ className, children }) => {
       <div id="layout">
         <NavBar />
         <Main>
-          <Chats>
+          <Chats id="chats">
             <ChatIndex initialChats={shared.chats} />
           </Chats>
           <Content>{children}</Content>
-          <Users>
+          <Users id="users">
             <UserIndex
               initialUsers={isShowingChat() ? chat.members : shared.users}
               isShowingChat={isShowingChat()}
@@ -85,6 +85,18 @@ const StyledLayoutContainer = styled(LayoutContainer)`
     display: flex;
     flex-direction: column;
     border-color: aqua;
+  }
+
+  @media (max-width: 900px) {
+    #chats,
+    #users {
+      display: none;
+    }
+
+    /* #nav-bar-chats,
+    #nav-bar-users {
+      display: block;
+    } */
   }
 `;
 
