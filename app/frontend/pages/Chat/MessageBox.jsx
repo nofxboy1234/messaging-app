@@ -2,8 +2,9 @@ import api from '../../pathHelpers';
 import { useState } from 'react';
 import { usePage } from '@inertiajs/react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-function MessageBox({ chat }) {
+function MessageBox({ className, chat }) {
   const [message, setMessage] = useState('');
   const { shared } = usePage().props;
 
@@ -38,9 +39,8 @@ function MessageBox({ chat }) {
   }
 
   return (
-    <div>
+    <div id="message-box" className={className}>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="message">Message:</label>
         <input
           type="text"
           id="message"
@@ -58,4 +58,15 @@ MessageBox.propTypes = {
   chat: PropTypes.object,
 };
 
-export default MessageBox;
+const StyledMessageBox = styled(MessageBox)`
+  form {
+    flex: 1 1 0;
+    display: flex;
+  }
+
+  input {
+    flex: 1 1 0;
+  }
+`;
+
+export default StyledMessageBox;
