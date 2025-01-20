@@ -74,10 +74,10 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   border: 4px solid blueviolet;
   padding: 0.3rem;
 
-  div {
+  /* div {
     border: 4px solid rgb(255, 0, 140);
     padding: 0.3rem;
-  }
+  } */
 
   #layout {
     flex: 1 1 0;
