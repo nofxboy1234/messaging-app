@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import ChatButton from './Buttons/ChatButton';
 import UnfriendButton from './Buttons/UnfriendButton';
@@ -23,8 +23,11 @@ function Friendship({ className, friendship, user, chat }) {
 
 const StyledFriendship = styled(Friendship)`
   --bg-color: #5fffaf;
+  --active-bg-color: white;
 
-  background-color: ${(props) => (props.$active ? 'white' : '#5fffaf')};
+  ${css`
+    background-color: var(--bg-color);
+  `}
   padding: 5rem 3rem 1rem;
   font-size: 2rem;
 `;
