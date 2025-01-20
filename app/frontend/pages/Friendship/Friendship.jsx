@@ -17,6 +17,8 @@ function Friendship({ className, friendship, user, chat }) {
 
 const StyledFriendship = styled(Friendship)`
   background-color: #5fffaf;
+  padding: 5rem 3rem 1rem;
+  font-size: 2rem;
 `;
 
 Friendship.propTypes = {
