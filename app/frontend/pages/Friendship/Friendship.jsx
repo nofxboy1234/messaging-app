@@ -24,7 +24,7 @@ function Friendship({ className, friendship, user, chat, active }) {
 const StyledFriendship = styled(Friendship)`
   --bg-color: #5fffaf;
 
-  background-color: var(--bg-color);
+  background-color: ${(props) => (props.active ? 'white' : '#5fffaf')};
   padding: 5rem 3rem 1rem;
   font-size: 2rem;
 `;
