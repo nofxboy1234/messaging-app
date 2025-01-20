@@ -25,14 +25,14 @@ const StyledFriendship = styled(Friendship)`
   --bg-color: #5fffaf;
   --active-bg-color: white;
 
+  background-color: var(--bg-color);
+
   ${(props) =>
-    props.$active
-      ? css`
-          background-color: var(--active-bg-color);
-        `
-      : css`
-          background-color: var(--bg-color);
-        `}
+    props.$active &&
+    css`
+      background-color: var(--active-bg-color);
+    `}
+
   padding: 5rem 3rem 1rem;
   font-size: 2rem;
 `;
