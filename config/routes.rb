@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :friend_categories, controller: :friendship_categories, only: [ :index ], export: true
 
   resources :chats, only: [ :show, :index ], export: true
+  resources :users, only: [ :index ], export: true
   resources :member_lists, only: [ :index, :create ], export: true
   resources :messages, only: [ :create, :index ], export: true
   resources :profiles, only: [ :edit, :show, :update ], export: true
