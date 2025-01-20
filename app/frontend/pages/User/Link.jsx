@@ -1,7 +1,6 @@
 import { Link } from '@inertiajs/react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { router } from '@inertiajs/react';
 
 function UserLink({ className, children, targetPath, handleClick }) {
   return (
@@ -12,6 +11,7 @@ function UserLink({ className, children, targetPath, handleClick }) {
 }
 
 UserLink.propTypes = {
+  handleClick: PropTypes.func,
   className: PropTypes.string,
   children: PropTypes.array,
   targetPath: PropTypes.string,

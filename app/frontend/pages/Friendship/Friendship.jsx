@@ -26,16 +26,6 @@ const StyledFriendship = styled(Friendship)`
   background-color: var(--bg-color);
   padding: 5rem 3rem 1rem;
   font-size: 2rem;
-
-  > div#buttons {
-    visibility: hidden;
-  }
-
-  /* &:active {
-    > div#buttons {
-      visibility: visible;
-    }
-  } */
 `;
 
 Friendship.propTypes = {
