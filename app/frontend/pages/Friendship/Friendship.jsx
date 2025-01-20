@@ -16,7 +16,9 @@ function Friendship({ className, friendship, user, chat }) {
 }
 
 const StyledFriendship = styled(Friendship)`
-  background-color: #5fffaf;
+  --bg-color: #5fffaf;
+
+  background-color: var(--bg-color);
   padding: 5rem 3rem 1rem;
   font-size: 2rem;
 
@@ -27,6 +29,16 @@ const StyledFriendship = styled(Friendship)`
   &:hover {
     > div#buttons {
       visibility: visible;
+    }
+  }
+
+  @media (max-width: 900px) {
+    > div#buttons {
+      visibility: visible;
+    }
+
+    &:hover {
+      background-color: var(--bg-color);
     }
   }
 `;
