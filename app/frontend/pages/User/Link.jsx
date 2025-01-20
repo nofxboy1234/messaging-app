@@ -31,6 +31,7 @@ const StyledUserLink = styled(UserLink)`
 
   &:hover {
     cursor: pointer;
+    background-color: white;
   }
 `;
 

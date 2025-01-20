@@ -36,6 +36,7 @@ function FriendshipIndex({ className, initialFriendships }) {
       <div id="friendships">
         {friendships.map((friendship) => (
           <div
+            id="friendship-container"
             key={friendship.friendship.id}
             onClick={() => {
               console.log('FriendshipIndex');
