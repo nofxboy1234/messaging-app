@@ -21,27 +21,33 @@ function Friendship({ className, friendship, user, chat }) {
   );
 }
 
-const StyledFriendship = styled(Friendship)`
-  --bg-color: #5fffaf;
-  --active-bg-color: white;
-
-  background-color: var(--bg-color);
-
-  ${(props) =>
-    props.$active &&
-    css`
-      background-color: var(--active-bg-color);
-    `}
-
-  padding: 5rem 3rem 1rem;
-  font-size: 2rem;
-`;
-
 Friendship.propTypes = {
   className: PropTypes.string,
   friendship: PropTypes.object,
   user: PropTypes.object,
   chat: PropTypes.object,
 };
+
+const StyledFriendship = styled(Friendship)`
+  --bg-color: #5fffaf;
+  --active-bg-color: white;
+
+  background-color: var(--bg-color);
+  & > div#buttons {
+    visibility: hidden;
+  }
+
+  ${(props) =>
+    props.$active &&
+    css`
+      background-color: var(--active-bg-color);
+      & > div#buttons {
+        visibility: visible;
+      }
+    `}
+
+  padding: 5rem 3rem 1rem;
+  font-size: 2rem;
+`;
 
 export default StyledFriendship;
