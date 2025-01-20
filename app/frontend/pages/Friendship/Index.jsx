@@ -9,7 +9,7 @@ import styled from 'styled-components';
 function FriendshipIndex({ className, initialFriendships }) {
   const [friendships, setFriendships] = useState(initialFriendships);
   const { shared } = usePage().props;
-  const [activeFriendship, setActiveFriendship] = useState();
+  const [activeFriendshipId, setActiveFriendshipId] = useState();
 
   useEffect(() => {
     const channel = consumer.subscriptions.create(
@@ -37,12 +37,13 @@ function FriendshipIndex({ className, initialFriendships }) {
         {friendships.map((friendship) => (
           <div
             key={friendship.friendship.id}
-            onClick={() => console.log('clicked Friendship')}
+            onClick={() => setActiveFriendshipId(friendship.friendship.id)}
           >
             <Friendship
               friendship={friendship.friendship}
               user={friendship.friend}
               chat={friendship.chat}
+              active={friendship.friendship.id === activeFriendshipId}
             />
           </div>
         ))}

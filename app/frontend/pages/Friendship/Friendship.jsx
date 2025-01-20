@@ -4,7 +4,7 @@ import ChatButton from './Buttons/ChatButton';
 import UnfriendButton from './Buttons/UnfriendButton';
 import ProfileLink from '../Profile/Link';
 
-function Friendship({ className, friendship, user, chat }) {
+function Friendship({ className, friendship, user, chat, active }) {
   const handleClick = (event) => {
     event.preventDefault();
     console.log('clicked UserLink');
@@ -34,6 +34,7 @@ Friendship.propTypes = {
   friendship: PropTypes.object,
   user: PropTypes.object,
   chat: PropTypes.object,
+  active: PropTypes.bool,
 };
 
 export default StyledFriendship;
