@@ -26,7 +26,8 @@ backend: ruby
  
 [x] - Implement profile picture
 [x] - Use websockets to sync data between clients
-[.] - style and make responsive
+[x] - Make responsive
+[.] - Add style
 [ ] - change authentication zero to Devise + Action Policy
 [ ] - model (rspec) and integration (vitest + react testing library) tests
 [ ] - ~client-side form validations, server-side model validations, error handling, 
