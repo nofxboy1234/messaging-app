@@ -8,6 +8,7 @@ function Friendship({ className, friendship, user, chat }) {
   const handleClick = (event) => {
     event.preventDefault();
     console.log('clicked UserLink');
+    // If active, router.get
   };
 
   return (
