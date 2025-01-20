@@ -5,19 +5,8 @@ import UnfriendButton from './Buttons/UnfriendButton';
 import ProfileLink from '../Profile/Link';
 
 function Friendship({ className, friendship, user, chat, active }) {
-  const handleClick = (event) => {
-    event.preventDefault();
-    console.log('Friendship');
-    // If active, router.get
-  };
-
   return (
-    <ProfileLink
-      className={className}
-      user={user}
-      handleClick={handleClick}
-      active={active}
-    >
+    <ProfileLink className={className} user={user} active={active}>
       <div id="buttons">
         <ChatButton chat={chat} />
         <UnfriendButton friendship={friendship} user={user} />

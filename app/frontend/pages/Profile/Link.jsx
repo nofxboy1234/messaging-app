@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import UserLink from '../User/Link';
 import ProfilePicture from './Picture';
 
-function ProfileLink({ className, children, user, handleClick, active }) {
+function ProfileLink({ className, children, user, active }) {
   return (
     <UserLink
       className={className}
       targetPath={api.profiles.show.path(user.profile)}
-      handleClick={handleClick}
       active={active}
     >
       <ProfilePicture src={user.profile.picture} />

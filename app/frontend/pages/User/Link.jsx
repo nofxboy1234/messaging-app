@@ -2,9 +2,9 @@ import { Link } from '@inertiajs/react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-function UserLink({ className, children, targetPath, handleClick, active }) {
+function UserLink({ className, children, targetPath, active }) {
   return active ? (
-    <Link className={className} href={targetPath} onClick={handleClick}>
+    <Link className={className} href={targetPath}>
       {children}
     </Link>
   ) : (
