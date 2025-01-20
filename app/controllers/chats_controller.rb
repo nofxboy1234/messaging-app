@@ -1,16 +1,16 @@
 class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show ]
 
-  # def index
-  #   @chats = Current.user&.friends&.includes(:profile)&.map do |friend|
-  #     chat = Current.user&.find_direct_message_chat_with(friend)
-  #     { friend: friend.as_json(include: :profile), chat: chat }
-  #   end
+  def index
+    @chats = Current.user&.friends&.includes(:profile)&.map do |friend|
+      chat = Current.user&.find_direct_message_chat_with(friend)
+      { friend: friend.as_json(include: :profile), chat: chat }
+    end
 
-  #   render inertia: "Chat/Index", props: {
-  #     initialChats: @chats
-  #   }
-  # end
+    render inertia: "Chat/Index", props: {
+      initialChats: @chats
+    }
+  end
 
   def show
     @serialized_chat = serialize_chat(@chat)

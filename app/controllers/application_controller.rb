@@ -12,10 +12,6 @@ class ApplicationController < ActionController::Base
         chat = Current.user&.find_direct_message_chat_with(friend)
         { friend: friend.as_json(include: :profile), chat: chat }
       end
-
-      # chats = Current.user&.chats&.includes(friendship: [ :user, :friend ])
-      # chats = Current.user&.chats
-      # chats.as_json(include: { hello: {} })
     },
     users: -> {
       users = User.includes(:profile)

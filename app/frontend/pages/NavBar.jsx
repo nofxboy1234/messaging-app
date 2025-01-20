@@ -15,7 +15,9 @@ const NavBar = ({ className }) => {
       <div>
         <Link href={api.friendshipCategories.index.path()}>Friends</Link>
       </div>
-      <div id="nav-bar-chats">Chats</div>
+      <div id="nav-bar-chats">
+        <Link href={api.chats.index.path()}>Chats</Link>
+      </div>
       <div id="nav-bar-users">Users</div>
       <div>
         <Link href={api.profiles.show.path(shared.profile)}>
