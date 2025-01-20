@@ -37,13 +37,16 @@ function FriendshipIndex({ className, initialFriendships }) {
         {friendships.map((friendship) => (
           <div
             key={friendship.friendship.id}
-            onClick={() => setActiveFriendshipId(friendship.friendship.id)}
+            onClick={() => {
+              console.log('FriendshipIndex');
+              setActiveFriendshipId(friendship.friendship.id);
+            }}
           >
             <Friendship
               friendship={friendship.friendship}
               user={friendship.friend}
               chat={friendship.chat}
-              $active={friendship.friendship.id === activeFriendshipId}
+              active={friendship.friendship.id === activeFriendshipId}
             />
           </div>
         ))}

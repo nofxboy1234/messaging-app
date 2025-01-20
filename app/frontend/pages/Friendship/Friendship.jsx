@@ -4,15 +4,20 @@ import ChatButton from './Buttons/ChatButton';
 import UnfriendButton from './Buttons/UnfriendButton';
 import ProfileLink from '../Profile/Link';
 
-function Friendship({ className, friendship, user, chat }) {
+function Friendship({ className, friendship, user, chat, active }) {
   const handleClick = (event) => {
     event.preventDefault();
-    console.log('clicked UserLink');
+    console.log('Friendship');
     // If active, router.get
   };
 
   return (
-    <ProfileLink className={className} user={user} handleClick={handleClick}>
+    <ProfileLink
+      className={className}
+      user={user}
+      handleClick={handleClick}
+      active={active}
+    >
       <div id="buttons">
         <ChatButton chat={chat} />
         <UnfriendButton friendship={friendship} user={user} />
@@ -38,7 +43,7 @@ const StyledFriendship = styled(Friendship)`
   }
 
   ${(props) =>
-    props.$active &&
+    props.active &&
     css`
       background-color: var(--active-bg-color);
       & > div#buttons {
