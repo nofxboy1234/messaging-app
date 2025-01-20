@@ -28,6 +28,10 @@ const StyledUserLink = styled(UserLink)`
   border-radius: 5px;
   padding: 0.3rem;
   text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default StyledUserLink;
