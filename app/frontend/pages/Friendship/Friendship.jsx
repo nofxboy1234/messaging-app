@@ -4,7 +4,7 @@ import ChatButton from './Buttons/ChatButton';
 import UnfriendButton from './Buttons/UnfriendButton';
 import ProfileLink from '../Profile/Link';
 
-function Friendship({ className, friendship, user, chat, active }) {
+function Friendship({ className, friendship, user, chat }) {
   const handleClick = (event) => {
     event.preventDefault();
     console.log('clicked UserLink');
@@ -24,7 +24,7 @@ function Friendship({ className, friendship, user, chat, active }) {
 const StyledFriendship = styled(Friendship)`
   --bg-color: #5fffaf;
 
-  background-color: ${(props) => (props.active ? 'white' : '#5fffaf')};
+  background-color: ${(props) => (props.$active ? 'white' : '#5fffaf')};
   padding: 5rem 3rem 1rem;
   font-size: 2rem;
 `;
@@ -34,7 +34,6 @@ Friendship.propTypes = {
   friendship: PropTypes.object,
   user: PropTypes.object,
   chat: PropTypes.object,
-  active: PropTypes.bool,
 };
 
 export default StyledFriendship;

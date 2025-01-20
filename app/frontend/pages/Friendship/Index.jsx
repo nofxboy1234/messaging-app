@@ -43,7 +43,7 @@ function FriendshipIndex({ className, initialFriendships }) {
               friendship={friendship.friendship}
               user={friendship.friend}
               chat={friendship.chat}
-              active={friendship.friendship.id === activeFriendshipId}
+              $active={friendship.friendship.id === activeFriendshipId}
             />
           </div>
         ))}
