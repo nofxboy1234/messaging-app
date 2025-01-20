@@ -1,10 +1,11 @@
 import { Link } from '@inertiajs/react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { router } from '@inertiajs/react';
 
-function UserLink({ className, children, targetPath }) {
+function UserLink({ className, children, targetPath, handleClick }) {
   return (
-    <Link className={className} href={targetPath}>
+    <Link className={className} href={targetPath} onClick={handleClick}>
       {children}
     </Link>
   );
@@ -24,10 +25,6 @@ const StyledUserLink = styled(UserLink)`
   border: 1px solid black;
   border-radius: 5px;
   padding: 0.3rem;
-  &:hover {
-    background-color: white;
-    cursor: pointer;
-  }
   text-decoration: none;
 `;
 

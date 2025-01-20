@@ -5,8 +5,13 @@ import UnfriendButton from './Buttons/UnfriendButton';
 import ProfileLink from '../Profile/Link';
 
 function Friendship({ className, friendship, user, chat }) {
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log('clicked UserLink');
+  };
+
   return (
-    <ProfileLink className={className} user={user}>
+    <ProfileLink className={className} user={user} handleClick={handleClick}>
       <div id="buttons">
         <ChatButton chat={chat} />
         <UnfriendButton friendship={friendship} user={user} />
@@ -26,21 +31,11 @@ const StyledFriendship = styled(Friendship)`
     visibility: hidden;
   }
 
-  &:hover {
+  /* &:active {
     > div#buttons {
       visibility: visible;
     }
-  }
-
-  @media (max-width: 900px) {
-    > div#buttons {
-      visibility: visible;
-    }
-
-    &:hover {
-      background-color: var(--bg-color);
-    }
-  }
+  } */
 `;
 
 Friendship.propTypes = {
