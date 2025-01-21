@@ -27,22 +27,27 @@ const StyledFriendship = styled(Friendship)`
   --active-bg-color: white;
 
   flex: 1 1 0;
+  border: 1px solid black;
 
   background-color: var(--bg-color);
   & > div#buttons {
     visibility: hidden;
   }
 
+  /* padding: 5rem 3rem 1rem; */
+  transition: padding 1s ease-outf 0s;
+
   ${(props) =>
     props.active &&
     css`
       background-color: var(--active-bg-color);
+      padding: 3rem 0;
+
       & > div#buttons {
         visibility: visible;
       }
     `}
 
-  padding: 5rem 3rem 1rem;
   font-size: 2rem;
 `;
 

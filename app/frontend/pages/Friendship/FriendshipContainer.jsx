@@ -21,13 +21,10 @@ const StyledFriendshipContainer = styled(FriendshipContainer)`
 
   background-color: var(--bg-color);
 
-  transition: padding 1s ease-out 0s;
-
   ${(props) =>
     props.$active &&
     css`
       background-color: var(--active-bg-color);
-      padding: 3rem 0;
     `}
 
   display: flex;
