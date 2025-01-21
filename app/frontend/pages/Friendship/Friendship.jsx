@@ -26,6 +26,8 @@ const StyledFriendship = styled(Friendship)`
   --bg-color: #5fffaf;
   --active-bg-color: white;
 
+  flex: 1 1 0;
+
   background-color: var(--bg-color);
   & > div#buttons {
     visibility: hidden;

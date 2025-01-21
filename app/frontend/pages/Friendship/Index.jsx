@@ -5,6 +5,7 @@ import FriendshipTotal from './Total';
 import { useEffect, useState } from 'react';
 import consumer from '../../channels/consumer';
 import styled from 'styled-components';
+import FriendshipContainer from './FriendshipContainer';
 
 function FriendshipIndex({ className, initialFriendships }) {
   const [friendships, setFriendships] = useState(initialFriendships);
@@ -35,13 +36,12 @@ function FriendshipIndex({ className, initialFriendships }) {
       <FriendshipTotal friendships={friendships} />
       <div id="friendships">
         {friendships.map((friendship) => (
-          <div
-            id="friendship-container"
+          <FriendshipContainer
             key={friendship.friendship.id}
-            onClick={() => {
-              console.log('FriendshipIndex');
+            handleClick={() => {
               setActiveFriendshipId(friendship.friendship.id);
             }}
+            $active={friendship.friendship.id === activeFriendshipId}
           >
             <Friendship
               friendship={friendship.friendship}
@@ -49,7 +49,7 @@ function FriendshipIndex({ className, initialFriendships }) {
               chat={friendship.chat}
               active={friendship.friendship.id === activeFriendshipId}
             />
-          </div>
+          </FriendshipContainer>
         ))}
       </div>
     </div>
@@ -57,7 +57,7 @@ function FriendshipIndex({ className, initialFriendships }) {
 }
 
 FriendshipIndex.propTypes = {
-  flash: PropTypes.object,
+  className: PropTypes.string,
   initialFriendships: PropTypes.array,
 };
 
@@ -67,7 +67,7 @@ const StyledFriendshipIndex = styled(FriendshipIndex)`
   flex-direction: column;
   overflow: auto;
 
-  > div#friendships {
+  & > div#friendships {
     flex: 1 1 0;
     display: flex;
     flex-direction: column;

@@ -24,7 +24,7 @@ const StyledUserLink = styled(UserLink)`
   justify-content: space-between;
 
   background-color: #a07eff;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 5px;
   padding: 0.3rem;
   text-decoration: none;
