@@ -16,12 +16,18 @@ FriendshipContainer.propTypes = {
 };
 
 const StyledFriendshipContainer = styled(FriendshipContainer)`
+  --bg-color: #5fffaf;
+  --active-bg-color: white;
+
+  background-color: var(--bg-color);
+
   border: 1px solid black;
   transition: padding 1s ease-out 0s;
 
   ${(props) =>
     props.$active &&
     css`
+      background-color: var(--active-bg-color);
       padding: 3rem 0;
     `}
 
