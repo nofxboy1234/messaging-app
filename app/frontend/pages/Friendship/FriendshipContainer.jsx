@@ -17,6 +17,7 @@ FriendshipContainer.propTypes = {
 
 const StyledFriendshipContainer = styled(FriendshipContainer)`
   border: 1px solid black;
+  transition: padding 1s ease-out 0s;
 
   ${(props) =>
     props.$active &&
