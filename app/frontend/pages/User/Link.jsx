@@ -13,7 +13,6 @@ function UserLink({ className, children, targetPath, active }) {
 }
 
 UserLink.propTypes = {
-  handleClick: PropTypes.func,
   className: PropTypes.string,
   children: PropTypes.array,
   targetPath: PropTypes.string,

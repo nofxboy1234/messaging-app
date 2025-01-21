@@ -18,7 +18,6 @@ function ProfileLink({ className, children, user, active }) {
 }
 
 ProfileLink.propTypes = {
-  handleClick: PropTypes.func,
   className: PropTypes.string,
   children: PropTypes.object,
   user: PropTypes.object,
