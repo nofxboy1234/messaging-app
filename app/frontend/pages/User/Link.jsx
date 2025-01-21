@@ -1,22 +1,11 @@
 import { Link } from '@inertiajs/react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 function UserLink({ className, children, targetPath, active = true }) {
-  const [preventDefault, setPreventDefault] = useState(true);
-
-  const handleClick = (event) => {
-    console.log('handleClick in UserLink');
-    if (preventDefault) {
-      event.preventDefault();
-      setPreventDefault(false);
-    }
-  };
-
   return (
     <div id="UserLink" className={className}>
-      <Link className="children" href={targetPath} onClick={handleClick}>
+      <Link className="children" href={targetPath}>
         {children}
       </Link>
     </div>
@@ -35,6 +24,7 @@ const StyledUserLink = styled(UserLink)`
     display: flex;
     justify-content: space-between;
     text-decoration: none;
+    pointer-events: none;
 
     transition: padding 2s ease-out 0s;
   }
@@ -43,6 +33,7 @@ const StyledUserLink = styled(UserLink)`
     props.active &&
     css`
       & .children {
+        pointer-events: auto;
         padding: 3rem 0;
       }
     `}
