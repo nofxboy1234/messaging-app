@@ -38,7 +38,7 @@ const StyledFriendship = styled(Friendship)`
   border: 1px solid black;
 
   background-color: var(--bg-color);
-  & > div#buttons {
+  & div#buttons {
     visibility: hidden;
   }
 
@@ -50,7 +50,7 @@ const StyledFriendship = styled(Friendship)`
       background-color: var(--active-bg-color);
       padding: 3rem 0;
 
-      & > div#buttons {
+      & div#buttons {
         visibility: visible;
       }
     `}
