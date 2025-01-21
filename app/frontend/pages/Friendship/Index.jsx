@@ -42,6 +42,7 @@ function FriendshipIndex({ className, initialFriendships }) {
             chat={friendship.chat}
             active={friendship.friendship.id === activeFriendshipId}
             handleClick={() => {
+              console.log('handleClick in FriendshipIndex');
               setActiveFriendshipId(friendship.friendship.id);
             }}
           />

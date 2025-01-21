@@ -1,17 +1,24 @@
 import { Link } from '@inertiajs/react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 function UserLink({ className, children, targetPath, active = true }) {
+  const [preventDefault, setPreventDefault] = useState(true);
+
+  const handleClick = (event) => {
+    console.log('handleClick in UserLink');
+    if (preventDefault) {
+      event.preventDefault();
+      setPreventDefault(false);
+    }
+  };
+
   return (
     <div id="UserLink" className={className}>
-      {active ? (
-        <Link className="children" href={targetPath}>
-          {children}
-        </Link>
-      ) : (
-        <div className="children">{children}</div>
-      )}
+      <Link className="children" href={targetPath} onClick={handleClick}>
+        {children}
+      </Link>
     </div>
   );
 }
