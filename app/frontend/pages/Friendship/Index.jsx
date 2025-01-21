@@ -5,7 +5,6 @@ import FriendshipTotal from './Total';
 import { useEffect, useState } from 'react';
 import consumer from '../../channels/consumer';
 import styled from 'styled-components';
-import FriendshipContainer from './FriendshipContainer';
 
 function FriendshipIndex({ className, initialFriendships }) {
   const [friendships, setFriendships] = useState(initialFriendships);

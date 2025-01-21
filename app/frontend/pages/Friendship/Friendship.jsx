@@ -43,7 +43,7 @@ const StyledFriendship = styled(Friendship)`
     visibility: hidden;
   }
 
-  /* transition: padding 1s ease-out 0s; */
+  transition: padding 2s ease-out 0s;
 
   ${(props) =>
     props.active &&
@@ -57,6 +57,11 @@ const StyledFriendship = styled(Friendship)`
     `}
 
   font-size: 2rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+  }
 `;
 
 export default StyledFriendship;

@@ -26,11 +26,6 @@ const StyledUserLink = styled(UserLink)`
   background-color: inherit;
   border-radius: 5px;
   text-decoration: none;
-
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-  }
 `;
 
 export default StyledUserLink;
