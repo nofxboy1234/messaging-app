@@ -35,6 +35,7 @@ const StyledFriendship = styled(Friendship)`
   --bg-color: #5fffaf;
   --active-bg-color: white;
 
+  font-size: 2rem;
   border: 1px solid black;
 
   background-color: var(--bg-color);
@@ -54,8 +55,6 @@ const StyledFriendship = styled(Friendship)`
         visibility: visible;
       }
     `}
-
-  font-size: 2rem;
 
   &:hover {
     cursor: pointer;
