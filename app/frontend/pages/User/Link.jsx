@@ -23,7 +23,6 @@ const StyledUserLink = styled(UserLink)`
   display: flex;
   justify-content: space-between;
 
-  /* background-color: inherit; */
   border-radius: 5px;
   text-decoration: none;
 `;
