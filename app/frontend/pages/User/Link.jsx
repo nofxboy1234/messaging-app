@@ -23,9 +23,8 @@ const StyledUserLink = styled(UserLink)`
   display: flex;
   justify-content: space-between;
 
-  background-color: #a07eff;
+  background-color: inherit;
   border-radius: 5px;
-  padding: 0.3rem;
   text-decoration: none;
 
   &:hover {

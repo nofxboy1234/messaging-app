@@ -4,14 +4,23 @@ import ChatButton from './Buttons/ChatButton';
 import UnfriendButton from './Buttons/UnfriendButton';
 import ProfileLink from '../Profile/Link';
 
-function Friendship({ className, friendship, user, chat, active }) {
+function Friendship({
+  className,
+  friendship,
+  user,
+  chat,
+  active,
+  handleClick,
+}) {
   return (
-    <ProfileLink className={className} user={user} active={active}>
-      <div id="buttons">
-        <ChatButton chat={chat} />
-        <UnfriendButton friendship={friendship} user={user} />
-      </div>
-    </ProfileLink>
+    <div id="friendship" className={className} onClick={handleClick}>
+      <ProfileLink user={user} active={active}>
+        <div id="buttons">
+          <ChatButton chat={chat} />
+          <UnfriendButton friendship={friendship} user={user} />
+        </div>
+      </ProfileLink>
+    </div>
   );
 }
 
@@ -26,7 +35,7 @@ const StyledFriendship = styled(Friendship)`
   --bg-color: #5fffaf;
   --active-bg-color: white;
 
-  flex: 1 1 0;
+  /* flex: 1 1 0; */
   border: 1px solid black;
 
   background-color: var(--bg-color);
@@ -34,8 +43,7 @@ const StyledFriendship = styled(Friendship)`
     visibility: hidden;
   }
 
-  /* padding: 5rem 3rem 1rem; */
-  transition: padding 1s ease-outf 0s;
+  /* transition: padding 1s ease-out 0s; */
 
   ${(props) =>
     props.active &&

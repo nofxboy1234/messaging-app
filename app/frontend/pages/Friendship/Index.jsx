@@ -36,20 +36,16 @@ function FriendshipIndex({ className, initialFriendships }) {
       <FriendshipTotal friendships={friendships} />
       <div id="friendships">
         {friendships.map((friendship) => (
-          <FriendshipContainer
+          <Friendship
             key={friendship.friendship.id}
+            friendship={friendship.friendship}
+            user={friendship.friend}
+            chat={friendship.chat}
+            active={friendship.friendship.id === activeFriendshipId}
             handleClick={() => {
               setActiveFriendshipId(friendship.friendship.id);
             }}
-            $active={friendship.friendship.id === activeFriendshipId}
-          >
-            <Friendship
-              friendship={friendship.friendship}
-              user={friendship.friend}
-              chat={friendship.chat}
-              active={friendship.friendship.id === activeFriendshipId}
-            />
-          </FriendshipContainer>
+          />
         ))}
       </div>
     </div>
