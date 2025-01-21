@@ -43,13 +43,10 @@ const StyledFriendship = styled(Friendship)`
     visibility: hidden;
   }
 
-  transition: padding 2s ease-out 0s;
-
   ${(props) =>
     props.active &&
     css`
       background-color: var(--active-bg-color);
-      padding: 3rem 0;
 
       & div#buttons {
         visibility: visible;
