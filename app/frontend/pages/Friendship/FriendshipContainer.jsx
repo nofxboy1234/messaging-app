@@ -21,7 +21,6 @@ const StyledFriendshipContainer = styled(FriendshipContainer)`
 
   background-color: var(--bg-color);
 
-  border: 1px solid black;
   transition: padding 1s ease-out 0s;
 
   ${(props) =>
