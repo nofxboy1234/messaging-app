@@ -32,6 +32,7 @@ const StyledChatButton = styled(ChatButton)`
   border: 2px solid var(--fg-color);
   border-radius: 3px;
   cursor: pointer;
+  margin: 1rem;
 
   &:hover {
     background-color: var(--fg-color);
