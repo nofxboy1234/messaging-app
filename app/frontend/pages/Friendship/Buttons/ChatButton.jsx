@@ -18,6 +18,7 @@ function ChatButton({ className, chat }) {
 }
 
 ChatButton.propTypes = {
+  className: PropTypes.string,
   chat: PropTypes.object,
 };
 
