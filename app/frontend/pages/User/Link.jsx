@@ -32,7 +32,6 @@ const StyledUserLink = styled(UserLink).attrs((props) => ({
   }
 
   ${(props) => {
-    console.log(`props.active: ${props.$active}`);
     return (
       props.$active &&
       css`
