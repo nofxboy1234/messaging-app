@@ -28,7 +28,7 @@ const StyledUserLink = styled(UserLink).attrs((props) => ({
     text-decoration: none;
     pointer-events: none;
 
-    transition: padding 2s ease-out 0s;
+    transition: padding 0.1s ease-out 0s;
   }
 
   ${(props) => {
