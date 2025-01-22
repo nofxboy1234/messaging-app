@@ -9,6 +9,7 @@ function ProfileLink({ className, children, user, active }) {
       className={className}
       targetPath={api.profiles.show.path(user.profile)}
       $active={active}
+      $activePadding={true}
     >
       <ProfilePicture src={user.profile.picture} />
       <div>{user.profile.username}</div>
