@@ -6,11 +6,7 @@ import ProfilePicture from '../Profile/Picture';
 
 function ChatLink({ className, chat, friend }) {
   return (
-    <UserLink
-      className={className}
-      user={friend}
-      targetPath={api.chats.show.path(chat)}
-    >
+    <UserLink className={className} targetPath={api.chats.show.path(chat)}>
       <ProfilePicture src={friend.profile.picture} />
       <div>{friend.profile.username}</div>
     </UserLink>
