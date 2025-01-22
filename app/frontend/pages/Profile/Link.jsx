@@ -8,7 +8,7 @@ function ProfileLink({ className, children, user, active }) {
     <UserLink
       className={className}
       targetPath={api.profiles.show.path(user.profile)}
-      active={active}
+      $active={active}
     >
       <ProfilePicture src={user.profile.picture} />
       <div>{user.profile.username}</div>

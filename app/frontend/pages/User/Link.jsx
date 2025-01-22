@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-function UserLink({ className, children, targetPath, active = true }) {
+function UserLink({ className, children, targetPath }) {
   return (
     <div id="UserLink" className={className}>
       <Link className="children" href={targetPath}>
@@ -20,7 +20,7 @@ UserLink.propTypes = {
 };
 
 const StyledUserLink = styled(UserLink).attrs((props) => ({
-  active: props.active === undefined ? true : props.active,
+  $active: props.$active === undefined ? true : props.$active,
 }))`
   & .children {
     display: flex;
@@ -32,9 +32,9 @@ const StyledUserLink = styled(UserLink).attrs((props) => ({
   }
 
   ${(props) => {
-    console.log(`props.active: ${props.active}`);
+    console.log(`props.active: ${props.$active}`);
     return (
-      props.active &&
+      props.$active &&
       css`
         & .children {
           pointer-events: auto;
