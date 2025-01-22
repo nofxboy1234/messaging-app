@@ -1,25 +1,25 @@
 import { Link } from '@inertiajs/react';
-import api from '../../../pathHelpers';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-function Button({ className, chat }) {
-  function handleChat(e) {
+function Button({ className, text, onClick }) {
+  function handleClick(e) {
     e.preventDefault();
 
-    api.chats.show({ obj: chat });
+    onClick();
   }
 
   return (
-    <Link className={className} as="button" type="button" onClick={handleChat}>
-      Chat
+    <Link className={className} as="button" type="button" onClick={handleClick}>
+      {text}
     </Link>
   );
 }
 
 Button.propTypes = {
   className: PropTypes.string,
-  chat: PropTypes.object,
+  text: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 const StyledButton = styled(Button)`
