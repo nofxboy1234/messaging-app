@@ -14,7 +14,7 @@ function Friendship({
 }) {
   return (
     <div id="friendship" className={className} onClick={handleClick}>
-      <ProfileLink user={user} active={active}>
+      <ProfileLink user={user} active={active} $activePadding={true}>
         <div id="buttons">
           <ChatButton chat={chat} />
           <UnfriendButton friendship={friendship} user={user} />
