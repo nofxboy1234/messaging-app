@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 function UserLink({ className, children, targetPath }) {
   return (
     <div id="UserLink" className={className}>
-      <Link className="children" href={targetPath}>
+      <Link className="link" href={targetPath}>
         {children}
       </Link>
     </div>
@@ -22,7 +22,7 @@ UserLink.propTypes = {
 const StyledUserLink = styled(UserLink).attrs((props) => ({
   $active: props.$active === undefined ? true : props.$active,
 }))`
-  & .children {
+  & .link {
     display: flex;
     justify-content: space-between;
     text-decoration: none;
@@ -36,7 +36,7 @@ const StyledUserLink = styled(UserLink).attrs((props) => ({
     return (
       props.$active &&
       css`
-        & .children {
+        & .link {
           pointer-events: auto;
           padding: 3rem 0;
         }
