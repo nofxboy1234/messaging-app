@@ -23,6 +23,7 @@ ProfileLink.propTypes = {
   children: PropTypes.object,
   user: PropTypes.object,
   active: PropTypes.bool,
+  $activePadding: PropTypes.bool,
 };
 
 export default ProfileLink;
