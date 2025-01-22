@@ -37,7 +37,7 @@ const StyledUserLink = styled(UserLink).attrs((props) => ({
       css`
         & .link {
           pointer-events: auto;
-          padding: ${(props) => (props.$activePadding ? '3rem 0' : 0)};
+          ${(props) => props.$activePadding && 'padding: 3rem 0'}
         }
       `
     );
