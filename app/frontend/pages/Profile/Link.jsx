@@ -21,6 +21,7 @@ ProfileLink.propTypes = {
   className: PropTypes.string,
   children: PropTypes.object,
   user: PropTypes.object,
+  active: PropTypes.bool,
 };
 
 export default ProfileLink;

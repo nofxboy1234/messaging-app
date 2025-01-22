@@ -29,6 +29,8 @@ Friendship.propTypes = {
   friendship: PropTypes.object,
   user: PropTypes.object,
   chat: PropTypes.object,
+  active: PropTypes.bool,
+  handleClick: PropTypes.func,
 };
 
 const StyledFriendship = styled(Friendship)`
