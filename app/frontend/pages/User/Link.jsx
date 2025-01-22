@@ -19,7 +19,9 @@ UserLink.propTypes = {
   active: PropTypes.bool,
 };
 
-const StyledUserLink = styled(UserLink)`
+const StyledUserLink = styled(UserLink).attrs((props) => ({
+  active: props.active === undefined ? true : props.active,
+}))`
   & .children {
     display: flex;
     justify-content: space-between;
@@ -29,14 +31,18 @@ const StyledUserLink = styled(UserLink)`
     transition: padding 2s ease-out 0s;
   }
 
-  ${(props) =>
-    props.active &&
-    css`
-      & .children {
-        pointer-events: auto;
-        padding: 3rem 0;
-      }
-    `}
+  ${(props) => {
+    console.log(`props.active: ${props.active}`);
+    return (
+      props.active &&
+      css`
+        & .children {
+          pointer-events: auto;
+          padding: 3rem 0;
+        }
+      `
+    );
+  }}
 `;
 
 export default StyledUserLink;
