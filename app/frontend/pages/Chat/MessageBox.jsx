@@ -1,8 +1,9 @@
-import api from '../../pathHelpers';
 import { useState } from 'react';
-import { usePage } from '@inertiajs/react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import SendMessageButton from './Buttons/SendMessageButton';
+import { usePage } from '@inertiajs/react';
+import api from '../../pathHelpers';
 
 function MessageBox({ className, chat }) {
   const [message, setMessage] = useState('');
@@ -16,8 +17,8 @@ function MessageBox({ className, chat }) {
     setMessage('');
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit() {
+    console.log('handleSubmit');
 
     if (message === '') return;
 
@@ -48,13 +49,14 @@ function MessageBox({ className, chat }) {
           value={message}
           onChange={handleChange}
         />
-        <button type="submit">Send</button>
+        <SendMessageButton onClick={handleSubmit} />
       </form>
     </div>
   );
 }
 
 MessageBox.propTypes = {
+  className: PropTypes.string,
   chat: PropTypes.object,
 };
 
