@@ -1,22 +1,27 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SendMessageButton from './Buttons/SendMessageButton';
 
 function MessageBox({ className, chat }) {
   const [message, setMessage] = useState('');
+  const inputRef = useRef(null);
 
   function handleChange(e) {
     setMessage(e.target.value);
   }
 
+  useEffect(() => {
+    inputRef.current.focus();
+  });
+
   return (
     <div id="message-box" className={className}>
       <form>
         <input
+          ref={inputRef}
           type="text"
           id="message"
-          autoFocus
           value={message}
           onChange={handleChange}
         />
