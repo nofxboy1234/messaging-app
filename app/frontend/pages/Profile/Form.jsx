@@ -1,5 +1,6 @@
 import { useForm } from '@inertiajs/react';
 import PropTypes from 'prop-types';
+import UpdateProfileButton from './Buttons/UpdateProfileButton';
 
 function ProfileForm({ profile, onSubmit, submitText }) {
   const form = useForm({
@@ -8,13 +9,8 @@ function ProfileForm({ profile, onSubmit, submitText }) {
   });
   const { data, setData, errors, processing } = form;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(form);
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <div>
         <label style={{ display: 'block' }} htmlFor="username">
           Username
@@ -45,9 +41,7 @@ function ProfileForm({ profile, onSubmit, submitText }) {
         )}
       </div>
       <div>
-        <button type="submit" disabled={processing}>
-          {submitText}
-        </button>
+        <UpdateProfileButton onSubmit={onSubmit} form={form} />
       </div>
     </form>
   );

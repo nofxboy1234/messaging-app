@@ -17,7 +17,6 @@ function ProfileEdit({ profile }) {
 
           form.transform((data) => ({ profile: data }));
           form.patch(api.profiles.update.path(profile), options);
-          // form.patch(`/profiles/${profile.id}`);
         }}
         submitText="Update profile"
       />
