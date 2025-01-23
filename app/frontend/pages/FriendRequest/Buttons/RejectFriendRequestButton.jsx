@@ -1,33 +1,35 @@
-import { Link } from '@inertiajs/react';
 import api from '../../../pathHelpers';
+import styled from 'styled-components';
+import Button from '../../Buttons/Button';
 import PropTypes from 'prop-types';
 
-function RejectFriendRequestButton({ friendRequest }) {
-  function handleReject(e) {
-    e.preventDefault();
-
-    const options = {
-      onBefore: () =>
-        confirm(
-          `Reject friend request from ${friendRequest.user.profile.username}?`,
-        ),
-      onFinish: () => {
-        api.rejectFriendRequestBroadcast.create({ data: friendRequest });
-      },
-    };
-
-    api.friendRequests.destroy({ obj: friendRequest, options: options });
-  }
-
+function RejectFriendRequestButton({ className, friendRequest }) {
   return (
-    <Link as="button" type="button" onClick={handleReject}>
-      Reject Friend Request
-    </Link>
+    <Button
+      className={className}
+      text={'Reject Friend Request'}
+      onClick={() => {
+        const options = {
+          onBefore: () =>
+            confirm(
+              `Reject friend request from ${friendRequest.user.profile.username}?`,
+            ),
+          onFinish: () => {
+            api.rejectFriendRequestBroadcast.create({ data: friendRequest });
+          },
+        };
+
+        api.friendRequests.destroy({ obj: friendRequest, options: options });
+      }}
+    />
   );
 }
 
 RejectFriendRequestButton.propTypes = {
+  className: PropTypes.string,
   friendRequest: PropTypes.object,
 };
 
-export default RejectFriendRequestButton;
+const StyledRejectFriendRequestButton = styled(RejectFriendRequestButton)``;
+
+export default StyledRejectFriendRequestButton;
