@@ -41,7 +41,7 @@ function MessageBox({ className, chat }) {
 
   return (
     <div id="message-box" className={className}>
-      <form onSubmit={handleSubmit}>
+      <form>
         <input
           type="text"
           id="message"
