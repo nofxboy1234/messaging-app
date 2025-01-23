@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 function Button({ className, text, onClick, type = 'button' }) {
   function handleClick(e) {
-    console.log('handleClick');
+    console.log('Button handleClick');
 
     e.preventDefault();
     onClick();
