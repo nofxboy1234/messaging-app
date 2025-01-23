@@ -7,9 +7,7 @@ function ProfileActions({ className, profile }) {
   return (
     <div className={className}>
       <EditProfileButton profile={profile} />
-      <div>
-        <UpdateAvatarLink />
-      </div>
+      <UpdateAvatarLink />
     </div>
   );
 }
@@ -20,6 +18,7 @@ ProfileActions.propTypes = {
 };
 
 const StyledProfileActions = styled(ProfileActions)`
+  display: flex;
   border: 1px solid black;
   background-color: #6cfaff;
   padding: 0.5rem;
