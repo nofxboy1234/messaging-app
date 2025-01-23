@@ -11,14 +11,11 @@ function MessageBox({ className, chat }) {
     setMessage(e.target.value);
   }
 
-  useEffect(() => {
-    inputRef.current.focus();
-  });
-
   return (
     <div id="message-box" className={className}>
       <form>
         <input
+          autoFocus
           ref={inputRef}
           type="text"
           id="message"
@@ -29,6 +26,7 @@ function MessageBox({ className, chat }) {
           message={message}
           setMessage={setMessage}
           chat={chat}
+          inputRef={inputRef}
         />
       </form>
     </div>

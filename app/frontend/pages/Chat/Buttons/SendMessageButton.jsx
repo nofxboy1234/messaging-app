@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import api from '../../../pathHelpers';
 import { usePage } from '@inertiajs/react';
 
-function SendMessageButton({ className, message, setMessage, chat }) {
+function SendMessageButton({ className, message, setMessage, chat, inputRef }) {
   const { shared } = usePage().props;
 
   function clearMessage() {
@@ -35,6 +35,7 @@ function SendMessageButton({ className, message, setMessage, chat }) {
 
         api.messages.create({ data: data, options: options });
         clearMessage();
+        inputRef.current.focus();
       }}
       type="submit"
     />
@@ -46,6 +47,7 @@ SendMessageButton.propTypes = {
   message: PropTypes.string,
   setMessage: PropTypes.func,
   chat: PropTypes.object,
+  inputRef: PropTypes.object,
 };
 
 const StyledSendMessageButton = styled(SendMessageButton)``;
