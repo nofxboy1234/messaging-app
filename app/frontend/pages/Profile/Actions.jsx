@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from '@inertiajs/react';
-import api from '../../pathHelpers';
+import EditProfileButton from './Buttons/EditProfileButton';
 
 function ProfileActions({ className, profile }) {
   return (
     <div className={className}>
-      <Link href={api.profiles.edit.path(profile)}>Edit this profile</Link>
+      <EditProfileButton profile={profile} />
       <div>
         <a
           href="https://gravatar.com/connect/?gravatar_from=signup"
