@@ -1,7 +1,7 @@
-import { Link } from '@inertiajs/react';
 import ProfileForm from './Form';
 import api from '../../pathHelpers';
 import PropTypes from 'prop-types';
+import ShowProfileButton from './Buttons/ShowProfileButton';
 
 function ProfileEdit({ profile }) {
   return (
@@ -21,11 +21,7 @@ function ProfileEdit({ profile }) {
         submitText="Update profile"
       />
 
-      <br />
-
-      <div>
-        <Link href={api.profiles.show.path(profile)}>Show this profile</Link>
-      </div>
+      <ShowProfileButton profile={profile} />
     </div>
   );
 }
