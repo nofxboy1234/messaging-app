@@ -1,7 +1,6 @@
 import ProfileForm from './Form';
 import api from '../../pathHelpers';
 import PropTypes from 'prop-types';
-import ShowProfileButton from './Buttons/ShowProfileButton';
 
 function ProfileEdit({ profile }) {
   return (
@@ -20,8 +19,6 @@ function ProfileEdit({ profile }) {
         }}
         submitText="Update profile"
       />
-
-      <ShowProfileButton profile={profile} />
     </div>
   );
 }

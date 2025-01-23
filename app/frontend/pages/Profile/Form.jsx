@@ -1,6 +1,7 @@
 import { useForm } from '@inertiajs/react';
 import PropTypes from 'prop-types';
 import UpdateProfileButton from './Buttons/UpdateProfileButton';
+import ShowProfileButton from './Buttons/ShowProfileButton';
 
 function ProfileForm({ profile, onSubmit, submitText }) {
   const form = useForm({
@@ -42,6 +43,7 @@ function ProfileForm({ profile, onSubmit, submitText }) {
       </div>
       <div>
         <UpdateProfileButton onSubmit={onSubmit} form={form} />
+        <ShowProfileButton profile={profile} />
       </div>
     </form>
   );
