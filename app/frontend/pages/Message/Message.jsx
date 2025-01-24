@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
 import Picture from '../Profile/Picture';
 import styled from 'styled-components';
+import { forwardRef } from 'react';
 
-function Message({ className, message }) {
+const Message = forwardRef(function Message(props, ref) {
+  const { className, message } = props;
+
   return (
-    <div className={className}>
+    <div className={className} ref={ref}>
       <Picture src={message.user.profile.picture} />
       <div>{message.user.profile.username}</div>
       <div>{message.body}</div>
     </div>
   );
-}
+});
 
 const StyledMessage = styled(Message)`
   border: 1px solid black;
@@ -23,6 +26,7 @@ const StyledMessage = styled(Message)`
 `;
 
 Message.propTypes = {
+  className: PropTypes.string,
   message: PropTypes.object,
 };
 
