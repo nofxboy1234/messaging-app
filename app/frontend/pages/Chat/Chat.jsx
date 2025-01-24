@@ -6,7 +6,19 @@ import styled from 'styled-components';
 
 function Chat({ className, chat }) {
   const [messages, setMessages] = useState(chat.messages);
+  const [scrollBarAtBottom, setScrollBarAtBottom] = useState(false);
   const lastMessageRef = useRef(null);
+  const rootElementRef = useRef(null);
+
+  function handleScroll() {
+    const rootElement = rootElementRef.current;
+
+    const atBottom =
+      rootElement.scrollHeight - rootElement.scrollTop ===
+      rootElement.clientHeight;
+
+    setScrollBarAtBottom(atBottom);
+  }
 
   useEffect(() => {
     const channel = consumer.subscriptions.create(
@@ -28,11 +40,21 @@ function Chat({ className, chat }) {
   }, [chat.id]);
 
   useEffect(() => {
+    console.log('scroll effect 1');
+
     lastMessageRef.current.scrollIntoView();
+  }, []);
+
+  useEffect(() => {
+    console.log('scroll effect 2');
+
+    if (scrollBarAtBottom) {
+      lastMessageRef.current.scrollIntoView();
+    }
   });
 
   return (
-    <div className={className}>
+    <div ref={rootElementRef} onScroll={handleScroll} className={className}>
       {messages.map((message, index) => {
         return (
           <Message
