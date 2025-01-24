@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 function Chat({ className, chat }) {
   const [messages, setMessages] = useState(chat.messages);
-  const [scrollBarAtBottom, setScrollBarAtBottom] = useState(true);
+  const [scrollBarWasAtBottom, setScrollBarWasAtBottom] = useState(true);
   const lastMessageRef = useRef(null);
   const rootElementRef = useRef(null);
 
@@ -19,7 +19,7 @@ function Chat({ className, chat }) {
       rootElement.scrollHeight - rootElement.scrollTop ===
       rootElement.clientHeight;
 
-    setScrollBarAtBottom(atBottom);
+    setScrollBarWasAtBottom(atBottom);
   }
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function Chat({ className, chat }) {
   }, [chat.id]);
 
   useEffect(() => {
-    if (scrollBarAtBottom) {
+    if (scrollBarWasAtBottom) {
       console.log('scroll into view');
       lastMessageRef.current.scrollIntoView();
     }
