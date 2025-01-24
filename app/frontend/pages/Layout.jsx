@@ -42,8 +42,8 @@ LayoutContainer.propTypes = {
 };
 
 const Main = styled.div`
+  flex: 1 1 0;
   display: flex;
-  height: 100vh;
 `;
 
 const Chats = styled.div`
