@@ -33,17 +33,15 @@ function Chat({ className, chat }) {
 
   return (
     <div className={className}>
-      <div>
-        {messages.map((message, index) => {
-          return (
-            <Message
-              key={message.id}
-              ref={index === messages.length - 1 ? lastMessageRef : null}
-              message={message}
-            />
-          );
-        })}
-      </div>
+      {messages.map((message, index) => {
+        return (
+          <Message
+            key={message.id}
+            ref={index === messages.length - 1 ? lastMessageRef : null}
+            message={message}
+          />
+        );
+      })}
     </div>
   );
 }
