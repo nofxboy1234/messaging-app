@@ -16,7 +16,8 @@ function Chat({ className, chat }) {
     return (
       Math.abs(
         rootElement.scrollHeight -
-          (rootElement.scrollTop + rootElement.clientHeight),
+          rootElement.scrollTop -
+          rootElement.clientHeight,
       ) <= 1
     );
   }
