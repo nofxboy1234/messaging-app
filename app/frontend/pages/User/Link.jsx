@@ -19,9 +19,7 @@ UserLink.propTypes = {
   active: PropTypes.bool,
 };
 
-const StyledUserLink = styled(UserLink).attrs((props) => ({
-  $active: props.$active === undefined ? true : props.$active,
-}))`
+const StyledUserLink = styled(UserLink)`
   & .link {
     display: flex;
     justify-content: space-between;
