@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { usePage, Link } from '@inertiajs/react';
 import api from '../pathHelpers';
 import PropTypes from 'prop-types';
+import StyledLogoutButton from './sessions/Buttons/LogoutButton';
 
 const NavBar = ({ className }) => {
   const { shared } = usePage().props;
@@ -27,14 +28,7 @@ const NavBar = ({ className }) => {
         </Link>
       </div>
       <div>
-        <Link
-          href={api.sessions.destroy.path(shared.session)}
-          as="button"
-          type="button"
-          method="delete"
-        >
-          Log out
-        </Link>
+        <StyledLogoutButton session={shared.session} />
       </div>
     </div>
   );
