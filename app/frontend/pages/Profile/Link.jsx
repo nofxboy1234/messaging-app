@@ -26,13 +26,13 @@ ProfileLink.propTypes = {
 };
 
 const StyledProfileLink = styled(ProfileLink)`
-  --mimi-pink: #eccbd9;
-  --alice-blue: #e1eff6;
-  --light-sky-blue: #97d2fb;
-  --jordy-blue: #83bcff;
-  --aquamarine: #80ffe8;
+  --heliotrope: #ca7df9;
+  --vivid-sky-blue: #49c6e5;
+  --icterine: #f5f749;
+  --timberwolf: #dbd4d3;
+  --bright-pink-crayola: #ff5d73;
 
-  background-color: var(--light-sky-blue);
+  background-color: var(--icterine);
 `;
 
 export default StyledProfileLink;

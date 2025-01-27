@@ -23,21 +23,28 @@ Button.propTypes = {
 };
 
 const StyledButton = styled(Button)`
-  --bg-color: white;
+  --heliotrope: #ca7df9;
+  --vivid-sky-blue: #49c6e5;
+  --icterine: #f5f749;
+  --white: white;
+  --bright-pink-crayola: #ff5d73;
+
+  --bg-color: black;
   --fg-color: #0280d5;
 
-  background-color: var(--fg-color);
+  background-color: var(--vivid-sky-blue);
   color: var(--bg-color);
   font-size: 1rem;
   padding: 0.25rem 1rem;
-  border: 2px solid var(--fg-color);
+  border: 2px solid var(--vivid-sky-blue);
   border-radius: 3px;
   cursor: pointer;
   margin: 1rem;
 
   &:hover {
-    background-color: var(--bg-color);
-    color: var(--fg-color);
+    background-color: white;
+    border-color: black;
+    color: var(--bg-color);
   }
 `;
 

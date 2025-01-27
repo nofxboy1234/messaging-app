@@ -99,8 +99,14 @@ UserActions.propTypes = {
 };
 
 const StyledUserActions = styled(UserActions)`
+  --heliotrope: #ca7df9;
+  --vivid-sky-blue: #49c6e5;
+  --icterine: #f5f749;
+  --timberwolf: #dbd4d3;
+  --bright-pink-crayola: #ff5d73;
+
   border: 1px solid black;
-  background-color: #cb2d8c;
+  background-color: var(--bright-pink-crayola);
   padding: 0.5rem;
 `;
 

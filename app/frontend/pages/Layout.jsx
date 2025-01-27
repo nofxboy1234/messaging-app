@@ -68,18 +68,18 @@ const Users = styled.div`
 `;
 
 const StyledLayoutContainer = styled(LayoutContainer)`
-  --mimi-pink: #eccbd9;
-  --alice-blue: #e1eff6;
-  --light-sky-blue: #97d2fb;
-  --jordy-blue: #83bcff;
-  --aquamarine: #80ffe8;
+  --heliotrope: #ca7df9;
+  --ucla-blue: #2374ab;
+  --icterine: #f5f749;
+  --timberwolf: #dbd4d3;
+  --bright-pink-crayola: #ff5d73;
 
   display: flex;
   justify-content: center;
   height: 100vh;
   padding: 0.3rem;
 
-  background-color: var(--alice-blue);
+  background-color: white;
 
   #layout {
     flex: 1 1 0;
