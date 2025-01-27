@@ -21,9 +21,7 @@ function Chat({ className, chat }) {
   }
 
   function handleScroll() {
-    const atBottom = scrollBarAtBottom();
-
-    scrollBarWasAtBottomRef.current = atBottom;
+    scrollBarWasAtBottomRef.current = scrollBarAtBottom();
   }
 
   useEffect(() => {
