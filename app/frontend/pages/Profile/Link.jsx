@@ -26,7 +26,7 @@ ProfileLink.propTypes = {
 };
 
 const StyledProfileLink = styled(ProfileLink)`
-  background-color: red;
+  background-color: #b338bd;
 `;
 
 export default StyledProfileLink;

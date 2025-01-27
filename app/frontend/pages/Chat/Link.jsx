@@ -20,7 +20,7 @@ ChatLink.propTypes = {
 };
 
 const StyledChatLink = styled(ChatLink)`
-  background-color: #f9b7ff;
+  background-color: #17a2aa;
 `;
 
 export default StyledChatLink;
