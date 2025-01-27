@@ -53,6 +53,7 @@ const StyledFriendship = styled(Friendship)`
   }
 
   & .link {
+    pointer-events: none;
     transition: padding 0.1s ease-out 0s;
   }
 

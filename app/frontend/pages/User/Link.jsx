@@ -26,7 +26,6 @@ const StyledUserLink = styled(UserLink).attrs((props) => ({
     display: flex;
     justify-content: space-between;
     text-decoration: none;
-    pointer-events: none;
   }
 
   & .link:link {
