@@ -23,17 +23,8 @@ Button.propTypes = {
 };
 
 const StyledButton = styled(Button)`
-  --heliotrope: #ca7df9;
-  --vivid-sky-blue: #49c6e5;
-  --icterine: #f5f749;
-  --white: white;
-  --bright-pink-crayola: #ff5d73;
-
-  --bg-color: black;
-  --fg-color: #0280d5;
-
   background-color: var(--vivid-sky-blue);
-  color: var(--bg-color);
+  color: black;
   font-size: 1rem;
   padding: 0.25rem 1rem;
   border: 2px solid var(--vivid-sky-blue);
@@ -43,7 +34,7 @@ const StyledButton = styled(Button)`
   &:hover {
     background-color: white;
     border-color: black;
-    color: var(--bg-color);
+    color: black;
   }
 `;
 
