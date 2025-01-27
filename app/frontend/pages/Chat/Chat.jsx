@@ -10,18 +10,16 @@ function Chat({ className, chat }) {
   const lastMessageRef = useRef(null);
   const rootElementRef = useRef(null);
 
-  function scrollBarAtBottom() {
+  function isScrollBarAtBottom() {
     const rootElement = rootElementRef.current;
+    const scrolledPixels = rootElement.scrollHeight - rootElement.scrollTop;
+    const pixelHeightOfChat = rootElement.clientHeight;
 
-    const atBottom =
-      rootElement.scrollHeight - rootElement.scrollTop ===
-      rootElement.clientHeight;
-
-    return atBottom;
+    return scrolledPixels === pixelHeightOfChat;
   }
 
   function handleScroll() {
-    scrollBarWasAtBottomRef.current = scrollBarAtBottom();
+    scrollBarWasAtBottomRef.current = isScrollBarAtBottom();
   }
 
   useEffect(() => {
