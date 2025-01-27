@@ -18,7 +18,7 @@ function Chat({ className, chat }) {
         rootElement.scrollHeight -
           rootElement.scrollTop -
           rootElement.clientHeight,
-      ) <= 1
+      ) <= 3
     );
   }
 
