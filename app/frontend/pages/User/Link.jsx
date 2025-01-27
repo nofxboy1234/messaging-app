@@ -44,7 +44,7 @@ const StyledUserLink = styled(UserLink).attrs((props) => ({
   }
 
   & .link:active {
-    color: black;
+    color: white;
   }
 
   ${(props) => {
