@@ -27,6 +27,12 @@ const StyledChatLink = styled(ChatLink)`
   --bright-pink-crayola: #ff5d73;
 
   background-color: var(--heliotrope);
+  border: 1px solid black;
+
+  &:hover {
+    background-color: white;
+    border: 1px solid black;
+  }
 `;
 
 export default StyledChatLink;

@@ -20,6 +20,8 @@ UserLink.propTypes = {
 };
 
 const StyledUserLink = styled(UserLink)`
+  padding: 0.3rem 1rem;
+
   & .link {
     display: flex;
     justify-content: space-between;
@@ -35,11 +37,11 @@ const StyledUserLink = styled(UserLink)`
   }
 
   & .link:hover {
-    color: white;
+    color: black;
   }
 
   & .link:active {
-    color: white;
+    color: black;
   }
 `;
 

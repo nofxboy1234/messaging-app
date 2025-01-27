@@ -33,6 +33,12 @@ const StyledProfileLink = styled(ProfileLink)`
   --bright-pink-crayola: #ff5d73;
 
   background-color: var(--icterine);
+  border: 1px solid black;
+
+  &:hover {
+    background-color: white;
+    border: 1px solid black;
+  }
 `;
 
 export default StyledProfileLink;
