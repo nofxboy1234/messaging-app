@@ -43,18 +43,6 @@ const StyledUserLink = styled(UserLink).attrs((props) => ({
   & .link:active {
     color: white;
   }
-
-  ${(props) => {
-    return (
-      props.$active &&
-      css`
-        /* & .link {
-          pointer-events: auto;
-          ${(props) => props.$activePadding && 'padding: 3rem 0'}
-        } */
-      `
-    );
-  }}
 `;
 
 export default StyledUserLink;
