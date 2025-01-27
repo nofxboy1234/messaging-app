@@ -14,12 +14,7 @@ function Friendship({
 }) {
   return (
     <div id="friendship" onClick={handleClick}>
-      <ProfileLink
-        className={className}
-        user={user}
-        active={active}
-        // $activePadding={true}
-      >
+      <ProfileLink className={className} user={user} active={active}>
         <div id="buttons">
           <ChatButton chat={chat} />
           <UnfriendButton friendship={friendship} user={user} />

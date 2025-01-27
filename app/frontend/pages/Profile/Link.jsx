@@ -4,13 +4,12 @@ import UserLink from '../User/Link';
 import ProfilePicture from './Picture';
 import styled from 'styled-components';
 
-function ProfileLink({ className, children, user, active, $activePadding }) {
+function ProfileLink({ className, children, user, active }) {
   return (
     <UserLink
       className={className}
       targetPath={api.profiles.show.path(user.profile)}
       $active={active}
-      $activePadding={$activePadding}
     >
       <ProfilePicture src={user.profile.picture} />
       <div>{user.profile.username}</div>
@@ -24,7 +23,6 @@ ProfileLink.propTypes = {
   children: PropTypes.object,
   user: PropTypes.object,
   active: PropTypes.bool,
-  $activePadding: PropTypes.bool,
 };
 
 const StyledProfileLink = styled(ProfileLink)`
