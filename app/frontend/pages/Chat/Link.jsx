@@ -20,7 +20,13 @@ ChatLink.propTypes = {
 };
 
 const StyledChatLink = styled(ChatLink)`
-  background-color: #17a2aa;
+  --mimi-pink: #eccbd9;
+  --alice-blue: #e1eff6;
+  --light-sky-blue: #97d2fb;
+  --jordy-blue: #83bcff;
+  --aquamarine: #80ffe8;
+
+  background-color: var(--mimi-pink);
 `;
 
 export default StyledChatLink;

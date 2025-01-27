@@ -34,6 +34,12 @@ Friendship.propTypes = {
 };
 
 const StyledFriendship = styled(Friendship)`
+  --mimi-pink: #eccbd9;
+  --alice-blue: #e1eff6;
+  --light-sky-blue: #97d2fb;
+  --jordy-blue: #83bcff;
+  --aquamarine: #80ffe8;
+
   --bg-color: white;
   --active-bg-color: #e9405f;
   --active-fg-color: white;
@@ -41,7 +47,7 @@ const StyledFriendship = styled(Friendship)`
   font-size: 2rem;
   border: 1px solid black;
 
-  background-color: var(--bg-color);
+  background-color: var(--aquamarine);
 
   & div#buttons {
     visibility: hidden;
@@ -55,7 +61,7 @@ const StyledFriendship = styled(Friendship)`
   ${(props) =>
     props.active &&
     css`
-      background-color: var(--active-bg-color);
+      background-color: var(--jordy-blue);
       color: var(--active-fg-color);
 
       & div#buttons {
@@ -70,7 +76,7 @@ const StyledFriendship = styled(Friendship)`
 
   &:hover {
     cursor: pointer;
-    background-color: var(--active-bg-color);
+    background-color: var(--jordy-blue);
     color: var(--active-fg-color);
   }
 `;

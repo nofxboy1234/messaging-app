@@ -68,10 +68,18 @@ const Users = styled.div`
 `;
 
 const StyledLayoutContainer = styled(LayoutContainer)`
+  --mimi-pink: #eccbd9;
+  --alice-blue: #e1eff6;
+  --light-sky-blue: #97d2fb;
+  --jordy-blue: #83bcff;
+  --aquamarine: #80ffe8;
+
   display: flex;
   justify-content: center;
   height: 100vh;
   padding: 0.3rem;
+
+  background-color: var(--alice-blue);
 
   #layout {
     flex: 1 1 0;

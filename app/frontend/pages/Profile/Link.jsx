@@ -26,7 +26,13 @@ ProfileLink.propTypes = {
 };
 
 const StyledProfileLink = styled(ProfileLink)`
-  background-color: #b338bd;
+  --mimi-pink: #eccbd9;
+  --alice-blue: #e1eff6;
+  --light-sky-blue: #97d2fb;
+  --jordy-blue: #83bcff;
+  --aquamarine: #80ffe8;
+
+  background-color: var(--light-sky-blue);
 `;
 
 export default StyledProfileLink;
