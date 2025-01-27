@@ -79,6 +79,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   height: 100vh;
   padding: 0.3rem;
 
+  font-family: Arial, Helvetica, sans-serif;
   background-color: white;
 
   #layout {
