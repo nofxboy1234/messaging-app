@@ -38,7 +38,6 @@ function SessionsNew() {
         <label htmlFor="remember_me">Remember me:</label>
 
         <StyledLoginButton data={values} />
-        <button type="submit">Log in</button>
       </form>
 
       <Link href={api.registrations.new.path()}>Sign up</Link>
