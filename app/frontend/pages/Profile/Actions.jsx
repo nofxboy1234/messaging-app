@@ -20,7 +20,7 @@ ProfileActions.propTypes = {
 const StyledProfileActions = styled(ProfileActions)`
   display: flex;
   border: 1px solid black;
-  background-color: #6cfaff;
+  background-color: #d8b700;
   padding: 0.5rem;
 `;
 
