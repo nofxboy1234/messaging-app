@@ -71,7 +71,6 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   display: flex;
   justify-content: center;
   height: 100vh;
-  border: 4px solid blueviolet;
   padding: 0.3rem;
 
   #layout {
