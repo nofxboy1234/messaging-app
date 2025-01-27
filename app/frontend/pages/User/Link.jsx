@@ -31,6 +31,22 @@ const StyledUserLink = styled(UserLink).attrs((props) => ({
     transition: padding 0.1s ease-out 0s;
   }
 
+  & .link:link {
+    color: black;
+  }
+
+  & .link:visited {
+    color: black;
+  }
+
+  & .link:hover {
+    color: white;
+  }
+
+  & .link:active {
+    color: black;
+  }
+
   ${(props) => {
     return (
       props.$active &&
