@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 function UserLink({ className, children, targetPath }) {
   return (
