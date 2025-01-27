@@ -26,12 +26,6 @@ ProfileLink.propTypes = {
 };
 
 const StyledProfileLink = styled(ProfileLink)`
-  --heliotrope: #ca7df9;
-  --vivid-sky-blue: #49c6e5;
-  --icterine: #f5f749;
-  --timberwolf: #dbd4d3;
-  --bright-pink-crayola: #ff5d73;
-
   background-color: var(--icterine);
   border: 1px solid black;
 

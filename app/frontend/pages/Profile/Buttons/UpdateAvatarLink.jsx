@@ -19,12 +19,6 @@ UpdateAvatarLink.propTypes = {
 };
 
 const StyledUpdateAvatarLink = styled(UpdateAvatarLink)`
-  --heliotrope: #ca7df9;
-  --vivid-sky-blue: #49c6e5;
-  --icterine: #f5f749;
-  --white: white;
-  --bright-pink-crayola: #ff5d73;
-
   background-color: var(--vivid-sky-blue);
   color: var(--fg-color);
   font-size: 1rem;

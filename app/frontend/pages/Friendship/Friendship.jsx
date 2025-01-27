@@ -34,12 +34,6 @@ Friendship.propTypes = {
 };
 
 const StyledFriendship = styled(Friendship)`
-  --heliotrope: #ca7df9;
-  --vivid-sky-blue: #49c6e5;
-  --icterine: #f5f749;
-  --timberwolf: #dbd4d3;
-  --bright-pink-crayola: #ff5d73;
-
   --bg-color: white;
   --active-bg-color: #e9405f;
   --active-fg-color: white;
