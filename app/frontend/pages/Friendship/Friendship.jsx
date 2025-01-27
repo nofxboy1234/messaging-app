@@ -63,7 +63,7 @@ const StyledFriendship = styled(Friendship)`
 
       & .link {
         pointer-events: auto;
-        ${() => 'padding: 3rem 0'}
+        padding: 3rem 0;
       }
     `}
 
