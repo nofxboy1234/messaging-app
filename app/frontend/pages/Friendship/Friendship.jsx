@@ -47,8 +47,13 @@ const StyledFriendship = styled(Friendship)`
   border: 1px solid black;
 
   background-color: var(--bg-color);
+
   & div#buttons {
     visibility: hidden;
+  }
+
+  & .link {
+    transition: padding 0.1s ease-out 0s;
   }
 
   ${(props) =>
