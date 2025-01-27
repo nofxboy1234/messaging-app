@@ -10,14 +10,20 @@ function Chat({ className, chat }) {
   const lastMessageRef = useRef(null);
   const rootElementRef = useRef(null);
 
-  function handleScroll() {
-    console.log('handle scroll');
-
+  function scrollBarAtBottom() {
     const rootElement = rootElementRef.current;
 
     const atBottom =
       rootElement.scrollHeight - rootElement.scrollTop ===
       rootElement.clientHeight;
+
+    return atBottom;
+  }
+
+  function handleScroll() {
+    console.log('handle scroll');
+
+    const atBottom = scrollBarAtBottom();
 
     console.log(`atBottom: ${atBottom}`);
     scrollBarWasAtBottomRef.current = atBottom;
