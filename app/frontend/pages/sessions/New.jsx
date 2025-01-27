@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 import api from '../../pathHelpers';
+import StyledLoginButton from './Buttons/LoginButton';
 
 function SessionsNew() {
   const [values, setValues] = useState({
@@ -17,15 +18,9 @@ function SessionsNew() {
     }));
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    api.sessions.create({ data: values });
-    // router.post('/sign_in', values);
-  }
-
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form>
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -42,6 +37,7 @@ function SessionsNew() {
         />
         <label htmlFor="remember_me">Remember me:</label>
 
+        <StyledLoginButton data={values} />
         <button type="submit">Log in</button>
       </form>
 
