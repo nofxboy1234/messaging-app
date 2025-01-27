@@ -44,6 +44,10 @@ function Chat({ className, chat }) {
   }, [chat.id]);
 
   useEffect(() => {
+    if (!lastMessageRef.current) {
+      return;
+    }
+
     if (scrollBarWasAtBottomRef.current) {
       lastMessageRef.current.scrollIntoView();
     }
