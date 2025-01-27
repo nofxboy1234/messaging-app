@@ -13,8 +13,13 @@ function Friendship({
   handleClick,
 }) {
   return (
-    <div id="friendship" className={className} onClick={handleClick}>
-      <ProfileLink user={user} active={active} $activePadding={true}>
+    <div id="friendship" onClick={handleClick}>
+      <ProfileLink
+        className={className}
+        user={user}
+        active={active}
+        // $activePadding={true}
+      >
         <div id="buttons">
           <ChatButton chat={chat} />
           <UnfriendButton friendship={friendship} user={user} />
@@ -54,6 +59,11 @@ const StyledFriendship = styled(Friendship)`
 
       & div#buttons {
         visibility: visible;
+      }
+
+      & .link {
+        pointer-events: auto;
+        ${() => 'padding: 3rem 0'}
       }
     `}
 

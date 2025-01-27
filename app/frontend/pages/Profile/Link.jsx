@@ -2,6 +2,7 @@ import api from '../../pathHelpers';
 import PropTypes from 'prop-types';
 import UserLink from '../User/Link';
 import ProfilePicture from './Picture';
+import styled from 'styled-components';
 
 function ProfileLink({ className, children, user, active, $activePadding }) {
   return (
@@ -26,4 +27,8 @@ ProfileLink.propTypes = {
   $activePadding: PropTypes.bool,
 };
 
-export default ProfileLink;
+const StyledProfileLink = styled(ProfileLink)`
+  background-color: red;
+`;
+
+export default StyledProfileLink;
