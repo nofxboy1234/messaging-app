@@ -21,15 +21,9 @@ function Chat({ className, chat }) {
   }
 
   function handleScroll() {
-    console.log('handle scroll');
-
     const atBottom = scrollBarAtBottom();
 
-    console.log(`atBottom: ${atBottom}`);
     scrollBarWasAtBottomRef.current = atBottom;
-    console.log(
-      `scrollBarWasAtBottomRef.current: ${scrollBarWasAtBottomRef.current}`,
-    );
   }
 
   useEffect(() => {
@@ -53,7 +47,6 @@ function Chat({ className, chat }) {
 
   useEffect(() => {
     if (scrollBarWasAtBottomRef.current) {
-      console.log('scroll into view');
       lastMessageRef.current.scrollIntoView();
     }
   });

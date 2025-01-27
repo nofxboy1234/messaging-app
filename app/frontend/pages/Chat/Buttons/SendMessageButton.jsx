@@ -16,8 +16,6 @@ function SendMessageButton({ className, message, setMessage, chat, inputRef }) {
       className={className}
       text={'Send'}
       onClick={() => {
-        console.log('SendMessageButton callback');
-
         if (message === '') return;
 
         const data = {
