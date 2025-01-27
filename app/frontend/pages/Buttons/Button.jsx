@@ -24,10 +24,10 @@ Button.propTypes = {
 
 const StyledButton = styled(Button)`
   --bg-color: white;
-  --fg-color: #bf4f74;
+  --fg-color: #0280d5;
 
-  background-color: var(--bg-color);
-  color: var(--fg-color);
+  background-color: var(--fg-color);
+  color: var(--bg-color);
   font-size: 1rem;
   padding: 0.25rem 1rem;
   border: 2px solid var(--fg-color);
@@ -36,8 +36,8 @@ const StyledButton = styled(Button)`
   margin: 1rem;
 
   &:hover {
-    background-color: var(--fg-color);
-    color: var(--bg-color);
+    background-color: var(--bg-color);
+    color: var(--fg-color);
   }
 `;
 
