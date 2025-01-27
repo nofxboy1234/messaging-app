@@ -37,7 +37,6 @@ const StyledButton = styled(Button)`
   font-size: 1rem;
   padding: 0.25rem 1rem;
   border: 2px solid var(--vivid-sky-blue);
-  border-radius: 3px;
   cursor: pointer;
   margin: 1rem;
 

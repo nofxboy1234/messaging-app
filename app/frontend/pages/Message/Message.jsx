@@ -16,12 +16,16 @@ const Message = forwardRef(function Message(props, ref) {
 });
 
 const StyledMessage = styled(Message)`
+  --heliotrope: #ca7df9;
+  --vivid-sky-blue: #49c6e5;
+  --icterine: #f5f749;
+  --white: white;
+  --bright-pink-crayola: #ff5d73;
+
   border: 1px solid black;
-  background-color: #9e63fd;
-  border-radius: 5px;
-  margin: 0.5rem;
+
   &:hover {
-    background-color: white;
+    background-color: var(--bright-pink-crayola);
   }
 `;
 
