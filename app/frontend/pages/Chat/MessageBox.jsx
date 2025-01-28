@@ -39,7 +39,7 @@ MessageBox.propTypes = {
 };
 
 const StyledMessageBox = styled(MessageBox)`
-  padding: 1rem;
+  padding: 1rem 0;
 
   form {
     flex: 1 1 0;
