@@ -96,7 +96,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
     display: none;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1160px) {
     #chats,
     #users {
       display: none;
