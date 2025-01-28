@@ -29,19 +29,19 @@ const StyledUserLink = styled(UserLink)`
   }
 
   & .link:link {
-    color: black;
+    color: var(--medium-grey);
   }
 
   & .link:visited {
-    color: black;
+    color: var(--medium-grey);
   }
 
   & .link:hover {
-    color: black;
+    color: var(--medium-grey);
   }
 
   & .link:active {
-    color: black;
+    color: var(--medium-grey);
   }
 `;
 

@@ -79,7 +79,8 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   }
 
   font-family: 'OverpassMono', monospace;
-  background-color: white;
+  background-color: var(--bg-grey);
+  color: var(--medium-grey);
 
   #layout {
     flex: 1 1 0;
