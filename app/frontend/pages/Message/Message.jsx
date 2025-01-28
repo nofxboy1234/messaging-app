@@ -12,7 +12,7 @@ const Message = forwardRef(function Message(props, ref) {
         <Picture src={message.user.profile.picture} />
         <div id="user-container">
           <div id="username">{message.user.profile.username}</div>
-          <div>{message.body}</div>
+          <div id="message">{message.body}</div>
         </div>
       </div>
     </div>
@@ -44,6 +44,12 @@ const StyledMessage = styled(Message)`
 
   & #username {
     font-weight: 600;
+  }
+
+  & #message {
+    max-width: 600px;
+    overflow: hidden;
+    overflow-wrap: break-word;
   }
 `;
 
