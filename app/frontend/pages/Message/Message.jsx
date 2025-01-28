@@ -8,12 +8,21 @@ const Message = forwardRef(function Message(props, ref) {
 
   return (
     <div className={className} ref={ref}>
-      <Picture src={message.user.profile.picture} />
-      <div>{message.user.profile.username}</div>
-      <div>{message.body}</div>
+      <div id="user">
+        <Picture src={message.user.profile.picture} />
+        <div id="user-container">
+          <div id="username">{message.user.profile.username}</div>
+          <div>{message.body}</div>
+        </div>
+      </div>
     </div>
   );
 });
+
+Message.propTypes = {
+  className: PropTypes.string,
+  message: PropTypes.object,
+};
 
 const StyledMessage = styled(Message)`
   padding: 0.5rem;
@@ -21,11 +30,21 @@ const StyledMessage = styled(Message)`
   &:hover {
     background-color: var(--bright-pink-crayola);
   }
-`;
 
-Message.propTypes = {
-  className: PropTypes.string,
-  message: PropTypes.object,
-};
+  & #user {
+    display: flex;
+    gap: 1rem;
+  }
+
+  & #user-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  & #username {
+    font-weight: 600;
+  }
+`;
 
 export default StyledMessage;
