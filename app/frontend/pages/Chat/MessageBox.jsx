@@ -46,6 +46,9 @@ const StyledMessageBox = styled(MessageBox)`
 
   input {
     flex: 1 1 0;
+
+    font-family: 'OverpassMono', monospace;
+    font-size: 1rem;
   }
 `;
 
