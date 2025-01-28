@@ -72,6 +72,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   justify-content: center;
   height: 100vh;
   padding: 0.3rem;
+  min-width: 740px;
 
   @font-face {
     font-family: 'OverpassMono';
