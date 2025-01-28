@@ -49,6 +49,9 @@ const StyledMessageBox = styled(MessageBox)`
 
     font-family: 'OverpassMono', monospace;
     font-size: 1rem;
+
+    border: 1px solid var(--medium-grey);
+    color: var(--medium-grey);
   }
 `;
 

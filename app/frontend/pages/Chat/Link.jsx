@@ -21,11 +21,11 @@ ChatLink.propTypes = {
 
 const StyledChatLink = styled(ChatLink)`
   background-color: var(--heliotrope);
-  border: 1px solid black;
+  border: 1px solid var(--medium-grey);
 
   &:hover {
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid var(--medium-grey);
   }
 `;
 

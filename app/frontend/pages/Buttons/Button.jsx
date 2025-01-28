@@ -27,7 +27,7 @@ const StyledButton = styled(Button)`
   font-size: 1rem;
 
   background-color: var(--vivid-sky-blue);
-  color: black;
+  color: var(--medium-grey);
   padding: 0.25rem 1rem;
   border: 2px solid var(--vivid-sky-blue);
   cursor: pointer;
@@ -36,7 +36,7 @@ const StyledButton = styled(Button)`
   &:hover {
     background-color: white;
     border-color: black;
-    color: black;
+    color: var(--medium-grey);
   }
 `;
 
