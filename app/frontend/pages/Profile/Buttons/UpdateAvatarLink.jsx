@@ -20,18 +20,16 @@ UpdateAvatarLink.propTypes = {
 
 const StyledUpdateAvatarLink = styled(UpdateAvatarLink)`
   background-color: var(--vivid-sky-blue);
-  color: var(--medium-grey);
+  color: var(--bg-grey);
   font-size: 1rem;
   padding: 0.25rem 1rem;
-  border: 2px solid var(--vivid-sky-blue);
+  border: none;
   cursor: pointer;
   margin: 1rem;
   text-decoration: none;
 
   &:hover {
-    background-color: white;
-    border-color: black;
-    color: var(--medium-grey);
+    background-color: var(--vivid-sky-blue-hover);
   }
 `;
 
