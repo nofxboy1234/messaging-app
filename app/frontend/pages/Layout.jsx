@@ -73,7 +73,12 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   height: 100vh;
   padding: 0.3rem;
 
-  font-family: Arial, Helvetica, sans-serif;
+  @font-face {
+    font-family: 'OverpassMono';
+    src: url('../fonts/overpass_mono/static/OverpassMono-Regular.ttf');
+  }
+
+  font-family: 'OverpassMono', monospace;
   background-color: white;
 
   #layout {
