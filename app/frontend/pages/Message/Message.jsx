@@ -16,7 +16,7 @@ const Message = forwardRef(function Message(props, ref) {
 });
 
 const StyledMessage = styled(Message)`
-  border: 1px solid black;
+  border: 1px solid var(--medium-grey);
 
   &:hover {
     background-color: var(--bright-pink-crayola);
