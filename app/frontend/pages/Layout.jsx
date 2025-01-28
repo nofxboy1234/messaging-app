@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import NavBar from './NavBar';
 
 import styles from './Layout.module.css';
-import fontUrl from '/assets/fonts/overpass_mono/static/OverpassMono-Regular.ttf';
+import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 
 const LayoutContainer = ({ className, children }) => {
   const { shared, chat } = usePage().props;
@@ -75,11 +75,11 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   min-width: 740px;
 
   @font-face {
-    font-family: 'OverpassMono';
+    font-family: 'JetbrainsMono';
     src: url(${fontUrl});
   }
 
-  font-family: 'OverpassMono', monospace;
+  font-family: 'JetbrainsMono', monospace;
   background-color: var(--bg-grey);
   color: var(--medium-grey);
 
