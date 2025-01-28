@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import NavBar from './NavBar';
 
 import styles from './Layout.module.css';
+import fontUrl from '/assets/fonts/overpass_mono/static/OverpassMono-Regular.ttf';
 
 const LayoutContainer = ({ className, children }) => {
   const { shared, chat } = usePage().props;
@@ -75,7 +76,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
 
   @font-face {
     font-family: 'OverpassMono';
-    src: url('../fonts/overpass_mono/static/OverpassMono-Regular.ttf');
+    src: url(${fontUrl});
   }
 
   font-family: 'OverpassMono', monospace;
