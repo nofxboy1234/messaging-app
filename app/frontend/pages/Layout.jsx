@@ -58,7 +58,6 @@ const Content = styled.div`
   flex: 4 1 0;
   display: flex;
   flex-direction: column;
-  border-color: rgb(0, 255, 42);
 `;
 
 const Users = styled.div`
