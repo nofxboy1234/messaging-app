@@ -28,7 +28,6 @@ const StyledUpdateAvatarLink = styled(UpdateAvatarLink)`
   cursor: pointer;
   margin: 1rem;
   text-decoration: none;
-  /* font-family: Arial, Helvetica, sans-serif; */
 
   &:hover {
     background-color: white;

@@ -23,9 +23,11 @@ Button.propTypes = {
 };
 
 const StyledButton = styled(Button)`
+  font-family: 'OverpassMono', monospace;
+  font-size: 1rem;
+
   background-color: var(--vivid-sky-blue);
   color: black;
-  font-size: 1rem;
   padding: 0.25rem 1rem;
   border: 2px solid var(--vivid-sky-blue);
   cursor: pointer;
