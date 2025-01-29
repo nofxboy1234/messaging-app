@@ -39,7 +39,7 @@ const StyledFriendship = styled(Friendship)`
   --active-fg-color: white;
 
   & div#buttons {
-    visibility: hidden;
+    display: none;
   }
 
   & .link {
@@ -53,7 +53,7 @@ const StyledFriendship = styled(Friendship)`
       background-color: #ebebeb;
 
       & div#buttons {
-        visibility: visible;
+        display: block;
       }
 
       & .link {
