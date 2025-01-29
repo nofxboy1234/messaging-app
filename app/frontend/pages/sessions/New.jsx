@@ -1,13 +1,11 @@
-import { Link } from '@inertiajs/react';
 import { useState } from 'react';
-import api from '../../pathHelpers';
-import StyledLoginButton from './Buttons/LoginButton';
+import LoginButton from './Buttons/LoginButton';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import styles from '../Layout.module.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
-import StyledSignupButton from './Buttons/SignupButton';
+import SignupButton from './Buttons/SignupButton';
 
 function SessionsNew({ className }) {
   const [values, setValues] = useState({
@@ -42,11 +40,10 @@ function SessionsNew({ className }) {
           value={values.password}
           onChange={handleChange}
         />
-        {/* <label htmlFor="remember_me">Remember me:</label> */}
 
         <div>
-          <StyledLoginButton data={values} />
-          <StyledSignupButton />
+          <LoginButton data={values} />
+          <SignupButton />
         </div>
       </form>
     </div>
