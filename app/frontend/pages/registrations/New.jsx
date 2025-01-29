@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import api from '../../pathHelpers';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-function RegistrationsNew() {
+import styles from '../Layout.module.css';
+import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
+
+function RegistrationsNew({ className }) {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -30,7 +35,7 @@ function RegistrationsNew() {
   }
 
   return (
-    <>
+    <div className={className}>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
@@ -38,6 +43,7 @@ function RegistrationsNew() {
           id="email"
           value={values.email}
           onChange={handleChange}
+          autoFocus
         />
         <label htmlFor="password">Password:</label>
         <input
@@ -56,8 +62,44 @@ function RegistrationsNew() {
 
         <button type="submit">Sign up</button>
       </form>
-    </>
+    </div>
   );
 }
 
-export default RegistrationsNew;
+RegistrationsNew.propTypes = {
+  className: PropTypes.string,
+};
+
+const StyledRegistrationsNew = styled(RegistrationsNew)`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @font-face {
+    font-family: 'JetbrainsMono';
+    src: url(${fontUrl});
+  }
+
+  font-family: 'JetbrainsMono', monospace;
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid var(--border-color);
+    padding: 3rem;
+  }
+
+  input {
+    font-family: 'JetbrainsMono', monospace;
+    font-size: 1rem;
+
+    border: 1px solid #e4e4e4;
+    color: var(--medium-grey);
+
+    padding: 0.5rem 0.8rem;
+  }
+`;
+
+export default StyledRegistrationsNew;
