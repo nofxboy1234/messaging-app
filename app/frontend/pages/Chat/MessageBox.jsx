@@ -49,12 +49,11 @@ const StyledMessageBox = styled(MessageBox)`
   input {
     flex: 1 1 0;
 
-    font-family: 'OverpassMono', monospace;
+    font-family: 'JetbrainsMono', monospace;
     font-size: 1rem;
 
-    border: 1px solid var(--medium-grey);
+    border: 1px solid #e4e4e4;
     color: var(--medium-grey);
-    background-color: #b8b8b8;
 
     padding: 1rem;
   }

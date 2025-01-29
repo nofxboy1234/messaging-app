@@ -5,12 +5,12 @@
 }
 
 :root {
-  --heliotrope: #ca7df9;
+  --heliotrope: #e1b8e2;
   --vivid-sky-blue: #3c8cc2;
   --vivid-sky-blue-hover: #49a9e9;
-  --icterine: #f5f749;
+  --icterine: #edeea9;
   --white: white;
-  --bright-pink-crayola: #ff5d73;
+  --bright-pink-crayola: #ff909f;
   --medium-grey: #3a3a3a;
-  --bg-grey: #dcdad7;
+  --bg-grey: white;
 }

@@ -38,11 +38,6 @@ const StyledFriendship = styled(Friendship)`
   --active-bg-color: #e9405f;
   --active-fg-color: white;
 
-  font-size: 2rem;
-  border: 1px solid black;
-
-  background-color: white;
-
   & div#buttons {
     visibility: hidden;
   }
@@ -55,8 +50,7 @@ const StyledFriendship = styled(Friendship)`
   ${(props) =>
     props.active &&
     css`
-      background-color: var(--bright-pink-crayola);
-      color: var(--active-fg-color);
+      background-color: #ebebeb;
 
       & div#buttons {
         visibility: visible;
@@ -70,8 +64,7 @@ const StyledFriendship = styled(Friendship)`
 
   &:hover {
     cursor: pointer;
-    background-color: var(--bright-pink-crayola);
-    color: var(--active-fg-color);
+    background-color: #f7f7f7;
   }
 `;
 
