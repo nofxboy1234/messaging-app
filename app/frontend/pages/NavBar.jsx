@@ -10,16 +10,20 @@ const NavBar = ({ className }) => {
 
   return (
     <div className={className}>
-      <Link href="/">Home</Link>
-      <Link href={api.friendshipCategories.index.path()}>Friends</Link>
+      <Link href="/">
+        <div>Home</div>
+      </Link>
+      <Link href={api.friendshipCategories.index.path()}>
+        <div>Friends</div>
+      </Link>
       <Link id="nav-bar-chats" href={api.chats.index.path()}>
-        Chats
+        <div>Chats</div>
       </Link>
       <Link id="nav-bar-users" href={api.users.index.path()}>
-        Users
+        <div>Users</div>
       </Link>
       <Link href={api.profiles.show.path(shared.profile)}>
-        Profile ({shared.current_user.email.split('@')[0]})
+        <div>Profile ({shared.current_user.email.split('@')[0]})</div>
       </Link>
       <StyledLogoutButton session={shared.session} />
     </div>
