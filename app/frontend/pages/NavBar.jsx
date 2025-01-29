@@ -9,31 +9,31 @@ const NavBar = ({ className }) => {
 
   return (
     <div className={className}>
-      <Link className="menu-item-container" href="/">
+      <Link className="menu-item-container link" href="/">
         <div>Home</div>
       </Link>
       <Link
-        className="menu-item-container"
+        className="menu-item-container link"
         href={api.friendshipCategories.index.path()}
       >
         <div>Friends</div>
       </Link>
       <Link
-        className="menu-item-container"
+        className="menu-item-container link"
         id="nav-bar-chats"
         href={api.chats.index.path()}
       >
         <div>Chats</div>
       </Link>
       <Link
-        className="menu-item-container"
+        className="menu-item-container link"
         id="nav-bar-users"
         href={api.users.index.path()}
       >
         <div>Users</div>
       </Link>
       <Link
-        className="menu-item-container"
+        className="menu-item-container link"
         href={api.profiles.show.path(shared.profile)}
       >
         <div>Profile ({shared.current_user.email.split('@')[0]})</div>
@@ -69,6 +69,21 @@ const StyledNavBar = styled(NavBar)`
       flex-direction: column;
       justify-content: center;
     }
+  }
+
+  & .link {
+    text-decoration: none;
+  }
+
+  & .link:link,
+  .link:visited,
+  .link:hover,
+  .link:active {
+    color: var(--medium-grey);
+  }
+
+  & .link:hover {
+    background-color: #f7f7f7;
   }
 `;
 
