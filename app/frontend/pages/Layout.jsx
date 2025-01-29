@@ -87,7 +87,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
 
   #layout {
     flex: 1 1 0;
-    max-width: 2560px;
+    max-width: 1250px;
     display: flex;
     flex-direction: column;
     border-color: aqua;
