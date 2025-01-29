@@ -100,7 +100,6 @@ UserActions.propTypes = {
 
 const StyledUserActions = styled(UserActions)`
   border: 1px solid black;
-  background-color: var(--bright-pink-crayola);
   padding: 0.5rem;
 `;
 
