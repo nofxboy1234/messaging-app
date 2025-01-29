@@ -20,14 +20,13 @@ UserLink.propTypes = {
 };
 
 const StyledUserLink = styled(UserLink)`
-  padding: 0.3rem 1rem;
-
   & .link {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 3rem;
     text-decoration: none;
+    padding: 0.3rem 1rem;
   }
 
   & .link:link {
