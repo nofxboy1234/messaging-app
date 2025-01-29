@@ -76,6 +76,18 @@ const StyledSessionsNew = styled(SessionsNew)`
     border: 1px solid var(--border-color);
     padding: 3rem;
   }
+
+  input {
+    /* flex: 1 1 0; */
+
+    font-family: 'JetbrainsMono', monospace;
+    font-size: 1rem;
+
+    border: 1px solid #e4e4e4;
+    color: var(--medium-grey);
+
+    padding: 0.5rem 0.8rem;
+  }
 `;
 
 export default StyledSessionsNew;
