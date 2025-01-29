@@ -39,10 +39,11 @@ function SessionsNew({ className }) {
         />
         <label htmlFor="remember_me">Remember me:</label>
 
-        <StyledLoginButton data={values} />
+        <div>
+          <StyledLoginButton data={values} />
+          <Link href={api.registrations.new.path()}>Sign up</Link>
+        </div>
       </form>
-
-      <Link href={api.registrations.new.path()}>Sign up</Link>
     </div>
   );
 }
