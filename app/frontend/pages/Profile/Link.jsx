@@ -26,6 +26,8 @@ ProfileLink.propTypes = {
 };
 
 const StyledProfileLink = styled(ProfileLink)`
+  border: 1px solid var(--border-color);
+
   &:hover {
     background-color: #f7f7f7;
   }

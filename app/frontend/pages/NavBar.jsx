@@ -35,6 +35,8 @@ const StyledNavBar = styled(NavBar)`
   justify-content: center;
   column-gap: 1rem;
   flex-wrap: wrap;
+
+  border: 1px solid var(--border-color);
 `;
 
 export default StyledNavBar;

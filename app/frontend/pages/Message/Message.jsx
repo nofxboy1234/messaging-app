@@ -26,6 +26,7 @@ Message.propTypes = {
 
 const StyledMessage = styled(Message)`
   padding: 0.5rem;
+  border: 1px solid var(--border-color);
 
   &:hover {
     background-color: var(--bg-color-hover);

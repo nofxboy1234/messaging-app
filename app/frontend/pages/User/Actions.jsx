@@ -99,7 +99,7 @@ UserActions.propTypes = {
 };
 
 const StyledUserActions = styled(UserActions)`
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
   padding: 0.5rem;
 `;
 
