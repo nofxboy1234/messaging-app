@@ -55,7 +55,6 @@ const StyledNavBar = styled(NavBar)`
   display: flex;
   justify-content: center;
   column-gap: 1rem;
-  flex-wrap: wrap;
 
   border: 1px solid var(--border-color);
   min-height: 50px;
@@ -63,8 +62,9 @@ const StyledNavBar = styled(NavBar)`
   & #link-container {
     flex: 1 1 0;
     display: flex;
-    justify-content: space-evenly;
-    max-width: 500px;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 700px;
   }
 
   & .menu-item-container {
@@ -78,6 +78,7 @@ const StyledNavBar = styled(NavBar)`
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
     }
   }
 
