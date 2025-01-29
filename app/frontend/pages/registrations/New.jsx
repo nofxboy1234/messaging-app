@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import styles from '../Layout.module.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import SignupButton from './Buttons/SignupButton';
+import StyledBackButton from './Buttons/BackButton';
 
 function RegistrationsNew({ className }) {
   const [values, setValues] = useState({
@@ -50,6 +51,7 @@ function RegistrationsNew({ className }) {
 
         <div>
           <SignupButton values={values} />
+          <StyledBackButton />
         </div>
       </form>
     </div>
