@@ -11,12 +11,12 @@ class Sessions::OmniauthController < ApplicationController
 
       redirect_to root_path, notice: "Signed in successfully"
     else
-      redirect_to sign_in_path, alert: "Authentication failed"
+      redirect_to new_session_path, alert: "Authentication failed"
     end
   end
 
   def failure
-    redirect_to sign_in_path, alert: params[:message]
+    redirect_to new_session_path, alert: params[:message]
   end
 
   private

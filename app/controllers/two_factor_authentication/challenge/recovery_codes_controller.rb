@@ -18,7 +18,7 @@ class TwoFactorAuthentication::Challenge::RecoveryCodesController < ApplicationC
     def set_user
       @user = User.find_signed!(session[:challenge_token], purpose: :authentication_challenge)
     rescue StandardError
-      redirect_to sign_in_path, alert: "That's taking too long. Please re-enter your password and try again"
+      redirect_to new_session_path, alert: "That's taking too long. Please re-enter your password and try again"
     end
 
     def sign_in_and_redirect_to_root
