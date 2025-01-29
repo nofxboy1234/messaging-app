@@ -25,6 +25,13 @@ LogoutButton.propTypes = {
 const StyledLogoutButton = styled(LogoutButton)`
   flex: 1 1 0;
   margin: 0;
+  padding: 0;
+  background-color: unset;
+  color: var(--medium-grey);
+
+  &:hover {
+    background-color: var(--bg-color-hover);
+  }
 `;
 
 export default StyledLogoutButton;
