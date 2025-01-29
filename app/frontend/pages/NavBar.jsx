@@ -10,26 +10,18 @@ const NavBar = ({ className }) => {
 
   return (
     <div className={className}>
-      <div>
-        <Link href="/">Home</Link>
-      </div>
-      <div>
-        <Link href={api.friendshipCategories.index.path()}>Friends</Link>
-      </div>
-      <div id="nav-bar-chats">
-        <Link href={api.chats.index.path()}>Chats</Link>
-      </div>
-      <div id="nav-bar-users">
-        <Link href={api.users.index.path()}>Users</Link>
-      </div>
-      <div>
-        <Link href={api.profiles.show.path(shared.profile)}>
-          Profile ({shared.current_user.email.split('@')[0]})
-        </Link>
-      </div>
-      <div>
-        <StyledLogoutButton session={shared.session} />
-      </div>
+      <Link href="/">Home</Link>
+      <Link href={api.friendshipCategories.index.path()}>Friends</Link>
+      <Link id="nav-bar-chats" href={api.chats.index.path()}>
+        Chats
+      </Link>
+      <Link id="nav-bar-users" href={api.users.index.path()}>
+        Users
+      </Link>
+      <Link href={api.profiles.show.path(shared.profile)}>
+        Profile ({shared.current_user.email.split('@')[0]})
+      </Link>
+      <StyledLogoutButton session={shared.session} />
     </div>
   );
 };
