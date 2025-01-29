@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import consumer from '../../channels/consumer';
 import { usePage } from '@inertiajs/react';
 import styled from 'styled-components';
+import ChatTotal from './Total';
 
 function ChatIndex({ className, initialChats }) {
   const [chats, setChats] = useState(initialChats);
@@ -31,7 +32,8 @@ function ChatIndex({ className, initialChats }) {
 
   return (
     <div className={className}>
-      <div>
+      <ChatTotal chats={chats} />
+      <div id="chats">
         {chats.map((chat) => (
           <ChatLink
             key={chat.friend.id}
@@ -57,7 +59,7 @@ const StyledChatIndex = styled(ChatIndex)`
 
   border: 1px solid var(--border-color);
 
-  > div {
+  & > div#chats {
     flex: 1 1 0;
     display: flex;
     flex-direction: column;

@@ -108,7 +108,7 @@ const StyledUserIndex = styled(UserIndex)`
 
   border: 1px solid var(--border-color);
 
-  > div#users {
+  & > div#users {
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
