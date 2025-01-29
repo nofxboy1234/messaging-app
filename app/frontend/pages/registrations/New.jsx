@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import api from '../../pathHelpers';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import styles from '../Layout.module.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
+import SignupButton from './Buttons/SignupButton';
 
 function RegistrationsNew({ className }) {
   const [values, setValues] = useState({
@@ -22,21 +22,9 @@ function RegistrationsNew({ className }) {
     }));
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const options = {
-      onFinish: () => {
-        api.allUsersBroadcast.create();
-      },
-    };
-
-    api.registrations.create({ data: values, options: options });
-  }
-
   return (
     <div className={className}>
-      <form onSubmit={handleSubmit}>
+      <form>
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -60,7 +48,9 @@ function RegistrationsNew({ className }) {
           onChange={handleChange}
         />
 
-        <button type="submit">Sign up</button>
+        <div>
+          <SignupButton values={values} />
+        </div>
       </form>
     </div>
   );
