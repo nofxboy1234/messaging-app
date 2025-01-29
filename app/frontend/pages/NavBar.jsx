@@ -9,37 +9,39 @@ const NavBar = ({ className }) => {
 
   return (
     <div className={className}>
-      <Link className="menu-item-container link" href="/">
-        <div>Home</div>
-      </Link>
-      <Link
-        className="menu-item-container link"
-        href={api.friendshipCategories.index.path()}
-      >
-        <div>Friends</div>
-      </Link>
-      <Link
-        className="menu-item-container link"
-        id="nav-bar-chats"
-        href={api.chats.index.path()}
-      >
-        <div>Chats</div>
-      </Link>
-      <Link
-        className="menu-item-container link"
-        id="nav-bar-users"
-        href={api.users.index.path()}
-      >
-        <div>Users</div>
-      </Link>
-      <Link
-        className="menu-item-container link"
-        href={api.profiles.show.path(shared.profile)}
-      >
-        <div>Profile ({shared.current_user.email.split('@')[0]})</div>
-      </Link>
-      <div className="menu-item-container">
-        <StyledLogoutButton session={shared.session} />
+      <div id="link-container">
+        <Link className="menu-item-container link" href="/">
+          <div>Home</div>
+        </Link>
+        <Link
+          className="menu-item-container link"
+          href={api.friendshipCategories.index.path()}
+        >
+          <div>Friends</div>
+        </Link>
+        <Link
+          className="menu-item-container link"
+          id="nav-bar-chats"
+          href={api.chats.index.path()}
+        >
+          <div>Chats</div>
+        </Link>
+        <Link
+          className="menu-item-container link"
+          id="nav-bar-users"
+          href={api.users.index.path()}
+        >
+          <div>Users</div>
+        </Link>
+        <Link
+          className="menu-item-container link"
+          href={api.profiles.show.path(shared.profile)}
+        >
+          <div>Profile ({shared.current_user.email.split('@')[0]})</div>
+        </Link>
+        <div className="menu-item-container">
+          <StyledLogoutButton session={shared.session} />
+        </div>
       </div>
     </div>
   );
@@ -58,7 +60,15 @@ const StyledNavBar = styled(NavBar)`
   border: 1px solid var(--border-color);
   min-height: 50px;
 
+  & #link-container {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 500px;
+  }
+
   & .menu-item-container {
+    flex: 1 1 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
