@@ -27,7 +27,7 @@ const StyledButton = styled(Button)`
   font-size: 1rem;
 
   background-color: var(--vivid-sky-blue);
-  color: var(--bg-grey);
+  color: white;
   padding: 0.25rem 1rem;
   border: none;
   cursor: pointer;
