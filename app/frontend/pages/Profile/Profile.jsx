@@ -38,7 +38,6 @@ function Profile({ className, initialProfile }) {
 
 const StyledProfile = styled(Profile)`
   border: 1px solid black;
-  background-color: whitesmoke;
 `;
 
 Profile.propTypes = {
