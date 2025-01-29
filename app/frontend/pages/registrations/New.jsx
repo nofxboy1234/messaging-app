@@ -25,35 +25,38 @@ function RegistrationsNew({ className }) {
 
   return (
     <div className={className}>
-      <form>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={values.email}
-          onChange={handleChange}
-          autoFocus
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={values.password}
-          onChange={handleChange}
-        />
-        <label htmlFor="password_confirmation">Password confirmation:</label>
-        <input
-          type="password"
-          id="password_confirmation"
-          value={values.password_confirmation}
-          onChange={handleChange}
-        />
+      <div>
+        <div id="header">Sign up</div>
+        <form>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={values.email}
+            onChange={handleChange}
+            autoFocus
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={values.password}
+            onChange={handleChange}
+          />
+          <label htmlFor="password_confirmation">Password confirmation:</label>
+          <input
+            type="password"
+            id="password_confirmation"
+            value={values.password_confirmation}
+            onChange={handleChange}
+          />
 
-        <div>
-          <SignupButton values={values} />
-          <StyledBackButton />
-        </div>
-      </form>
+          <div>
+            <SignupButton values={values} />
+            <StyledBackButton />
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
@@ -91,6 +94,11 @@ const StyledRegistrationsNew = styled(RegistrationsNew)`
     color: var(--medium-grey);
 
     padding: 0.5rem 0.8rem;
+  }
+
+  & #header {
+    text-align: center;
+    font-size: 2rem;
   }
 `;
 

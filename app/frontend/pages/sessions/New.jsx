@@ -24,28 +24,31 @@ function SessionsNew({ className }) {
 
   return (
     <div className={className}>
-      <form>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={values.email}
-          onChange={handleChange}
-          autoFocus
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={values.password}
-          onChange={handleChange}
-        />
+      <div>
+        <div id="header">Log in</div>
+        <form>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={values.email}
+            onChange={handleChange}
+            autoFocus
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={values.password}
+            onChange={handleChange}
+          />
 
-        <div>
-          <LoginButton data={values} />
-          <SignupButton />
-        </div>
-      </form>
+          <div>
+            <LoginButton data={values} />
+            <SignupButton />
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
@@ -83,6 +86,11 @@ const StyledSessionsNew = styled(SessionsNew)`
     color: var(--medium-grey);
 
     padding: 0.5rem 0.8rem;
+  }
+
+  & #header {
+    text-align: center;
+    font-size: 2rem;
   }
 `;
 
