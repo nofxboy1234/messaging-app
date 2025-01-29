@@ -106,7 +106,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
 
     #nav-bar-chats,
     #nav-bar-users {
-      display: block;
+      display: flex;
     }
   }
 `;
