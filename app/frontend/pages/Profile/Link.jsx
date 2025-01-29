@@ -11,8 +11,10 @@ function ProfileLink({ className, children, user, active }) {
       targetPath={api.profiles.show.path(user.profile)}
       $active={active}
     >
-      <ProfilePicture src={user.profile.picture} />
-      <div>{user.profile.username}</div>
+      <div id="profile-info-container">
+        <ProfilePicture src={user.profile.picture} />
+        <div>{user.profile.username}</div>
+      </div>
       {children}
     </UserLink>
   );
@@ -30,6 +32,12 @@ const StyledProfileLink = styled(ProfileLink)`
 
   &:hover {
     background-color: var(--bg-color-hover);
+  }
+
+  & #profile-info-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
   }
 `;
 

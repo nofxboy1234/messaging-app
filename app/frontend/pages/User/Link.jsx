@@ -24,6 +24,7 @@ const StyledUserLink = styled(UserLink)`
 
   & .link {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 3rem;
     text-decoration: none;
