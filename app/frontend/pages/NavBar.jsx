@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import { usePage, Link } from '@inertiajs/react';
 import api from '../pathHelpers';
 import PropTypes from 'prop-types';
@@ -63,6 +62,13 @@ const StyledNavBar = styled(NavBar)`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    > div {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 `;
 
