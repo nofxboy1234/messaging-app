@@ -28,7 +28,7 @@ const StyledMessage = styled(Message)`
   padding: 0.5rem;
 
   &:hover {
-    background-color: #f7f7f7;
+    background-color: var(--bg-color-hover);
   }
 
   & #user {
