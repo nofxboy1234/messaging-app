@@ -2,8 +2,10 @@ import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 import api from '../../pathHelpers';
 import StyledLoginButton from './Buttons/LoginButton';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-function SessionsNew() {
+function SessionsNew({ className }) {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -19,7 +21,7 @@ function SessionsNew() {
   }
 
   return (
-    <>
+    <div className={className}>
       <form>
         <label htmlFor="email">Email:</label>
         <input
@@ -41,8 +43,24 @@ function SessionsNew() {
       </form>
 
       <Link href={api.registrations.new.path()}>Sign up</Link>
-    </>
+    </div>
   );
 }
 
-export default SessionsNew;
+SessionsNew.propTypes = {
+  className: PropTypes.string,
+};
+
+const StyledSessionsNew = styled(SessionsNew)`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+export default StyledSessionsNew;
