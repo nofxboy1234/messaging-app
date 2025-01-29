@@ -21,17 +21,6 @@ FriendshipCategory.propTypes = {
   className: PropTypes.string,
 };
 
-const StyledFriendshipCategory = styled(FriendshipCategory)`
-  /* flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-
-  > div#friendships {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-  } */
-`;
+const StyledFriendshipCategory = styled(FriendshipCategory)``;
 
 export default StyledFriendshipCategory;

@@ -42,7 +42,7 @@ function FriendRequestIndex({
 
   return (
     <div id="friendrequest-index" className={className}>
-      <h1>Outgoing Friend Requests</h1>
+      <div>Outgoing Friend Requests</div>
       <div id="outgoing-friendrequests">
         {outgoingFriendRequests.map((friendRequest) => (
           <OutgoingFriendRequest
@@ -52,7 +52,7 @@ function FriendRequestIndex({
         ))}
       </div>
 
-      <h1>Incoming Friend Requests</h1>
+      <div>Incoming Friend Requests</div>
       <div id="incoming-friendrequests">
         {incomingFriendRequests.map((friendRequest) => (
           <IncomingFriendRequest
@@ -66,6 +66,7 @@ function FriendRequestIndex({
 }
 
 FriendRequestIndex.propTypes = {
+  className: PropTypes.string,
   initialOutgoingFriendRequests: PropTypes.array,
   initialIncomingFriendRequests: PropTypes.array,
 };
