@@ -36,14 +36,21 @@ function RegistrationsNew({ className }) {
             onChange={handleChange}
             autoFocus
           />
-          <label htmlFor="password">Password:</label>
+          <label id="password-label" htmlFor="password">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
             value={values.password}
             onChange={handleChange}
           />
-          <label htmlFor="password_confirmation">Password confirmation:</label>
+          <label
+            id="password-confirmation-label"
+            htmlFor="password_confirmation"
+          >
+            Password confirmation:
+          </label>
           <input
             type="password"
             id="password_confirmation"
@@ -99,6 +106,11 @@ const StyledRegistrationsNew = styled(RegistrationsNew)`
   & #header {
     text-align: center;
     font-size: 2rem;
+  }
+
+  & #password-label,
+  #password-confirmation-label {
+    margin-top: 1rem;
   }
 `;
 

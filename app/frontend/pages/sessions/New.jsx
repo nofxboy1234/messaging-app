@@ -35,7 +35,9 @@ function SessionsNew({ className }) {
             onChange={handleChange}
             autoFocus
           />
-          <label htmlFor="password">Password:</label>
+          <label id="password-label" htmlFor="password">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -91,6 +93,10 @@ const StyledSessionsNew = styled(SessionsNew)`
   & #header {
     text-align: center;
     font-size: 2rem;
+  }
+
+  & #password-label {
+    margin-top: 1rem;
   }
 `;
 
