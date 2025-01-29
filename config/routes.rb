@@ -28,12 +28,10 @@ Rails.application.routes.draw do
   resources :per_user_all_users_broadcast, only: [ :create ], export: true
   resources :send_message_broadcast, only: [ :create ], export: true
 
-  get  "sign_in", to: "sessions#new"
-  post "sign_in", to: "sessions#create", export: true
   get  "sign_up", to: "registrations#new", export: true
   post "sign_up", to: "registrations#create", export: true
 
-  resources :sessions, only: [ :index, :show, :destroy ], export: true
+  resources :sessions, only: [ :index, :show, :destroy, :new, :create ], export: true
   resource  :password, only: [ :edit, :update ]
   namespace :identity do
     resource :email,              only: [ :edit, :update ]
