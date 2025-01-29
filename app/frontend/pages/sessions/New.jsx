@@ -5,6 +5,9 @@ import StyledLoginButton from './Buttons/LoginButton';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import styles from '../Layout.module.css';
+import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
+
 function SessionsNew({ className }) {
   const [values, setValues] = useState({
     email: '',
@@ -29,6 +32,7 @@ function SessionsNew({ className }) {
           id="email"
           value={values.email}
           onChange={handleChange}
+          autoFocus
         />
         <label htmlFor="password">Password:</label>
         <input
@@ -37,7 +41,7 @@ function SessionsNew({ className }) {
           value={values.password}
           onChange={handleChange}
         />
-        <label htmlFor="remember_me">Remember me:</label>
+        {/* <label htmlFor="remember_me">Remember me:</label> */}
 
         <div>
           <StyledLoginButton data={values} />
@@ -58,9 +62,19 @@ const StyledSessionsNew = styled(SessionsNew)`
   justify-content: center;
   align-items: center;
 
+  @font-face {
+    font-family: 'JetbrainsMono';
+    src: url(${fontUrl});
+  }
+
+  font-family: 'JetbrainsMono', monospace;
+
   form {
     display: flex;
     flex-direction: column;
+
+    border: 1px solid var(--border-color);
+    padding: 3rem;
   }
 `;
 
