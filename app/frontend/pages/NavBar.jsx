@@ -94,7 +94,7 @@ const StyledNavBar = styled(NavBar)`
   }
 
   & .link:hover {
-    background-color: #f7f7f7;
+    background-color: var(--bg-color-hover);
   }
 `;
 

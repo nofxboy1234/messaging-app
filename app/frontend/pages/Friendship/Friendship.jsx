@@ -64,7 +64,7 @@ const StyledFriendship = styled(Friendship)`
 
   &:hover {
     cursor: pointer;
-    background-color: #f7f7f7;
+    background-color: var(--bg-color-hover);
   }
 `;
 
