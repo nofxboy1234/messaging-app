@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import styles from '../Layout.module.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
+import StyledSignupButton from './Buttons/SignupButton';
 
 function SessionsNew({ className }) {
   const [values, setValues] = useState({
@@ -45,7 +46,7 @@ function SessionsNew({ className }) {
 
         <div>
           <StyledLoginButton data={values} />
-          <Link href={api.registrations.new.path()}>Sign up</Link>
+          <StyledSignupButton />
         </div>
       </form>
     </div>
@@ -78,8 +79,6 @@ const StyledSessionsNew = styled(SessionsNew)`
   }
 
   input {
-    /* flex: 1 1 0; */
-
     font-family: 'JetbrainsMono', monospace;
     font-size: 1rem;
 
