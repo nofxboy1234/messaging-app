@@ -10,22 +10,38 @@ const NavBar = ({ className }) => {
 
   return (
     <div className={className}>
-      <Link href="/">
+      <Link className="menu-item-container" href="/">
         <div>Home</div>
       </Link>
-      <Link href={api.friendshipCategories.index.path()}>
+      <Link
+        className="menu-item-container"
+        href={api.friendshipCategories.index.path()}
+      >
         <div>Friends</div>
       </Link>
-      <Link id="nav-bar-chats" href={api.chats.index.path()}>
+      <Link
+        className="menu-item-container"
+        id="nav-bar-chats"
+        href={api.chats.index.path()}
+      >
         <div>Chats</div>
       </Link>
-      <Link id="nav-bar-users" href={api.users.index.path()}>
+      <Link
+        className="menu-item-container"
+        id="nav-bar-users"
+        href={api.users.index.path()}
+      >
         <div>Users</div>
       </Link>
-      <Link href={api.profiles.show.path(shared.profile)}>
+      <Link
+        className="menu-item-container"
+        href={api.profiles.show.path(shared.profile)}
+      >
         <div>Profile ({shared.current_user.email.split('@')[0]})</div>
       </Link>
-      <StyledLogoutButton session={shared.session} />
+      <div className="menu-item-container">
+        <StyledLogoutButton session={shared.session} />
+      </div>
     </div>
   );
 };
@@ -41,6 +57,13 @@ const StyledNavBar = styled(NavBar)`
   flex-wrap: wrap;
 
   border: 1px solid var(--border-color);
+  min-height: 50px;
+
+  & .menu-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 export default StyledNavBar;

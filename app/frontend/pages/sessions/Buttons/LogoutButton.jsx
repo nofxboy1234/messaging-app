@@ -22,6 +22,9 @@ LogoutButton.propTypes = {
   session: PropTypes.object,
 };
 
-const StyledLogoutButton = styled(LogoutButton)``;
+const StyledLogoutButton = styled(LogoutButton)`
+  flex: 1 1 0;
+  margin: 0;
+`;
 
 export default StyledLogoutButton;
