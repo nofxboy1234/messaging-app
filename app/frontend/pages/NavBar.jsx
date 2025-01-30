@@ -50,7 +50,9 @@ const NavBar = ({ className }) => {
           >
             <div
               className={
-                activeMenuItemId === menuItem.id ? 'activeMenuItem' : undefined
+                activeMenuItemId === menuItem.id
+                  ? 'active-menu-item'
+                  : undefined
               }
             >
               {menuItem.text}
@@ -71,6 +73,8 @@ NavBar.propTypes = {
 };
 
 const StyledNavBar = styled(NavBar)`
+  --bg-colour-active-menu-item: rgb(0, 255, 200);
+
   display: flex;
   justify-content: center;
   column-gap: 1rem;
@@ -114,6 +118,10 @@ const StyledNavBar = styled(NavBar)`
 
   & .link:hover {
     background-color: var(--bg-color-hover);
+  }
+
+  & .active-menu-item {
+    background-color: var(--bg-colour-active-menu-item);
   }
 `;
 
