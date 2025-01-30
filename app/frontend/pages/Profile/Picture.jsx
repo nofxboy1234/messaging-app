@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-function ProfilePicture({ className, src, scale = 1 }) {
+function ProfilePicture({ className, src, scale }) {
   return (
     <img
       src={src}
@@ -19,9 +19,11 @@ ProfilePicture.propTypes = {
   scale: PropTypes.number,
 };
 
-const StyledProfilePicture = styled(ProfilePicture)`
-  width: calc(40 * ${(props) => props.scale || 1}) px;
-  height: calc(40 * ${(props) => props.scale || 1}) px;
+const StyledProfilePicture = styled(ProfilePicture).attrs((props) => ({
+  scale: props.scale || 1,
+}))`
+  width: calc(40 * ${(props) => props.scale}) px;
+  height: calc(40 * ${(props) => props.scale}) px;
   border-radius: 50%;
 `;
 
