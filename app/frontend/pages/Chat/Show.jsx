@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import Chat from './Chat';
 import MessageBox from './MessageBox';
 import PropTypes from 'prop-types';
+import ProfileLink from '../Profile/Link';
 
 function ChatShow({ className, chat, chattingWith }) {
   return (
     <div className={className}>
-      <div>{chattingWith.profile.username}</div>
+      <ProfileLink user={chattingWith} />
       <Chat chat={chat} />
       <MessageBox chat={chat} />
     </div>
