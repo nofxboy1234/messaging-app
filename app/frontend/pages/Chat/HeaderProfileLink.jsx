@@ -20,6 +20,7 @@ HeaderProfileLink.propTypes = {
   children: PropTypes.object,
   user: PropTypes.object,
   active: PropTypes.bool,
+  scale: PropTypes.number,
 };
 
 const StyledHeaderProfileLink = styled(HeaderProfileLink)`
