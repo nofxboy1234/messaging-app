@@ -2,9 +2,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ProfileLink from '../Profile/Link';
 
-function HeaderProfileLink({ className, children, user, active }) {
+function HeaderProfileLink({ className, children, user, active, scale = 0.7 }) {
   return (
-    <ProfileLink className={className} user={user} active={active}>
+    <ProfileLink
+      className={className}
+      user={user}
+      active={active}
+      scale={scale}
+    >
       {children}
     </ProfileLink>
   );
@@ -18,10 +23,12 @@ HeaderProfileLink.propTypes = {
 };
 
 const StyledHeaderProfileLink = styled(HeaderProfileLink)`
-  background-color: var(--bg-color-hover);
+  --header-bg-color: #fafafa;
+
+  background-color: var(--header-bg-color);
 
   &:hover {
-    background-color: var(--bg-color-hover);
+    background-color: var(--header-bg-color);
   }
 `;
 

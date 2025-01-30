@@ -4,7 +4,7 @@ import UserLink from '../User/Link';
 import ProfilePicture from './Picture';
 import styled from 'styled-components';
 
-function ProfileLink({ className, children, user, active }) {
+function ProfileLink({ className, children, user, active, scale }) {
   return (
     <UserLink
       className={className}
@@ -12,7 +12,7 @@ function ProfileLink({ className, children, user, active }) {
       $active={active}
     >
       <div id="profile-info-container">
-        <ProfilePicture src={user.profile.picture} scale={0.7} />
+        <ProfilePicture src={user.profile.picture} scale={scale} />
         <div>{user.profile.username}</div>
       </div>
       {children}
@@ -25,6 +25,7 @@ ProfileLink.propTypes = {
   children: PropTypes.object,
   user: PropTypes.object,
   active: PropTypes.bool,
+  scale: PropTypes.number,
 };
 
 const StyledProfileLink = styled(ProfileLink)`
