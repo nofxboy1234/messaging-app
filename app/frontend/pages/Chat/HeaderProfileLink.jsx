@@ -24,7 +24,7 @@ HeaderProfileLink.propTypes = {
 };
 
 const StyledHeaderProfileLink = styled(HeaderProfileLink)`
-  --header-bg-color: #fafafa;
+  --header-bg-color: rgb(0, 255, 200);
 
   background-color: var(--header-bg-color);
 
