@@ -3,42 +3,61 @@ import { usePage, Link } from '@inertiajs/react';
 import api from '../pathHelpers';
 import PropTypes from 'prop-types';
 import StyledLogoutButton from './sessions/Buttons/LogoutButton';
+import { useState } from 'react';
 
 const NavBar = ({ className }) => {
   const { shared } = usePage().props;
+  const [activeMenuItemId, setActiveMenuItemId] = useState();
+
+  const username = shared.current_user.email.split('@')[0];
+
+  const menuItems = [
+    { id: 0, text: 'Home', href: '/' },
+    {
+      id: 1,
+      text: 'Friends',
+      href: api.friendshipCategories.index.path(),
+    },
+    {
+      id: 2,
+      elementId: 'nav-bar-chats',
+      text: 'Chats',
+      href: api.chats.index.path(),
+    },
+    {
+      id: 3,
+      elementId: 'nav-bar-users',
+      text: 'Users',
+      href: api.users.index.path(),
+    },
+    {
+      id: 4,
+      text: `Profile (${username})`,
+      href: api.profiles.show.path(shared.profile),
+    },
+  ];
 
   return (
     <div className={className}>
       <div id="link-container">
-        <Link className="menu-item-container link" href="/">
-          <div>Home</div>
-        </Link>
-        <Link
-          className="menu-item-container link"
-          href={api.friendshipCategories.index.path()}
-        >
-          <div>Friends</div>
-        </Link>
-        <Link
-          className="menu-item-container link"
-          id="nav-bar-chats"
-          href={api.chats.index.path()}
-        >
-          <div>Chats</div>
-        </Link>
-        <Link
-          className="menu-item-container link"
-          id="nav-bar-users"
-          href={api.users.index.path()}
-        >
-          <div>Users</div>
-        </Link>
-        <Link
-          className="menu-item-container link"
-          href={api.profiles.show.path(shared.profile)}
-        >
-          <div>Profile ({shared.current_user.email.split('@')[0]})</div>
-        </Link>
+        {menuItems.map((menuItem) => (
+          <Link
+            key={menuItem.id}
+            className="menu-item-container link"
+            id={menuItem.elementId}
+            href={menuItem.href}
+            onClick={() => setActiveMenuItemId(menuItem.id)}
+          >
+            <div
+              className={
+                activeMenuItemId === menuItem.id ? 'activeMenuItem' : undefined
+              }
+            >
+              {menuItem.text}
+            </div>
+          </Link>
+        ))}
+
         <div className="menu-item-container">
           <StyledLogoutButton session={shared.session} />
         </div>
