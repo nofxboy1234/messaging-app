@@ -3,9 +3,10 @@ import Chat from './Chat';
 import MessageBox from './MessageBox';
 import PropTypes from 'prop-types';
 
-function ChatShow({ className, chat }) {
+function ChatShow({ className, chat, chattingWith }) {
   return (
     <div className={className}>
+      <div>{chattingWith.profile.username}</div>
       <Chat chat={chat} />
       <MessageBox chat={chat} />
     </div>
@@ -15,6 +16,7 @@ function ChatShow({ className, chat }) {
 ChatShow.propTypes = {
   className: PropTypes.string,
   chat: PropTypes.object,
+  chattingWith: PropTypes.object,
 };
 
 const StyledChatShow = styled(ChatShow)`

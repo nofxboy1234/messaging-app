@@ -14,8 +14,12 @@ class ChatsController < ApplicationController
 
   def show
     @serialized_chat = serialize_chat(@chat)
+    chatting_with = @chat.members.find { |member| member != Current.user }
+    @serialized_chatting_with = serialize_user(chatting_with)
+
     render inertia: "Chat/Show", props: {
-      chat: @serialized_chat
+      chat: @serialized_chat,
+      chattingWith: @serialized_chatting_with
     }
   end
 
@@ -33,5 +37,9 @@ class ChatsController < ApplicationController
         { messages: { include: { user: { include: :profile } } } },
         { members: { include: :profile } }
       ])
+    end
+
+    def serialize_user(user)
+      user.as_json(include: :profile)
     end
 end
