@@ -12,7 +12,7 @@ function ProfileLink({ className, children, user, active }) {
       $active={active}
     >
       <div id="profile-info-container">
-        <ProfilePicture src={user.profile.picture} />
+        <ProfilePicture src={user.profile.picture} scale={0.7} />
         <div>{user.profile.username}</div>
       </div>
       {children}
