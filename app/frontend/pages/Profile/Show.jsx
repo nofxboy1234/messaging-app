@@ -47,10 +47,12 @@ ProfileShow.propTypes = {
 };
 
 const StyledProfileShow = styled(ProfileShow)`
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
+  align-self: center;
+  max-width: 400px;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
 `;
 
 export default StyledProfileShow;

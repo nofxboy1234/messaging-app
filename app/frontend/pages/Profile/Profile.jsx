@@ -40,8 +40,6 @@ const StyledProfile = styled(Profile)`
   display: flex;
   flex-direction: column;
 
-  border: 1px solid var(--border-color);
-
   & .profile-data {
     min-height: 21px;
   }
