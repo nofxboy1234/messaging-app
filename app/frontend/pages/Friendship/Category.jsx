@@ -26,6 +26,9 @@ FriendshipCategory.propTypes = {
 
 const StyledFriendshipCategory = styled(FriendshipCategory)`
   & .link {
+    border: 1px solid var(--border-color);
+    min-height: 51.5px;
+
     &:hover {
       background-color: var(--bg-color-hover);
     }
