@@ -28,6 +28,7 @@ const StyledLogoutButton = styled(LogoutButton)`
   padding: 0;
   background-color: unset;
   color: var(--medium-grey);
+  border-radius: 0;
 
   &:hover {
     background-color: var(--bg-color-hover);
