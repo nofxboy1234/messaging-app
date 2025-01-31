@@ -38,6 +38,8 @@ AcceptFriendRequestButton.propTypes = {
   friendRequest: PropTypes.object,
 };
 
-const StyledAcceptFriendRequestButton = styled(AcceptFriendRequestButton)``;
+const StyledAcceptFriendRequestButton = styled(AcceptFriendRequestButton)`
+  margin: 0 1rem;
+`;
 
 export default StyledAcceptFriendRequestButton;

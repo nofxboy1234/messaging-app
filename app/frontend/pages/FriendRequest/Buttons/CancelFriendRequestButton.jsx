@@ -31,7 +31,7 @@ CancelFriendRequestButton.propTypes = {
 };
 
 const StyledCancelFriendRequestButton = styled(CancelFriendRequestButton)`
-  margin: 0;
+  margin: 0 1rem;
 `;
 
 export default StyledCancelFriendRequestButton;

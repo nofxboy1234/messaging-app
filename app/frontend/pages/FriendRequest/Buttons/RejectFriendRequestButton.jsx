@@ -30,6 +30,8 @@ RejectFriendRequestButton.propTypes = {
   friendRequest: PropTypes.object,
 };
 
-const StyledRejectFriendRequestButton = styled(RejectFriendRequestButton)``;
+const StyledRejectFriendRequestButton = styled(RejectFriendRequestButton)`
+  margin: 0 1rem;
+`;
 
 export default StyledRejectFriendRequestButton;

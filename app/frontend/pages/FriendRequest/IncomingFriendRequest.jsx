@@ -16,15 +16,9 @@ function IncomingFriendRequest({ className, friendRequest }) {
 }
 
 const StyledIncomingFriendRequest = styled(IncomingFriendRequest)`
-  display: flex;
-  justify-content: space-between;
-  background-color: #fff383;
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 0.3rem;
   &:hover {
-    background-color: white;
     cursor: pointer;
+    background-color: var(--bg-color-hover);
   }
 `;
 
