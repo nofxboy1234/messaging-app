@@ -14,7 +14,7 @@ function UserLink({ className, children, targetPath }) {
 
 UserLink.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.array,
+  children: PropTypes.any,
   targetPath: PropTypes.string,
   active: PropTypes.bool,
 };
