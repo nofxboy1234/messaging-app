@@ -95,6 +95,7 @@ const StyledNavBar = styled(NavBar)`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border: 1px solid var(--border-color);
 
     > div {
       flex: 1 1 0;
