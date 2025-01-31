@@ -4,17 +4,21 @@ import styled from 'styled-components';
 import UserLink from '../User/Link';
 import ProfilePicture from '../Profile/Picture';
 
-function ChatLink({ className, chat, friend }) {
+function ChatLink({ className, children, chat, friend }) {
   return (
     <UserLink className={className} targetPath={api.chats.show.path(chat)}>
-      <ProfilePicture src={friend.profile.picture} />
-      <div>{friend.profile.username}</div>
+      <div id="profile-info-container">
+        <ProfilePicture src={friend.profile.picture} />
+        <div>{friend.profile.username}</div>
+      </div>
+      {children}
     </UserLink>
   );
 }
 
 ChatLink.propTypes = {
   className: PropTypes.string,
+  children: PropTypes.object,
   chat: PropTypes.object,
   friend: PropTypes.object,
 };
@@ -24,6 +28,12 @@ const StyledChatLink = styled(ChatLink)`
 
   &:hover {
     background-color: var(--bg-color-hover);
+  }
+
+  & #profile-info-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
   }
 `;
 
