@@ -7,7 +7,7 @@ function CancelFriendRequestButton({ className, friendRequest }) {
   return (
     <Button
       className={className}
-      text={'Cancel Friend Request'}
+      text={'Cancel'}
       onClick={() => {
         const options = {
           onBefore: () =>
