@@ -53,7 +53,8 @@ const StyledFriendship = styled(Friendship)`
       background-color: #ebebeb;
 
       & div#buttons {
-        display: block;
+        display: flex;
+        gap: 1rem;
       }
 
       & .link {
