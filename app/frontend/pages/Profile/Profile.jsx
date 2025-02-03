@@ -69,7 +69,7 @@ const StyledProfile = styled(Profile)`
   & #about-me {
     background-color: var(--bg-color-grey);
     border-radius: 8px;
-    word-break: break-all;
+    overflow-wrap: anywhere;
   }
 `;
 
