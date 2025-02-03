@@ -50,7 +50,6 @@ ProfileShow.propTypes = {
 
 const StyledProfileShow = styled(ProfileShow)`
   align-self: center;
-  min-width: 500px;
   margin-top: 1rem;
   padding: 1rem;
   border: 1px solid var(--border-color);
@@ -60,10 +59,10 @@ const StyledProfileShow = styled(ProfileShow)`
   /* justify-content: center; */
 
   & #profile-container {
+    flex: 1 1 0;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-left: 1rem;
   }
 `;
 

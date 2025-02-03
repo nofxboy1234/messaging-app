@@ -45,6 +45,7 @@ LayoutContainer.propTypes = {
 const Main = styled.div`
   flex: 1 1 0;
   display: flex;
+  justify-content: center;
 `;
 
 const Chats = styled.div`
@@ -60,6 +61,7 @@ const Content = styled.div`
   flex-direction: column;
 
   border: 1px solid var(--border-color);
+  max-width: 800px;
 `;
 
 const Users = styled.div`

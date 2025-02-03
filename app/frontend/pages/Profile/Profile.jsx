@@ -33,14 +33,20 @@ function Profile({ className, initialProfile }) {
         <Picture className="profile-data" src={profile.picture} scale={2} />
         <div className="profile-data">{profile.username}</div>
       </div>
-      <div className="profile-data" id="about-me">
-        About Me: {profile.about}
+      <div>
+        <div>About Me:</div>
+        <div id="about-me-container">
+          <div className="profile-data" id="about-me">
+            {profile.about}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
 const StyledProfile = styled(Profile)`
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -55,10 +61,15 @@ const StyledProfile = styled(Profile)`
     min-height: 21px;
   }
 
+  & #about-me-container {
+    flex: 1 1 0;
+    display: flex;
+  }
+
   & #about-me {
     background-color: var(--bg-color-grey);
-    padding: 1rem;
     border-radius: 8px;
+    word-break: break-all;
   }
 `;
 
