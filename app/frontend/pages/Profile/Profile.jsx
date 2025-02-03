@@ -29,9 +29,11 @@ function Profile({ className, initialProfile }) {
 
   return (
     <div className={className}>
-      <Picture className="profile-data" src={profile.picture} />
-      <div className="profile-data">{profile.username}</div>
-      <div className="profile-data">{profile.about}</div>
+      <div id="header">
+        <Picture className="profile-data" src={profile.picture} />
+        <div className="profile-data">{profile.username}</div>
+      </div>
+      <div className="profile-data">About Me: {profile.about}</div>
     </div>
   );
 }
@@ -40,6 +42,11 @@ const StyledProfile = styled(Profile)`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  & #header {
+    display: flex;
+    flex-direction: column;
+  }
 
   & .profile-data {
     min-height: 21px;
