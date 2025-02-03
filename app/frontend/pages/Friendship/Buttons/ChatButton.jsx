@@ -18,6 +18,8 @@ ChatButton.propTypes = {
   chat: PropTypes.object,
 };
 
-const StyledChatButton = styled(ChatButton)``;
+const StyledChatButton = styled(ChatButton)`
+  margin: 0;
+`;
 
 export default StyledChatButton;

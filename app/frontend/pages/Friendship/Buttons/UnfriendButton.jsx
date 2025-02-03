@@ -31,6 +31,8 @@ UnfriendButton.propTypes = {
   user: PropTypes.object,
 };
 
-const StyledUnfriendButton = styled(UnfriendButton)``;
+const StyledUnfriendButton = styled(UnfriendButton)`
+  margin: 0;
+`;
 
 export default StyledUnfriendButton;

@@ -57,32 +57,32 @@ function UserActions({
   switch (relationship) {
     case Relationship.FRIEND:
       actions = (
-        <div>
+        <>
           <ChatButton chat={chat} />
           <UnfriendButton friendship={friendship} user={profileUser} />
-        </div>
+        </>
       );
       break;
     case Relationship.INCOMING_REQUEST:
       actions = (
-        <div>
+        <>
           <AcceptFriendRequestButton friendRequest={friendRequest} />
           <RejectFriendRequestButton friendRequest={friendRequest} />
-        </div>
+        </>
       );
       break;
     case Relationship.OUTGOING_REQUEST:
       actions = (
-        <div>
+        <>
           <CancelFriendRequestButton friendRequest={friendRequest} />
-        </div>
+        </>
       );
       break;
     case Relationship.STRANGER:
       actions = (
-        <div>
+        <>
           <SendFriendRequestButton user={profileUser} />
-        </div>
+        </>
       );
       break;
   }
@@ -99,8 +99,8 @@ UserActions.propTypes = {
 };
 
 const StyledUserActions = styled(UserActions)`
-  border: 1px solid var(--border-color);
-  padding: 0.5rem;
+  display: flex;
+  gap: 1rem;
 `;
 
 export default StyledUserActions;
