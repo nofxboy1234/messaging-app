@@ -55,9 +55,6 @@ const StyledProfileShow = styled(ProfileShow)`
   border: 1px solid var(--border-color);
   border-radius: 10px;
 
-  display: flex;
-  /* justify-content: center; */
-
   & #profile-container {
     flex: 1 1 0;
     display: flex;
