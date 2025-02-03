@@ -56,7 +56,7 @@ const StyledProfile = styled(Profile)`
   }
 
   & #about-me {
-    background-color: var(--bg-color-hover);
+    background-color: var(--bg-color-grey);
     padding: 1rem;
     border-radius: 8px;
   }
