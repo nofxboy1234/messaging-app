@@ -39,6 +39,7 @@ function Profile({ className, initialProfile }) {
 const StyledProfile = styled(Profile)`
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 
   & .profile-data {
     min-height: 21px;

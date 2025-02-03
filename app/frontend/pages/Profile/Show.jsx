@@ -21,18 +21,20 @@ function ProfileShow({
 
   return (
     <div id="profile-show" className={className}>
-      <Profile initialProfile={profile} />
-      {currentUserProfile() ? (
-        <ProfileActions profile={profile} />
-      ) : (
-        <UserActions
-          profileUser={profile.user}
-          initialRelationship={relationship}
-          initialFriendRequest={friendRequest}
-          initialFriendship={friendship}
-          initialChat={chat}
-        />
-      )}
+      <div id="profile-container">
+        <Profile initialProfile={profile} />
+        {currentUserProfile() ? (
+          <ProfileActions profile={profile} />
+        ) : (
+          <UserActions
+            profileUser={profile.user}
+            initialRelationship={relationship}
+            initialFriendRequest={friendRequest}
+            initialFriendship={friendship}
+            initialChat={chat}
+          />
+        )}
+      </div>
     </div>
   );
 }
@@ -48,15 +50,21 @@ ProfileShow.propTypes = {
 
 const StyledProfileShow = styled(ProfileShow)`
   align-self: center;
-  max-width: 400px;
+  min-width: 500px;
   margin-top: 1rem;
   padding: 1rem;
   border: 1px solid var(--border-color);
   border-radius: 10px;
 
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  /* justify-content: center; */
+
+  & #profile-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-left: 1rem;
+  }
 `;
 
 export default StyledProfileShow;
