@@ -46,7 +46,6 @@ function Profile({ className, initialProfile }) {
 }
 
 const StyledProfile = styled(Profile)`
-  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;

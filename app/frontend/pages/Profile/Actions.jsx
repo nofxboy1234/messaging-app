@@ -18,7 +18,6 @@ ProfileActions.propTypes = {
 };
 
 const StyledProfileActions = styled(ProfileActions)`
-  flex: 1 1 0;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
