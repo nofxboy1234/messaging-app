@@ -24,7 +24,7 @@ const StyledUpdateAvatarLink = styled(UpdateAvatarLink)`
   font-size: 1rem;
   padding: 0.25rem 1rem;
   border: none;
-  border-radius: 14.5px;
+  border-radius: 5px;
   cursor: pointer;
   margin: 0;
   text-decoration: none;

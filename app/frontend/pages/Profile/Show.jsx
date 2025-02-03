@@ -35,6 +35,7 @@ function ProfileShow({
           />
         )}
       </div>
+      <div id="spacer"></div>
     </div>
   );
 }
@@ -53,17 +54,20 @@ const StyledProfileShow = styled(ProfileShow)`
   display: flex;
   flex-direction: column;
   max-width: 600px;
-  max-height: 350px;
   margin-top: 1rem;
   padding: 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
 
   & #profile-container {
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+  }
+
+  & #spacer {
+    flex: 1 1 0;
   }
 `;
 
