@@ -58,7 +58,7 @@ const Chats = styled.div`
 const Content = styled.div`
   flex: 4 1 0;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 
   border: 1px solid var(--border-color);
 `;
