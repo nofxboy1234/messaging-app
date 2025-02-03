@@ -99,8 +99,10 @@ UserActions.propTypes = {
 };
 
 const StyledUserActions = styled(UserActions)`
+  flex: 1 1 0;
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 `;
 
 export default StyledUserActions;
