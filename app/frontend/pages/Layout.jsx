@@ -86,7 +86,9 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   color: var(--medium-grey);
 
   #layout {
-    flex: 1 1 0;
+    flex: 1 1 auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     max-width: 1250px;
     display: flex;
     flex-direction: column;
