@@ -20,6 +20,8 @@ EditProfileButton.propTypes = {
   profile: PropTypes.object,
 };
 
-const StyledEditProfileButton = styled(EditProfileButton)``;
+const StyledEditProfileButton = styled(EditProfileButton)`
+  margin: 0;
+`;
 
 export default StyledEditProfileButton;

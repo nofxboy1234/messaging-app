@@ -53,6 +53,10 @@ const StyledProfileShow = styled(ProfileShow)`
   padding: 1rem;
   border: 1px solid var(--border-color);
   border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 export default StyledProfileShow;

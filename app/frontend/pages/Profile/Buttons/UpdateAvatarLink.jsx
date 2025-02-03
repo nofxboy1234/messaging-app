@@ -26,7 +26,7 @@ const StyledUpdateAvatarLink = styled(UpdateAvatarLink)`
   border: none;
   border-radius: 14.5px;
   cursor: pointer;
-  margin: 1rem;
+  margin: 0;
   text-decoration: none;
 
   &:hover {
