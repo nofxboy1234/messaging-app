@@ -46,6 +46,9 @@ const Main = styled.div`
   flex: 1 1 0;
   display: flex;
   justify-content: center;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const Chats = styled.div`
@@ -61,6 +64,9 @@ const Content = styled.div`
   justify-content: center;
 
   border: 1px solid var(--border-color);
+
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const Users = styled.div`
@@ -74,6 +80,9 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   display: flex;
   justify-content: center;
   height: 100vh;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 
   @font-face {
     font-family: 'JetbrainsMono';

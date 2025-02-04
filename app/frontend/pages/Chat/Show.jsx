@@ -24,6 +24,9 @@ const StyledChatShow = styled(ChatShow)`
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 export default StyledChatShow;

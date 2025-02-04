@@ -79,7 +79,9 @@ const StyledChat = styled(Chat)`
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 export default StyledChat;
