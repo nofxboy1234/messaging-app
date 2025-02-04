@@ -91,7 +91,6 @@ const StyledLayoutContainer = styled(LayoutContainer)`
     max-width: 1250px;
     display: flex;
     flex-direction: column;
-    border-color: aqua;
   }
 
   #nav-bar-chats,
