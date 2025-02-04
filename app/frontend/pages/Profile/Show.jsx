@@ -64,6 +64,7 @@ const StyledProfileShow = styled(ProfileShow)`
     justify-content: space-between;
     border: 1px solid var(--border-color);
     border-radius: 5px;
+    padding: 1rem;
   }
 
   & #spacer {
