@@ -20,6 +20,8 @@ ShowProfileButton.propTypes = {
   profile: PropTypes.object,
 };
 
-const StyledShowProfileButton = styled(ShowProfileButton)``;
+const StyledShowProfileButton = styled(ShowProfileButton)`
+  margin: 0;
+`;
 
 export default StyledShowProfileButton;

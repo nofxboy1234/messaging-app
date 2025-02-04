@@ -21,6 +21,8 @@ UpdateProfileButton.propTypes = {
   form: PropTypes.object,
 };
 
-const StyledUpdateProfileButton = styled(UpdateProfileButton)``;
+const StyledUpdateProfileButton = styled(UpdateProfileButton)`
+  margin: 0;
+`;
 
 export default StyledUpdateProfileButton;
