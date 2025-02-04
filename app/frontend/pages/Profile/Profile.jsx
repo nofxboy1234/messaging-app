@@ -30,7 +30,7 @@ function Profile({ className, initialProfile }) {
   return (
     <div className={className}>
       <div id="header">
-        <Picture className="profile-data" src={profile.picture} scale={2} />
+        <Picture src={profile.picture} scale={2} />
         <div className="profile-data">{profile.username}</div>
       </div>
       <div>
