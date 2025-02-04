@@ -57,6 +57,7 @@ const StyledMessageBox = styled(MessageBox)`
     color: var(--medium-grey);
 
     padding: 1rem;
+    min-width: 130px;
   }
 `;
 
