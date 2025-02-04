@@ -24,7 +24,8 @@ const StyledUserLink = styled(UserLink)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 3rem;
+    flex-wrap: wrap;
+    gap: 1rem 3rem;
     text-decoration: none;
     padding: 0.3rem 1rem;
   }
