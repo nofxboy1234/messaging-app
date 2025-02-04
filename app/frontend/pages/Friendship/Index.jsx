@@ -60,7 +60,9 @@ const StyledFriendshipIndex = styled(FriendshipIndex)`
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 
   & > div#friendships {
     flex: 1 1 0;
