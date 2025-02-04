@@ -104,7 +104,9 @@ const StyledUserIndex = styled(UserIndex)`
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 
   border: 1px solid var(--border-color);
 
