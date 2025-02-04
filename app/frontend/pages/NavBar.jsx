@@ -96,6 +96,7 @@ const StyledNavBar = styled(NavBar)`
     flex-direction: column;
     justify-content: center;
     border: 1px solid var(--border-color);
+    min-height: 48px;
 
     > div {
       flex: 1 1 0;
