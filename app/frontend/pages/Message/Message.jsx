@@ -48,9 +48,9 @@ const StyledMessage = styled(Message)`
   }
 
   & #message {
-    max-width: 600px;
-    overflow: hidden;
-    overflow-wrap: break-word;
+    /* max-width: 600px; */
+    /* overflow: hidden; */
+    overflow-wrap: anywhere;
   }
 `;
 
