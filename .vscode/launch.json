@@ -9,7 +9,10 @@
       "request": "launch",
       "type": "chrome",
       "url": "http://localhost:3100",
-      "webRoot": "${workspaceFolder}/app/frontend"
+      "webRoot": "${workspaceFolder}/app/frontend",
+      "runtimeArgs": [
+        "--load-extension=${env:userprofile}/home/dylan/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/6.1.0.1_0"
+      ]
     }
   ]
 }
