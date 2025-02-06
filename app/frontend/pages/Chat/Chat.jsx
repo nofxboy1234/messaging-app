@@ -53,7 +53,7 @@ function Chat({ className, chat }) {
     if (scrollBarWasAtBottomRef.current) {
       lastMessageRef.current.scrollIntoView();
     }
-  });
+  }, [messages.length]);
 
   return (
     <div ref={rootElementRef} onScroll={handleScroll} className={className}>
