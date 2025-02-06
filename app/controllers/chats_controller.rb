@@ -2,10 +2,12 @@ class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show ]
 
   def index
-    @chats = Current.user.friends.includes(:profile).map do |friend|
-      chat = Current.user.find_direct_message_chat_with(friend)
+    mapped_chats = Current.user&.friends&.includes(:profile)&.map do |friend|
+      chat = Current.user&.find_direct_message_chat_with(friend)
       { friend: friend.as_json(include: :profile), chat: chat }
     end
+
+    @chats = mapped_chats.sort { |chat_a, chat_b| chat_a[:friend]["profile"]["username"] <=> chat_b[:friend]["profile"]["username"] }
 
     render inertia: "Chat/Index", props: {
       initialChats: @chats

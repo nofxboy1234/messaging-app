@@ -13,8 +13,6 @@ class ApplicationController < ActionController::Base
         { friend: friend.as_json(include: :profile), chat: chat }
       end
 
-      # puts mapped_chats
-      # mapped_chats
       mapped_chats.sort { |chat_a, chat_b| chat_a[:friend]["profile"]["username"] <=> chat_b[:friend]["profile"]["username"] }
     },
     users: -> {
