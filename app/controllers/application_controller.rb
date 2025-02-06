@@ -16,8 +16,7 @@ class ApplicationController < ActionController::Base
       mapped_chats.sort { |chat_a, chat_b| chat_a[:friend]["profile"]["username"] <=> chat_b[:friend]["profile"]["username"] }
     },
     users: -> {
-      users = User.includes(:profile)
-      users.as_json(include: :profile)
+      User.includes(:profile).order("profiles.username").as_json(include: :profile)
     },
     friends: -> {
       return if !Current.user

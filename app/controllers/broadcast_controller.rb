@@ -33,12 +33,12 @@ class BroadcastController < ApplicationController
     end
 
     def broadcast_all_users
-      users = User.includes(:profile).as_json(include: :profile)
+      users = User.includes(:profile).order("profiles.username").as_json(include: :profile)
       ActionCable.server.broadcast("AllUserChannel", users)
     end
 
     def broadcast_all_users_to_user(user)
-      users = User.includes(:profile).as_json(include: :profile)
+      users = User.includes(:profile).order("profiles.username").as_json(include: :profile)
       PerUserAllUserChannel.broadcast_to(user, users)
     end
 
