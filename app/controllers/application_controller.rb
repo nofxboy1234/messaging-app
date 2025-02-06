@@ -8,10 +8,14 @@ class ApplicationController < ActionController::Base
     session: -> { Current.session },
     profile: -> { Current.user&.profile },
     chats: -> {
-      Current.user&.friends&.includes(:profile)&.map do |friend|
+      mapped_chats = Current.user&.friends&.includes(:profile)&.map do |friend|
         chat = Current.user&.find_direct_message_chat_with(friend)
         { friend: friend.as_json(include: :profile), chat: chat }
       end
+
+      # puts mapped_chats
+      # mapped_chats
+      mapped_chats.sort { |chat_a, chat_b| chat_a[:friend]["profile"]["username"] <=> chat_b[:friend]["profile"]["username"] }
     },
     users: -> {
       users = User.includes(:profile)
