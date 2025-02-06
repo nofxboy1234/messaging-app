@@ -2,8 +2,8 @@ class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show ]
 
   def index
-    @chats = Current.user&.friends&.includes(:profile)&.map do |friend|
-      chat = Current.user&.find_direct_message_chat_with(friend)
+    @chats = Current.user.friends.includes(:profile).map do |friend|
+      chat = Current.user.find_direct_message_chat_with(friend)
       { friend: friend.as_json(include: :profile), chat: chat }
     end
 
