@@ -108,7 +108,8 @@ const StyledUserIndex = styled(UserIndex)`
   overflow-x: hidden;
   overflow-y: auto;
 
-  border: 1px solid var(--border-color);
+  border: solid var(--border-color);
+  border-width: 0 1px 1px;
 
   & > div#users {
     flex: 1 1 0;

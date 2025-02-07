@@ -77,17 +77,20 @@ const StyledNavBar = styled(NavBar)`
 
   display: flex;
   justify-content: center;
-  column-gap: 1rem;
 
-  border: 1px solid var(--border-color);
+  border: solid var(--border-color);
+  border-width: 1px 0 1px;
+
   min-height: 50px;
 
   & #link-container {
     flex: 1 1 0;
     display: flex;
-    gap: 1rem;
     flex-wrap: wrap;
-    max-width: 700px;
+  }
+
+  & #link-container:last-child {
+    border-right: 1px solid var(--border-color);
   }
 
   & .menu-item-container {
@@ -95,7 +98,9 @@ const StyledNavBar = styled(NavBar)`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 1px solid var(--border-color);
+
+    border-left: 1px solid var(--border-color);
+
     min-height: 48px;
 
     > div {

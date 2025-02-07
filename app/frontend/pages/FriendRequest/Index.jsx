@@ -43,7 +43,7 @@ function FriendRequestIndex({
   return (
     <div id="friendrequest-index" className={className}>
       <div>
-        <div>Outgoing Friend Requests</div>
+        <div className="friend-request-header">Outgoing Friend Requests</div>
         <div id="outgoing-friendrequests">
           {outgoingFriendRequests.map((friendRequest) => (
             <OutgoingFriendRequest
@@ -55,7 +55,7 @@ function FriendRequestIndex({
       </div>
 
       <div id="incoming-friendrequests">
-        <div>Incoming Friend Requests</div>
+        <div className="friend-request-header">Incoming Friend Requests</div>
         <div>
           {incomingFriendRequests.map((friendRequest) => (
             <IncomingFriendRequest
@@ -83,8 +83,8 @@ const StyledFriendRequestIndex = styled(FriendRequestIndex)`
   overflow-x: hidden;
   overflow-y: auto;
 
-  & #incoming-friendrequests {
-    margin-top: 2rem;
+  & .friend-request-header {
+    border-bottom: 1px solid var(--border-color);
   }
 `;
 

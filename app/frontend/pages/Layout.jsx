@@ -63,7 +63,7 @@ const Content = styled.div`
   display: flex;
   justify-content: center;
 
-  border: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 
   overflow-x: hidden;
   overflow-y: auto;
@@ -83,6 +83,8 @@ const StyledLayoutContainer = styled(LayoutContainer)`
 
   overflow-x: hidden;
   overflow-y: auto;
+
+  padding: 0.5rem;
 
   @font-face {
     font-family: 'JetbrainsMono';

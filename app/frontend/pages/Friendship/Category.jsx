@@ -7,7 +7,7 @@ import UserLink from '../User/Link';
 function FriendshipCategory({ className }) {
   return (
     <div id="friendship-category" className={className}>
-      <div>Friends:</div>
+      <div id="friends-header">Friends:</div>
       <div>
         <UserLink targetPath={api.friendships.index.path()}>All</UserLink>
       </div>
@@ -29,8 +29,12 @@ const StyledFriendshipCategory = styled(FriendshipCategory)`
   display: flex;
   flex-direction: column;
 
+  & #friends-header {
+    border-bottom: 1px solid var(--border-color);
+  }
+
   & .link {
-    border: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     min-height: 51.5px;
 
     &:hover {
