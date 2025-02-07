@@ -27,6 +27,8 @@ SignupButton.propTypes = {
   values: PropTypes.object,
 };
 
-const StyledSignupButton = styled(SignupButton)``;
+const StyledSignupButton = styled(SignupButton)`
+  margin: 0;
+`;
 
 export default StyledSignupButton;

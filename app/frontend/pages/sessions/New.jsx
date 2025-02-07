@@ -24,7 +24,7 @@ function SessionsNew({ className }) {
 
   return (
     <div className={className}>
-      <div>
+      <div id="content-container">
         <div id="header">Log in</div>
         <form>
           <label htmlFor="email">Email:</label>
@@ -45,7 +45,7 @@ function SessionsNew({ className }) {
             onChange={handleChange}
           />
 
-          <div>
+          <div id="new-session-buttons">
             <LoginButton data={values} />
             <SignupButton />
           </div>
@@ -77,7 +77,15 @@ const StyledSessionsNew = styled(SessionsNew)`
     flex-direction: column;
 
     border: 1px solid var(--border-color);
-    padding: 3rem;
+    padding: 1rem;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  & #content-container {
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   input {
@@ -97,6 +105,15 @@ const StyledSessionsNew = styled(SessionsNew)`
 
   & #password-label {
     margin-top: 1rem;
+  }
+
+  & #new-session-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 `;
 

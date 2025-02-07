@@ -21,6 +21,8 @@ LoginButton.propTypes = {
   data: PropTypes.object,
 };
 
-const StyledLoginButton = styled(LoginButton)``;
+const StyledLoginButton = styled(LoginButton)`
+  margin: 0;
+`;
 
 export default StyledLoginButton;

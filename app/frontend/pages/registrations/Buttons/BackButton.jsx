@@ -21,6 +21,8 @@ BackButton.propTypes = {
   values: PropTypes.object,
 };
 
-const StyledBackButton = styled(BackButton)``;
+const StyledBackButton = styled(BackButton)`
+  margin: 0;
+`;
 
 export default StyledBackButton;

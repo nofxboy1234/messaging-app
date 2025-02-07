@@ -25,7 +25,7 @@ function RegistrationsNew({ className }) {
 
   return (
     <div className={className}>
-      <div>
+      <div id="content-container">
         <div id="header">Sign up</div>
         <form>
           <label htmlFor="email">Email:</label>
@@ -58,7 +58,7 @@ function RegistrationsNew({ className }) {
             onChange={handleChange}
           />
 
-          <div>
+          <div id="new-registration-buttons">
             <SignupButton values={values} />
             <StyledBackButton />
           </div>
@@ -90,7 +90,15 @@ const StyledRegistrationsNew = styled(RegistrationsNew)`
     flex-direction: column;
 
     border: 1px solid var(--border-color);
-    padding: 3rem;
+    padding: 1rem;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  & #content-container {
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   input {
@@ -111,6 +119,15 @@ const StyledRegistrationsNew = styled(RegistrationsNew)`
   & #password-label,
   #password-confirmation-label {
     margin-top: 1rem;
+  }
+
+  & #new-registration-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 `;
 
