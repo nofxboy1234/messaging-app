@@ -6,7 +6,7 @@ import UserIndex from './User/Index';
 import PropTypes from 'prop-types';
 import NavBar from './NavBar';
 
-import styles from './Layout.module.css';
+import './styles.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 
 const LayoutContainer = ({ className, children }) => {

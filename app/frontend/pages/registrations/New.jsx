@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import styles from '../Layout.module.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import SignupButton from './Buttons/SignupButton';
 import StyledBackButton from './Buttons/BackButton';

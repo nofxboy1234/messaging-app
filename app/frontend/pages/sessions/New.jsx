@@ -3,11 +3,8 @@ import LoginButton from './Buttons/LoginButton';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import styles from '../Layout.module.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import SignupButton from './Buttons/SignupButton';
-
-console.log(styles);
 
 function SessionsNew({ className }) {
   const [values, setValues] = useState({
