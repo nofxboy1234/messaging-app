@@ -78,9 +78,6 @@ const StyledNavBar = styled(NavBar)`
   display: flex;
   justify-content: center;
 
-  border: solid var(--border-color);
-  border-width: 1px 0 1px;
-
   min-height: 50px;
 
   & #link-container {
@@ -90,6 +87,7 @@ const StyledNavBar = styled(NavBar)`
   }
 
   & #link-container:last-child {
+    border-top: 1px solid var(--border-color);
     border-right: 1px solid var(--border-color);
   }
 
@@ -99,6 +97,7 @@ const StyledNavBar = styled(NavBar)`
     flex-direction: column;
     justify-content: center;
 
+    border-bottom: 1px solid var(--border-color);
     border-left: 1px solid var(--border-color);
 
     min-height: 48px;
