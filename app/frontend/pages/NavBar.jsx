@@ -109,6 +109,7 @@ const StyledNavBar = styled(NavBar)`
       justify-content: center;
       align-items: center;
       padding: 0 0.5rem;
+      text-align: center;
     }
   }
 
