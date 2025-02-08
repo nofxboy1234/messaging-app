@@ -80,8 +80,7 @@ const StyledProfileForm = styled(ProfileForm)`
     border: 1px solid #e4e4e4;
     color: var(--medium-grey);
 
-    /* padding: 1rem; */
-    /* min-width: 0; */
+    padding: 0.5rem 0.8rem;
     width: 0;
   }
 

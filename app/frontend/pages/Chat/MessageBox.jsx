@@ -40,6 +40,7 @@ MessageBox.propTypes = {
 
 const StyledMessageBox = styled(MessageBox)`
   padding: 1rem;
+  border-top: 1px solid var(--border-color);
 
   form {
     display: flex;
@@ -56,7 +57,7 @@ const StyledMessageBox = styled(MessageBox)`
     border: 1px solid #e4e4e4;
     color: var(--medium-grey);
 
-    padding: 0 1rem;
+    padding: 0.5rem 0.8rem;
     min-width: 0px;
   }
 `;

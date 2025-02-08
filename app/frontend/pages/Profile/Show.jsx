@@ -55,6 +55,7 @@ const StyledProfileShow = styled(ProfileShow)`
   flex-direction: column;
   max-width: 600px;
   margin-top: 1rem;
+  margin: 1rem;
 
   & #profile-container {
     flex: 1 1 0;

@@ -38,22 +38,13 @@ const StyledProfileEdit = styled(ProfileEdit)`
   flex-direction: column;
   max-width: 600px;
   margin-top: 1rem;
+  margin: 1rem;
 
   & #profile-container {
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
   }
-
-  /* & #profile-form-container {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 1rem;
-  } */
 
   & #spacer {
     flex: 1 1 0;
