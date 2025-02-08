@@ -48,6 +48,8 @@ SendMessageButton.propTypes = {
   inputRef: PropTypes.object,
 };
 
-const StyledSendMessageButton = styled(SendMessageButton)``;
+const StyledSendMessageButton = styled(SendMessageButton)`
+  margin: 0;
+`;
 
 export default StyledSendMessageButton;

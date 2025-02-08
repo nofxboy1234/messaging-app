@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SendMessageButton from './Buttons/SendMessageButton';
@@ -39,12 +39,12 @@ MessageBox.propTypes = {
 };
 
 const StyledMessageBox = styled(MessageBox)`
-  padding: 1rem 0;
+  padding: 1rem;
 
   form {
-    flex: 1 1 0;
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
   }
 
   input {
@@ -56,8 +56,8 @@ const StyledMessageBox = styled(MessageBox)`
     border: 1px solid #e4e4e4;
     color: var(--medium-grey);
 
-    padding: 1rem;
-    min-width: 130px;
+    padding: 0 1rem;
+    min-width: 0px;
   }
 `;
 
