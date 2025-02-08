@@ -7,6 +7,8 @@ import styles from '../Layout.module.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import SignupButton from './Buttons/SignupButton';
 
+console.log(styles);
+
 function SessionsNew({ className }) {
   const [values, setValues] = useState({
     email: '',
