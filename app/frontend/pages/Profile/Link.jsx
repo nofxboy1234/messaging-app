@@ -40,6 +40,11 @@ const StyledProfileLink = styled(ProfileLink)`
     align-items: center;
     gap: 2rem;
   }
+
+  @media (max-width: 1160px) {
+    border: solid var(--border-color);
+    border-width: 0 0 1px;
+  }
 `;
 
 export default StyledProfileLink;

@@ -67,6 +67,11 @@ const Content = styled.div`
 
   overflow-x: hidden;
   overflow-y: auto;
+
+  @media (max-width: 1160px) {
+    border: solid var(--border-color);
+    border-width: 0 1px 1px;
+  }
 `;
 
 const Users = styled.div`

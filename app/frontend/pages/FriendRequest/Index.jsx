@@ -85,6 +85,11 @@ const StyledFriendRequestIndex = styled(FriendRequestIndex)`
 
   & .friend-request-header {
     border-bottom: 1px solid var(--border-color);
+
+    @media (max-width: 1160px) {
+      border: solid var(--border-color);
+      border-width: 0 0 1px;
+    }
   }
 `;
 
