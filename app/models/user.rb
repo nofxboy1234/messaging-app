@@ -68,10 +68,6 @@ class User < ApplicationRecord
   has_many :member_lists
   has_many :chats, through: :member_lists, dependent: :destroy
 
-  # def friends_with?(user)
-  #   Current.user.friends.include?(user)
-  # end
-
   def friend_requests
     {
       outgoing_friend_requests: outgoing_friend_requests.includes(friend: [ :profile ]).order("profiles.username").map do |friend_request|
@@ -88,7 +84,6 @@ class User < ApplicationRecord
   end
 
   def find_direct_message_chat_with(friend)
-    # current_user = Current.user
     mutual_chats = chats.to_a.intersection(friend.chats.to_a)
     mutual_chats.find { |chat| chat.members.count === 2 }
   end
@@ -120,53 +115,18 @@ class User < ApplicationRecord
 
   def has_friend_as_sender?(user)
     friends_as_sender.include?(user)
-    # Current.user.friends_as_sender.include?(user)
   end
 
   def has_friend_as_receiver?(user)
     friends_as_receiver.include?(user)
-    # Current.user.friends_as_receiver.include?(user)
   end
 
 
   def has_outgoing_friend?(user)
     outgoing_friends.include?(user)
-    # Current.user.outgoing_friends.include?(user)
   end
 
   def has_incoming_friend?(user)
     incoming_friends.include?(user)
-    # Current.user.incoming_friends.include?(user)
-  end
-
-  has_secure_password
-
-  generates_token_for :email_verification, expires_in: 2.days do
-    email
-  end
-
-  generates_token_for :password_reset, expires_in: 20.minutes do
-    password_salt.last(10)
-  end
-
-  has_many :sessions, dependent: :destroy
-  has_many :recovery_codes, dependent: :destroy
-
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, allow_nil: true, length: { minimum: 12 }
-  validates :password, not_pwned: { message: "might easily be guessed" }
-
-  normalizes :email, with: -> { _1.strip.downcase }
-
-  before_validation if: :email_changed?, on: :update do
-    self.verified = false
-  end
-
-  before_validation on: :create do
-    self.otp_secret = ROTP::Base32.random
-  end
-
-  after_update if: :password_digest_previously_changed? do
-    sessions.where.not(id: Current.session).delete_all
   end
 end

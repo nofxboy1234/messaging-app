@@ -1,15 +1,12 @@
 class ApplicationController < ActionController::Base
-  before_action :set_current_request_details
-  before_action :authenticate
-
   inertia_share shared: {
     flash: -> { flash.to_hash },
-    current_user: -> { Current.user },
+    current_user: -> { User.find(1) },
     session: -> { Current.session },
-    profile: -> { Current.user&.profile },
+    profile: -> { User.find(1).profile },
     chats: -> {
-      mapped_chats = Current.user&.friends&.includes(:profile)&.map do |friend|
-        chat = Current.user&.find_direct_message_chat_with(friend)
+      mapped_chats = User.find(1)&.friends&.includes(:profile)&.map do |friend|
+        chat = User.find(1)&.find_direct_message_chat_with(friend)
         { friend: friend.as_json(include: :profile), chat: chat }
       end
 
@@ -19,24 +16,10 @@ class ApplicationController < ActionController::Base
       User.includes(:profile).order("profiles.username").as_json(include: :profile)
     },
     friends: -> {
-      return if !Current.user
+      return if !User.find(1)
 
-      friends = Current.user.friends.includes(:profile)
+      friends = User.find(1).friends.includes(:profile)
       friends.as_json(include: :profile)
     }
   }
-
-  private
-    def authenticate
-      if session_record = Session.find_by_id(cookies.signed[:session_token])
-        Current.session = session_record
-      else
-        redirect_to new_session_path
-      end
-    end
-
-    def set_current_request_details
-      Current.user_agent = request.user_agent
-      Current.ip_address = request.ip
-    end
 end

@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
   before_action :set_friendship, only: %i[ destroy ]
 
   def index
-    @friendships = Current.user.friendships_data.sort { |friendship_a, friendship_b| friendship_a[:friend]["profile"]["username"] <=> friendship_b[:friend]["profile"]["username"] }
+    @friendships = User.find(1).friendships_data.sort { |friendship_a, friendship_b| friendship_a[:friend]["profile"]["username"] <=> friendship_b[:friend]["profile"]["username"] }
 
     render inertia: "Friendship/Index", props: {
       initialFriendships: @friendships

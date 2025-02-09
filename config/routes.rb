@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   root "friendships#index"
 
-  # resources :photos, only: %i[new edit create update] do
-  #   resource :featured_flag, only: %i[create destroy]
-  # end
-
   resources :pending_friends, as: :friend_requests, controller: :friend_requests,
              only: %i[index create destroy], export: true
 
@@ -27,32 +23,6 @@ Rails.application.routes.draw do
   resources :all_users_broadcast, only: [ :create ], export: true
   resources :per_user_all_users_broadcast, only: [ :create ], export: true
   resources :send_message_broadcast, only: [ :create ], export: true
-
-  get  "sign_up", to: "registrations#new", export: true
-  post "sign_up", to: "registrations#create", export: true
-
-  resources :sessions, only: [ :index, :show, :destroy, :new, :create ], export: true
-  resource  :password, only: [ :edit, :update ]
-  namespace :identity do
-    resource :email,              only: [ :edit, :update ]
-    resource :email_verification, only: [ :show, :create ]
-    resource :password_reset,     only: [ :new, :edit, :create, :update ]
-  end
-  namespace :two_factor_authentication do
-    namespace :challenge do
-      resource :totp,           only: [ :new, :create ]
-      resource :recovery_codes, only: [ :new, :create ]
-    end
-    namespace :profile do
-      resource  :totp,           only: [ :new, :create, :update ]
-      resources :recovery_codes, only: [ :index, :create ]
-    end
-  end
-
-  get  "/auth/failure",            to: "sessions/omniauth#failure"
-  get  "/auth/:provider/callback", to: "sessions/omniauth#create"
-  post "/auth/:provider/callback", to: "sessions/omniauth#create"
-
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
