@@ -89,9 +89,6 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   overflow-x: hidden;
   overflow-y: auto;
 
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-
   @font-face {
     font-family: 'JetbrainsMono';
     src: url(${fontUrl});
@@ -117,6 +114,9 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   }
 
   @media (max-width: 1160px) {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
     #chats,
     #users {
       display: none;
