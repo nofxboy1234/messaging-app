@@ -89,6 +89,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   overflow-x: hidden;
   overflow-y: auto;
 
+  padding-top: 4rem;
   padding-bottom: 4rem;
 
   @font-face {
