@@ -89,7 +89,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   overflow-x: hidden;
   overflow-y: auto;
 
-  padding-bottom: 3rem;
+  padding-bottom: 4rem;
 
   @font-face {
     font-family: 'JetbrainsMono';
