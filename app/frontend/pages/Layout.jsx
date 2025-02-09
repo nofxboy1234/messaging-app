@@ -89,7 +89,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   overflow-x: hidden;
   overflow-y: auto;
 
-  padding: 0.5rem;
+  padding-bottom: env(safe-area-inset-bottom);
 
   @font-face {
     font-family: 'JetbrainsMono';
@@ -107,6 +107,7 @@ const StyledLayoutContainer = styled(LayoutContainer)`
     max-width: 1250px;
     display: flex;
     flex-direction: column;
+    padding: 0.5rem;
   }
 
   #nav-bar-chats,
