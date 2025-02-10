@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root "friendships#index"
 
   resources :pending_friends, as: :friend_requests, controller: :friend_requests,
