@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   def create
-    @message = User.find(1).messages.build(message_params)
+    @message = current_user&.messages.build(message_params)
     @message.save!
 
     head :created

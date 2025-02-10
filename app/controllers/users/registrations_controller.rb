@@ -10,9 +10,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super do |user|
+      user.build_profile(username: user.email.split("@").first,
+                         picture: "",
+                         about: "")
+      user.save!
+    end
+  end
 
   # GET /resource/edit
   # def edit
