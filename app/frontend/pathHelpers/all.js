@@ -15,3 +15,5 @@ export { default as allUsersBroadcast } from './allUsersBroadcast';
 export { default as perUserAllUsersBroadcast } from './perUserAllUsersBroadcast';
 export { default as sendMessageBroadcast } from './sendMessageBroadcast';
 export { default as friendshipCategories } from './friendshipCategories';
+export { default as registrations } from './Users/registrations';
+export { default as sessions } from './Users/sessions';
