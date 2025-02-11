@@ -3,8 +3,6 @@ class FriendshipsController < ApplicationController
 
   def index
     @friendships = current_user&.friendships_data&.sort { |friendship_a, friendship_b| friendship_a[:friend]["profile"]["username"] <=> friendship_b[:friend]["profile"]["username"] }
-    puts "**********************************"
-    puts @friendships
 
     render inertia: "Friendship/Index", props: {
       initialFriendships: @friendships
