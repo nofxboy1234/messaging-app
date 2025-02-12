@@ -9,7 +9,10 @@ function LoginButton({ className, data }) {
       className={className}
       text={'Log in'}
       onClick={() => {
-        api.sessions.create({ data: data });
+        const options = {
+          preserveState: true,
+        };
+        api.sessions.create({ data: data, options: options });
       }}
       type="submit"
     />
