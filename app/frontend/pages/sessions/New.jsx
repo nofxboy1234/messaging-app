@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import SignupButton from './Buttons/SignupButton';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 
 function SessionsNew({ className }) {
   const [values, setValues] = useState({
@@ -13,6 +13,7 @@ function SessionsNew({ className }) {
     password: '',
   });
   const [error, setError] = useState('');
+  const { shared } = usePage().props;
 
   function handleChange(e) {
     const key = e.target.id;
@@ -66,6 +67,11 @@ function SessionsNew({ className }) {
         </form>
       </div>
       <div className="error">{error}</div>
+      {Object.entries(shared.flash).map(([key, value]) => (
+        <div className="error" key={key}>
+          {value}
+        </div>
+      ))}
     </div>
   );
 }
