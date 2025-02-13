@@ -1,5 +1,8 @@
-import { router } from '@inertiajs/react';
+// import { router } from '@inertiajs/react';
 
-router.on('invalid', (event) => {
-  event.preventDefault();
-});
+// router.on('invalid', (event) => {
+//   if (event.detail.response.data === '') {
+//     event.preventDefault();
+//     console.log('invalid event: header only');
+//   }
+// });

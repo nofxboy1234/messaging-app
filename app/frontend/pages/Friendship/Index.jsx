@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import Friendship from './Friendship';
 import FriendshipTotal from './Total';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,22 @@ function FriendshipIndex({ className, initialFriendships }) {
   const [friendships, setFriendships] = useState(initialFriendships);
   const { shared } = usePage().props;
   const [activeFriendshipId, setActiveFriendshipId] = useState();
+
+  useEffect(() => {
+    console.log('add invalid event listener: header only');
+
+    const removeInvalidEventListener = router.on('invalid', (event) => {
+      if (event.detail.response.data === '') {
+        event.preventDefault();
+        console.log('invalid event: header only');
+      }
+    });
+
+    return () => {
+      console.log('remove invalid event listener: header only');
+      removeInvalidEventListener();
+    };
+  }, []);
 
   useEffect(() => {
     const channel = consumer.subscriptions.create(
