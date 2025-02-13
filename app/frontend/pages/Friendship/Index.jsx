@@ -12,17 +12,13 @@ function FriendshipIndex({ className, initialFriendships }) {
   const [activeFriendshipId, setActiveFriendshipId] = useState();
 
   useEffect(() => {
-    console.log('add invalid event listener: header only');
-
     const removeInvalidEventListener = router.on('invalid', (event) => {
       if (event.detail.response.data === '') {
         event.preventDefault();
-        console.log('invalid event: header only');
       }
     });
 
     return () => {
-      console.log('remove invalid event listener: header only');
       removeInvalidEventListener();
     };
   }, []);

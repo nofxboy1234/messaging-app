@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoginButton from './Buttons/LoginButton';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import SignupButton from './Buttons/SignupButton';
+import { router } from '@inertiajs/react';
 
 function SessionsNew({ className }) {
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
+  const [error, setError] = useState('');
 
   function handleChange(e) {
     const key = e.target.id;
@@ -20,6 +22,19 @@ function SessionsNew({ className }) {
       [key]: value,
     }));
   }
+
+  useEffect(() => {
+    const removeInvalidEventListener = router.on('invalid', (event) => {
+      if (event.detail.response.statusText != 'OK') {
+        event.preventDefault();
+        setError(event.detail.response.data);
+      }
+    });
+
+    return () => {
+      removeInvalidEventListener();
+    };
+  }, []);
 
   return (
     <div className={className}>
@@ -50,6 +65,7 @@ function SessionsNew({ className }) {
           </div>
         </form>
       </div>
+      <div className="error">{error}</div>
     </div>
   );
 }
@@ -61,6 +77,7 @@ SessionsNew.propTypes = {
 const StyledSessionsNew = styled(SessionsNew)`
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -113,6 +130,10 @@ const StyledSessionsNew = styled(SessionsNew)`
     margin-top: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
+  }
+
+  & .error {
+    color: red;
   }
 `;
 
