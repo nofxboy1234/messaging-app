@@ -18,6 +18,12 @@ const LayoutContainer = ({ className, children }) => {
   return (
     <div className={className}>
       <div id="layout">
+        {Object.entries(shared.flash).map(([key, value]) => (
+          <div className="error" key={key}>
+            {value}
+          </div>
+        ))}
+
         <NavBar />
         <Main>
           <Chats id="chats">

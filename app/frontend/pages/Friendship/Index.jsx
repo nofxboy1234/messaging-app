@@ -13,9 +13,7 @@ function FriendshipIndex({ className, initialFriendships }) {
 
   useEffect(() => {
     const removeInvalidEventListener = router.on('invalid', (event) => {
-      if (event.detail.response.data === '') {
-        event.preventDefault();
-      }
+      event.preventDefault();
     });
 
     return () => {
