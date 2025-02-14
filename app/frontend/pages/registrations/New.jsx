@@ -13,7 +13,6 @@ function RegistrationsNew({ className }) {
     password: '',
     password_confirmation: '',
   });
-  const [error, setError] = useState('');
   const { shared, errors } = usePage().props;
 
   function handleChange(e) {
@@ -30,7 +29,6 @@ function RegistrationsNew({ className }) {
       if (event.detail.response.statusText != 'OK') {
         event.preventDefault();
         console.log(event);
-        // setError(event.detail.response.data);
       }
     });
 
@@ -52,7 +50,7 @@ function RegistrationsNew({ className }) {
             onChange={handleChange}
             autoFocus
           />
-          {errors?.email && <div>{errors.email}</div>}
+          {errors?.email && <div className="error">{errors.email}</div>}
           <label id="password-label" htmlFor="password">
             Password:
           </label>
@@ -62,7 +60,7 @@ function RegistrationsNew({ className }) {
             value={values.password}
             onChange={handleChange}
           />
-          {errors?.password && <div>{errors.password}</div>}
+          {errors?.password && <div className="error">{errors.password}</div>}
           <label
             id="password-confirmation-label"
             htmlFor="password_confirmation"
@@ -76,7 +74,7 @@ function RegistrationsNew({ className }) {
             onChange={handleChange}
           />
           {errors?.password_confirmation && (
-            <div>{errors.password_confirmation}</div>
+            <div className="error">{errors.password_confirmation}</div>
           )}
 
           <div id="new-registration-buttons">
@@ -86,7 +84,6 @@ function RegistrationsNew({ className }) {
         </form>
       </div>
 
-      <div className="error">{error}</div>
       {Object.entries(shared.flash).map(([key, value]) => (
         <div className="error" key={key}>
           {value}
@@ -156,6 +153,10 @@ const StyledRegistrationsNew = styled(RegistrationsNew)`
     margin-top: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
+  }
+
+  & .error {
+    color: red;
   }
 `;
 
