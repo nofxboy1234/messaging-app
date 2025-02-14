@@ -66,6 +66,7 @@ function SessionsNew({ className }) {
           </div>
         </form>
       </div>
+
       <div className="error">{error}</div>
       {Object.entries(shared.flash).map(([key, value]) => (
         <div className="error" key={key}>

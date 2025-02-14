@@ -5,18 +5,35 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    render inertia: "registrations/New", props: {}
+  end
 
   # POST /resource
   def create
     super do |user|
-      user.build_profile(username: user.email.split("@").first,
-                         picture: "",
-                         about: "")
-      user.save!
+      if user.errors.size.positive?
+        redirect_to new_user_registration_url, inertia: { errors: user.errors }
+        return
+      else
+        user.build_profile(username: user.email.split("@").first,
+                           picture: "",
+                           about: "")
+        if user.save
+          broadcast_all_users
+        else
+          redirect_to new_user_registration_url, inertia: { errors: user.errors }
+          return
+        end
+      end
     end
+  end
+
+  private
+
+  def broadcast_all_users
+    users = User.includes(:profile).order("profiles.username").as_json(include: :profile)
+    ActionCable.server.broadcast("AllUserChannel", users)
   end
 
   # GET /resource/edit

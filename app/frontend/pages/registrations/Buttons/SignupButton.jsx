@@ -10,11 +10,8 @@ function SignupButton({ className, values }) {
       text={'Sign up'}
       onClick={() => {
         const options = {
-          onFinish: () => {
-            api.allUsersBroadcast.create();
-          },
+          preserveState: true,
         };
-
         api.registrations.create({ data: values, options: options });
       }}
       type="submit"

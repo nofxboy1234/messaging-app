@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import SignupButton from './Buttons/SignupButton';
 import StyledBackButton from './Buttons/BackButton';
+import { router, usePage } from '@inertiajs/react';
 
 function RegistrationsNew({ className }) {
   const [values, setValues] = useState({
@@ -12,6 +13,8 @@ function RegistrationsNew({ className }) {
     password: '',
     password_confirmation: '',
   });
+  const [error, setError] = useState('');
+  const { shared, errors } = usePage().props;
 
   function handleChange(e) {
     const key = e.target.id;
@@ -21,6 +24,20 @@ function RegistrationsNew({ className }) {
       [key]: value,
     }));
   }
+
+  useEffect(() => {
+    const removeInvalidEventListener = router.on('invalid', (event) => {
+      if (event.detail.response.statusText != 'OK') {
+        event.preventDefault();
+        console.log(event);
+        // setError(event.detail.response.data);
+      }
+    });
+
+    return () => {
+      removeInvalidEventListener();
+    };
+  }, []);
 
   return (
     <div className={className}>
@@ -35,6 +52,7 @@ function RegistrationsNew({ className }) {
             onChange={handleChange}
             autoFocus
           />
+          {errors?.email && <div>{errors.email}</div>}
           <label id="password-label" htmlFor="password">
             Password:
           </label>
@@ -44,6 +62,7 @@ function RegistrationsNew({ className }) {
             value={values.password}
             onChange={handleChange}
           />
+          {errors?.password && <div>{errors.password}</div>}
           <label
             id="password-confirmation-label"
             htmlFor="password_confirmation"
@@ -56,6 +75,9 @@ function RegistrationsNew({ className }) {
             value={values.password_confirmation}
             onChange={handleChange}
           />
+          {errors?.password_confirmation && (
+            <div>{errors.password_confirmation}</div>
+          )}
 
           <div id="new-registration-buttons">
             <SignupButton values={values} />
@@ -63,6 +85,13 @@ function RegistrationsNew({ className }) {
           </div>
         </form>
       </div>
+
+      <div className="error">{error}</div>
+      {Object.entries(shared.flash).map(([key, value]) => (
+        <div className="error" key={key}>
+          {value}
+        </div>
+      ))}
     </div>
   );
 }
