@@ -12,7 +12,7 @@ function SessionsNew({ className }) {
     email: '',
     password: '',
   });
-  const [error, setError] = useState('');
+  const [serverError, setServerError] = useState('');
   const { shared } = usePage().props;
 
   function handleChange(e) {
@@ -28,7 +28,7 @@ function SessionsNew({ className }) {
     const removeInvalidEventListener = router.on('invalid', (event) => {
       if (event.detail.response.statusText != 'OK') {
         event.preventDefault();
-        setError(event.detail.response.data);
+        setServerError(event.detail.response.data);
       }
     });
 
@@ -67,7 +67,7 @@ function SessionsNew({ className }) {
         </form>
       </div>
 
-      <div className="error">{error}</div>
+      <div className="error">{serverError}</div>
       {Object.entries(shared.flash).map(([key, value]) => (
         <div className="error" key={key}>
           {value}
