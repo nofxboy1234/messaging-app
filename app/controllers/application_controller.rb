@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   inertia_share shared: {
     flash: -> { flash.to_hash },
     current_user: -> { current_user },
-    session: -> { Current.session },
+    session: -> { user_session },
     profile: -> { current_user&.profile },
     chats: -> {
       mapped_chats = current_user&.friends&.includes(:profile)&.map do |friend|

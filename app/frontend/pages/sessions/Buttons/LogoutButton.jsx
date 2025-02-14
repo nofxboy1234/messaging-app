@@ -9,9 +9,7 @@ function LogoutButton({ className, session }) {
       className={className}
       text={'Log out'}
       onClick={() => {
-        api.sessions.destroy({
-          obj: session,
-        });
+        api.sessions.destroy();
       }}
     />
   );
