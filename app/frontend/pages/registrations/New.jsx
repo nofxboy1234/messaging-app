@@ -26,10 +26,7 @@ function RegistrationsNew({ className }) {
 
   useEffect(() => {
     const removeInvalidEventListener = router.on('invalid', (event) => {
-      if (event.detail.response.statusText != 'OK') {
-        event.preventDefault();
-        console.log(event);
-      }
+      event.preventDefault();
     });
 
     return () => {
