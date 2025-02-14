@@ -12,7 +12,7 @@ function SessionsNew({ className }) {
     email: '',
     password: '',
   });
-  const [serverError, setServerError] = useState('');
+  const [serverError, setServerError] = useState(null);
   const { shared } = usePage().props;
 
   function handleChange(e) {
@@ -67,7 +67,10 @@ function SessionsNew({ className }) {
         </form>
       </div>
 
-      <div className="error">{serverError}</div>
+      {serverError &&
+        serverError != 'You need to sign in or sign up before continuing.' && (
+          <div className="error">{serverError}</div>
+        )}
       {Object.entries(shared.flash).map(([key, value]) => (
         <div className="error" key={key}>
           {value}
