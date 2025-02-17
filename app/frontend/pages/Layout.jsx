@@ -10,7 +10,7 @@ import './styles.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import { createContext, useEffect, useState } from 'react';
 
-import subscribe from '../channels/subscriptions';
+import { allUserChannel } from '../channels/subscriptions';
 
 export const UsersContext = createContext({
   setUsers: () => {},
@@ -20,37 +20,7 @@ export const UsersContext = createContext({
 const LayoutContainer = ({ className, children }) => {
   const { shared } = usePage().props;
   const [users, setUsers] = useState(shared.users);
-  const [userChannel, setUserChannel] = useState(allUserChannel());
-
-  function allUserChannel() {
-    return subscribe('AllUserChannel', {}, setUsers);
-  }
-
-  // function chatUserChannel() {
-  //   return subscribe(
-  //     'ChatUserChannel',
-  //     { id: shared.current_user.id },
-  //     setUsers,
-  //   );
-  // }
-
-  // const showChatUsers = (chat) => {
-  //   setUsers(chat.members);
-  //   userChannel.unsubscribe();
-  //   setUserChannel(chatUserChannel());
-  // };
-
-  // const showAllUsers = () => {
-  //   setUsers(shared.users);
-  //   userChannel.unsubscribe();
-  //   setUserChannel(allUserChannel());
-  // };
-
-  // const showChatUsers = (chat) => {
-  //   setUsers(chat.members);
-  //   userChannel.unsubscribe();
-  //   setUserChannel(chatUserChannel());
-  // };
+  const [userChannel, setUserChannel] = useState(allUserChannel(setUsers));
 
   useEffect(() => {
     return () => {

@@ -11,4 +11,13 @@ function subscribe(channelName, params, receivedCallback) {
   );
 }
 
+function allUserChannel(receivedCallback) {
+  return subscribe('AllUserChannel', {}, receivedCallback);
+}
+
+function chatUserChannel(params, receivedCallback) {
+  return subscribe('ChatUserChannel', params, receivedCallback);
+}
+
 export default subscribe;
+export { allUserChannel, chatUserChannel };

@@ -8,35 +8,24 @@ import { UsersContext } from '../Layout';
 
 import subscribe from '../../channels/subscriptions';
 import { usePage } from '@inertiajs/react';
+import { chatUserChannel, allUserChannel } from '../../channels/subscriptions';
 
 function ChatShow({ className, chat, chattingWith }) {
   const { setUsers, setUserChannel } = useContext(UsersContext);
   const { shared } = usePage().props;
 
   useEffect(() => {
-    function chatUserChannel() {
-      return subscribe(
-        'ChatUserChannel',
-        { id: shared.current_user.id },
-        setUsers,
-      );
-    }
-
-    function allUserChannel() {
-      return subscribe('AllUserChannel', {}, setUsers);
-    }
-
     setUsers(chat.members);
     setUserChannel((userChannel) => {
       userChannel.unsubscribe();
-      return chatUserChannel();
+      return chatUserChannel({ id: shared.current_user.id }, setUsers);
     });
 
     return () => {
       setUsers(shared.users);
       setUserChannel((userChannel) => {
         userChannel.unsubscribe();
-        return allUserChannel();
+        return allUserChannel(setUsers);
       });
     };
   }, [
@@ -48,10 +37,10 @@ function ChatShow({ className, chat, chattingWith }) {
   ]);
 
   // console.log([
+  //   shared.users,
   //   chat.members,
   //   setUserChannel,
   //   setUsers,
-  //   userChannel,
   //   shared.current_user.id,
   // ]);
 
