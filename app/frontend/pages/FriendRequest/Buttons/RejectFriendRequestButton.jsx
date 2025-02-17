@@ -14,9 +14,6 @@ function RejectFriendRequestButton({ className, friendRequest }) {
             confirm(
               `Reject friend request from ${friendRequest.user.profile.username}?`,
             ),
-          onFinish: () => {
-            api.rejectFriendRequestBroadcast.create({ data: friendRequest });
-          },
         };
 
         api.friendRequests.destroy({ obj: friendRequest, options: options });

@@ -8,12 +8,55 @@ import NavBar from './NavBar';
 
 import './styles.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
+import { createContext, useEffect, useState } from 'react';
+
+import subscribe from '../channels/subscriptions';
+
+export const UsersContext = createContext({
+  setUsers: () => {},
+  setUserChannel: () => {},
+});
 
 const LayoutContainer = ({ className, children }) => {
-  const { shared, chat } = usePage().props;
-  const component = usePage().component;
+  const { shared } = usePage().props;
+  const [users, setUsers] = useState(shared.users);
+  const [userChannel, setUserChannel] = useState(allUserChannel());
 
-  const isShowingChat = () => component === 'Chat/Show';
+  function allUserChannel() {
+    return subscribe('AllUserChannel', {}, setUsers);
+  }
+
+  // function chatUserChannel() {
+  //   return subscribe(
+  //     'ChatUserChannel',
+  //     { id: shared.current_user.id },
+  //     setUsers,
+  //   );
+  // }
+
+  // const showChatUsers = (chat) => {
+  //   setUsers(chat.members);
+  //   userChannel.unsubscribe();
+  //   setUserChannel(chatUserChannel());
+  // };
+
+  // const showAllUsers = () => {
+  //   setUsers(shared.users);
+  //   userChannel.unsubscribe();
+  //   setUserChannel(allUserChannel());
+  // };
+
+  // const showChatUsers = (chat) => {
+  //   setUsers(chat.members);
+  //   userChannel.unsubscribe();
+  //   setUserChannel(chatUserChannel());
+  // };
+
+  useEffect(() => {
+    return () => {
+      userChannel.unsubscribe();
+    };
+  }, [userChannel]);
 
   return (
     <div className={className}>
@@ -29,13 +72,18 @@ const LayoutContainer = ({ className, children }) => {
           <Chats id="chats">
             <ChatIndex initialChats={shared.chats} />
           </Chats>
-          <Content>{children}</Content>
+          <Content>
+            <UsersContext.Provider
+              value={{
+                setUsers,
+                setUserChannel,
+              }}
+            >
+              {children}
+            </UsersContext.Provider>
+          </Content>
           <Users id="users">
-            <UserIndex
-              initialUsers={isShowingChat() ? chat.members : shared.users}
-              isShowingChat={isShowingChat()}
-              chat_id={isShowingChat() ? chat.id : undefined}
-            />
+            <UserIndex users={users} />
           </Users>
         </Main>
       </div>

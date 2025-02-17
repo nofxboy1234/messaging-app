@@ -20,15 +20,6 @@ Rails.application.routes.draw do
   resources :member_lists, only: [ :index, :create ], export: true
   resources :messages, only: [ :create, :index ], export: true
   resources :profiles, only: [ :edit, :show, :update ], export: true
-  resources :send_friend_request_broadcast, only: [ :create ], export: true
-  resources :accept_friend_request_broadcast, only: [ :create ], export: true
-  resources :reject_friend_request_broadcast, only: [ :create ], export: true
-  resources :cancel_friend_request_broadcast, only: [ :create ], export: true
-  resources :unfriend_broadcast, only: [ :create ], export: true
-  resources :profile_broadcast, only: [ :create ], export: true
-  resources :chat_users_broadcast, only: [ :create ], export: true
-  resources :per_user_all_users_broadcast, only: [ :create ], export: true
-  resources :send_message_broadcast, only: [ :create ], export: true
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

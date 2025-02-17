@@ -23,15 +23,7 @@ function SendMessageButton({ className, message, setMessage, chat, inputRef }) {
           chat_id: chat.id,
         };
 
-        const options = {
-          onFinish: () => {
-            api.sendMessageBroadcast.create({
-              data: { user_id: shared.current_user.id, chat_id: chat.id },
-            });
-          },
-        };
-
-        api.messages.create({ data: data, options: options });
+        api.messages.create({ data: data });
         clearMessage();
         inputRef.current.focus();
       }}

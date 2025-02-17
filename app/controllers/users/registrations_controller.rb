@@ -20,7 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
                            picture: "",
                            about: "")
         if user.save
-          broadcast_all_users
+          broadcast
         else
           redirect_to new_user_registration_url, inertia: { errors: user.errors }
           return
@@ -30,6 +30,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  def broadcast
+    broadcast_all_users
+  end
 
   def broadcast_all_users
     users = User.includes(:profile).order("profiles.username").as_json(include: :profile)

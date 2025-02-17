@@ -20,9 +20,6 @@ function SendFriendRequestButton({ className, user }) {
         const options = {
           onBefore: () =>
             confirm(`Send friend request to ${user.profile.username}?`),
-          onFinish: () => {
-            api.sendFriendRequestBroadcast.create({ data: data });
-          },
         };
 
         api.friendRequests.create({ data: data, options });
