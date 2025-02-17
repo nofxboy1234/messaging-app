@@ -9,7 +9,6 @@ function LogoutButton({ className, session }) {
   useEffect(() => {
     const removeInvalidEventListener = router.on('invalid', (event) => {
       event.preventDefault();
-      console.log(event);
     });
 
     return () => {
