@@ -36,14 +36,6 @@ function ChatShow({ className, chat, chattingWith }) {
     shared.current_user.id,
   ]);
 
-  // console.log([
-  //   shared.users,
-  //   chat.members,
-  //   setUserChannel,
-  //   setUsers,
-  //   shared.current_user.id,
-  // ]);
-
   return (
     <div className={className}>
       <HeaderProfileLink user={chattingWith} />
