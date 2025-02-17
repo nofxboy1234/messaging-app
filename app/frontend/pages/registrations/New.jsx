@@ -153,7 +153,8 @@ const StyledRegistrationsNew = styled(RegistrationsNew)`
   }
 
   & .error {
-    color: red;
+    background-color: var(--bg-flash-message);
+    color: var(--fg-flash-message);
   }
 `;
 

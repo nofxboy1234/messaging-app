@@ -137,6 +137,11 @@ const StyledLayoutContainer = styled(LayoutContainer)`
     display: none;
   }
 
+  & .error {
+    background-color: var(--bg-flash-message);
+    color: var(--fg-flash-message);
+  }
+
   @media (max-width: 1160px) {
     padding-top: 4rem;
     padding-bottom: 4rem;
