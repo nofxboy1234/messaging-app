@@ -28,7 +28,8 @@ backend: ruby
 [x] - Use websockets to sync data between clients
 [x] - Make responsive
 [x] - Add style
-[ ] - change authentication zero to Devise + Action Policy
+[x] - change authentication zero to Devise + Action Policy
+[ ] - add authorization using Action Policy
 [ ] - model (rspec) and integration (vitest + react testing library) tests
 [ ] - ~client-side form validations, server-side model validations, error handling,
 refactor, redis client connections/UserIndex subscriptions
