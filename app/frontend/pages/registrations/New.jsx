@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import SignupButton from './Buttons/SignupButton';
 import StyledBackButton from './Buttons/BackButton';
+import { router, usePage } from '@inertiajs/react';
 
 function RegistrationsNew({ className }) {
   const [values, setValues] = useState({
@@ -12,6 +13,7 @@ function RegistrationsNew({ className }) {
     password: '',
     password_confirmation: '',
   });
+  const { shared, errors } = usePage().props;
 
   function handleChange(e) {
     const key = e.target.id;
@@ -21,6 +23,12 @@ function RegistrationsNew({ className }) {
       [key]: value,
     }));
   }
+
+  useEffect(() => {
+    return router.on('invalid', (event) => {
+      event.preventDefault();
+    });
+  }, []);
 
   return (
     <div className={className}>
@@ -35,6 +43,7 @@ function RegistrationsNew({ className }) {
             onChange={handleChange}
             autoFocus
           />
+          {errors?.email && <div className="error">{errors.email}</div>}
           <label id="password-label" htmlFor="password">
             Password:
           </label>
@@ -44,6 +53,7 @@ function RegistrationsNew({ className }) {
             value={values.password}
             onChange={handleChange}
           />
+          {errors?.password && <div className="error">{errors.password}</div>}
           <label
             id="password-confirmation-label"
             htmlFor="password_confirmation"
@@ -56,6 +66,9 @@ function RegistrationsNew({ className }) {
             value={values.password_confirmation}
             onChange={handleChange}
           />
+          {errors?.password_confirmation && (
+            <div className="error">{errors.password_confirmation}</div>
+          )}
 
           <div id="new-registration-buttons">
             <SignupButton values={values} />
@@ -63,6 +76,12 @@ function RegistrationsNew({ className }) {
           </div>
         </form>
       </div>
+
+      {Object.entries(shared.flash).map(([key, value]) => (
+        <div className="error" key={key}>
+          {value}
+        </div>
+      ))}
     </div>
   );
 }
@@ -127,6 +146,11 @@ const StyledRegistrationsNew = styled(RegistrationsNew)`
     margin-top: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
+  }
+
+  & .error {
+    background-color: var(--bg-flash-message);
+    color: var(--fg-flash-message);
   }
 `;
 

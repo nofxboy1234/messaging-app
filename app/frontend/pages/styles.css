@@ -17,4 +17,7 @@
   --bg-color-grey: #f3f3f3;
   --bg-color-hover: #7dfef8;
   --border-color: #f1f1f1;
+
+  --bg-flash-message: #ff53c6;
+  --fg-flash-message: white;
 }

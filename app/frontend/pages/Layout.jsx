@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import styled from 'styled-components';
 
 import ChatIndex from './Chat/Index';
@@ -8,28 +8,58 @@ import NavBar from './NavBar';
 
 import './styles.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
+import { createContext, useEffect, useState } from 'react';
+
+import { allUserChannel } from '../channels/subscriptions';
+
+export const UsersContext = createContext({
+  setUsers: () => {},
+  setUserChannel: () => {},
+});
 
 const LayoutContainer = ({ className, children }) => {
-  const { shared, chat } = usePage().props;
-  const component = usePage().component;
+  const { shared } = usePage().props;
+  const [users, setUsers] = useState(shared.users);
+  const [userChannel, setUserChannel] = useState(allUserChannel(setUsers));
 
-  const isShowingChat = () => component === 'Chat/Show';
+  useEffect(() => {
+    return () => {
+      userChannel.unsubscribe();
+    };
+  }, [userChannel]);
+
+  useEffect(() => {
+    return router.on('invalid', (event) => {
+      event.preventDefault();
+    });
+  }, []);
 
   return (
     <div className={className}>
       <div id="layout">
+        {Object.entries(shared.flash).map(([key, value]) => (
+          <div className="error" key={key}>
+            {value}
+          </div>
+        ))}
+
         <NavBar />
         <Main>
           <Chats id="chats">
             <ChatIndex initialChats={shared.chats} />
           </Chats>
-          <Content>{children}</Content>
+          <Content>
+            <UsersContext.Provider
+              value={{
+                setUsers,
+                setUserChannel,
+              }}
+            >
+              {children}
+            </UsersContext.Provider>
+          </Content>
           <Users id="users">
-            <UserIndex
-              initialUsers={isShowingChat() ? chat.members : shared.users}
-              isShowingChat={isShowingChat()}
-              chat_id={isShowingChat() ? chat.id : undefined}
-            />
+            <UserIndex users={users} />
           </Users>
         </Main>
       </div>
@@ -111,6 +141,11 @@ const StyledLayoutContainer = styled(LayoutContainer)`
   #nav-bar-chats,
   #nav-bar-users {
     display: none;
+  }
+
+  & .error {
+    background-color: var(--bg-flash-message);
+    color: var(--fg-flash-message);
   }
 
   @media (max-width: 1160px) {

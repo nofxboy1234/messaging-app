@@ -15,15 +15,7 @@ function AcceptFriendRequestButton({ className, friendRequest }) {
               `Accept friend request from ${friendRequest.user.profile.username}?`,
             ),
           onFinish: () => {
-            const options = {
-              onFinish: () => {
-                api.acceptFriendRequestBroadcast.create({
-                  data: friendRequest,
-                });
-              },
-            };
-
-            api.friendships.create({ data: friendRequest, options: options });
+            api.friendships.create({ data: friendRequest });
           },
         };
 

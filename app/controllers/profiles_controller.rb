@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1
   def show
-    render inertia: "Profile/Show", props: @profile.show_data(User.find(1))
+    render inertia: "Profile/Show", props: @profile.show_data(current_user)
   end
 
   # GET /profiles/1/edit
@@ -16,7 +16,7 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   def update
     if @profile.update(profile_params)
-      # head :ok
+      broadcast_update
       redirect_to @profile, notice: "Profile was successfully updated."
     else
       redirect_to edit_profile_url(@profile), inertia: { errors: @profile.errors }
@@ -24,6 +24,10 @@ class ProfilesController < ApplicationController
   end
 
   private
+    def broadcast_update
+      ProfileChannel.broadcast_to(@profile, @profile.serialize)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
       @profile = Profile.find(params[:id])

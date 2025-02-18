@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoginButton from './Buttons/LoginButton';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import SignupButton from './Buttons/SignupButton';
+import { router, usePage } from '@inertiajs/react';
 
 function SessionsNew({ className }) {
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
+  const [serverError, setServerError] = useState(null);
+  const { shared } = usePage().props;
 
   function handleChange(e) {
     const key = e.target.id;
@@ -20,6 +23,13 @@ function SessionsNew({ className }) {
       [key]: value,
     }));
   }
+
+  useEffect(() => {
+    return router.on('invalid', (event) => {
+      event.preventDefault();
+      setServerError(event.detail.response.data);
+    });
+  }, []);
 
   return (
     <div className={className}>
@@ -50,6 +60,16 @@ function SessionsNew({ className }) {
           </div>
         </form>
       </div>
+
+      {serverError &&
+        serverError != 'You need to sign in or sign up before continuing.' && (
+          <div className="error">{serverError}</div>
+        )}
+      {Object.entries(shared.flash).map(([key, value]) => (
+        <div className="error" key={key}>
+          {value}
+        </div>
+      ))}
     </div>
   );
 }
@@ -61,6 +81,7 @@ SessionsNew.propTypes = {
 const StyledSessionsNew = styled(SessionsNew)`
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -113,6 +134,11 @@ const StyledSessionsNew = styled(SessionsNew)`
     margin-top: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
+  }
+
+  & .error {
+    background-color: var(--bg-flash-message);
+    color: var(--fg-flash-message);
   }
 `;
 

@@ -3,8 +3,39 @@ import Chat from './Chat';
 import MessageBox from './MessageBox';
 import PropTypes from 'prop-types';
 import HeaderProfileLink from './HeaderProfileLink';
+import { useContext, useEffect } from 'react';
+import { UsersContext } from '../Layout';
+
+import subscribe from '../../channels/subscriptions';
+import { usePage } from '@inertiajs/react';
+import { chatUserChannel, allUserChannel } from '../../channels/subscriptions';
 
 function ChatShow({ className, chat, chattingWith }) {
+  const { setUsers, setUserChannel } = useContext(UsersContext);
+  const { shared } = usePage().props;
+
+  useEffect(() => {
+    setUsers(chat.members);
+    setUserChannel((userChannel) => {
+      userChannel.unsubscribe();
+      return chatUserChannel({ id: shared.current_user.id }, setUsers);
+    });
+
+    return () => {
+      setUsers(shared.users);
+      setUserChannel((userChannel) => {
+        userChannel.unsubscribe();
+        return allUserChannel(setUsers);
+      });
+    };
+  }, [
+    shared.users,
+    chat.members,
+    setUserChannel,
+    setUsers,
+    shared.current_user.id,
+  ]);
+
   return (
     <div className={className}>
       <HeaderProfileLink user={chattingWith} />

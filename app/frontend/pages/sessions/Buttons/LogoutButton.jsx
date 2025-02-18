@@ -2,6 +2,8 @@ import api from '../../../pathHelpers';
 import styled from 'styled-components';
 import Button from '../../Buttons/Button';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { router } from '@inertiajs/react';
 
 function LogoutButton({ className, session }) {
   return (
@@ -9,9 +11,7 @@ function LogoutButton({ className, session }) {
       className={className}
       text={'Log out'}
       onClick={() => {
-        api.sessions.destroy({
-          obj: session,
-        });
+        api.sessions.destroy();
       }}
     />
   );

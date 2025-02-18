@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_22_192139) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_10_091416) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,34 +69,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_22_192139) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
-  create_table "recovery_codes", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "code", null: false
-    t.boolean "used", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_recovery_codes_on_user_id"
-  end
-
-  create_table "sessions", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "user_agent"
-    t.string "ip_address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_sessions_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.boolean "verified", default: false, null: false
-    t.boolean "otp_required_for_sign_in", default: false, null: false
-    t.string "otp_secret", null: false
-    t.string "provider"
-    t.string "uid"
+    t.string "email", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -110,6 +88,4 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_22_192139) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "users"
   add_foreign_key "profiles", "users"
-  add_foreign_key "recovery_codes", "users"
-  add_foreign_key "sessions", "users"
 end

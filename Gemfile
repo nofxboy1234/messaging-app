@@ -67,3 +67,5 @@ gem "redis", "~> 4.0"
 # Provides a mitigation against CVE-2015-9284 [https://github.com/cookpad/omniauth-rails_csrf_protection]
 # Use rotp for generating and validating one time passwords [https://github.com/mdp/rotp]
 # Use rqrcode for creating and rendering QR codes into various formats [https://github.com/whomwah/rqrcode]
+
+gem "devise", "~> 4.9"

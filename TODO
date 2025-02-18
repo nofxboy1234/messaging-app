@@ -7,8 +7,8 @@ backend: ruby
 [x] - lint: rubocop
 [x] - format: rubocop
 [x] - test: rspec
- 
- [x] - test rails button_to using path helpers
+
+[x] - test rails button_to using path helpers
 
 [x] - bundle remove has_friendship
 [x] - create Friendship model
@@ -23,17 +23,18 @@ backend: ruby
 [x] - create chat with user when clicking Chat button
 [x] - refactor controllers
 [x] - compare .includes vs include: does as_json include perform a query?
- 
+
 [x] - Implement profile picture
 [x] - Use websockets to sync data between clients
 [x] - Make responsive
 [x] - Add style
 [ ] - change authentication zero to Devise + Action Policy
 [ ] - model (rspec) and integration (vitest + react testing library) tests
-[ ] - ~client-side form validations, server-side model validations, error handling, 
-      refactor, redis client connections/UserIndex subscriptions
+[ ] - ~client-side form validations, server-side model validations, error handling,
+refactor, redis client connections/UserIndex subscriptions
 
 [ ] - ~refactor: rendering/efficiency/readability, status codes, unused functions
 [ ] - ~singular resources: e.g /profile
 [ ] - ~compare array.intersection vs inner_join:
 [ ] - ~Test out creating a React/Rails app without Vite, Inertia, Turbo-mount etc
+[ ] - ~change chat users broadcast to broadcast_to(chat)

@@ -11,9 +11,6 @@ function UnfriendButton({ className, friendship, user }) {
       onClick={() => {
         const options = {
           onBefore: () => confirm(`Unfriend ${user.profile.username}?`),
-          onFinish: () => {
-            api.unfriendBroadcast.create({ data: friendship });
-          },
         };
 
         api.friendships.destroy({

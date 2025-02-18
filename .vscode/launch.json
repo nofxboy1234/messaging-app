@@ -11,7 +11,7 @@
       "url": "http://localhost:3100",
       "webRoot": "${workspaceFolder}/app/frontend",
       "runtimeArgs": [
-        "--load-extension=${env:userprofile}/home/dylan/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/6.1.0.1_0"
+        "--load-extension=${env:userprofile}/home/dylan/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/6.1.1_0"
       ]
     }
   ]
