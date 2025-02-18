@@ -31,6 +31,7 @@ backend: ruby
 [x] - change authentication zero to Devise + Action Policy
 [x] - add authorization using Action Policy
 [ ] - model (rspec) and integration (vitest + react testing library) tests
+
 [ ] - ~client-side form validations, server-side model validations, error handling,
 refactor, redis client connections/UserIndex subscriptions
 
