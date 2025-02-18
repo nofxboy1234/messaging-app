@@ -12,16 +12,6 @@ function FriendshipIndex({ className, initialFriendships }) {
   const [activeFriendshipId, setActiveFriendshipId] = useState();
 
   useEffect(() => {
-    const removeInvalidEventListener = router.on('invalid', (event) => {
-      event.preventDefault();
-    });
-
-    return () => {
-      removeInvalidEventListener();
-    };
-  }, []);
-
-  useEffect(() => {
     const channel = consumer.subscriptions.create(
       { channel: 'FriendshipChannel', id: shared.current_user.id },
       {

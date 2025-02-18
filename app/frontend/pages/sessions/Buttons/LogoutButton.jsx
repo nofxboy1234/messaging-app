@@ -6,16 +6,6 @@ import { useEffect } from 'react';
 import { router } from '@inertiajs/react';
 
 function LogoutButton({ className, session }) {
-  useEffect(() => {
-    const removeInvalidEventListener = router.on('invalid', (event) => {
-      event.preventDefault();
-    });
-
-    return () => {
-      removeInvalidEventListener();
-    };
-  }, []);
-
   return (
     <Button
       className={className}

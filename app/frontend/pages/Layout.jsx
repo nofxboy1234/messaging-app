@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import styled from 'styled-components';
 
 import ChatIndex from './Chat/Index';
@@ -27,6 +27,16 @@ const LayoutContainer = ({ className, children }) => {
       userChannel.unsubscribe();
     };
   }, [userChannel]);
+
+  useEffect(() => {
+    const removeInvalidEventListener = router.on('invalid', (event) => {
+      event.preventDefault();
+    });
+
+    return () => {
+      removeInvalidEventListener();
+    };
+  }, []);
 
   return (
     <div className={className}>
