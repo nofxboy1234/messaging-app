@@ -1,8 +1,16 @@
 class MessagesController < ApplicationController
+  rescue_from ActionPolicy::Unauthorized do |ex|
+    puts "*************"
+    puts ex.policy
+    puts ex.rule
+    puts "*************"
+  end
+
   def create
     @message = current_user&.messages.build(message_params)
-    @message.save!
+    authorize! @message
 
+    @message.save!
     broadcast_create
 
     head :created
