@@ -4,6 +4,10 @@ class MessagesController < ApplicationController
     puts ex.policy
     puts ex.rule
     puts "*************"
+
+    chat = Chat.find(message_params[:chat_id])
+    redirect_to chat,
+      alert: "You are not authorized to send a message in this chat"
   end
 
   def create
