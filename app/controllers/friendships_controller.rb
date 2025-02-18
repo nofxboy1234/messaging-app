@@ -44,13 +44,6 @@ class FriendshipsController < ApplicationController
       params.require(:friendship).permit(:user_id, :friend_id)
     end
 
-    def serialize_friendship(friendship)
-      friendship.as_json(include: [
-        { user: { include: :profile } },
-        { friend: { include: :profile } }
-      ])
-    end
-
     def broadcast_create
       user = @friendship.user
       friend = @friendship.friend

@@ -15,7 +15,7 @@ class ChatsController < ApplicationController
   end
 
   def show
-    @serialized_chat = serialize_chat(@chat)
+    @serialized_chat = @chat.serialize
     chatting_with = @chat.members.find { |member| member != current_user }
     @serialized_chatting_with = chatting_with.serialize
 
@@ -32,12 +32,5 @@ class ChatsController < ApplicationController
 
     def set_chat
       @chat = Chat.includes(messages: [ :user ]).order("messages.created_at").find(params[:id])
-    end
-
-    def serialize_chat(chat)
-      chat.as_json(include: [
-        { messages: { include: { user: { include: :profile } } } },
-        { members: { include: :profile } }
-      ])
     end
 end
