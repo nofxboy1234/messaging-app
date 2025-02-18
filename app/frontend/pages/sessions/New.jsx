@@ -25,14 +25,10 @@ function SessionsNew({ className }) {
   }
 
   useEffect(() => {
-    const removeInvalidEventListener = router.on('invalid', (event) => {
+    return router.on('invalid', (event) => {
       event.preventDefault();
       setServerError(event.detail.response.data);
     });
-
-    return () => {
-      removeInvalidEventListener();
-    };
   }, []);
 
   return (
