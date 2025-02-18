@@ -15,7 +15,7 @@ class FriendRequestsController < ApplicationController
     @friend = User.find(friend_request_params[:friend_id])
 
     if @friend_request.save
-      broadcast
+      broadcast_create
       head :ok
     else
       redirect_to @friend.profile, inertia: { errors: @friend_request.errors }
@@ -24,13 +24,24 @@ class FriendRequestsController < ApplicationController
 
   def destroy
     @friend_request.destroy!
-    broadcast
+    broadcast_destroy
 
     head :ok
   end
 
   private
-    def broadcast
+    def broadcast_create
+      user = @friend_request.user
+      friend = @friend_request.friend
+
+      broadcast_friend_requests(user)
+      broadcast_relationship(friend, user)
+
+      broadcast_friend_requests(friend)
+      broadcast_relationship(user, friend)
+    end
+
+    def broadcast_destroy
       user = @friend_request.user
       friend = @friend_request.friend
 

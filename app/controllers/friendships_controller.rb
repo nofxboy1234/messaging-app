@@ -18,7 +18,7 @@ class FriendshipsController < ApplicationController
     @friendship.chat = chat
 
     if @friendship.save
-      broadcast_create(user, friend)
+      broadcast_create
 
       head :ok
     else
@@ -51,7 +51,10 @@ class FriendshipsController < ApplicationController
       ])
     end
 
-    def broadcast_create(user, friend)
+    def broadcast_create
+      user = @friendship.user
+      friend = @friendship.friend
+
       broadcast_friend_requests(user)
       broadcast_friendships(user)
       broadcast_chats(user)

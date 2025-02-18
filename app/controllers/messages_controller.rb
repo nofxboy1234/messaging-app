@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
     @message = current_user&.messages.build(message_params)
     @message.save!
 
-    broadcast
+    broadcast_create
 
     head :created
   end
@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
       params.require(:message).permit(:body, :chat_id)
     end
 
-    def broadcast
+    def broadcast_create
       user = current_user
       chat = Chat.find(message_params[:chat_id])
 

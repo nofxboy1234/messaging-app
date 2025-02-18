@@ -20,7 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
                            picture: "",
                            about: "")
         if user.save
-          broadcast
+          broadcast_create
         else
           redirect_to new_user_registration_url, inertia: { errors: user.errors }
           return
@@ -31,7 +31,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def broadcast
+  def broadcast_create
     broadcast_all_users
   end
 
