@@ -69,3 +69,4 @@ gem "redis", "~> 4.0"
 # Use rqrcode for creating and rendering QR codes into various formats [https://github.com/whomwah/rqrcode]
 
 gem "devise", "~> 4.9"
+gem "action_policy"
