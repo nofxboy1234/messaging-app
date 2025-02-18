@@ -4,7 +4,7 @@ class ChatsController < ApplicationController
   def index
     mapped_chats = current_user&.friends&.includes(:profile)&.map do |friend|
       chat = current_user&.find_direct_message_chat_with(friend)
-      { friend: friend.as_json(include: :profile), chat: chat }
+      { friend: friend.serialize, chat: chat }
     end
 
     @chats = mapped_chats.sort { |chat_a, chat_b| chat_a[:friend]["profile"]["username"] <=> chat_b[:friend]["profile"]["username"] }
@@ -17,7 +17,7 @@ class ChatsController < ApplicationController
   def show
     @serialized_chat = serialize_chat(@chat)
     chatting_with = @chat.members.find { |member| member != current_user }
-    @serialized_chatting_with = serialize_user(chatting_with)
+    @serialized_chatting_with = chatting_with.serialize
 
     render inertia: "Chat/Show", props: {
       chat: @serialized_chat,
@@ -39,9 +39,5 @@ class ChatsController < ApplicationController
         { messages: { include: { user: { include: :profile } } } },
         { members: { include: :profile } }
       ])
-    end
-
-    def serialize_user(user)
-      user.as_json(include: :profile)
     end
 end

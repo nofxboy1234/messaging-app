@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1/edit
   def edit
     render inertia: "Profile/Edit", props: {
-      profile: serialize_profile(@profile)
+      profile: @profile.serialize
     }
   end
 
@@ -36,16 +36,5 @@ class ProfilesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def profile_params
       params.require(:profile).permit(:username, :about)
-    end
-
-    def serialize_profile(profile)
-      profile.as_json(include: { user: { include: :profile } })
-    end
-
-    def serialize_friend_request(friend_request)
-      friend_request.as_json(include: [
-        { user: { include: :profile } },
-        { friend: { include: :profile } }
-      ])
     end
 end

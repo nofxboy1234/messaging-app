@@ -98,7 +98,7 @@ class User < ApplicationRecord
       friendship = find_friendship_with(friend)
 
       {
-        friend: friend.as_json(include: :profile),
+        friend: friend.serialize,
         chat: chat,
         friendship: friendship
       }
@@ -110,7 +110,7 @@ class User < ApplicationRecord
       chat = find_direct_message_chat_with(friend)
 
       {
-        friend: friend.as_json(include: :profile),
+        friend: friend.serialize,
         chat: chat
       }
     end
@@ -132,5 +132,9 @@ class User < ApplicationRecord
 
   def has_incoming_friend?(user)
     incoming_friends.include?(user)
+  end
+
+  def serialize
+    as_json(include: :profile)
   end
 end
