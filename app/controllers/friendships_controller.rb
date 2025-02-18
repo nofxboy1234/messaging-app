@@ -12,8 +12,8 @@ class FriendshipsController < ApplicationController
   def create
     @friendship = Friendship.new(friendship_params)
     chat = Chat.new
-    user = User.find(@friendship[:user_id])
-    friend = User.find(@friendship[:friend_id])
+    user = @friendship.user
+    friend = @friendship.friend
     chat.members << [ user, friend ]
     @friendship.chat = chat
 
@@ -64,8 +64,8 @@ class FriendshipsController < ApplicationController
     end
 
     def broadcast_destroy
-      user = @friendship[:user_id]
-      friend = @friendship[:friend_id]
+      user = @friendship.user
+      friend = @friendship.friend
 
       broadcast_friendships(user)
       broadcast_chats(user)
