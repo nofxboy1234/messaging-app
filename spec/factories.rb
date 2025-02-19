@@ -12,13 +12,6 @@ FactoryBot.define do
   end
 end
 
-# FactoryBot.define do
-#   factory :friend do
-#     email { Faker::Internet.email }
-#     password { Faker::Internet.password }
-#   end
-# end
-
 FactoryBot.define do
   factory :friendship do
     user
