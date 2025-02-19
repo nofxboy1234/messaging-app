@@ -6,8 +6,7 @@ RSpec.describe Chat, type: :model do
       chat = create(:chat, :with_messages)
       json = chat.serialize
 
-      expect(json.dig("messages").length).to be > 0
-      # expect(json.dig("messages", 0, "user", "profile")).not_to be_nil
+      expect(json.dig("messages", 0, "user", "profile")).not_to be_nil
     end
   end
 end
