@@ -2,6 +2,12 @@ FactoryBot.define do
   factory :chat do
     name { Faker::Lorem.characters(number: 3) }
     friendship
+
+    trait :with_messages do
+      after(:create) do |chat|
+        create_list(:message, 3, chat: chat)
+      end
+    end
   end
 end
 
