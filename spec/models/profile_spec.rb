@@ -62,6 +62,23 @@ RSpec.describe Profile, type: :model do
         expect(profile.show_data(viewing_user)).to eq(show_data)
       end
     end
+
+    context 'when the viewing_user has sent a friend request to the viewed_user' do
+      let(:friend_request) do
+        create(:friend_request, user: viewing_user, friend: viewed_user)
+      end
+      it 'returns a hash with data relevant to the viewer' do
+        show_data = {
+          profile: profile.serialize,
+          relationship: "outgoingRequest",
+          friendRequest: friend_request,
+          friendship: nil,
+          chat: nil
+        }
+
+        expect(profile.show_data(viewing_user)).to eq(show_data)
+      end
+    end
   end
 
   describe '#serialize' do
