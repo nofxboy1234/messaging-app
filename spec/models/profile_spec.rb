@@ -96,6 +96,20 @@ RSpec.describe Profile, type: :model do
         expect(profile.show_data(viewing_user)).to eq(show_data)
       end
     end
+
+    context 'when the viewing_user is a stranger to the viewed_user' do
+      it 'returns a hash with data relevant to the viewer of the profile' do
+        show_data = {
+          profile: profile.serialize,
+          relationship: "stranger",
+          friendRequest: nil,
+          friendship: nil,
+          chat: nil
+        }
+
+        expect(profile.show_data(viewing_user)).to eq(show_data)
+      end
+    end
   end
 
   describe '#serialize' do
