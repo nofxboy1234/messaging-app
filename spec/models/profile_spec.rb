@@ -33,7 +33,7 @@ RSpec.describe Profile, type: :model do
       let(:friendship) do
         create(:friendship, user: viewing_user, friend: viewed_user)
       end
-      it 'returns a hash with data relevant to the viewer' do
+      it 'returns a hash with data relevant to the viewer of the profile' do
         show_data = {
           profile: profile.serialize,
           relationship: "friend",
@@ -50,7 +50,7 @@ RSpec.describe Profile, type: :model do
       let(:friendship) do
         create(:friendship, user: viewed_user, friend: viewing_user)
       end
-      it 'returns a hash with data relevant to the viewer' do
+      it 'returns a hash with data relevant to the viewer of the profile' do
         show_data = {
           profile: profile.serialize,
           relationship: "friend",
@@ -67,10 +67,27 @@ RSpec.describe Profile, type: :model do
       let(:friend_request) do
         create(:friend_request, user: viewing_user, friend: viewed_user)
       end
-      it 'returns a hash with data relevant to the viewer' do
+      it 'returns a hash with data relevant to the viewer of the profile' do
         show_data = {
           profile: profile.serialize,
           relationship: "outgoingRequest",
+          friendRequest: friend_request,
+          friendship: nil,
+          chat: nil
+        }
+
+        expect(profile.show_data(viewing_user)).to eq(show_data)
+      end
+    end
+
+    context 'when the viewing_user has received a friend request from the viewed_user' do
+      let(:friend_request) do
+        create(:friend_request, user: viewed_user, friend: viewing_user)
+      end
+      it 'returns a hash with data relevant to the viewer of the profile' do
+        show_data = {
+          profile: profile.serialize,
+          relationship: "incomingRequest",
           friendRequest: friend_request,
           friendship: nil,
           chat: nil
