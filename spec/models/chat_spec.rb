@@ -14,7 +14,7 @@ RSpec.describe Chat, type: :model do
         chat.serialize
       end
 
-      context 'when a chat has 1 message sent by a user with user.email: user1@example.com, profile.username: user1' do
+      context 'when a chat has 1 message sent by a user' do
         it 'includes a messages array with length of 1' do
           expect(json.dig("messages").length).to eq(1)
         end
