@@ -34,7 +34,7 @@ class Profile < ApplicationRecord
     {
       profile: serialize,
       relationship: relationship,
-      friendRequest: friend_request&.serialize,
+      friendRequest: friend_request,
       friendship: friendship,
       chat: chat
     }
