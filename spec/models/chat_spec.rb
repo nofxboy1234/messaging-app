@@ -11,16 +11,16 @@ RSpec.describe Chat, type: :model do
         chat.serialize
       end
 
-      it 'includes messages array with length of 1' do
+      it 'includes a messages array with length of 1' do
         expect(json.dig("messages").length).to eq(1)
       end
 
-      xit 'includes chat.messages[index].user in the json' do
-        expect(json.dig("messages", 0, "user")).not_to be_nil
+      it 'includes the user that created the message' do
+        expect(json.dig("messages", 0, "user", "email")).to eq('user1@example.com')
       end
 
-      xit 'includes chat.messages[index].user.profile in the json' do
-        expect(json.dig("messages", 0, "user", "profile")).not_to be_nil
+      it "includes the users' profile" do
+        expect(json.dig("messages", 0, "user", "profile", "username")).to eq('user1')
       end
     end
   end
