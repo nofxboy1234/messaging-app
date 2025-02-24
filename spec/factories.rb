@@ -58,6 +58,12 @@ FactoryBot.define do
     email { Faker::Internet.email }
     password { Faker::Internet.password }
 
+    trait :with_profile do
+      after(:create) do |user|
+        user.profile = create(:profile)
+      end
+    end
+
     factory :friend
   end
 end
