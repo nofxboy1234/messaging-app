@@ -116,7 +116,6 @@ class User < ApplicationRecord
     end
   end
 
-
   def has_friend_as_sender?(user)
     friends_as_sender.include?(user)
   end
