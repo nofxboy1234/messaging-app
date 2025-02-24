@@ -30,14 +30,14 @@ backend: ruby
 [x] - Add style
 [x] - change authentication zero to Devise + Action Policy
 [x] - add authorization using Action Policy
-[ ] - test models (rspec)
-[ ] - test frontend - integration (vitest + react testing library)
 
+[.] - test models (rspec)
+[ ] - test frontend - integration (vitest + react testing library)
 [ ] - ~client-side form validations, server-side model validations, error handling,
 refactor, redis client connections/UserIndex subscriptions
-
 [ ] - ~refactor: rendering/efficiency/readability, status codes, unused functions
-[ ] - ~singular resources: e.g /profile
-[ ] - ~compare array.intersection vs inner_join:
-[ ] - ~Test out creating a React/Rails app without Vite, Inertia, Turbo-mount etc
 [ ] - ~change chat users broadcast to broadcast_to(chat)
+
+[~] - ~singular resources: e.g /profile
+[x] - ~compare array.intersection vs inner_join:
+[~] - ~Test out creating a React/Rails app without Vite, Inertia, Turbo-mount etc
