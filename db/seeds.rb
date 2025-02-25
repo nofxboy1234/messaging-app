@@ -10,7 +10,7 @@
 
 def create_user_with_profile
   User.create(email: Faker::Internet.email,
-              password: 123456,
+              password: "123456",
               profile: Profile.create(username: Faker::Internet.username,
                                       picture: "",
                                       about: ""))
@@ -18,7 +18,7 @@ end
 
 def create_user_without_profile
   User.create(email: Faker::Internet.email,
-              password: 123456)
+              password: "123456")
 end
 
 user = create_user_with_profile
@@ -31,8 +31,8 @@ for i in 1..3 do
   friendship.chat = chat
 end
 
-# friend = create_user_without_profile
-# friendship = Friendship.create(user:, friend:)
-# chat = Chat.create(name: Faker::Lorem.characters(number: 3))
-# chat.members << [ user, friend ]
-# friendship.chat = chat
+friend = create_user_with_profile
+friendship = Friendship.create(user: friend, friend: user)
+chat = Chat.create(name: Faker::Lorem.characters(number: 3))
+chat.members << [ user, friend ]
+friendship.chat = chat
