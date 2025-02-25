@@ -88,8 +88,7 @@ class User < ApplicationRecord
   end
 
   def find_direct_message_chat_with(friend)
-    mutual_chats = chats.to_a.intersection(friend.chats.to_a)
-    mutual_chats.find { |chat| chat.members.count === 2 }
+    chats.where(id: friend.chats.pluck(:id)).take
   end
 
   def friendships_data
@@ -116,21 +115,21 @@ class User < ApplicationRecord
     end
   end
 
-  def has_friend_as_sender?(user)
-    friends_as_sender.include?(user)
+  def has_friend_as_sender?(friend)
+    friends_as_sender.include?(friend)
   end
 
-  def has_friend_as_receiver?(user)
-    friends_as_receiver.include?(user)
+  def has_friend_as_receiver?(friend)
+    friends_as_receiver.include?(friend)
   end
 
 
-  def has_outgoing_friend?(user)
-    outgoing_friends.include?(user)
+  def has_outgoing_friend?(friend)
+    outgoing_friends.include?(friend)
   end
 
-  def has_incoming_friend?(user)
-    incoming_friends.include?(user)
+  def has_incoming_friend?(friend)
+    incoming_friends.include?(friend)
   end
 
   def serialize
