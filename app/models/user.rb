@@ -104,6 +104,15 @@ class User < ApplicationRecord
     end
   end
 
+  def chats_with_friends
+    friends.includes(:profile).order(profiles: { username: :asc }).map do |friend|
+      chat = find_direct_message_chat_with(friend)
+      serialized_chat = chat.serialize
+      serialized_chat["friend"] = friend.serialize
+      serialized_chat
+    end
+  end
+
   def chats_data
     friends.includes(:profile)&.map do |friend|
       chat = find_direct_message_chat_with(friend)
