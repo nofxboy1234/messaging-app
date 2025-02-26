@@ -19,8 +19,8 @@ class Profile < ApplicationRecord
       chat = friendship.chat
     elsif target_user.has_friend_as_receiver?(user)
       relationship = "friend"
-      friendship = target_user.friendships.find_by(user: user)
-      chat = friendship.chat
+      chat = target_user.find_direct_message_chat_with(user)
+      friendship = chat.friendship
     elsif target_user.has_outgoing_friend?(user)
       relationship = "outgoingRequest"
       friend_request = target_user.outgoing_friend_requests.find_by(friend: user)
