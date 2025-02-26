@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     friends: -> {
       return if !current_user
 
-      friends = current_user.friends.includes(:profile)
+      friends = current_user.all_friends.includes(:profile)
       friends.as_json(include: :profile)
     }
   }
