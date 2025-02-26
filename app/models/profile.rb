@@ -8,11 +8,6 @@ class Profile < ApplicationRecord
   end
 
   def show_data(target_user)
-    relationship = nil
-    friend_request = nil
-    friendship = nil
-    chat = nil
-
     if target_user.friends_with?(user)
       relationship = "friend"
       chat = target_user.find_direct_message_chat_with(user)
