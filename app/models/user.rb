@@ -4,29 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :rememberable, :validatable
 
-  # has_many :friendships,
-  # ->(user) {
-  #   friendships = Friendship.unscope(where: :user_id)
-  #   query1 = friendships.where(user_id: user.id) # {1}
-  #   query2 = Friendship.where(friend_id: user.id) # {2}
-  #   query1.or(query2)
-  # },
-  # dependent: :destroy
   has_many :friendships, dependent: :destroy
 
   has_many :friends,
-    # ->(user) {
-    #   where.not(id: user.id)  # Exclude self
-    # },
     through: :friendships,
     source: :friend
 
-  # If friendships are bidirectional, add an inverse association
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: :friend_id
   has_many :inverse_friends,
-    # ->(user) {
-    #   where.not(id: user.id)
-    # },
     through: :inverse_friendships,
     source: :user
 
