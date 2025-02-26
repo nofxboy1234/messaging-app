@@ -3,25 +3,42 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :rememberable, :validatable
-  has_many :friendships,
-  ->(user) {
-    friendships = Friendship.unscope(where: :user_id)
-    query1 = friendships.where(user_id: user.id) # {1}
-    query2 = Friendship.where(friend_id: user.id) # {2}
-    query1.or(query2)
-  },
-  dependent: :destroy
 
-  # SELECT "friendships".*
-  # FROM "friendships"
-  # WHERE ({1}"friendships"."user_id" = 1{1} {2}OR "friendships"."friend_id" = 1{2})
+  # has_many :friendships,
+  # ->(user) {
+  #   friendships = Friendship.unscope(where: :user_id)
+  #   query1 = friendships.where(user_id: user.id) # {1}
+  #   query2 = Friendship.where(friend_id: user.id) # {2}
+  #   query1.or(query2)
+  # },
+  # dependent: :destroy
+  has_many :friendships, dependent: :destroy
 
   has_many :friends,
-  ->(user) {
-    User.joins("OR users.id = friendships.user_id") # {3}
-      .where.not(id: user.id) # {4}
-  },
-  through: :friendships
+    # ->(user) {
+    #   where.not(id: user.id)  # Exclude self
+    # },
+    through: :friendships,
+    source: :friend
+
+  # If friendships are bidirectional, add an inverse association
+  has_many :inverse_friendships, class_name: "Friendship", foreign_key: :friend_id
+  has_many :inverse_friends,
+    # ->(user) {
+    #   where.not(id: user.id)
+    # },
+    through: :inverse_friendships,
+    source: :user
+
+  def all_friends
+    direct_friends = friends
+
+    inverse_friend_ids = Friendship.where(friend_id: id).pluck(:user_id)
+    inverse_friends = User.where(id: inverse_friend_ids)
+
+    direct_friends_relation = User.where(id: direct_friends.pluck(:id))
+    direct_friends_relation.or(inverse_friends)
+  end
 
   has_many :friendships_as_sender,
   class_name: "Friendship",
@@ -40,13 +57,6 @@ class User < ApplicationRecord
   has_many :friends_as_receiver,
   through: :friendships_as_receiver,
   source: :user
-
-  # SELECT "users".*
-  # FROM "users"
-  # INNER JOIN "friendships"
-  # ON "users"."id" = "friendships"."friend_id" {3}OR users.id = friendships.user_id{3}
-  # WHERE ({1}"friendships"."user_id" = 1{1} {2}OR "friendships"."friend_id" = 1{2})
-  # {4}AND "users"."id" != 1{4}
 
   has_many :outgoing_friend_requests,
   class_name: "FriendRequest",
@@ -83,18 +93,14 @@ class User < ApplicationRecord
     }
   end
 
-  def find_friendship_with(friend)
-    friendships.where(user: friend).or(friendships.where(friend: friend)).take
-  end
-
   def find_direct_message_chat_with(friend)
     chats.where(id: friend.chats.pluck(:id)).take
   end
 
   def friendships_data
-    friends.includes(:profile).map do |friend|
+    all_friends.includes(:profile).map do |friend|
       chat = find_direct_message_chat_with(friend)
-      friendship = find_friendship_with(friend)
+      friendship = chat.friendship
 
       {
         friend: friend.serialize,
@@ -105,7 +111,7 @@ class User < ApplicationRecord
   end
 
   def chats_with_friends
-    friends.includes(:profile).order(profiles: { username: :asc }).map do |friend|
+    all_friends.includes(:profile).order(profiles: { username: :asc }).map do |friend|
       chat = find_direct_message_chat_with(friend)
       serialized_chat = chat.serialize
       serialized_chat["friend"] = friend.serialize
@@ -114,7 +120,7 @@ class User < ApplicationRecord
   end
 
   def chats_data
-    friends.includes(:profile)&.map do |friend|
+    all_friends.includes(:profile)&.map do |friend|
       chat = find_direct_message_chat_with(friend)
 
       {
