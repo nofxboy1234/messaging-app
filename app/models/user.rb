@@ -25,15 +25,6 @@ class User < ApplicationRecord
     direct_friends_relation.or(inverse_friends)
   end
 
-  has_many :friendships_as_sender,
-  class_name: "Friendship",
-  foreign_key: "user_id",
-  dependent: :destroy
-
-  has_many :friends_as_sender,
-  through: :friendships_as_sender,
-  source: :friend
-
   has_many :friendships_as_receiver,
   class_name: "Friendship",
   foreign_key: "friend_id",
