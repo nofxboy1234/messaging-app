@@ -31,8 +31,12 @@ RSpec.describe Profile, type: :model do
   describe '#show_data' do
     context 'when the viewing_user is friends with the viewed_user, as the sender of the friend request' do
       let(:friendship) do
-        create(:friendship, user: viewing_user, friend: viewed_user)
+        friendship = create(:friendship, user: viewed_user, friend: viewing_user)
+        chat = create(:chat, friendship:)
+        chat.members << [ viewed_user, viewing_user ]
+        friendship
       end
+
       it 'returns a hash with data relevant to the viewer of the profile' do
         show_data = {
           profile: profile.serialize,
