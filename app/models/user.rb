@@ -97,12 +97,8 @@ class User < ApplicationRecord
     end
   end
 
-  def has_friend_as_sender?(friend)
-    friends.include?(friend)
-  end
-
-  def has_friend_as_receiver?(friend)
-    inverse_friends.include?(friend)
+  def friends_with?(user)
+    all_friends.include?(user)
   end
 
   def has_outgoing_friend?(friend)

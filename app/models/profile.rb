@@ -13,11 +13,7 @@ class Profile < ApplicationRecord
     friendship = nil
     chat = nil
 
-    if target_user.has_friend_as_sender?(user)
-      relationship = "friend"
-      chat = target_user.find_direct_message_chat_with(user)
-      friendship = chat.friendship
-    elsif target_user.has_friend_as_receiver?(user)
+    if target_user.friends_with?(user)
       relationship = "friend"
       chat = target_user.find_direct_message_chat_with(user)
       friendship = chat.friendship
