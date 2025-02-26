@@ -5,9 +5,10 @@ FactoryBot.define do
 
     trait :with_messages do
       after(:create) do |chat|
-        create_list(:message, 3, chat: chat) do |message|
-          message.user.profile = create(:profile)
-        end
+        chat.members << [ chat.friendship.user, chat.friendship.friend ]
+        chat.members.each { |user| user.profile = create(:profile, user:) }
+
+        create_list(:message, 3, chat:, user: chat.members.sample)
       end
     end
   end
@@ -60,7 +61,7 @@ FactoryBot.define do
 
     trait :with_profile do
       after(:create) do |user|
-        user.profile = create(:profile)
+        user.profile = create(:profile, user:)
       end
     end
 
