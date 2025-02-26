@@ -25,15 +25,6 @@ class User < ApplicationRecord
     direct_friends_relation.or(inverse_friends)
   end
 
-  has_many :friendships_as_receiver,
-  class_name: "Friendship",
-  foreign_key: "friend_id",
-  dependent: :destroy
-
-  has_many :friends_as_receiver,
-  through: :friendships_as_receiver,
-  source: :user
-
   has_many :outgoing_friend_requests,
   class_name: "FriendRequest",
   foreign_key: "user_id",
@@ -107,13 +98,12 @@ class User < ApplicationRecord
   end
 
   def has_friend_as_sender?(friend)
-    inverse_friends.include?(friend)
+    friends.include?(friend)
   end
 
   def has_friend_as_receiver?(friend)
-    friends_as_receiver.include?(friend)
+    inverse_friends.include?(friend)
   end
-
 
   def has_outgoing_friend?(friend)
     outgoing_friends.include?(friend)
