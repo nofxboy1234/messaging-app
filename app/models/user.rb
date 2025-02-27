@@ -63,6 +63,15 @@ class User < ApplicationRecord
     chats.where(id: friend.chats.pluck(:id)).take
   end
 
+  def chats_with_friends
+    all_friends.includes(:profile).order(profiles: { username: :asc }).map do |friend|
+      chat = find_direct_message_chat_with(friend)
+      serialized_chat = chat.serialize
+      serialized_chat["friend"] = friend.serialize
+      serialized_chat
+    end
+  end
+
   def friendships_data
     all_friends.includes(:profile).map do |friend|
       chat = find_direct_message_chat_with(friend)
@@ -73,15 +82,6 @@ class User < ApplicationRecord
         chat: chat,
         friendship: friendship
       }
-    end
-  end
-
-  def chats_with_friends
-    all_friends.includes(:profile).order(profiles: { username: :asc }).map do |friend|
-      chat = find_direct_message_chat_with(friend)
-      serialized_chat = chat.serialize
-      serialized_chat["friend"] = friend.serialize
-      serialized_chat
     end
   end
 
