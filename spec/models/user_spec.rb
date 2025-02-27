@@ -119,7 +119,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#friends' do
+  describe 'friends association' do
     context 'when a user is the :user in a friendship' do
       it 'returns the other users that are considered the :friend' do
         user1 = create(:user, email: 'user1@example.com')
@@ -135,7 +135,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#inverse_friends' do
+  describe 'inverse_friends association' do
     context 'when a user is the :friend in a friendship' do
       it 'returns the other users that are considered the :user' do
         user1 = create(:user, email: 'user1@example.com')
