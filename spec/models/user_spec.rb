@@ -342,4 +342,79 @@ RSpec.describe User, type: :model do
       end).to eq(expected)
     end
   end
+
+  describe '#friends_with?' do
+    context 'when a user is friends with the given user' do
+      it 'returns true' do
+        user1 = create(:user, email: 'zoey@example.com')
+        user1.profile = create(:profile, username: 'zoey', user: user1)
+        user2 = create(:user, email: 'duke@example.com')
+        user2.profile = create(:profile, username: 'duke', user: user2)
+
+        create(:friendship, user: user1, friend: user2)
+        expect(user1).to be_friends_with(user2)
+      end
+    end
+
+    context 'when a user is not friends with the given user' do
+      it 'returns false' do
+        user1 = create(:user, email: 'zoey@example.com')
+        user1.profile = create(:profile, username: 'zoey', user: user1)
+        user2 = create(:user, email: 'duke@example.com')
+        user2.profile = create(:profile, username: 'duke', user: user2)
+
+        expect(user1).not_to be_friends_with(user2)
+      end
+    end
+  end
+
+  describe '#has_outgoing_friend?' do
+    context 'when a user has sent a friend request to the given user' do
+      it 'returns true' do
+        user1 = create(:user, email: 'zoey@example.com')
+        user1.profile = create(:profile, username: 'zoey', user: user1)
+        user2 = create(:user, email: 'duke@example.com')
+        user2.profile = create(:profile, username: 'duke', user: user2)
+
+        create(:friend_request, user: user1, friend: user2)
+        expect(user1).to have_outgoing_friend(user2)
+      end
+    end
+
+    context 'when a user has not sent a friend request to the given user' do
+      it 'returns false' do
+        user1 = create(:user, email: 'zoey@example.com')
+        user1.profile = create(:profile, username: 'zoey', user: user1)
+        user2 = create(:user, email: 'duke@example.com')
+        user2.profile = create(:profile, username: 'duke', user: user2)
+
+        expect(user1).not_to have_outgoing_friend(user2)
+      end
+    end
+  end
+
+  describe '#has_incoming_friend?' do
+    context 'when a user has received a friend request from the given user' do
+      it 'returns true' do
+        user1 = create(:user, email: 'zoey@example.com')
+        user1.profile = create(:profile, username: 'zoey', user: user1)
+        user2 = create(:user, email: 'duke@example.com')
+        user2.profile = create(:profile, username: 'duke', user: user2)
+
+        create(:friend_request, user: user2, friend: user1)
+        expect(user1).to have_incoming_friend(user2)
+      end
+    end
+
+    context 'when a user has not received a friend request from the given user' do
+      it 'returns false' do
+        user1 = create(:user, email: 'zoey@example.com')
+        user1.profile = create(:profile, username: 'zoey', user: user1)
+        user2 = create(:user, email: 'duke@example.com')
+        user2.profile = create(:profile, username: 'duke', user: user2)
+
+        expect(user1).not_to have_incoming_friend(user2)
+      end
+    end
+  end
 end
