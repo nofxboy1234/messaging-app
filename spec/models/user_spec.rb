@@ -280,4 +280,33 @@ RSpec.describe User, type: :model do
       end).to eq(incoming)
     end
   end
+
+  describe '#find_direct_message_chat_with' do
+    context 'when 2 users are members of the same chat' do
+      it 'returns that shared chat' do
+        user1 = create(:user, email: 'zoey@example.com')
+        user1.profile = create(:profile, username: 'zoey', user: user1)
+        user2 = create(:user, email: 'duke@example.com')
+        user2.profile = create(:profile, username: 'duke', user: user2)
+
+        chat = create(:chat)
+        chat.members << [ user1, user2 ]
+
+        expect(user1.find_direct_message_chat_with(user2)).to eq(chat)
+        expect(user2.find_direct_message_chat_with(user1)).to eq(chat)
+      end
+    end
+
+    context 'when 2 users are not members of the same chat' do
+      it 'returns nil' do
+        user1 = create(:user, email: 'zoey@example.com')
+        user1.profile = create(:profile, username: 'zoey', user: user1)
+        user2 = create(:user, email: 'duke@example.com')
+        user2.profile = create(:profile, username: 'duke', user: user2)
+
+        expect(user1.find_direct_message_chat_with(user2)).to eq(nil)
+        expect(user2.find_direct_message_chat_with(user1)).to eq(nil)
+      end
+    end
+  end
 end
