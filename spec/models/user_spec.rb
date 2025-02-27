@@ -270,8 +270,12 @@ RSpec.describe User, type: :model do
 
         outgoing = [ 'duke', 'pluto' ]
         incoming = [ 'patch', 'whiskey' ]
-        expect(user1.friend_requests[:outgoing_friend_requests].map { |request| request["friend"]["profile"]["username"] }).to eq(outgoing)
-        expect(user1.friend_requests[:incoming_friend_requests].map { |request| request["user"]["profile"]["username"] }).to eq(incoming)
+        expect(user1.friend_requests[:outgoing_friend_requests].map do |request|
+          request["friend"]["profile"]["username"]
+        end).to eq(outgoing)
+        expect(user1.friend_requests[:incoming_friend_requests].map do |request|
+          request["user"]["profile"]["username"]
+        end).to eq(incoming)
       end
     end
   end
