@@ -248,4 +248,31 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#friend_requests' do
+    describe 'returns a hash of separate serialized, outgoing and incoming friend requests' do
+      it 'with pending friend profiles, ordered by profile username' do
+        user1 = create(:user, email: 'zoey@example.com')
+        user1.profile = create(:profile, username: 'zoey', user: user1)
+        user3 = create(:user, email: 'pluto@example.com')
+        user3.profile = create(:profile, username: 'pluto', user: user3)
+        user2 = create(:user, email: 'duke@example.com')
+        user2.profile = create(:profile, username: 'duke', user: user2)
+        user5 = create(:user, email: 'whiskey@example.com')
+        user5.profile = create(:profile, username: 'whiskey', user: user5)
+        user4 = create(:user, email: 'patch@example.com')
+        user4.profile = create(:profile, username: 'patch', user: user4)
+
+        create(:friend_request, user: user1, friend: user2)
+        create(:friend_request, user: user1, friend: user3)
+        create(:friend_request, user: user4, friend: user1)
+        create(:friend_request, user: user5, friend: user1)
+
+        outgoing = [ 'duke', 'pluto' ]
+        incoming = [ 'patch', 'whiskey' ]
+        expect(user1.friend_requests[:outgoing_friend_requests].map { |request| request["friend"]["profile"]["username"] }).to eq(outgoing)
+        expect(user1.friend_requests[:incoming_friend_requests].map { |request| request["user"]["profile"]["username"] }).to eq(incoming)
+      end
+    end
+  end
 end
