@@ -65,6 +65,18 @@ FactoryBot.define do
       end
     end
 
+    trait :with_friendships do
+      after(:create) do |user|
+        friend1 = create(:user)
+        friend2 = create(:user)
+        create(:friendship, user:, friend: friend1)
+        create(:friendship, user: friend2, friend: user)
+
+        user.profile = create(:profile, user:)
+      end
+    end
+
+
     factory :friend
   end
 end

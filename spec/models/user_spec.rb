@@ -77,4 +77,36 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#friends' do
+    context 'when a user is the :user in a friendship' do
+      it 'returns the other users that are considered the :friend' do
+        user1 = create(:user, email: 'user1@example.com')
+        user2 = create(:user, email: 'user2@example.com')
+        user3 = create(:user, email: 'user3@example.com')
+
+        create(:friendship, user: user1, friend: user2)
+        create(:friendship, user: user3, friend: user1)
+
+        expected = [ 'user2@example.com' ]
+        expect(user1.friends.map(&:email)).to eq(expected)
+      end
+    end
+  end
+
+  describe '#inverse_friends' do
+    context 'when a user is the :friend in a friendship' do
+      it 'returns the other users that are considered the :user' do
+        user1 = create(:user, email: 'user1@example.com')
+        user2 = create(:user, email: 'user2@example.com')
+        user3 = create(:user, email: 'user3@example.com')
+
+        create(:friendship, user: user1, friend: user2)
+        create(:friendship, user: user3, friend: user1)
+
+        expected = [ 'user3@example.com' ]
+        expect(user1.inverse_friends.map(&:email)).to eq(expected)
+      end
+    end
+  end
 end
