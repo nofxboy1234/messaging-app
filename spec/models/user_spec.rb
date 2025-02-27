@@ -109,4 +109,102 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'the profile associated with a user' do
+    context 'when a user is destroyed' do
+      it 'the profile is also destroyed' do
+        user = create(:user, :with_profile)
+        expect(user).to be_persisted
+        expect(user.profile).to be_persisted
+
+        user.destroy!
+        expect(user).not_to be_persisted
+        expect(user.profile).not_to be_persisted
+      end
+    end
+  end
+
+  describe 'the friendships associated with a user' do
+    context 'when a user is destroyed' do
+      it 'the friendships are also destroyed' do
+        user = create(:user, :with_friendships)
+        expect(user).to be_persisted
+        expect(user.friendships.count).to be > 0
+
+        user.destroy!
+        expect(user).not_to be_persisted
+        expect(user.friendships.count).to eq(0)
+      end
+    end
+  end
+
+  describe 'the inverse friendships associated with a user' do
+    context 'when a user is destroyed' do
+      it 'the inverse friendships are also destroyed' do
+        user = create(:user, :with_inverse_friendships)
+        expect(user).to be_persisted
+        expect(user.inverse_friendships.count).to be > 0
+
+        user.destroy!
+        expect(user).not_to be_persisted
+        expect(user.inverse_friendships.count).to eq(0)
+      end
+    end
+  end
+
+  describe 'the incoming friend requests associated with a user' do
+    context 'when a user is destroyed' do
+      it 'the outgoing friend requests are also destroyed' do
+        user = create(:user, :with_outgoing_friend_requests)
+        expect(user).to be_persisted
+        expect(user.outgoing_friend_requests.count).to be > 0
+
+        user.destroy!
+        expect(user).not_to be_persisted
+        expect(user.outgoing_friend_requests.count).to eq(0)
+      end
+    end
+  end
+
+  describe 'the incoming friend requests associated with a user' do
+    context 'when a user is destroyed' do
+      it 'the incoming friend requests are also destroyed' do
+        user = create(:user, :with_incoming_friend_requests)
+        expect(user).to be_persisted
+        expect(user.incoming_friend_requests.count).to be > 0
+
+        user.destroy!
+        expect(user).not_to be_persisted
+        expect(user.incoming_friend_requests.count).to eq(0)
+      end
+    end
+  end
+
+  describe 'the messages associated with a user' do
+    context 'when a user is destroyed' do
+      it 'the messages are also destroyed' do
+        user = create(:user, :with_messages)
+        expect(user).to be_persisted
+        expect(user.messages.count).to be > 0
+
+        user.destroy!
+        expect(user).not_to be_persisted
+        expect(user.messages.count).to eq(0)
+      end
+    end
+  end
+
+  describe 'the chat memberships associated with a user' do
+    context 'when a user is destroyed' do
+      it 'the chat memberships are also destroyed' do
+        user = create(:user, :with_member_lists)
+        expect(user).to be_persisted
+        expect(user.member_lists.count).to be > 0
+
+        user.destroy!
+        expect(user).not_to be_persisted
+        expect(user.member_lists.count).to eq(0)
+      end
+    end
+  end
 end

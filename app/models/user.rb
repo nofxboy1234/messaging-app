@@ -5,12 +5,11 @@ class User < ApplicationRecord
          :rememberable, :validatable
 
   has_many :friendships, dependent: :destroy
-
   has_many :friends,
     through: :friendships,
     source: :friend
 
-  has_many :inverse_friendships, class_name: "Friendship", foreign_key: :friend_id
+  has_many :inverse_friendships, dependent: :destroy, class_name: "Friendship", foreign_key: :friend_id
   has_many :inverse_friends,
     through: :inverse_friendships,
     source: :user
@@ -46,8 +45,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_one :profile, dependent: :destroy
 
-  has_many :member_lists
-  has_many :chats, through: :member_lists, dependent: :destroy
+  has_many :member_lists, dependent: :destroy
+  has_many :chats, through: :member_lists
 
   def friend_requests
     {

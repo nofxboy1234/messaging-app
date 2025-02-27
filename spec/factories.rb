@@ -70,12 +70,54 @@ FactoryBot.define do
         friend1 = create(:user)
         friend2 = create(:user)
         create(:friendship, user:, friend: friend1)
-        create(:friendship, user: friend2, friend: user)
-
-        user.profile = create(:profile, user:)
+        create(:friendship, user:, friend: friend2)
       end
     end
 
+    trait :with_inverse_friendships do
+      after(:create) do |user|
+        friend1 = create(:user)
+        friend2 = create(:user)
+        create(:friendship, user: friend1, friend: user)
+        create(:friendship, user: friend2, friend: user)
+      end
+    end
+
+    trait :with_outgoing_friend_requests do
+      after(:create) do |user|
+        friend1 = create(:user)
+        friend2 = create(:user)
+        create(:friend_request, user:, friend: friend1)
+        create(:friend_request, user:, friend: friend2)
+      end
+    end
+
+    trait :with_incoming_friend_requests do
+      after(:create) do |user|
+        friend1 = create(:user)
+        friend2 = create(:user)
+        create(:friend_request, user: friend1, friend: user)
+        create(:friend_request, user: friend2, friend: user)
+      end
+    end
+
+    trait :with_messages do
+      after(:create) do |user|
+        friend1 = create(:user)
+        friendship = create(:friendship, user:, friend: friend1)
+        chat = create(:chat, friendship:)
+        create_list(:message, 3, user:, chat:)
+      end
+    end
+
+    trait :with_member_lists do
+      after(:create) do |user|
+        friend1 = create(:user)
+        friendship = create(:friendship, user:, friend: friend1)
+        chat = create(:chat, friendship:)
+        chat.members << [ user, friend1 ]
+      end
+    end
 
     factory :friend
   end
