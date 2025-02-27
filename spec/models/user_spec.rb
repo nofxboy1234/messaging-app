@@ -110,7 +110,6 @@ RSpec.describe User, type: :model do
       end
     end
 
-
     context 'when a user has no friends' do
       it 'returns an empty active record relation' do
         user1 = create(:user, email: 'user1@example.com')
@@ -307,6 +306,40 @@ RSpec.describe User, type: :model do
         expect(user1.find_direct_message_chat_with(user2)).to eq(nil)
         expect(user2.find_direct_message_chat_with(user1)).to eq(nil)
       end
+    end
+  end
+
+  describe '#chats_with_friends' do
+    it 'returns shared chats with the friend of each chat' do
+      user1 = create(:user, email: 'zoey@example.com')
+      user1.profile = create(:profile, username: 'zoey', user: user1)
+      user2 = create(:user, email: 'duke@example.com')
+      user2.profile = create(:profile, username: 'duke', user: user2)
+      user3 = create(:user, email: 'pluto@example.com')
+      user3.profile = create(:profile, username: 'pluto', user: user3)
+      user4 = create(:user, email: 'patch@example.com')
+      user4.profile = create(:profile, username: 'patch', user: user4)
+      user5 = create(:user, email: 'whiskey@example.com')
+      user5.profile = create(:profile, username: 'whiskey', user: user5)
+
+      friendship1 = create(:friendship, user: user1, friend: user2)
+      friendship2 = create(:friendship, user: user1, friend: user3)
+      friendship3 = create(:friendship, user: user1, friend: user4)
+      friendship4 = create(:friendship, user: user5, friend: user1)
+
+      chat1 = create(:chat, friendship: friendship1)
+      chat1.members << [ user1, user2 ]
+      chat2 = create(:chat, friendship: friendship2)
+      chat2.members << [ user1, user3 ]
+      chat3 = create(:chat, friendship: friendship3)
+      chat3.members << [ user1, user4 ]
+      chat4 = create(:chat, friendship: friendship4)
+      chat4.members << [ user1, user5 ]
+
+      expected = [ 'duke', 'patch', 'pluto', 'whiskey' ]
+      expect(user1.chats_with_friends.map do |chat|
+        chat["friend"]["profile"]["username"]
+      end).to eq(expected)
     end
   end
 end
