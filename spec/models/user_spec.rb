@@ -417,4 +417,15 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#serialize' do
+    it 'returns the user serialized with their profile' do
+      user1 = create(:user, email: 'zoey@example.com')
+      user1.profile = create(:profile, username: 'zoey', user: user1)
+
+      json = user1.serialize
+      expect(json.dig("email")).to eq('zoey@example.com')
+      expect(json.dig("profile", "username")).to eq('zoey')
+    end
+  end
 end
