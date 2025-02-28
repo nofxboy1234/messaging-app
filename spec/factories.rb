@@ -25,6 +25,12 @@ FactoryBot.define do
   factory :friendship do
     user
     friend
+
+    trait :with_chat do
+      after(:create) do |friendship|
+        friendship.chat = create(:chat, friendship:)
+      end
+    end
   end
 end
 
