@@ -1,6 +1,56 @@
 require 'rails_helper'
 
 RSpec.describe FriendRequest, type: :model do
+  describe 'the user a friend_request is associated with' do
+    context 'when a friend_request is created without a user' do
+      it 'the friend_request is not saved' do
+        friend_request = build(:friend_request, user: nil)
+        friend_request.save
+        expect(friend_request).not_to be_persisted
+      end
+    end
+
+    context 'when a friend_request is created with a user' do
+      it 'the friend_request is saved' do
+        friend_request = build(:friend_request)
+        friend_request.save
+        expect(friend_request).to be_persisted
+      end
+
+      it 'friend_request.user returns the user' do
+        user = create(:user)
+        friend_request = build(:friend_request, user:)
+        friend_request.save
+        expect(friend_request.user).to be(user)
+      end
+    end
+  end
+
+  describe 'the friend a friend_request is associated with' do
+    context 'when a friend_request is created without a friend' do
+      it 'the friend_request is not saved' do
+        friend_request = build(:friend_request, friend: nil)
+        friend_request.save
+        expect(friend_request).not_to be_persisted
+      end
+    end
+
+    context 'when a friend_request is created with a friend' do
+      it 'the friend_request is saved' do
+        friend_request = build(:friend_request)
+        friend_request.save
+        expect(friend_request).to be_persisted
+      end
+
+      it 'friend_request.friend returns the friend' do
+        friend = create(:user)
+        friend_request = build(:friend_request, friend:)
+        friend_request.save
+        expect(friend_request.friend).to be(friend)
+      end
+    end
+  end
+
   describe '#serialize' do
     let(:json) do
       user = create(:user, email: 'user1@example.com', password: '123456')
