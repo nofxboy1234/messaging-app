@@ -2,11 +2,8 @@ import styled from 'styled-components';
 import Button from '../../Buttons/Button';
 import PropTypes from 'prop-types';
 import api from '../../../pathHelpers';
-import { usePage } from '@inertiajs/react';
 
 function SendMessageButton({ className, message, setMessage, chat, inputRef }) {
-  const { shared } = usePage().props;
-
   function clearMessage() {
     setMessage('');
   }
