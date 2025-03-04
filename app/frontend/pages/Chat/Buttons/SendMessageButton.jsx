@@ -1,29 +1,13 @@
 import styled from 'styled-components';
 import Button from '../../Buttons/Button';
 import PropTypes from 'prop-types';
-import api from '../../../pathHelpers';
 
-function SendMessageButton({ className, message, setMessage, chat, inputRef }) {
-  function clearMessage() {
-    setMessage('');
-  }
-
+function SendMessageButton({ className, onClick }) {
   return (
     <Button
       className={className}
       text={'Send'}
-      onClick={() => {
-        if (message === '') return;
-
-        const data = {
-          body: message,
-          chat_id: chat.id,
-        };
-
-        api.messages.create({ data: data });
-        clearMessage();
-        inputRef.current.focus();
-      }}
+      onClick={onClick}
       type="submit"
     />
   );
@@ -31,10 +15,7 @@ function SendMessageButton({ className, message, setMessage, chat, inputRef }) {
 
 SendMessageButton.propTypes = {
   className: PropTypes.string,
-  message: PropTypes.string,
-  setMessage: PropTypes.func,
-  chat: PropTypes.object,
-  inputRef: PropTypes.object,
+  onClick: PropTypes.func,
 };
 
 const StyledSendMessageButton = styled(SendMessageButton)`

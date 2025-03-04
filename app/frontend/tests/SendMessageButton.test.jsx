@@ -12,21 +12,21 @@ describe('SendMessageButton', () => {
     expect(button).toBeInTheDocument();
   });
 
-  // it('should call the setMessage function when clicked', async () => {
-  //   const setMessage = vi.fn();
-  //   const user = userEvent.setup();
-  //   render(<SendMessageButton setMessage={setMessage} />);
-  //   const button = screen.getByRole('button', { name: 'Click me' });
-  //   await user.click(button);
-  //   expect(setMessage).toHaveBeenCalled();
-  // });
+  it('should call the onClick function when clicked', async () => {
+    const onClick = vi.fn();
+    const user = userEvent.setup();
+    render(<SendMessageButton onClick={onClick} />);
 
-  // it('should set focus to the message box', async () => {
-  //   const setMessage = vi.fn();
-  //   const user = userEvent.setup();
-  //   render(<SendMessageButton setMessage={setMessage} />);
-  //   const button = screen.getByRole('button', { name: 'Click me' });
-  //   await user.click(button);
-  //   expect(setMessage).toHaveBeenCalled();
-  // });
+    const button = screen.getByRole('button', { name: 'Send' });
+    await user.click(button);
+
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it('should not call the onClick function when not clicked', async () => {
+    const onClick = vi.fn();
+    render(<SendMessageButton onClick={onClick} />);
+
+    expect(onClick).not.toHaveBeenCalled();
+  });
 });

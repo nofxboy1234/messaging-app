@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SendMessageButton from './Buttons/SendMessageButton';
+import sendMessage from './Buttons/sendMessage';
 
 function MessageBox({ className, chat }) {
   const [message, setMessage] = useState('');
@@ -9,6 +10,12 @@ function MessageBox({ className, chat }) {
 
   function handleChange(e) {
     setMessage(e.target.value);
+  }
+
+  function handleSendMessage() {
+    sendMessage(message, chat);
+    setMessage('');
+    inputRef.current.focus();
   }
 
   return (
@@ -22,12 +29,7 @@ function MessageBox({ className, chat }) {
           value={message}
           onChange={handleChange}
         />
-        <SendMessageButton
-          message={message}
-          setMessage={setMessage}
-          chat={chat}
-          inputRef={inputRef}
-        />
+        <SendMessageButton onClick={handleSendMessage} />
       </form>
     </div>
   );
