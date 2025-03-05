@@ -14,4 +14,12 @@ describe('sendMessage', () => {
       expect(api.messages.create).toHaveBeenCalled();
     });
   });
+
+  describe('when the message is blank', () => {
+    it('should not send a message to a chat', () => {
+      const chat = { id: 19 };
+      sendMessage('', chat);
+      expect(api.messages.create).not.toHaveBeenCalled();
+    });
+  });
 });
