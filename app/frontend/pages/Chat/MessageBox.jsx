@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SendMessageButton from './Buttons/SendMessageButton';
 import sendMessage from './Buttons/sendMessage';
+import MessageInput from './MessageInput';
 
 function MessageBox({ className, chat }) {
   const [message, setMessage] = useState('');
@@ -21,12 +22,9 @@ function MessageBox({ className, chat }) {
   return (
     <div id="message-box" className={className}>
       <form>
-        <input
-          autoFocus
+        <MessageInput
           ref={inputRef}
-          type="text"
-          id="message"
-          value={message}
+          message={message}
           onChange={handleChange}
         />
         <SendMessageButton onClick={handleSendMessage} />
@@ -48,19 +46,6 @@ const StyledMessageBox = styled(MessageBox)`
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-  }
-
-  input {
-    flex: 1 1 0;
-
-    font-family: 'JetbrainsMono', monospace;
-    font-size: 1rem;
-
-    border: 1px solid #e4e4e4;
-    color: var(--medium-grey);
-
-    padding: 0.5rem 0.8rem;
-    min-width: 0px;
   }
 `;
 
