@@ -10,18 +10,39 @@ describe('MessageInput', () => {
     expect(input).toBeInTheDocument();
   });
 
-  // it('should call the onClick function when clicked', async () => {
-  //   const onClick = vi.fn();
-  //   const user = userEvent.setup();
-  //   render(<MessageBox onClick={onClick} />);
-  //   const button = screen.getByRole('button', { name: 'Send' });
-  //   await user.click(button);
-  //   expect(onClick).toHaveBeenCalled();
-  // });
+  it('should display the typed text when typed into', async () => {
+    const user = userEvent.setup();
+    render(<MessageInput />);
 
-  // it('should not call the onClick function when not clicked', async () => {
-  //   const onClick = vi.fn();
-  //   render(<MessageBox onClick={onClick} />);
-  //   expect(onClick).not.toHaveBeenCalled();
-  // });
+    const input = screen.getByRole('textbox', { name: '' });
+    await user.type(input, 'Hello');
+
+    expect(input).toHaveValue('Hello');
+  });
+
+  it('should call the onChange function when typed into', async () => {
+    const onChange = vi.fn();
+    const user = userEvent.setup();
+    render(<MessageInput onChange={onChange} />);
+
+    const input = screen.getByRole('textbox', { name: '' });
+    await user.type(input, 'Hello');
+
+    expect(onChange).toHaveBeenCalled();
+  });
+
+  it('should not call the onChange function when not typed into', () => {
+    const onChange = vi.fn();
+    render(<MessageInput onChange={onChange} />);
+
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('should display the message prop text', async () => {
+    render(<MessageInput message={'Bye'} />);
+
+    const input = screen.getByRole('textbox', { name: '' });
+
+    expect(input).toHaveValue('Bye');
+  });
 });
