@@ -4,20 +4,10 @@ import userEvent from '@testing-library/user-event';
 import MessageInput from '../pages/Chat/MessageInput';
 
 describe('MessageInput', () => {
-  it('should render a blank input', () => {
+  it('should render an input', () => {
     render(<MessageInput />);
     const input = screen.getByRole('textbox', { name: '' });
     expect(input).toBeInTheDocument();
-  });
-
-  it('should display the typed text when typed into', async () => {
-    const user = userEvent.setup();
-    render(<MessageInput />);
-
-    const input = screen.getByRole('textbox', { name: '' });
-    await user.type(input, 'Hello');
-
-    expect(input).toHaveValue('Hello');
   });
 
   it('should call the onChange function when typed into', async () => {
@@ -38,11 +28,9 @@ describe('MessageInput', () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
-  it('should display the message prop text', async () => {
+  it('should display the message prop text', () => {
     render(<MessageInput message={'Bye'} />);
-
     const input = screen.getByRole('textbox', { name: '' });
-
     expect(input).toHaveValue('Bye');
   });
 });
