@@ -1,6 +1,6 @@
 import api from '../../../pathHelpers';
 
-function sendMessage({ message, chat }) {
+function sendMessage(message, chat) {
   if (message === '') return;
 
   const data = {
