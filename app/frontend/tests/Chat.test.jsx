@@ -31,7 +31,6 @@ describe('Chat', () => {
     render(<Chat chat={chat} />);
 
     const messages = screen.queryAllByTestId('message');
-    screen.debug();
     expect(messages.length).toBe(3);
   });
 });
