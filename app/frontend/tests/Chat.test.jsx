@@ -20,7 +20,7 @@ vi.mock('../pages/Message/Message', () => {
 });
 
 describe('Chat', () => {
-  it('should display all messages in a chat', () => {
+  it('should render all messages in a chat', () => {
     const chat = {
       messages: [
         { id: 1, body: 'hello user2' },
@@ -35,5 +35,15 @@ describe('Chat', () => {
     expect(messages[0].textContent).toBe('hello user2');
     expect(messages[1].textContent).toBe('hi user1, how are you?');
     expect(messages[2].textContent).toBe('I am fine thanks, and you?');
+  });
+
+  it('should not render any messages when chat has no messages', () => {
+    const chat = {
+      messages: [],
+    };
+    render(<Chat chat={chat} />);
+
+    const messages = screen.queryAllByTestId('message');
+    expect(messages.length).toBe(0);
   });
 });
