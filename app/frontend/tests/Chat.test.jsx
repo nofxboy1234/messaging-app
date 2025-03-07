@@ -1,8 +1,11 @@
 import { vi, describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { forwardRef } from 'react';
 import Chat from '../pages/Chat/Chat';
+import consumer from '../channels/consumer';
+import cat from './cat';
+import cat2 from './cat';
 
 vi.mock('../pages/Message/Message', () => {
   return {
@@ -18,6 +21,29 @@ vi.mock('../pages/Message/Message', () => {
     }),
   };
 });
+
+vi.mock('../channels/consumer', async () => {
+  const subscription = {
+    unsubscribe: vi.fn(),
+    received: null,
+  };
+
+  return {
+    default: {
+      subscriptions: {
+        create: vi.fn((channelConfig, callbacks) => {
+          subscription.received = callbacks.received;
+          return subscription;
+        }),
+        subscriptions: [subscription],
+      },
+    },
+  };
+});
+
+// describe('cat', () => {
+//   expect(cat2).toBe(cat);
+// });
 
 describe('Chat', () => {
   it('should render all messages in a chat', () => {
@@ -45,5 +71,25 @@ describe('Chat', () => {
 
     const messages = screen.queryAllByTestId('message');
     expect(messages.length).toBe(0);
+  });
+
+  it('should append new messages received from web socket', async () => {
+    const chat = {
+      messages: [
+        { id: 1, body: 'hello user2' },
+        { id: 2, body: 'hi user1, how are you?' },
+        { id: 3, body: 'I am fine thanks, and you?' },
+      ],
+    };
+    render(<Chat chat={chat} />);
+
+    const subscription = consumer.subscriptions.subscriptions[0];
+    act(() => {
+      subscription.received({ id: 4, body: 'New message' });
+    });
+
+    const messages = await screen.findAllByTestId('message');
+    expect(messages.length).toBe(4);
+    expect(messages[3].textContent).toBe('New message');
   });
 });
