@@ -10,10 +10,10 @@ vi.mock('../pages/Message/Message', () => {
       const { message } = props;
 
       return (
-        <div data-testid="message">
+        <>
           <div>{message.id}</div>
-          <div>{message.body}</div>
-        </div>
+          <div data-testid="message">{message.body}</div>
+        </>
       );
     }),
   };
@@ -32,5 +32,8 @@ describe('Chat', () => {
 
     const messages = screen.queryAllByTestId('message');
     expect(messages.length).toBe(3);
+    expect(messages[0].textContent).toBe('hello user2');
+    expect(messages[1].textContent).toBe('hi user1, how are you?');
+    expect(messages[2].textContent).toBe('I am fine thanks, and you?');
   });
 });
