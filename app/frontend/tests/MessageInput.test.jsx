@@ -29,8 +29,10 @@ describe('MessageInput', () => {
   });
 
   it('should display the message prop text', () => {
-    render(<MessageInput message={'Bye'} />);
+    const onChange = vi.fn();
+    render(<MessageInput message={'Bye'} onChange={onChange} />);
     const input = screen.getByRole('textbox', { name: '' });
+
     expect(input).toHaveValue('Bye');
   });
 });
