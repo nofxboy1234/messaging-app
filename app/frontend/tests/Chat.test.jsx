@@ -4,8 +4,6 @@ import userEvent from '@testing-library/user-event';
 import { forwardRef } from 'react';
 import Chat from '../pages/Chat/Chat';
 import consumer from '../channels/consumer';
-import cat from './cat';
-import cat2 from './cat';
 
 vi.mock('../pages/Message/Message', () => {
   return {
@@ -40,10 +38,6 @@ vi.mock('../channels/consumer', async () => {
     },
   };
 });
-
-// describe('cat', () => {
-//   expect(cat2).toBe(cat);
-// });
 
 describe('Chat', () => {
   it('should render all messages in a chat', () => {
