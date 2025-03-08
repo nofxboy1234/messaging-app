@@ -86,4 +86,20 @@ describe('Chat', () => {
     expect(messages.length).toBe(4);
     expect(messages[3].textContent).toBe('New message');
   });
+
+  it('should unsubscribe from the subscription on unmount', async () => {
+    const chat = {
+      messages: [
+        { id: 1, body: 'hello user2' },
+        { id: 2, body: 'hi user1, how are you?' },
+        { id: 3, body: 'I am fine thanks, and you?' },
+      ],
+    };
+    const { unmount } = render(<Chat chat={chat} />);
+
+    const subscription = consumer.subscriptions.subscriptions[0];
+    unmount();
+
+    expect(subscription.unsubscribe).toHaveBeenCalled();
+  });
 });
