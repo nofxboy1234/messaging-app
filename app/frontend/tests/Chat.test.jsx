@@ -15,7 +15,9 @@ vi.mock('../pages/Message/Message', () => {
           ref={(node) => {
             if (node) {
               node.scrollIntoView = scrollIntoViewMock;
-              if (ref) ref.current = node;
+              if (ref) {
+                ref.current = node;
+              }
             }
           }}
           data-testid={`message-${message.id}`}
