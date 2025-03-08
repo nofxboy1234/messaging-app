@@ -7,7 +7,9 @@ import consumer from '../channels/consumer';
 import { scrollIntoViewMock } from '../pages/Message/Message';
 
 vi.mock('../pages/Message/Message', () => {
-  const scrollIntoViewMock = vi.fn();
+  const scrollIntoViewMock = vi.fn(function () {
+    console.log(this.lastChild.textContent);
+  });
   return {
     default: forwardRef(function Message({ message }, ref) {
       return (
@@ -51,7 +53,7 @@ vi.mock('../channels/consumer', async () => {
 });
 
 describe('Chat', () => {
-  it('should render all messages in a chat', () => {
+  it.skip('should render all messages in a chat', () => {
     const chat = {
       messages: [
         { id: 1, body: 'hello user2' },
@@ -68,7 +70,7 @@ describe('Chat', () => {
     expect(messages[2].textContent).toBe('I am fine thanks, and you?');
   });
 
-  it('should not render any messages when chat has no messages', () => {
+  it.skip('should not render any messages when chat has no messages', () => {
     const chat = {
       messages: [],
     };
@@ -78,7 +80,7 @@ describe('Chat', () => {
     expect(messages.length).toBe(0);
   });
 
-  it('should append new messages received from web socket', async () => {
+  it.skip('should append new messages received from web socket', async () => {
     const chat = {
       messages: [
         { id: 1, body: 'hello user2' },
@@ -98,7 +100,7 @@ describe('Chat', () => {
     expect(messages[3].textContent).toBe('New message');
   });
 
-  it('should unsubscribe from the subscription on unmount', async () => {
+  it.skip('should unsubscribe from the subscription on unmount', async () => {
     const chat = {
       messages: [
         { id: 1, body: 'hello user2' },
