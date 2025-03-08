@@ -14,8 +14,8 @@ vi.mock('../pages/Message/Message', () => {
         <div
           ref={(node) => {
             if (node) {
-              node.scrollIntoView = scrollIntoViewMock;
               if (ref) {
+                node.scrollIntoView = scrollIntoViewMock;
                 ref.current = node;
               }
             }
