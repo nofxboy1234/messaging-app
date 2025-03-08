@@ -3,9 +3,7 @@ import Picture from '../Profile/Picture';
 import styled from 'styled-components';
 import { forwardRef } from 'react';
 
-const Message = forwardRef(function Message(props, ref) {
-  const { className, message } = props;
-
+const Message = forwardRef(function Message({ className, message }, ref) {
   return (
     <div className={className} ref={ref}>
       <div id="user">
