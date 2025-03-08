@@ -29,21 +29,6 @@ vi.mock('../pages/Message/Message', () => {
   };
 });
 
-// vi.mock('../pages/Message/Message', () => {
-//   return {
-//     default: forwardRef(function Message(props, ref) {
-//       const { message } = props;
-
-//       return (
-//         <div data-testid={ref ? 'last-message' : undefined}>
-//           <div>{message.id}</div>
-//           <div data-testid="message">{message.body}</div>
-//         </div>
-//       );
-//     }),
-//   };
-// });
-
 vi.mock('../channels/consumer', async () => {
   const subscription = {
     unsubscribe: vi.fn(),
