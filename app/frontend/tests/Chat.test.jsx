@@ -4,21 +4,47 @@ import userEvent from '@testing-library/user-event';
 import { forwardRef } from 'react';
 import Chat from '../pages/Chat/Chat';
 import consumer from '../channels/consumer';
+import { scrollIntoViewMock } from '../pages/Message/Message';
 
 vi.mock('../pages/Message/Message', () => {
+  const scrollIntoViewMock = vi.fn();
   return {
-    default: forwardRef(function Message(props, ref) {
-      const { message } = props;
-
-      return (
-        <>
-          <div>{message.id}</div>
-          <div data-testid="message">{message.body}</div>
-        </>
-      );
-    }),
+    default: forwardRef(
+      vi.fn().mockImplementation(function Message({ message }, ref) {
+        return (
+          <div
+            ref={(node) => {
+              if (node) {
+                node.scrollIntoView = scrollIntoViewMock;
+                if (ref) ref.current = node;
+              }
+            }}
+            data-testid={`message-${message.id}`}
+          >
+            <div>{message.id}</div>
+            <div data-testid="message">{message.body}</div>
+          </div>
+        );
+      }),
+    ),
+    scrollIntoViewMock,
   };
 });
+
+// vi.mock('../pages/Message/Message', () => {
+//   return {
+//     default: forwardRef(function Message(props, ref) {
+//       const { message } = props;
+
+//       return (
+//         <div data-testid={ref ? 'last-message' : undefined}>
+//           <div>{message.id}</div>
+//           <div data-testid="message">{message.body}</div>
+//         </div>
+//       );
+//     }),
+//   };
+// });
 
 vi.mock('../channels/consumer', async () => {
   const subscription = {
@@ -29,7 +55,7 @@ vi.mock('../channels/consumer', async () => {
   return {
     default: {
       subscriptions: {
-        create: vi.fn((channelConfig, callbacks) => {
+        create: vi.fn((_, callbacks) => {
           subscription.received = callbacks.received;
           return subscription;
         }),
@@ -101,5 +127,69 @@ describe('Chat', () => {
     unmount();
 
     expect(subscription.unsubscribe).toHaveBeenCalled();
+  });
+
+  // describe('when the scrollbar is at the top and a message is received', () => {
+  //   it('should not scroll to the newest message', async () => {
+  //     const chat = {
+  //       messages: [
+  //         { id: 1, body: 'hello user2' },
+  //         { id: 2, body: 'hi user1, how are you?' },
+  //         { id: 3, body: 'I am fine thanks, and you?' },
+  //       ],
+  //     };
+  //     render(<Chat chat={chat} />);
+
+  //     const rootElement = screen.getByTestId('root');
+  //     rootElement.scrollTop = 0;
+  //     const subscription = consumer.subscriptions.subscriptions[0];
+  //     act(() => {
+  //       subscription.received({ id: 4, body: 'New message' });
+  //     });
+
+  //     expect(rootElement.scrollTop).toBe(0);
+  //   });
+  // });
+
+  describe('when the scrollbar is at the bottom and a message is received', () => {
+    it('should scroll to the newest message', async () => {
+      const chat = {
+        messages: [
+          { id: 1, body: 'hello user2' },
+          { id: 2, body: 'hi user1, how are you?' },
+          { id: 3, body: 'I am fine thanks, and you?' },
+        ],
+      };
+      render(<Chat chat={chat} />);
+      const rootElement = screen.getByTestId('root');
+
+      Object.defineProperty(rootElement, 'scrollHeight', {
+        value: 1000,
+        writable: false,
+      });
+      Object.defineProperty(rootElement, 'scrollTop', {
+        value: 900,
+        writable: true,
+      });
+      Object.defineProperty(rootElement, 'clientHeight', {
+        value: 100,
+        writable: false,
+      });
+
+      expect(
+        rootElement.scrollHeight -
+          rootElement.scrollTop -
+          rootElement.clientHeight,
+      ).toBeLessThanOrEqual(3);
+
+      const subscription = consumer.subscriptions.subscriptions[0];
+      act(() => {
+        subscription.received({ id: 4, body: 'New message' });
+      });
+
+      await screen.findAllByTestId('message');
+      expect(scrollIntoViewMock).toHaveBeenCalled();
+      expect(screen.getByTestId('message-4')).toBeInTheDocument();
+    });
   });
 });

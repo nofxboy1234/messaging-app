@@ -13,6 +13,12 @@ function Chat({ className, chat }) {
   function isScrollBarAtBottom() {
     const rootElement = rootElementRef.current;
 
+    // const scrollHeights = {
+    //   totalHeight: rootElement.scrollHeight,
+    //   topOverflowHeight: rootElement.scrollTop,
+    //   visibleHeight: rootElement.clientHeight,
+    // };
+
     return (
       Math.abs(
         rootElement.scrollHeight -
@@ -56,7 +62,12 @@ function Chat({ className, chat }) {
   }, [messages.length]);
 
   return (
-    <div ref={rootElementRef} onScroll={handleScroll} className={className}>
+    <div
+      data-testid="root"
+      ref={rootElementRef}
+      onScroll={handleScroll}
+      className={className}
+    >
       {messages.map((message, index) => {
         return (
           <Message
