@@ -9,24 +9,22 @@ import { scrollIntoViewMock } from '../pages/Message/Message';
 vi.mock('../pages/Message/Message', () => {
   const scrollIntoViewMock = vi.fn();
   return {
-    default: forwardRef(
-      vi.fn().mockImplementation(function Message({ message }, ref) {
-        return (
-          <div
-            ref={(node) => {
-              if (node) {
-                node.scrollIntoView = scrollIntoViewMock;
-                if (ref) ref.current = node;
-              }
-            }}
-            data-testid={`message-${message.id}`}
-          >
-            <div>{message.id}</div>
-            <div data-testid="message">{message.body}</div>
-          </div>
-        );
-      }),
-    ),
+    default: forwardRef(function Message({ message }, ref) {
+      return (
+        <div
+          ref={(node) => {
+            if (node) {
+              node.scrollIntoView = scrollIntoViewMock;
+              if (ref) ref.current = node;
+            }
+          }}
+          data-testid={`message-${message.id}`}
+        >
+          <div>{message.id}</div>
+          <div data-testid="message">{message.body}</div>
+        </div>
+      );
+    }),
     scrollIntoViewMock,
   };
 });
