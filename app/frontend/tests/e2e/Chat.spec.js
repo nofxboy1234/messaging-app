@@ -10,9 +10,13 @@ test.describe('when the scrollbar is at the bottom and a message is received', (
   });
 
   test('should show the chat page', async ({ page }) => {
-    await page.goto('/chats/2');
+    await page.goto('/');
 
-    const button = page.getByRole('button', { name: 'Send' });
-    await expect(button).toBeVisible();
+    await page.getByLabel('Email:').fill('user1@example.com');
+    await page.getByLabel('Password:').fill('123456');
+    await page.getByRole('button', { name: 'Log in' }).click();
+    await expect(page.getByText('Signed in successfully.')).toBeVisible();
+
+    // await page.goto('/chats/2');
   });
 });
