@@ -78,5 +78,6 @@ export default defineConfig({
     command: 'bin/dev',
     url: 'http://localhost:3100',
     reuseExistingServer: !process.env.CI,
+    gracefulShutdown: { signal: 'SIGINT', timeout: 0 },
   },
 });
