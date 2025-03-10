@@ -17,6 +17,6 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './tests/setup.js',
     clearMocks: true,
-    exclude: [...configDefaults.exclude, '**/*.spec.js'],
+    exclude: [...configDefaults.exclude, '**/*.spec.?(c|m)[jt]s?(x)'],
   },
 });
