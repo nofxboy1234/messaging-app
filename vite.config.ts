@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import { configDefaults } from 'vitest/config';
 import RubyPlugin from 'vite-plugin-ruby';
 
 export default defineConfig({
@@ -16,5 +17,6 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './tests/setup.js',
     clearMocks: true,
+    exclude: [...configDefaults.exclude, '**/*.spec.js'],
   },
 });
