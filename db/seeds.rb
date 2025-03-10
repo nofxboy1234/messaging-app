@@ -8,8 +8,8 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-def create_user_with_profile
-  User.create(email: Faker::Internet.email,
+def create_user_with_profile(user_num)
+  User.create(email: "user#{user_num}@example.com",
               password: "123456",
               profile: Profile.create(username: Faker::Internet.username,
                                       picture: "",
@@ -21,17 +21,17 @@ def create_user_without_profile
               password: "123456")
 end
 
-user = create_user_with_profile
+user = create_user_with_profile(1)
 
 for i in 1..3 do
-  friend = create_user_with_profile
+  friend = create_user_with_profile(i + 1)
   friendship = Friendship.create(user:, friend:)
   chat = Chat.create(name: Faker::Lorem.characters(number: 3))
   chat.members << [ user, friend ]
   friendship.chat = chat
 end
 
-friend = create_user_with_profile
+friend = create_user_with_profile(5)
 friendship = Friendship.create(user: friend, friend: user)
 chat = Chat.create(name: Faker::Lorem.characters(number: 3))
 chat.members << [ user, friend ]
