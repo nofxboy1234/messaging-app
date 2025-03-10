@@ -1,8 +1,8 @@
 import { vi, describe, it, expect } from 'vitest';
-import sendMessage from '../pages/Chat/Buttons/sendMessage';
-import api from '../pathHelpers';
+import sendMessage from '../../pages/Chat/Buttons/sendMessage';
+import api from '../../pathHelpers';
 
-vi.mock('../pathHelpers', () => ({
+vi.mock('../../pathHelpers', () => ({
   default: { messages: { create: vi.fn() } },
 }));
 

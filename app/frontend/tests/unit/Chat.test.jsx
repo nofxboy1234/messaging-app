@@ -2,11 +2,11 @@ import { vi, describe, it, expect } from 'vitest';
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { forwardRef } from 'react';
-import Chat from '../pages/Chat/Chat';
-import consumer from '../channels/consumer';
-import { scrollIntoViewMock } from '../pages/Message/Message';
+import Chat from '../../pages/Chat/Chat';
+import consumer from '../../channels/consumer';
+import { scrollIntoViewMock } from '../../pages/Message/Message';
 
-vi.mock('../pages/Message/Message', () => {
+vi.mock('../../pages/Message/Message', () => {
   const scrollIntoViewMock = vi.fn(function () {
     console.log(this.lastChild.textContent);
   });
@@ -33,7 +33,7 @@ vi.mock('../pages/Message/Message', () => {
   };
 });
 
-vi.mock('../channels/consumer', async () => {
+vi.mock('../../channels/consumer', async () => {
   const subscription = {
     unsubscribe: vi.fn(),
     received: null,
@@ -115,28 +115,6 @@ describe('Chat', () => {
 
     expect(subscription.unsubscribe).toHaveBeenCalled();
   });
-
-  // describe('when the scrollbar is at the top and a message is received', () => {
-  //   it('should not scroll to the newest message', async () => {
-  //     const chat = {
-  //       messages: [
-  //         { id: 1, body: 'hello user2' },
-  //         { id: 2, body: 'hi user1, how are you?' },
-  //         { id: 3, body: 'I am fine thanks, and you?' },
-  //       ],
-  //     };
-  //     render(<Chat chat={chat} />);
-
-  //     const rootElement = screen.getByTestId('root');
-  //     rootElement.scrollTop = 0;
-  //     const subscription = consumer.subscriptions.subscriptions[0];
-  //     act(() => {
-  //       subscription.received({ id: 4, body: 'New message' });
-  //     });
-
-  //     expect(rootElement.scrollTop).toBe(0);
-  //   });
-  // });
 
   describe('when the scrollbar is at the bottom and a message is received', () => {
     it('should scroll to the newest message', async () => {
