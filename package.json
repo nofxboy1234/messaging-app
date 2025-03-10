@@ -6,8 +6,7 @@
     "eslint-fix": "npx eslint . --fix",
     "prettier-check": "npx prettier --check .",
     "prettier-fix": "npx prettier --write .",
-    "test:unit": "vitest --reporter=verbose",
-    "test:e2e": "npx playwright test"
+    "test": "vitest --reporter=verbose"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
