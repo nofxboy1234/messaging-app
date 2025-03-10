@@ -17,6 +17,7 @@ test.describe('when the scrollbar is at the bottom and a message is received', (
     await page.getByRole('button', { name: 'Log in' }).click();
     await expect(page.getByText('Signed in successfully.')).toBeVisible();
 
-    // await page.goto('/chats/2');
+    await page.goto('/chats/2');
+    await expect(page.getByRole('button', { name: 'Send' })).toBeVisible();
   });
 });
