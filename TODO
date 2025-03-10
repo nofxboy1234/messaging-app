@@ -38,6 +38,4 @@ refactor, redis client connections/UserIndex subscriptions
 [ ] - ~refactor: rendering/efficiency/readability, status codes, unused functions
 [ ] - ~change chat users broadcast to broadcast_to(chat)
 
-[~] - ~singular resources: e.g /profile
-[x] - ~compare array.intersection vs inner_join:
 [~] - ~Test out creating a React/Rails app without Vite, Inertia, Turbo-mount etc
