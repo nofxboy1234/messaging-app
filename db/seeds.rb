@@ -11,7 +11,7 @@
 def create_user_with_profile(user_num)
   User.create(email: "user#{user_num}@example.com",
               password: "123456",
-              profile: Profile.create(username: Faker::Internet.username,
+              profile: Profile.create(username: "user#{user_num}",
                                       picture: "",
                                       about: ""))
 end
