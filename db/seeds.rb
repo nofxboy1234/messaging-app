@@ -41,3 +41,5 @@ for i in 1..50 do
   Message.create!(body: Faker::Lorem.sentence, chat:, user:)
   Message.create!(body: Faker::Lorem.sentence, chat:, user: friend)
 end
+
+Message.create!(body: 'last message', chat:, user:)
