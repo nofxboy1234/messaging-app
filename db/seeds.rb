@@ -36,3 +36,8 @@ friendship = Friendship.create(user: friend, friend: user)
 chat = Chat.create(name: Faker::Lorem.characters(number: 3))
 chat.members << [ user, friend ]
 friendship.chat = chat
+
+for i in 1..50 do
+  Message.create!(body: Faker::Lorem.sentence, chat:, user:)
+  Message.create!(body: Faker::Lorem.sentence, chat:, user: friend)
+end
