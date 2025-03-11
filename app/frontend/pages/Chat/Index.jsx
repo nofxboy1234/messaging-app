@@ -33,7 +33,7 @@ function ChatIndex({ className, initialChats }) {
   return (
     <div className={className}>
       <ChatTotal chats={chats} />
-      <div id="chats">
+      <div id="chats" data-testid="chat-index">
         {chats.map((chat) => (
           <ChatLink key={chat.friend.id} chat={chat} friend={chat.friend} />
         ))}
