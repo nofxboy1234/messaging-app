@@ -40,14 +40,14 @@ test.describe('when navigating to the Chat page', () => {
     await expect(lastMessage).toBeVisible();
   });
 
-  // test.describe('when sending a new message', () => {
-  //   test('should show the new message', async ({ page }) => {
-  //     const input = page.getByRole('textbox');
-  //     const sendButton = page.getByRole('button', { name: 'Send' });
-  //     await input.fill('new message');
-  //     await sendButton.click();
-  //     const newMessage = page.getByText('new message');
-  //     await expect(newMessage).toBeVisible();
-  //   });
-  // });
+  test.describe('when sending a new message', () => {
+    test('should show the new message at the bottom', async ({ page }) => {
+      const input = page.getByRole('textbox');
+      const sendButton = page.getByRole('button', { name: 'Send' });
+      await input.fill('new message');
+      await sendButton.click();
+      const newMessage = page.getByText('new message');
+      await expect(newMessage).toBeVisible();
+    });
+  });
 });
