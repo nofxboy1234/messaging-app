@@ -17,7 +17,6 @@ const cleanup_test_data = async () => {
 test.describe('when navigating to the Chat page', () => {
   test.beforeEach(async ({ page, request }) => {
     await setup_test_data();
-    // await request.get('http://localhost:3100/playwright_test_setup/seed');
 
     await page.goto('/');
     await page.getByLabel('Email:').fill('user1@example.com');
@@ -34,7 +33,6 @@ test.describe('when navigating to the Chat page', () => {
 
   test.afterEach(async ({ page }) => {
     await cleanup_test_data();
-    // execSync('rails playwright:cleanup_test_data', { stdio: 'inherit' });
   });
 
   test('should show the last message', async ({ page }) => {
