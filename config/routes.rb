@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   resources :messages, only: [ :create, :index ], export: true
   resources :profiles, only: [ :edit, :show, :update ], export: true
 
-  get "playwright_test_setup/seed", to: "playwright_test_setup#seed"
-  # get "playwright_test_setup/seed", to: "playwright_test_setup#seed" if Rails.env.test?
+  get "playwright_test_setup/seed", to: "playwright_test_setup#seed" if Rails.env.test?
+  # get "playwright_test_setup/seed", to: "playwright_test_setup#seed"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
