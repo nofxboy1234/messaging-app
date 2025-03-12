@@ -13,6 +13,8 @@ import { defineConfig, devices } from '@playwright/test';
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
+  // globalSetup: './playwright-global-setup',
+  // globalTeardown: './playwright-global-teardown',
   testDir: './app/frontend/tests',
   testIgnore: '**/*.test.?(c|m)[jt]s?(x)',
   /* Run tests in files in parallel */
@@ -24,7 +26,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: 'list',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -75,7 +77,8 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'bin/dev',
+    // command: 'bin/dev',
+    command: 'RAILS_ENV=test bin/dev',
     url: 'http://localhost:3100',
     reuseExistingServer: !process.env.CI,
     gracefulShutdown: { signal: 'SIGINT', timeout: 0 },
