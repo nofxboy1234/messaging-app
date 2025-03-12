@@ -1,14 +1,23 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
-// import setup from '../../../../playwright-global-setup';
+import { execSync } from 'child_process';
+
+const setup_test_data = async () => {
+  execSync('RAILS_ENV=test rails playwright:setup_test_data', {
+    stdio: 'inherit',
+  });
+};
+
+const cleanup_test_data = async () => {
+  execSync('RAILS_ENV=test rails playwright:cleanup_test_data', {
+    stdio: 'inherit',
+  });
+};
 
 test.describe('when navigating to the Chat page', () => {
-  test.beforeEach('Log in', async ({ page, request }) => {
-    console.log('***');
-    console.log('beforeEach');
-    console.log('***');
-
-    await request.get('http://localhost:3100/playwright_test_setup/seed');
+  test.beforeEach(async ({ page, request }) => {
+    await setup_test_data();
+    // await request.get('http://localhost:3100/playwright_test_setup/seed');
 
     await page.goto('/');
     await page.getByLabel('Email:').fill('user1@example.com');
@@ -23,9 +32,10 @@ test.describe('when navigating to the Chat page', () => {
     await expect(sendButton).toBeVisible();
   });
 
-  // test.afterEach('Clean up data', async ({ page }) => {
-  //   await setup();
-  // });
+  test.afterEach(async ({ page }) => {
+    await cleanup_test_data();
+    // execSync('rails playwright:cleanup_test_data', { stdio: 'inherit' });
+  });
 
   test('should show the last message', async ({ page }) => {
     const lastMessage = page.getByText('last message');
