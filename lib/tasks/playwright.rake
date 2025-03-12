@@ -14,7 +14,6 @@ namespace :playwright do
   task setup: :environment do
     Rails.env = "test"
     Rake::Task["db:schema:load"].invoke
-    # Rake::Task["db:test:prepare"].invoke
 
     puts "setup test db"
   end
