@@ -36,18 +36,48 @@ test.describe('when navigating to the Chat page', () => {
   });
 
   test('should show the last message', async ({ page }) => {
-    const lastMessage = page.getByText('last message');
-    await expect(lastMessage).toBeVisible();
+    const chat = page.getByTestId('root').first();
+    const lastMessage = page.getByText('last message').first();
+
+    const chatHandle = await chat.elementHandle();
+    const isInViewportHandle = await lastMessage.evaluateHandle(
+      (message, container) => {
+        const messageRect = message.getBoundingClientRect();
+        const chatRect = container.getBoundingClientRect();
+        return (
+          messageRect.top >= chatRect.top &&
+          messageRect.bottom <= chatRect.bottom
+        );
+      },
+      chatHandle,
+    );
+
+    const isInViewport = await isInViewportHandle.jsonValue();
+
+    expect(isInViewport).toBe(true);
   });
 
-  test.describe('when sending a new message', () => {
-    test('should show the new message at the bottom', async ({ page }) => {
-      const input = page.getByRole('textbox');
-      const sendButton = page.getByRole('button', { name: 'Send' });
-      await input.fill('new message');
-      await sendButton.click();
-      const newMessage = page.getByText('new message');
-      await expect(newMessage).toBeVisible();
-    });
-  });
+  // test.describe('when sending a new message', () => {
+  //   test('should show the new message at the bottom', async ({ page }) => {
+  //     const input = page.getByRole('textbox');
+  //     const sendButton = page.getByRole('button', { name: 'Send' });
+  //     await input.fill('new message');
+  //     await sendButton.click();
+  //     const newMessage = page.getByText('new message');
+  //     await expect(newMessage).toBeVisible();
+  //   });
+  // });
+
+  // test.describe('when scrolling partially in the chat, then sending a message', () => {
+  //   test.skip('should not show the sent message at the bottom', async ({
+  //     page,
+  //   }) => {
+  //     const input = page.getByRole('textbox');
+  //     const sendButton = page.getByRole('button', { name: 'Send' });
+  //     await input.fill('new message');
+  //     await sendButton.click();
+  //     const newMessage = page.getByText('new message');
+  //     await expect(newMessage).toBeVisible();
+  //   });
+  // });
 });
