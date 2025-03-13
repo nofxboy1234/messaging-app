@@ -36,8 +36,8 @@ test.describe('when navigating to the Chat page', () => {
   });
 
   test('should show the last message', async ({ page }) => {
-    const chat = page.getByTestId('root').first();
-    const lastMessage = page.getByText('last message').first();
+    const chat = page.getByTestId('root');
+    const lastMessage = page.getByText('last message');
 
     const chatHandle = await chat.elementHandle();
     const isInViewportHandle = await lastMessage.evaluateHandle(
