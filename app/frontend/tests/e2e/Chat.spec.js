@@ -39,20 +39,15 @@ test.describe('when navigating to the Chat page', () => {
     const chat = page.getByTestId('root');
     const lastMessage = page.getByText('last message');
 
-    const chatHandle = await chat.elementHandle();
-    const isInViewportHandle = await lastMessage.evaluateHandle(
-      (message, container) => {
-        const messageRect = message.getBoundingClientRect();
-        const chatRect = container.getBoundingClientRect();
-        return (
-          messageRect.top >= chatRect.top &&
-          messageRect.bottom <= chatRect.bottom
-        );
-      },
-      chatHandle,
-    );
+    const chatElement = await chat.elementHandle();
+    const isInViewport = await lastMessage.evaluate((message, chat) => {
+      const messageRect = message.getBoundingClientRect();
+      const chatRect = chat.getBoundingClientRect();
 
-    const isInViewport = await isInViewportHandle.jsonValue();
+      return (
+        messageRect.top >= chatRect.top && messageRect.bottom <= chatRect.bottom
+      );
+    }, chatElement);
 
     expect(isInViewport).toBe(true);
   });
