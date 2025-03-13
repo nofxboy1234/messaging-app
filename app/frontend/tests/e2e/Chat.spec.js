@@ -39,11 +39,6 @@ test.describe('when navigating to the Chat page', () => {
     const chat = page.getByTestId('root');
     const lastMessage = page.getByText('last message');
 
-    // Force scroll to the absolute bottom
-    await chat.evaluate((el) => {
-      el.scrollTop = el.scrollHeight - el.clientHeight;
-    });
-
     const isAtBottom = await lastMessage.evaluate(
       (message, container) => {
         const messageRect = message.getBoundingClientRect();
