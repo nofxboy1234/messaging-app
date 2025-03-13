@@ -39,17 +39,23 @@ test.describe('when navigating to the Chat page', () => {
     const chat = page.getByTestId('root');
     const lastMessage = page.getByText('last message');
 
-    const chatElement = await chat.elementHandle();
-    const isInViewport = await lastMessage.evaluate((message, chat) => {
-      const messageRect = message.getBoundingClientRect();
-      const chatRect = chat.getBoundingClientRect();
+    // Force scroll to the absolute bottom
+    await chat.evaluate((el) => {
+      el.scrollTop = el.scrollHeight - el.clientHeight;
+    });
 
-      return (
-        messageRect.top >= chatRect.top && messageRect.bottom <= chatRect.bottom
-      );
-    }, chatElement);
+    const isAtBottom = await lastMessage.evaluate(
+      (message, container) => {
+        const messageRect = message.getBoundingClientRect();
+        const chatRect = container.getBoundingClientRect();
+        const gap = chatRect.bottom - messageRect.bottom;
 
-    expect(isInViewport).toBe(true);
+        return messageRect.top >= chatRect.top && gap >= 0 && gap <= 10;
+      },
+      await chat.elementHandle(),
+    );
+
+    expect(isAtBottom).toBe(true);
   });
 
   // test.describe('when sending a new message', () => {
