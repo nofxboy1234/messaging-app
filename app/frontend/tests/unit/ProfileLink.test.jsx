@@ -12,18 +12,26 @@ vi.mock('../../pathHelpers', () => {
 });
 
 vi.mock('../../pages/User/Link', () => ({
-  default: ({ targetPath }) => <div>user link</div>,
+  default: ({ children, targetPath }) => <div>user link {children}</div>,
 }));
 
+vi.mock('../../pages/Profile/Picture', () => {
+  return {
+    default: function Picture({ src, scale }) {
+      return <div>profile picture</div>;
+    },
+  };
+});
+
 describe('ProfileLink', () => {
-  it('should render a UserLink', () => {
+  it('should render a profile picture', () => {
     const user = { profile: { picture: 'picture url', username: 'user1' } };
     const active = true;
     const scale = 1;
     render(<ProfileLink user={user} active={active} scale={scale} />);
 
     screen.debug();
-    const userLink = screen.getByText('user link');
-    expect(userLink).toBeInTheDocument();
+    const profilePicture = screen.getByText('profile picture');
+    expect(profilePicture).toBeInTheDocument();
   });
 });
