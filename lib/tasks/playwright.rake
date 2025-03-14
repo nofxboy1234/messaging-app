@@ -29,9 +29,9 @@ namespace :playwright do
     friendship.chat.members << [ user, friend ]
 
     create(:message, body: "first message", chat: friendship.chat, user:)
-    create_list(:message, 50, chat: friendship.chat, user: [ user, friend ].sample)
+    create_list(:message, 500, chat: friendship.chat, user: [ user, friend ].sample)
     create(:message, body: "middle message", chat: friendship.chat, user:)
-    create_list(:message, 50, chat: friendship.chat, user: [ user, friend ].sample)
+    create_list(:message, 500, chat: friendship.chat, user: [ user, friend ].sample)
     create(:message, body: "last message", chat: friendship.chat, user:)
 
     puts "setup test data"
