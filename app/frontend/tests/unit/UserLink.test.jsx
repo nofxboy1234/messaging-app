@@ -3,8 +3,6 @@ import { render, screen } from '@testing-library/react';
 import UserLink from '../../pages/User/Link';
 
 vi.mock('@inertiajs/react', () => {
-  console.log('mocking Link');
-
   return {
     Link: ({ className, children, href }) => (
       <a className={className} href={href}>
