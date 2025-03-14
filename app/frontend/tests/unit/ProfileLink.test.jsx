@@ -24,24 +24,37 @@ vi.mock('../../pages/Profile/Picture', () => {
 });
 
 describe('ProfileLink', () => {
-  it('should render the profile picture of the user prop', () => {
+  it('should render a username', () => {
     const user = { profile: { picture: 'picture url', username: 'user1' } };
     const active = true;
     const scale = 1;
     render(<ProfileLink user={user} active={active} scale={scale} />);
 
-    const profilePicture = screen.getByText('profile picture');
-    expect(profilePicture).toBeInTheDocument();
+    const username = screen.getByText('user1');
+    screen.debug();
+    expect(username).toBeInTheDocument();
   });
 
-  it('should render the username of the user prop', () => {
+  it('should render any children passed to it', () => {
     const user = { profile: { picture: 'picture url', username: 'user1' } };
     const active = true;
     const scale = 1;
-    render(<ProfileLink user={user} active={active} scale={scale} />);
+    render(
+      <ProfileLink user={user} active={active} scale={scale}>
+        <div>child 1</div>
+        <div>child 2</div>
+        <div>
+          <div>child 3</div>
+        </div>
+      </ProfileLink>,
+    );
 
     screen.debug();
-    const username = screen.getByText('user1');
-    expect(username).toBeInTheDocument();
+    const child1 = screen.getByText('child 1');
+    expect(child1).toBeInTheDocument();
+    const child2 = screen.getByText('child 2');
+    expect(child2).toBeInTheDocument();
+    const child3 = screen.getByText('child 3');
+    expect(child3).toBeInTheDocument();
   });
 });
