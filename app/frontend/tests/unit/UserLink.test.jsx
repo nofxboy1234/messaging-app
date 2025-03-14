@@ -17,7 +17,6 @@ describe('UserLink', () => {
     const targetPath = 'https://google.com';
     render(<UserLink targetPath={targetPath}>hello</UserLink>);
 
-    screen.debug();
     const link = screen.getByRole('link', { name: 'hello' });
     expect(link).toBeInTheDocument();
   });

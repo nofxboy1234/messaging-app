@@ -31,7 +31,6 @@ describe('ProfileLink', () => {
     render(<ProfileLink user={user} active={active} scale={scale} />);
 
     const username = screen.getByText('user1');
-    screen.debug();
     expect(username).toBeInTheDocument();
   });
 
@@ -49,7 +48,6 @@ describe('ProfileLink', () => {
       </ProfileLink>,
     );
 
-    screen.debug();
     const child1 = screen.getByText('child 1');
     expect(child1).toBeInTheDocument();
     const child2 = screen.getByText('child 2');

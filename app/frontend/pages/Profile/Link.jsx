@@ -22,7 +22,7 @@ function ProfileLink({ className, children, user, active, scale }) {
 
 ProfileLink.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.object,
+  children: PropTypes.array,
   user: PropTypes.object,
   active: PropTypes.bool,
   scale: PropTypes.number,
