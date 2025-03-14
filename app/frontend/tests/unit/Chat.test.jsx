@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 import { forwardRef } from 'react';
 import Chat from '../../pages/Chat/Chat';
 import consumer from '../../channels/consumer';
-import { scrollIntoViewMock } from '../../pages/Message/Message';
 
 vi.mock('../../pages/Message/Message', () => {
   const scrollIntoViewMock = vi.fn(function () {
