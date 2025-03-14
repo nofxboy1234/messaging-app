@@ -17,7 +17,7 @@ function HeaderProfileLink({ className, children, user, active, scale = 0.7 }) {
 
 HeaderProfileLink.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.object,
+  children: PropTypes.array,
   user: PropTypes.object,
   active: PropTypes.bool,
   scale: PropTypes.number,
