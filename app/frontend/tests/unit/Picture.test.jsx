@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Picture from '../../pages/Profile/Picture';
 
-describe('Message', () => {
+describe('Picture', () => {
   it('should render an image representing a user profile picture', () => {
     const src = '';
     const scale = 1;
