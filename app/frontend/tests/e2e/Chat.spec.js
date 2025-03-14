@@ -35,22 +35,33 @@ test.describe('when navigating to the Chat page', () => {
     await cleanup_test_data();
   });
 
-  test('should show the last message', async ({ page }) => {
+  test('should show the last message at the bottom of the chat viewport', async ({
+    page,
+  }) => {
     const chat = page.getByTestId('root');
     const lastMessage = page.getByText('last message');
 
-    const isAtBottom = await lastMessage.evaluate(
+    const lastMessageInChatViewport = await lastMessage.evaluate(
       (message, container) => {
         const messageRect = message.getBoundingClientRect();
         const chatRect = container.getBoundingClientRect();
-        const gap = chatRect.bottom - messageRect.bottom;
 
-        return messageRect.top >= chatRect.top && gap >= 0 && gap <= 10;
+        return (
+          messageRect.top >= chatRect.top &&
+          messageRect.bottom <= chatRect.bottom
+        );
       },
       await chat.elementHandle(),
     );
 
-    expect(isAtBottom).toBe(true);
+    const chatScrollBarAtBottom = await chat.evaluate((chat) => {
+      return (
+        Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
+      );
+    });
+
+    expect(lastMessageInChatViewport).toBe(true);
+    expect(chatScrollBarAtBottom).toBe(true);
   });
 
   // test.describe('when sending a new message', () => {
