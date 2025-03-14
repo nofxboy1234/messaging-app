@@ -100,16 +100,42 @@ test.describe('when navigating to the Chat page', () => {
     });
   });
 
-  // test.describe('when scrolling partially in the chat, then sending a message', () => {
-  //   test.skip('should not show the sent message at the bottom', async ({
-  //     page,
-  //   }) => {
-  //     const input = page.getByRole('textbox');
-  //     const sendButton = page.getByRole('button', { name: 'Send' });
-  //     await input.fill('new message');
-  //     await sendButton.click();
-  //     const newMessage = page.getByText('new message');
-  //     await expect(newMessage).toBeVisible();
-  //   });
-  // });
+  test.describe('when scrolling partially in the chat, then sending a message', () => {
+    test('should show the new message at the bottom of the chat viewport', async ({
+      page,
+    }) => {
+      const middleMessage = page.getByText('middle message');
+      middleMessage.scrollIntoViewIfNeeded();
+
+      const input = page.getByRole('textbox');
+      const sendButton = page.getByRole('button', { name: 'Send' });
+      await input.fill('new message');
+      await sendButton.click();
+
+      const chat = page.getByTestId('root');
+      const newMessage = page.getByText('new message');
+
+      const newMessageInChatViewport = await newMessage.evaluate(
+        (message, container) => {
+          const messageRect = message.getBoundingClientRect();
+          const chatRect = container.getBoundingClientRect();
+
+          return (
+            messageRect.top >= chatRect.top &&
+            messageRect.bottom <= chatRect.bottom
+          );
+        },
+        await chat.elementHandle(),
+      );
+
+      const chatScrollBarAtBottom = await chat.evaluate((chat) => {
+        return (
+          Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
+        );
+      });
+
+      expect(newMessageInChatViewport).toBe(false);
+      expect(chatScrollBarAtBottom).toBe(false);
+    });
+  });
 });
