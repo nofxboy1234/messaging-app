@@ -24,14 +24,24 @@ vi.mock('../../pages/Profile/Picture', () => {
 });
 
 describe('ProfileLink', () => {
-  it('should render a profile picture', () => {
+  it('should render the profile picture of the user prop', () => {
+    const user = { profile: { picture: 'picture url', username: 'user1' } };
+    const active = true;
+    const scale = 1;
+    render(<ProfileLink user={user} active={active} scale={scale} />);
+
+    const profilePicture = screen.getByText('profile picture');
+    expect(profilePicture).toBeInTheDocument();
+  });
+
+  it('should render the username of the user prop', () => {
     const user = { profile: { picture: 'picture url', username: 'user1' } };
     const active = true;
     const scale = 1;
     render(<ProfileLink user={user} active={active} scale={scale} />);
 
     screen.debug();
-    const profilePicture = screen.getByText('profile picture');
-    expect(profilePicture).toBeInTheDocument();
+    const username = screen.getByText('user1');
+    expect(username).toBeInTheDocument();
   });
 });
