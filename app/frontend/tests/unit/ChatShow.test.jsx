@@ -28,20 +28,20 @@ vi.mock('../../pages/Chat/MessageBox', () => ({
 vi.mock('../../channels/subscriptions', () => {
   const allUserChannelMock = { unsubscribe: vi.fn() };
   const chatUserChannelMock = { unsubscribe: vi.fn() };
-  let currentUserChannel = allUserChannelMock;
+  let currentUserChannelMock = allUserChannelMock;
 
   return {
     allUserChannel: vi.fn(() => {
-      currentUserChannel = allUserChannelMock;
+      currentUserChannelMock = allUserChannelMock;
       return allUserChannelMock;
     }),
     chatUserChannel: vi.fn(() => {
-      currentUserChannel = chatUserChannelMock;
+      currentUserChannelMock = chatUserChannelMock;
       return chatUserChannelMock;
     }),
     allUserChannelMock,
     chatUserChannelMock,
-    getCurrentUserChannel: () => currentUserChannel,
+    getCurrentUserChannel: () => currentUserChannelMock,
   };
 });
 
@@ -74,7 +74,6 @@ describe('ChatShow', () => {
 
   beforeEach(() => {
     setUsers = vi.fn();
-    // const currentUserChannel = { unsubscribe: vi.fn() };
     setUserChannel = vi.fn((fn) => fn(getCurrentUserChannel()));
   });
 
