@@ -8,7 +8,7 @@ import {
   allUserChannel,
   allUserChannelMock,
   chatUserChannelMock,
-  currentUserChannel,
+  getCurrentUserChannel,
 } from '../../channels/subscriptions';
 
 vi.mock('../../pages/Chat/HeaderProfileLink', () => ({
@@ -41,7 +41,7 @@ vi.mock('../../channels/subscriptions', () => {
     }),
     allUserChannelMock,
     chatUserChannelMock,
-    currentUserChannel,
+    getCurrentUserChannel: () => currentUserChannel,
   };
 });
 
@@ -75,11 +75,11 @@ describe('ChatShow', () => {
   beforeEach(() => {
     setUsers = vi.fn();
     // const currentUserChannel = { unsubscribe: vi.fn() };
-    setUserChannel = vi.fn((fn) => fn(currentUserChannel));
+    setUserChannel = vi.fn((fn) => fn(getCurrentUserChannel()));
   });
 
   describe('when it mounts', () => {
-    it('should set users to the users in the chat and subscribe to chatUserChannel', () => {
+    it('should set users to the users in the chat, unsubscribe from allUserChannel and subscribe to chatUserChannel', () => {
       render(
         <UsersContext.Provider value={{ setUsers, setUserChannel }}>
           <ChatShow chat={chat} chattingWith={chattingWith} />/
@@ -87,7 +87,9 @@ describe('ChatShow', () => {
       );
 
       expect(setUsers).toHaveBeenCalledWith(chat.members);
+      expect(allUserChannelMock.unsubscribe).toHaveBeenCalled();
       expect(chatUserChannel).toHaveBeenCalledWith({ id: 1 }, setUsers);
+      expect(getCurrentUserChannel()).toBe(chatUserChannelMock);
     });
   });
 
@@ -106,8 +108,9 @@ describe('ChatShow', () => {
         { id: 3, username: 'user3' },
         { id: 4, username: 'user4' },
       ]);
-      expect(currentUserChannel.unsubscribe).toHaveBeenCalled();
+      expect(chatUserChannelMock.unsubscribe).toHaveBeenCalled();
       expect(allUserChannel).toHaveBeenCalledWith(setUsers);
+      expect(getCurrentUserChannel()).toBe(allUserChannelMock);
     });
   });
 });
