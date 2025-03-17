@@ -3,8 +3,13 @@ import { render } from '@testing-library/react';
 
 import { UsersContext } from '../../pages/Layout';
 import ChatShow from '../../pages/Chat/Show';
-import { chatUserChannel, allUserChannel } from '../../channels/subscriptions';
-import { usePage } from '@inertiajs/react';
+import {
+  chatUserChannel,
+  allUserChannel,
+  allUserChannelMock,
+  chatUserChannelMock,
+  currentUserChannel,
+} from '../../channels/subscriptions';
 
 vi.mock('../../pages/Chat/HeaderProfileLink', () => ({
   default: ({ className, children, user, active, scale = 0.7 }) => (
@@ -21,9 +26,22 @@ vi.mock('../../pages/Chat/MessageBox', () => ({
 }));
 
 vi.mock('../../channels/subscriptions', () => {
+  const allUserChannelMock = { unsubscribe: vi.fn() };
+  const chatUserChannelMock = { unsubscribe: vi.fn() };
+  let currentUserChannel = allUserChannelMock;
+
   return {
-    allUserChannel: vi.fn(() => ({ unsubscribe: vi.fn() })),
-    chatUserChannel: vi.fn(() => ({ unsubscribe: vi.fn() })),
+    allUserChannel: vi.fn(() => {
+      currentUserChannel = allUserChannelMock;
+      return allUserChannelMock;
+    }),
+    chatUserChannel: vi.fn(() => {
+      currentUserChannel = chatUserChannelMock;
+      return chatUserChannelMock;
+    }),
+    allUserChannelMock,
+    chatUserChannelMock,
+    currentUserChannel,
   };
 });
 
@@ -56,7 +74,7 @@ describe('ChatShow', () => {
 
   beforeEach(() => {
     setUsers = vi.fn();
-    const currentUserChannel = { unsubscribe: vi.fn() };
+    // const currentUserChannel = { unsubscribe: vi.fn() };
     setUserChannel = vi.fn((fn) => fn(currentUserChannel));
   });
 
@@ -74,7 +92,7 @@ describe('ChatShow', () => {
   });
 
   describe('when it unmounts', () => {
-    it('should set users to all users and subscribe to allUserChannel', () => {
+    it('should set users to all users, unsubscribe from chatUserChannel and subscribe to allUserChannel', () => {
       const { unmount } = render(
         <UsersContext.Provider value={{ setUsers, setUserChannel }}>
           <ChatShow chat={chat} chattingWith={chattingWith} />/
@@ -88,20 +106,8 @@ describe('ChatShow', () => {
         { id: 3, username: 'user3' },
         { id: 4, username: 'user4' },
       ]);
+      expect(currentUserChannel.unsubscribe).toHaveBeenCalled();
       expect(allUserChannel).toHaveBeenCalledWith(setUsers);
     });
   });
-
-  // it('should call the setUser, setUserChannel on unmount', () => {
-  //   const { unmount } = render(
-  //     <UsersContext.Provider
-  //       value={{
-  //         setUsers,
-  //         setUserChannel,
-  //       }}
-  //     >
-  //       <ChatShow chat={chat} chattingWith={chattingWith} shared={shared} />,
-  //     </UsersContext.Provider>,
-  //   );
-  // });
 });
