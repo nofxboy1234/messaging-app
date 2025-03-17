@@ -73,6 +73,25 @@ describe('ChatShow', () => {
     });
   });
 
+  describe('when it unmounts', () => {
+    it('should set users to all users and subscribe to allUserChannel', () => {
+      const { unmount } = render(
+        <UsersContext.Provider value={{ setUsers, setUserChannel }}>
+          <ChatShow chat={chat} chattingWith={chattingWith} />/
+        </UsersContext.Provider>,
+      );
+      unmount();
+
+      expect(setUsers).toHaveBeenCalledWith([
+        { id: 1, username: 'user1' },
+        { id: 2, username: 'user2' },
+        { id: 3, username: 'user3' },
+        { id: 4, username: 'user4' },
+      ]);
+      expect(allUserChannel).toHaveBeenCalledWith(setUsers);
+    });
+  });
+
   // it('should call the setUser, setUserChannel on unmount', () => {
   //   const { unmount } = render(
   //     <UsersContext.Provider
