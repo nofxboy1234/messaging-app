@@ -6,7 +6,6 @@ import HeaderProfileLink from './HeaderProfileLink';
 import { useContext, useEffect } from 'react';
 import { UsersContext } from '../Layout';
 
-import subscribe from '../../channels/subscriptions';
 import { usePage } from '@inertiajs/react';
 import { chatUserChannel, allUserChannel } from '../../channels/subscriptions';
 
