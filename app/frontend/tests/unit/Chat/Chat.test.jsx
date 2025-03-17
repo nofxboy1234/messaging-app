@@ -2,10 +2,10 @@ import { vi, describe, it, expect } from 'vitest';
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { forwardRef } from 'react';
-import Chat from '../../pages/Chat/Chat';
-import consumer from '../../channels/consumer';
+import Chat from '../../../pages/Chat/Chat';
+import consumer from '../../../channels/consumer';
 
-vi.mock('../../pages/Message/Message', () => {
+vi.mock('../../../pages/Message/Message', () => {
   const scrollIntoViewMock = vi.fn(function () {
     console.log(this.lastChild.textContent);
   });
@@ -32,7 +32,7 @@ vi.mock('../../pages/Message/Message', () => {
   };
 });
 
-vi.mock('../../channels/consumer', async () => {
+vi.mock('../../../channels/consumer', async () => {
   const subscription = {
     unsubscribe: vi.fn(),
     received: null,

@@ -2,11 +2,11 @@ import { vi, describe, it, expect } from 'vitest';
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { forwardRef } from 'react';
-import Chat from '../../pages/Chat/Chat';
-import Message from '../../pages/Message/Message';
-import consumer from '../../channels/consumer';
+import Chat from '../../../pages/Chat/Chat';
+import Message from '../../../pages/Message/Message';
+import consumer from '../../../channels/consumer';
 
-vi.mock('../../pages/Profile/Picture', () => {
+vi.mock('../../../pages/Profile/Picture', () => {
   return {
     default: function Picture({ src, scale }) {
       return <div>profile picture</div>;

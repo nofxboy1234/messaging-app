@@ -1,31 +1,31 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { render } from '@testing-library/react';
 
-import { UsersContext } from '../../pages/Layout';
-import ChatShow from '../../pages/Chat/Show';
+import { UsersContext } from '../../../pages/Layout';
+import ChatShow from '../../../pages/Chat/Show';
 import {
   chatUserChannel,
   allUserChannel,
   allUserChannelMock,
   chatUserChannelMock,
   getCurrentUserChannel,
-} from '../../channels/subscriptions';
+} from '../../../channels/subscriptions';
 
-vi.mock('../../pages/Chat/HeaderProfileLink', () => ({
+vi.mock('../../../pages/Chat/HeaderProfileLink', () => ({
   default: ({ className, children, user, active, scale = 0.7 }) => (
     <div>{user.username}</div>
   ),
 }));
 
-vi.mock('../../pages/Chat/Chat', () => ({
+vi.mock('../../../pages/Chat/Chat', () => ({
   default: ({ className, chat }) => <div>chat</div>,
 }));
 
-vi.mock('../../pages/Chat/MessageBox', () => ({
+vi.mock('../../../pages/Chat/MessageBox', () => ({
   default: ({ className, chat }) => <div>message box</div>,
 }));
 
-vi.mock('../../channels/subscriptions', () => {
+vi.mock('../../../channels/subscriptions', () => {
   const allUserChannelMock = { unsubscribe: vi.fn() };
   const chatUserChannelMock = { unsubscribe: vi.fn() };
   let currentUserChannelMock = allUserChannelMock;

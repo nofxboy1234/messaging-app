@@ -1,8 +1,8 @@
 import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import ProfileLink from '../../pages/Profile/Link';
+import ProfileLink from '../../../pages/Profile/Link';
 
-vi.mock('../../pathHelpers', () => {
+vi.mock('../../../pathHelpers', () => {
   const show = vi.fn();
   show.path = vi.fn();
 
@@ -11,11 +11,11 @@ vi.mock('../../pathHelpers', () => {
   };
 });
 
-vi.mock('../../pages/User/Link', () => ({
+vi.mock('../../../pages/User/Link', () => ({
   default: ({ children, targetPath }) => <div>user link {children}</div>,
 }));
 
-vi.mock('../../pages/Profile/Picture', () => {
+vi.mock('../../../pages/Profile/Picture', () => {
   return {
     default: function Picture({ src, scale }) {
       return <div>profile picture</div>;

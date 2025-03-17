@@ -1,10 +1,10 @@
 import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MessageBox from '../../pages/Chat/MessageBox';
-import sendMessage from '../../pages/Chat/Buttons/sendMessage';
+import MessageBox from '../../../pages/Chat/MessageBox';
+import sendMessage from '../../../pages/Chat/Buttons/sendMessage';
 
-vi.mock('../../pages/Chat/Buttons/sendMessage', () => ({
+vi.mock('../../../pages/Chat/Buttons/sendMessage', () => ({
   default: vi.fn(),
 }));
 

@@ -1,7 +1,7 @@
 import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Button from '../../pages/Buttons/Button';
+import Button from '../../../pages/Buttons/Button';
 
 describe('Button', () => {
   it('should render a button with the "text" prop as its text', () => {

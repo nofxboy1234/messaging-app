@@ -1,6 +1,6 @@
 import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import UserLink from '../../pages/User/Link';
+import UserLink from '../../../pages/User/Link';
 
 vi.mock('@inertiajs/react', () => {
   return {

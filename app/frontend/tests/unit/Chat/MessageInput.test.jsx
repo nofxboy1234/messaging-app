@@ -1,7 +1,7 @@
 import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MessageInput from '../../pages/Chat/MessageInput';
+import MessageInput from '../../../pages/Chat/MessageInput';
 
 describe('MessageInput', () => {
   it('should render an input', () => {

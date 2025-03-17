@@ -1,8 +1,8 @@
 import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import HeaderProfileLink from '../../pages/Chat/HeaderProfileLink';
+import HeaderProfileLink from '../../../pages/Chat/HeaderProfileLink';
 
-vi.mock('../../pages/Profile/Link', () => ({
+vi.mock('../../../pages/Profile/Link', () => ({
   default: ({ children, user, active, scale }) => (
     <div>profile link {children}</div>
   ),
