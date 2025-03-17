@@ -112,4 +112,40 @@ describe('ChatShow', () => {
       expect(getCurrentUserChannel()).toBe(allUserChannelMock);
     });
   });
+
+  describe('when chat.members changes', () => {
+    it('should set users and re-subscribe to chatUserChannel', () => {
+      const { rerender } = render(
+        <UsersContext.Provider value={{ setUsers, setUserChannel }}>
+          <ChatShow chat={chat} chattingWith={chattingWith} />/
+        </UsersContext.Provider>,
+      );
+
+      const newChat = {
+        id: 2,
+        members: [
+          { id: 1, username: 'user1' },
+          { id: 3, username: 'user3' },
+        ],
+      };
+      rerender(
+        <UsersContext.Provider value={{ setUsers, setUserChannel }}>
+          <ChatShow chat={newChat} chattingWith={chattingWith} />/
+        </UsersContext.Provider>,
+      );
+
+      expect(setUsers).toHaveBeenCalledWith([
+        { id: 1, username: 'user1' },
+        { id: 2, username: 'user2' },
+        { id: 3, username: 'user3' },
+        { id: 4, username: 'user4' },
+      ]);
+      expect(chatUserChannelMock.unsubscribe).toHaveBeenCalled();
+      expect(allUserChannel).toHaveBeenCalledWith(setUsers);
+
+      expect(setUsers).toHaveBeenCalledWith(newChat.members);
+      expect(allUserChannelMock.unsubscribe).toHaveBeenCalled();
+      expect(chatUserChannel).toHaveBeenCalledWith({ id: 1 }, setUsers);
+    });
+  });
 });
