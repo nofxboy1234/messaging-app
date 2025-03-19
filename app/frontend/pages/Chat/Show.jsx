@@ -3,17 +3,51 @@ import Chat from './Chat';
 import MessageBox from './MessageBox';
 import PropTypes from 'prop-types';
 import HeaderProfileLink from './HeaderProfileLink';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import { UsersContext } from '../Layout';
 
 import { usePage } from '@inertiajs/react';
 import { chatUserChannel, allUserChannel } from '../../channels/subscriptions';
+import usePreviousValues from './usePreviousValues';
 
 function ChatShow({ className, chat, chattingWith }) {
   const { setUsers, setUserChannel } = useContext(UsersContext);
   const { shared } = usePage().props;
 
+  const deps = useMemo(
+    () => ({
+      'shared.users': shared.users,
+      'chat.members': chat.members,
+      setUserChannel: setUserChannel,
+      setUsers: setUsers,
+      'shared.current_user.id': shared.current_user.id,
+    }),
+    [
+      shared.users,
+      chat.members,
+      setUserChannel,
+      setUsers,
+      shared.current_user.id,
+    ],
+  );
+
+  const depsValues = useMemo(() => Object.values(deps), [deps]);
+  const prevValues = usePreviousValues(depsValues);
+
   useEffect(() => {
+    prevValues.forEach((prevValue, index) => {
+      const currentValue = depsValues[index];
+
+      if (!Object.is(prevValue, currentValue)) {
+        console.log(
+          `${Object.keys(deps)[index]}: `,
+          prevValue,
+          ' => ',
+          currentValue,
+        );
+      }
+    });
+
     setUsers(chat.members);
     setUserChannel((userChannel) => {
       userChannel.unsubscribe();
@@ -33,6 +67,8 @@ function ChatShow({ className, chat, chattingWith }) {
     setUserChannel,
     setUsers,
     shared.current_user.id,
+    depsValues,
+    prevValues,
   ]);
 
   return (
