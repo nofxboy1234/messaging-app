@@ -18,5 +18,7 @@ export default defineConfig({
     setupFiles: './tests/setup.js',
     clearMocks: true,
     exclude: [...configDefaults.exclude, '**/*.spec.?(c|m)[jt]s?(x)'],
+    testTimeout: 0,
+    fileParallelism: false,
   },
 });

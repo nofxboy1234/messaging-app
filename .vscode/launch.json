@@ -13,6 +13,17 @@
       "runtimeArgs": [
         "--load-extension=${env:userprofile}/home/dylan/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/6.1.1_0"
       ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Current Test File",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
+      "args": ["run", "${relativeFile}"],
+      "smartStep": true,
+      "console": "integratedTerminal"
     }
   ]
 }
