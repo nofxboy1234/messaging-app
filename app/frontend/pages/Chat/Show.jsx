@@ -69,6 +69,7 @@ function ChatShow({ className, chat, chattingWith }) {
     shared.current_user.id,
     depsValues,
     prevValues,
+    deps,
   ]);
 
   return (
