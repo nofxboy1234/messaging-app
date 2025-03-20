@@ -3,7 +3,7 @@ import Chat from './Chat';
 import MessageBox from './MessageBox';
 import PropTypes from 'prop-types';
 import HeaderProfileLink from './HeaderProfileLink';
-import { useContext, useEffect, useMemo } from 'react';
+import { useContext, useEffect } from 'react';
 import { UsersContext } from '../Layout';
 
 import { usePage } from '@inertiajs/react';
@@ -14,37 +14,20 @@ function ChatShow({ className, chat, chattingWith }) {
   const { setUsers, setUserChannel } = useContext(UsersContext);
   const { shared } = usePage().props;
 
-  const deps = useMemo(
-    () => ({
-      'shared.users': shared.users,
-      'chat.members': chat.members,
-      setUserChannel: setUserChannel,
-      setUsers: setUsers,
-      'shared.current_user.id': shared.current_user.id,
-    }),
-    [
-      shared.users,
-      chat.members,
-      setUserChannel,
-      setUsers,
-      shared.current_user.id,
-    ],
-  );
-
-  const depsValues = useMemo(() => Object.values(deps), [deps]);
-  const prevValues = usePreviousValues(depsValues);
+  const [valueNames, prevValues, curValues] = usePreviousValues({
+    'shared.users': shared.users,
+    'chat.members': chat.members,
+    setUserChannel: setUserChannel,
+    setUsers: setUsers,
+    'shared.current_user.id': shared.current_user.id,
+  });
 
   useEffect(() => {
     prevValues.forEach((prevValue, index) => {
-      const currentValue = depsValues[index];
+      const currentValue = curValues[index];
 
       if (!Object.is(prevValue, currentValue)) {
-        console.log(
-          `${Object.keys(deps)[index]}: `,
-          prevValue,
-          ' => ',
-          currentValue,
-        );
+        console.log(`${valueNames[index]}: `, prevValue, ' => ', currentValue);
       }
     });
 
@@ -62,14 +45,14 @@ function ChatShow({ className, chat, chattingWith }) {
       });
     };
   }, [
-    shared.users,
     chat.members,
+    shared.users,
     setUserChannel,
     setUsers,
     shared.current_user.id,
-    depsValues,
     prevValues,
-    deps,
+    curValues,
+    valueNames,
   ]);
 
   return (

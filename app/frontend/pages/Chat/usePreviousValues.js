@@ -1,13 +1,15 @@
 import { useEffect, useRef } from 'react';
 
-function usePreviousValues(values) {
+function usePreviousValues(valuesObject) {
+  const valueNames = Object.keys(valuesObject);
+  const curValues = Object.values(valuesObject);
   const prevValuesRef = useRef([]);
 
   useEffect(() => {
-    prevValuesRef.current = [...values];
-  }, [values]);
+    prevValuesRef.current = [...curValues];
+  }, [curValues]);
 
-  return prevValuesRef.current;
+  return [valueNames, prevValuesRef.current, curValues];
 }
 
 export default usePreviousValues;
