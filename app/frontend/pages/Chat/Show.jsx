@@ -9,6 +9,7 @@ import { UsersContext } from '../Layout';
 import { usePage } from '@inertiajs/react';
 import { chatUserChannel, allUserChannel } from '../../channels/subscriptions';
 import usePreviousValues from './usePreviousValues';
+import logChangedValues from './logChangedValues';
 
 function ChatShow({ className, chat, chattingWith }) {
   const { setUsers, setUserChannel } = useContext(UsersContext);
@@ -22,15 +23,9 @@ function ChatShow({ className, chat, chattingWith }) {
     'shared.current_user.id': shared.current_user.id,
   });
 
+  logChangedValues(valueNames, prevValues, curValues);
+
   useEffect(() => {
-    prevValues.forEach((prevValue, index) => {
-      const currentValue = curValues[index];
-
-      if (!Object.is(prevValue, currentValue)) {
-        console.log(`${valueNames[index]}: `, prevValue, ' => ', currentValue);
-      }
-    });
-
     setUsers(chat.members);
     setUserChannel((userChannel) => {
       userChannel.unsubscribe();
@@ -46,13 +41,10 @@ function ChatShow({ className, chat, chattingWith }) {
     };
   }, [
     chat.members,
-    shared.users,
     setUserChannel,
     setUsers,
     shared.current_user.id,
-    prevValues,
-    curValues,
-    valueNames,
+    shared.users,
   ]);
 
   return (
