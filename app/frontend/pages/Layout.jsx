@@ -10,23 +10,13 @@ import './styles.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import { createContext, useEffect, useState } from 'react';
 
-import { allUserChannel } from '../channels/subscriptions';
-
-export const UsersContext = createContext({
-  setUsers: () => {},
-  setUserChannel: () => {},
+export const ChatContext = createContext({
+  setActiveChat: () => {},
 });
 
 const LayoutContainer = ({ className, children }) => {
   const { shared } = usePage().props;
-  const [users, setUsers] = useState(shared.users);
-  const [userChannel, setUserChannel] = useState(allUserChannel(setUsers));
-
-  useEffect(() => {
-    return () => {
-      userChannel.unsubscribe();
-    };
-  }, [userChannel]);
+  const [activeChat, setActiveChat] = useState();
 
   useEffect(() => {
     return router.on('invalid', (event) => {
@@ -49,17 +39,16 @@ const LayoutContainer = ({ className, children }) => {
             <ChatIndex initialChats={shared.chats} />
           </Chats>
           <Content>
-            <UsersContext.Provider
+            <ChatContext.Provider
               value={{
-                setUsers,
-                setUserChannel,
+                setActiveChat,
               }}
             >
               {children}
-            </UsersContext.Provider>
+            </ChatContext.Provider>
           </Content>
           <Users id="users">
-            <UserIndex users={users} />
+            <UserIndex allUsers={shared.users} activeChat={activeChat} />
           </Users>
         </Main>
       </div>

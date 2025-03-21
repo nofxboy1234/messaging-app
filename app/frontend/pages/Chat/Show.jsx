@@ -4,48 +4,26 @@ import MessageBox from './MessageBox';
 import PropTypes from 'prop-types';
 import HeaderProfileLink from './HeaderProfileLink';
 import { useContext, useEffect } from 'react';
-import { UsersContext } from '../Layout';
+import { ChatContext } from '../Layout';
 
-import { usePage } from '@inertiajs/react';
-import { chatUserChannel, allUserChannel } from '../../channels/subscriptions';
 import usePreviousValues from './usePreviousValues';
 import logChangedValues from './logChangedValues';
 
 function ChatShow({ className, chat, chattingWith }) {
-  const { setUsers, setUserChannel } = useContext(UsersContext);
-  const { shared } = usePage().props;
+  const { setActiveChat } = useContext(ChatContext);
 
   const [valueNames, prevValues, curValues] = usePreviousValues({
-    'shared.users': shared.users,
-    'chat.members': chat.members,
-    setUserChannel: setUserChannel,
-    setUsers: setUsers,
-    'shared.current_user.id': shared.current_user.id,
+    chat: chat,
+    setActiveChat: setActiveChat,
   });
 
   logChangedValues(valueNames, prevValues, curValues);
 
   useEffect(() => {
-    setUsers(chat.members);
-    setUserChannel((userChannel) => {
-      userChannel.unsubscribe();
-      return chatUserChannel({ id: shared.current_user.id }, setUsers);
-    });
+    setActiveChat(chat);
 
-    return () => {
-      setUsers(shared.users);
-      setUserChannel((userChannel) => {
-        userChannel.unsubscribe();
-        return allUserChannel(setUsers);
-      });
-    };
-  }, [
-    chat.members,
-    setUserChannel,
-    setUsers,
-    shared.current_user.id,
-    shared.users,
-  ]);
+    return () => setActiveChat(null);
+  }, [chat, setActiveChat]);
 
   return (
     <div className={className}>
