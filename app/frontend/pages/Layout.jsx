@@ -8,15 +8,10 @@ import NavBar from './NavBar';
 
 import './styles.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
-import { createContext, useEffect, useState } from 'react';
-
-export const ChatContext = createContext({
-  setActiveChat: () => {},
-});
+import { useEffect } from 'react';
 
 const LayoutContainer = ({ className, children }) => {
-  const { shared } = usePage().props;
-  const [activeChat, setActiveChat] = useState();
+  const { shared, chat } = usePage().props;
 
   useEffect(() => {
     return router.on('invalid', (event) => {
@@ -38,17 +33,9 @@ const LayoutContainer = ({ className, children }) => {
           <Chats id="chats">
             <ChatIndex initialChats={shared.chats} />
           </Chats>
-          <Content>
-            <ChatContext.Provider
-              value={{
-                setActiveChat,
-              }}
-            >
-              {children}
-            </ChatContext.Provider>
-          </Content>
+          <Content>{children}</Content>
           <Users id="users">
-            <UserIndex allUsers={shared.users} activeChat={activeChat} />
+            <UserIndex allUsers={shared.users} activeChat={chat} />
           </Users>
         </Main>
       </div>

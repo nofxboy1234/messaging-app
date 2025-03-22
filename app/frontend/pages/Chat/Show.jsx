@@ -3,27 +3,9 @@ import Chat from './Chat';
 import MessageBox from './MessageBox';
 import PropTypes from 'prop-types';
 import HeaderProfileLink from './HeaderProfileLink';
-import { useContext, useEffect } from 'react';
-import { ChatContext } from '../Layout';
-
-import usePreviousValues from '../../hooks/usePreviousValues';
-import logChangedValues from '../../helpers/logChangedValues';
 
 function ChatShow({ className, chat, chattingWith }) {
-  const { setActiveChat } = useContext(ChatContext);
-
-  const [valueNames, prevValues, curValues] = usePreviousValues({
-    chat: chat,
-    setActiveChat: setActiveChat,
-  });
-
-  logChangedValues(valueNames, prevValues, curValues);
-
-  useEffect(() => {
-    setActiveChat(chat);
-
-    return () => setActiveChat(null);
-  }, [chat, setActiveChat]);
+  console.log('render Chat/Show');
 
   return (
     <div className={className}>

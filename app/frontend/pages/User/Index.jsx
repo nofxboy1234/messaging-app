@@ -4,22 +4,29 @@ import ProfileLink from '../Profile/Link';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import subscribe from '../../channels/subscriptions';
+import usePreviousValues from '../../hooks/usePreviousValues';
+import logChangedValues from '../../helpers/logChangedValues';
 
 function UserIndex({ className, allUsers, activeChat }) {
-  const [users, setUsers] = useState(() =>
-    activeChat ? activeChat.members : allUsers,
-  );
-
-  const isActiveChat = !!activeChat;
+  const [users, setUsers] = useState(() => {
+    const initialUsers = activeChat ? activeChat.members : allUsers;
+    return initialUsers;
+  });
 
   const addUser = (user) => {
     setUsers((users) => [...users, user]);
   };
 
+  const [valueNames, prevValues, curValues] = usePreviousValues({
+    activeChat,
+    allUsers,
+  });
+  logChangedValues(valueNames, prevValues, curValues);
+
   useEffect(() => {
     let userChannel;
 
-    if (isActiveChat) {
+    if (activeChat) {
       console.log('*** User/Index subscribe to ChatUserChannel ***');
 
       setUsers(activeChat.members);
@@ -36,11 +43,9 @@ function UserIndex({ className, allUsers, activeChat }) {
     }
 
     return () => {
-      console.log('*** users subscription effect cleanup ***');
-
       userChannel.unsubscribe();
     };
-  }, [activeChat?.id, isActiveChat]);
+  }, [activeChat, allUsers]);
 
   return (
     <div className={className}>
