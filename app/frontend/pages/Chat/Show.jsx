@@ -6,8 +6,8 @@ import HeaderProfileLink from './HeaderProfileLink';
 import { useContext, useEffect } from 'react';
 import { ChatContext } from '../Layout';
 
-import usePreviousValues from './usePreviousValues';
-import logChangedValues from './logChangedValues';
+import usePreviousValues from '../../hooks/usePreviousValues';
+import logChangedValues from '../../helpers/logChangedValues';
 
 function ChatShow({ className, chat, chattingWith }) {
   const { setActiveChat } = useContext(ChatContext);
