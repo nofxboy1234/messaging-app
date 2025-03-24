@@ -11,6 +11,9 @@ import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.t
 import { useEffect, useState } from 'react';
 import subscribe from '../channels/subscriptions';
 
+import usePreviousValues from '../hooks/usePreviousValues';
+import logChangedValues from '../helpers/logChangedValues';
+
 const LayoutContainer = ({ className, children }) => {
   const { shared, chat: activeChat } = usePage().props;
   const [users, setUsers] = useState(() => {
@@ -29,6 +32,9 @@ const LayoutContainer = ({ className, children }) => {
   }, []);
 
   const activeChatId = activeChat?.id;
+
+  const prevValues = usePreviousValues({ activeChatId });
+  logChangedValues(...prevValues);
 
   useEffect(() => {
     const userChannelSubscriptionInfo = activeChatId
