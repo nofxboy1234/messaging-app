@@ -2,50 +2,9 @@ import UserTotal from './Total';
 import PropTypes from 'prop-types';
 import ProfileLink from '../Profile/Link';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import subscribe from '../../channels/subscriptions';
-import usePreviousValues from '../../hooks/usePreviousValues';
-import logChangedValues from '../../helpers/logChangedValues';
 
-function UserIndex({ className, allUsers, activeChat }) {
-  const [users, setUsers] = useState(() => {
-    const initialUsers = activeChat ? activeChat.members : allUsers;
-    return initialUsers;
-  });
-
-  const addUser = (user) => {
-    setUsers((users) => [...users, user]);
-  };
-
-  const [valueNames, prevValues, curValues] = usePreviousValues({
-    activeChat,
-    allUsers,
-  });
-  logChangedValues(valueNames, prevValues, curValues);
-
-  useEffect(() => {
-    let userChannel;
-
-    if (activeChat) {
-      console.log('*** User/Index subscribe to ChatUserChannel ***');
-
-      setUsers(activeChat.members);
-      userChannel = subscribe(
-        'ChatUserChannel',
-        { id: activeChat.id },
-        addUser,
-      );
-    } else {
-      console.log('*** User/Index subscribe to AllUserChannel ***');
-
-      setUsers(allUsers);
-      userChannel = subscribe('AllUserChannel', {}, addUser);
-    }
-
-    return () => {
-      userChannel.unsubscribe();
-    };
-  }, [activeChat, allUsers]);
+function UserIndex({ className, users }) {
+  console.log('render User/Index');
 
   return (
     <div className={className}>
@@ -61,8 +20,7 @@ function UserIndex({ className, allUsers, activeChat }) {
 
 UserIndex.propTypes = {
   className: PropTypes.string,
-  allUsers: PropTypes.array,
-  activeChat: PropTypes.object,
+  users: PropTypes.array,
 };
 
 const StyledUserIndex = styled(UserIndex)`

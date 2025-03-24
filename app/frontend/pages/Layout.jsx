@@ -8,16 +8,44 @@ import NavBar from './NavBar';
 
 import './styles.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import subscribe from '../channels/subscriptions';
 
 const LayoutContainer = ({ className, children }) => {
-  const { shared, chat } = usePage().props;
+  const { shared, chat: activeChat } = usePage().props;
+  const [users, setUsers] = useState(() => {
+    const initialUsers = activeChat ? activeChat.members : shared.users;
+    return initialUsers;
+  });
+
+  const addUser = (user) => {
+    setUsers((users) => [...users, user]);
+  };
 
   useEffect(() => {
     return router.on('invalid', (event) => {
       event.preventDefault();
     });
   }, []);
+
+  const activeChatId = activeChat?.id;
+
+  useEffect(() => {
+    const userChannelSubscriptionInfo = activeChatId
+      ? ['ChatUserChannel', { id: activeChatId }, addUser]
+      : ['AllUserChannel', {}, addUser];
+    const userChannel = subscribe(...userChannelSubscriptionInfo);
+
+    console.log('subscribed: ', userChannel.identifier);
+
+    return () => {
+      userChannel.unsubscribe();
+
+      console.log('unsubscribed: ', userChannel.identifier);
+    };
+  }, [activeChatId]);
+
+  console.log('render LayoutContainer');
 
   return (
     <div className={className}>
@@ -35,7 +63,7 @@ const LayoutContainer = ({ className, children }) => {
           </Chats>
           <Content>{children}</Content>
           <Users id="users">
-            <UserIndex allUsers={shared.users} activeChat={chat} />
+            <UserIndex users={users} />
           </Users>
         </Main>
       </div>
