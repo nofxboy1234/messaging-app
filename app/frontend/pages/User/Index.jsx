@@ -4,7 +4,7 @@ import ProfileLink from '../Profile/Link';
 import styled from 'styled-components';
 import { memo } from 'react';
 
-const UserIndex = memo(function UserIndex({ className, users }) {
+function UserIndex({ className, users }) {
   console.log('render User/Index');
 
   return (
@@ -17,14 +17,14 @@ const UserIndex = memo(function UserIndex({ className, users }) {
       </div>
     </div>
   );
-});
+}
 
 UserIndex.propTypes = {
   className: PropTypes.string,
   users: PropTypes.array,
 };
 
-const StyledUserIndex = styled(UserIndex)`
+const StyledUserIndex = memo(styled(UserIndex)`
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
@@ -40,6 +40,6 @@ const StyledUserIndex = styled(UserIndex)`
     display: flex;
     flex-direction: column;
   }
-`;
+`);
 
 export default StyledUserIndex;
