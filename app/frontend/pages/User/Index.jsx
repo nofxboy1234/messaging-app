@@ -2,8 +2,9 @@ import UserTotal from './Total';
 import PropTypes from 'prop-types';
 import ProfileLink from '../Profile/Link';
 import styled from 'styled-components';
+import { memo } from 'react';
 
-function UserIndex({ className, users }) {
+const UserIndex = memo(function UserIndex({ className, users }) {
   console.log('render User/Index');
 
   return (
@@ -16,7 +17,7 @@ function UserIndex({ className, users }) {
       </div>
     </div>
   );
-}
+});
 
 UserIndex.propTypes = {
   className: PropTypes.string,
