@@ -34,7 +34,7 @@ function useSetupChatUsers(activeChat) {
       userChannel.unsubscribe();
       console.log('unsubscribed: ', userChannel.identifier);
     };
-  }, []);
+  }, [activeChat.members, subscribeToUserChannel]);
 
   const prevValues = usePreviousValues({
     'activeChat.id': activeChat.id,
