@@ -2,51 +2,13 @@ import UserTotal from './Total';
 import PropTypes from 'prop-types';
 import ProfileLink from '../Profile/Link';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import subscribe from '../../channels/subscriptions';
-import usePreviousValues from '../../hooks/usePreviousValues';
-import logChangedValues from '../../helpers/logChangedValues';
 import { usePage } from '@inertiajs/react';
+import useSetupChatUsers from '../../hooks/useSetupChatUsers';
 
 function ChatUserIndex({ className }) {
   const { chat: activeChat } = usePage().props;
-  const [users, setUsers] = useState(() => {
-    const initialUsers = activeChat.members;
-    return initialUsers;
-  });
 
-  const addUser = (user) => {
-    setUsers((users) => [...users, user]);
-  };
-
-  useEffect(() => {
-    console.log('~*~*~*');
-    setUsers(activeChat.members);
-
-    let userChannel;
-
-    const userChannelSubscriptionInfo = [
-      'ChatUserChannel',
-      { id: activeChat.id },
-      addUser,
-    ];
-
-    userChannel = subscribe(...userChannelSubscriptionInfo);
-    console.log('subscribed: ', userChannel.identifier);
-
-    return () => {
-      console.log('------');
-
-      userChannel.unsubscribe();
-      console.log('unsubscribed: ', userChannel.identifier);
-    };
-  }, [activeChat.id, activeChat.members]);
-
-  const prevValues = usePreviousValues({
-    'activeChat.id': activeChat.id,
-    'activeChat.members': activeChat.members,
-  });
-  logChangedValues(...prevValues);
+  const users = useSetupChatUsers(activeChat);
 
   console.log('render User/ChatUserIndex');
 
