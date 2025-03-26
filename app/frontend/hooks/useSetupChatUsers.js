@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import logChangedValues from '../helpers/logChangedValues';
 import usePreviousValues from './usePreviousValues';
 import subscribe from '../channels/subscriptions';
@@ -6,15 +6,11 @@ import subscribe from '../channels/subscriptions';
 function useSetupChatUsers(activeChat) {
   const [users, setUsers] = useState(activeChat.members);
 
-  useEffect(() => {
-    console.log('~*~*~*');
+  const appendUser = (user) => {
+    setUsers((users) => [...users, user]);
+  };
 
-    const appendUser = (user) => {
-      setUsers((users) => [...users, user]);
-    };
-
-    setUsers(activeChat.members);
-
+  const subscribeToUserChannel = useCallback(() => {
     let userChannel;
     const userChannelSubscriptionInfo = [
       'ChatUserChannel',
@@ -24,12 +20,21 @@ function useSetupChatUsers(activeChat) {
     userChannel = subscribe(...userChannelSubscriptionInfo);
     console.log('subscribed: ', userChannel.identifier);
 
+    return userChannel;
+  }, [activeChat.id]);
+
+  useEffect(() => {
+    console.log('~*~*~*');
+
+    setUsers(activeChat.members);
+    const userChannel = subscribeToUserChannel();
+
     return () => {
       console.log('------');
       userChannel.unsubscribe();
       console.log('unsubscribed: ', userChannel.identifier);
     };
-  }, [activeChat.id, activeChat.members]);
+  }, []);
 
   const prevValues = usePreviousValues({
     'activeChat.id': activeChat.id,
