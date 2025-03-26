@@ -1,20 +1,16 @@
-import UserTotal from './Total';
 import PropTypes from 'prop-types';
-import ProfileLink from '../Profile/Link';
 import styled from 'styled-components';
-import { memo } from 'react';
+import { usePage } from '@inertiajs/react';
+import StyledChatUserIndex from './ChatUserIndex';
 
-function UserIndex({ className, users }) {
+function UserIndex({ className }) {
+  const { chat: activeChat } = usePage().props;
+
   console.log('render User/Index');
 
   return (
     <div className={className}>
-      <UserTotal users={users} />
-      <div id="users">
-        {users.map((user) => (
-          <ProfileLink key={user.id} user={user} />
-        ))}
-      </div>
+      {activeChat ? <StyledChatUserIndex /> : <div></div>}
     </div>
   );
 }
@@ -24,7 +20,7 @@ UserIndex.propTypes = {
   users: PropTypes.array,
 };
 
-const StyledUserIndex = memo(styled(UserIndex)`
+const StyledUserIndex = styled(UserIndex)`
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
@@ -40,6 +36,6 @@ const StyledUserIndex = memo(styled(UserIndex)`
     display: flex;
     flex-direction: column;
   }
-`);
+`;
 
 export default StyledUserIndex;

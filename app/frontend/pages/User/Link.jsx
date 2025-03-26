@@ -1,11 +1,21 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 function UserLink({ className, children, targetPath }) {
+  const pageUrl = usePage().url;
+
   return (
     <div id="UserLink" className={className}>
-      <Link className="link" href={targetPath}>
+      <Link
+        className="link"
+        href={targetPath}
+        onClick={(event) => {
+          if (targetPath === pageUrl) {
+            event.preventDefault();
+          }
+        }}
+      >
         {children}
       </Link>
     </div>

@@ -8,48 +8,16 @@ import NavBar from './NavBar';
 
 import './styles.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
-import { useEffect, useState } from 'react';
-import subscribe from '../channels/subscriptions';
-
-import usePreviousValues from '../hooks/usePreviousValues';
-import logChangedValues from '../helpers/logChangedValues';
+import { useEffect } from 'react';
 
 const LayoutContainer = ({ className, children }) => {
-  const { shared, chat: activeChat } = usePage().props;
-  const [users, setUsers] = useState(() => {
-    const initialUsers = activeChat ? activeChat.members : shared.users;
-    return initialUsers;
-  });
-
-  const addUser = (user) => {
-    setUsers((users) => [...users, user]);
-  };
+  const { shared } = usePage().props;
 
   useEffect(() => {
     return router.on('invalid', (event) => {
       event.preventDefault();
     });
   }, []);
-
-  const activeChatId = activeChat?.id;
-
-  const prevValues = usePreviousValues({ activeChatId });
-  logChangedValues(...prevValues);
-
-  useEffect(() => {
-    const userChannelSubscriptionInfo = activeChatId
-      ? ['ChatUserChannel', { id: activeChatId }, addUser]
-      : ['AllUserChannel', {}, addUser];
-    const userChannel = subscribe(...userChannelSubscriptionInfo);
-
-    console.log('subscribed: ', userChannel.identifier);
-
-    return () => {
-      userChannel.unsubscribe();
-
-      console.log('unsubscribed: ', userChannel.identifier);
-    };
-  }, [activeChatId]);
 
   console.log('render LayoutContainer');
 
@@ -69,7 +37,7 @@ const LayoutContainer = ({ className, children }) => {
           </Chats>
           <Content>{children}</Content>
           <Users id="users">
-            <UserIndex users={users} />
+            <UserIndex />
           </Users>
         </Main>
       </div>
