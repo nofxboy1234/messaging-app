@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { usePage } from '@inertiajs/react';
-import StyledChatUserIndex from './ChatUserIndex';
+import ChatUserIndex from './ChatUserIndex';
+import AllUserIndex from './AllUserIndex';
 
 function UserIndex({ className }) {
   const { chat: activeChat } = usePage().props;
@@ -10,7 +11,7 @@ function UserIndex({ className }) {
 
   return (
     <div className={className}>
-      {activeChat ? <StyledChatUserIndex /> : <div></div>}
+      {activeChat ? <ChatUserIndex /> : <AllUserIndex />}
     </div>
   );
 }

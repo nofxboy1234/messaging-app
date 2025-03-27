@@ -2,36 +2,27 @@ import { useCallback, useEffect, useReducer } from 'react';
 import logChangedValues from '../helpers/logChangedValues';
 import usePreviousValues from './usePreviousValues';
 import subscribe from '../channels/subscriptions';
-import chatUsersReducer from '../reducers/chatUsersReducer';
+import allUsersReducer from '../reducers/allUsersReducer';
 
-function useSetupChatUsers(initialUsers, chatId) {
-  const [users, dispatch] = useReducer(chatUsersReducer, initialUsers);
+function useSetupAllUsers(initialUsers) {
+  const [users, dispatch] = useReducer(allUsersReducer, initialUsers);
 
   const addUser = (user) => {
     dispatch({ type: 'added_user', user: user });
   };
 
-  const reinitializeUsers = useCallback(() => {
-    dispatch({ type: 'reinitialized_users', users: initialUsers });
-  }, [initialUsers]);
-
   const subscribeToUserChannel = useCallback(() => {
     let userChannel;
-    const userChannelSubscriptionInfo = [
-      'ChatUserChannel',
-      { id: chatId },
-      addUser,
-    ];
+    const userChannelSubscriptionInfo = ['AllUserChannel', {}, addUser];
     userChannel = subscribe(...userChannelSubscriptionInfo);
     console.log('subscribed: ', userChannel.identifier);
 
     return userChannel;
-  }, [chatId]);
+  }, []);
 
   useEffect(() => {
     console.log('~*~*~*');
 
-    reinitializeUsers();
     const userChannel = subscribeToUserChannel();
 
     return () => {
@@ -39,10 +30,9 @@ function useSetupChatUsers(initialUsers, chatId) {
       userChannel.unsubscribe();
       console.log('unsubscribed: ', userChannel.identifier);
     };
-  }, [reinitializeUsers, subscribeToUserChannel]);
+  }, [subscribeToUserChannel]);
 
   const prevValues = usePreviousValues({
-    reinitializeUsers,
     subscribeToUserChannel,
   });
   logChangedValues(...prevValues);
@@ -50,4 +40,4 @@ function useSetupChatUsers(initialUsers, chatId) {
   return users;
 }
 
-export default useSetupChatUsers;
+export default useSetupAllUsers;

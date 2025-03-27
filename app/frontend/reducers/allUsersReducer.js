@@ -1,10 +1,7 @@
-function usersReducer(users, action) {
+function allUsersReducer(users, action) {
   switch (action.type) {
     case 'added_user': {
       return [...users, action.user];
-    }
-    case 'reinitialized_users': {
-      return action.users;
     }
 
     default: {
@@ -13,4 +10,4 @@ function usersReducer(users, action) {
   }
 }
 
-export default usersReducer;
+export default allUsersReducer;

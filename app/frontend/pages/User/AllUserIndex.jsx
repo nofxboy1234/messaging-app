@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import ProfileLink from '../Profile/Link';
 import styled from 'styled-components';
 import { usePage } from '@inertiajs/react';
-import useSetupChatUsers from '../../hooks/useSetupChatUsers';
+import useSetupAllUsers from '../../hooks/useSetupAllUsers';
 
-function ChatUserIndex({ className }) {
-  const { chat: activeChat } = usePage().props;
+function AllUserIndex({ className }) {
+  const { shared } = usePage().props;
 
-  const users = useSetupChatUsers(activeChat.members, activeChat.id);
+  const users = useSetupAllUsers(shared.users);
 
-  console.log('render User/ChatUserIndex');
+  console.log('render User/AllUserIndex');
 
   return (
     <div className={className}>
@@ -24,12 +24,12 @@ function ChatUserIndex({ className }) {
   );
 }
 
-ChatUserIndex.propTypes = {
+AllUserIndex.propTypes = {
   className: PropTypes.string,
   users: PropTypes.array,
 };
 
-const StyledChatUserIndex = styled(ChatUserIndex)`
+const StyledAllUserIndex = styled(AllUserIndex)`
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
@@ -47,4 +47,4 @@ const StyledChatUserIndex = styled(ChatUserIndex)`
   }
 `;
 
-export default StyledChatUserIndex;
+export default StyledAllUserIndex;
