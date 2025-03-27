@@ -6,11 +6,6 @@ vi.mock(import('@inertiajs/react'), async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...actual,
-    // Link: ({ className, children, href }) => (
-    //   <a className={className} href={href}>
-    //     {children}
-    //   </a>
-    // ),
     usePage: () => ({ url: '' }),
   };
 });
