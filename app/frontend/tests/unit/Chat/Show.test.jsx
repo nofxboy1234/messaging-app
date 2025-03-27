@@ -32,4 +32,18 @@ describe('ChatShow', () => {
     const header = screen.getByText('header: user 2');
     expect(header).toBeInTheDocument();
   });
+
+  it('should render a chat', () => {
+    render(<ChatShow chat={chat} chattingWith={chattingWith} />);
+
+    const chatDiv = screen.getByText('chat: chat 1');
+    expect(chatDiv).toBeInTheDocument();
+  });
+
+  it('should render a message box', () => {
+    render(<ChatShow chat={chat} chattingWith={chattingWith} />);
+
+    const messageBox = screen.getByText('message box: chat 1');
+    expect(messageBox).toBeInTheDocument();
+  });
 });
