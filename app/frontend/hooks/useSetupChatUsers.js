@@ -1,21 +1,26 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import logChangedValues from '../helpers/logChangedValues';
 import usePreviousValues from './usePreviousValues';
 import subscribe from '../channels/subscriptions';
+import usersReducer from '../reducers/usersReducer';
 
 function useSetupChatUsers(activeChat) {
-  const [users, setUsers] = useState(activeChat.members);
+  const [users, dispatch] = useReducer(usersReducer, activeChat.members);
 
-  const appendUser = (user) => {
-    setUsers((users) => [...users, user]);
+  const addUser = (user) => {
+    dispatch({ type: 'added_user', user: user });
   };
+
+  const reinitializeUsers = useCallback(() => {
+    dispatch({ type: 'reinitialized_users', users: activeChat.members });
+  }, [activeChat.members]);
 
   const subscribeToUserChannel = useCallback(() => {
     let userChannel;
     const userChannelSubscriptionInfo = [
       'ChatUserChannel',
       { id: activeChat.id },
-      appendUser,
+      addUser,
     ];
     userChannel = subscribe(...userChannelSubscriptionInfo);
     console.log('subscribed: ', userChannel.identifier);
@@ -26,7 +31,7 @@ function useSetupChatUsers(activeChat) {
   useEffect(() => {
     console.log('~*~*~*');
 
-    setUsers(activeChat.members);
+    reinitializeUsers();
     const userChannel = subscribeToUserChannel();
 
     return () => {
@@ -34,7 +39,7 @@ function useSetupChatUsers(activeChat) {
       userChannel.unsubscribe();
       console.log('unsubscribed: ', userChannel.identifier);
     };
-  }, [activeChat.members, subscribeToUserChannel]);
+  }, [reinitializeUsers, subscribeToUserChannel]);
 
   const prevValues = usePreviousValues({
     'activeChat.id': activeChat.id,
