@@ -2,13 +2,16 @@ import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import UserLink from '../../../pages/User/Link';
 
-vi.mock('@inertiajs/react', () => {
+vi.mock(import('@inertiajs/react'), async (importOriginal) => {
+  const actual = await importOriginal();
   return {
-    Link: ({ className, children, href }) => (
-      <a className={className} href={href}>
-        {children}
-      </a>
-    ),
+    ...actual,
+    // Link: ({ className, children, href }) => (
+    //   <a className={className} href={href}>
+    //     {children}
+    //   </a>
+    // ),
+    usePage: () => ({ url: '' }),
   };
 });
 
