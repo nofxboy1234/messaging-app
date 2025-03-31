@@ -67,11 +67,12 @@ describe('useSetupChatUsers', () => {
   });
 
   describe('when initialUsers changes', () => {
-    it.only('should return an array of the updated initial chat users', async () => {
+    it('should return an array of the updated initial chat users', async () => {
       const initialUsers = [
         { id: 1, username: 'user1' },
         { id: 2, username: 'user2' },
       ];
+
       const chatId = 1;
 
       const { result, rerender } = renderHook(
@@ -81,8 +82,6 @@ describe('useSetupChatUsers', () => {
         },
       );
       expect(result.current).toEqual(initialUsers);
-
-      await waitFor(() => expect(result.current).toEqual(initialUsers));
 
       const updatedUsers = [
         { id: 1, username: 'user1' },
