@@ -21,17 +21,17 @@ import { useEffect, useState } from 'react';
 // }));
 
 vi.mock('../../../channels/subscriptions', () => {
-  const subscription = {
-    identifier: 1,
+  const createSubscription = (params) => ({
+    identifier: params.id,
     unsubscribe: () => {
       console.log('mocked unsubscribe()');
     },
-  };
+  });
 
   return {
     default: (channelName, params, receivedCallback) => {
       console.log('mocked subscribe()');
-      return subscription;
+      return createSubscription(params);
     },
   };
 });
@@ -89,6 +89,35 @@ describe('useSetupChatUsers', () => {
       ];
 
       rerender({ initialUsers: updatedUsers, chatId });
+      expect(result.current).toEqual(updatedUsers);
+    });
+  });
+
+  describe('when chatId changes', () => {
+    it('should return an array of the updated initial chat users', async () => {
+      const initialUsers = [
+        { id: 1, username: 'user1' },
+        { id: 2, username: 'user2' },
+      ];
+
+      const chatId = 1;
+
+      const { result, rerender } = renderHook(
+        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
+        {
+          initialProps: { initialUsers, chatId },
+        },
+      );
+      expect(result.current).toEqual(initialUsers);
+
+      const updatedUsers = [
+        { id: 1, username: 'user1' },
+        { id: 3, username: 'user3' },
+      ];
+
+      const updatedChatId = 2;
+
+      rerender({ initialUsers: updatedUsers, chatId: updatedChatId });
       expect(result.current).toEqual(updatedUsers);
     });
   });
