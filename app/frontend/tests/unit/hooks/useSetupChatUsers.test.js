@@ -4,6 +4,7 @@ import { act, renderHook, waitFor, screen } from '@testing-library/react';
 import subscribe from '../../../channels/subscriptions';
 
 import useSetupChatUsers from '../../../hooks/useSetupChatUsers';
+import { useEffect, useState } from 'react';
 
 // vi.mock('../../../pages/Chat/HeaderProfileLink', () => ({
 //   default: ({ className, children, user, active, scale = 0.7 }) => (
@@ -66,17 +67,30 @@ describe('useSetupChatUsers', () => {
   });
 
   describe('when initialUsers changes', () => {
-    it.only('should return an array of the updated initial chat users', () => {
+    it.only('should return an array of the updated initial chat users', async () => {
       const initialUsers = [
         { id: 1, username: 'user1' },
         { id: 2, username: 'user2' },
       ];
       const chatId = 1;
 
-      const { result } = renderHook(() =>
-        useSetupChatUsers(initialUsers, chatId),
+      const { result, rerender } = renderHook(
+        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
+        {
+          initialProps: { initialUsers, chatId },
+        },
       );
       expect(result.current).toEqual(initialUsers);
+
+      await waitFor(() => expect(result.current).toEqual(initialUsers));
+
+      const updatedUsers = [
+        { id: 1, username: 'user1' },
+        { id: 3, username: 'user3' },
+      ];
+
+      rerender({ initialUsers: updatedUsers, chatId });
+      expect(result.current).toEqual(updatedUsers);
     });
   });
 
