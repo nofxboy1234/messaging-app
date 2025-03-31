@@ -5,20 +5,6 @@ import subscribe, { unsubscribe } from '../../../channels/subscriptions';
 
 import useSetupChatUsers from '../../../hooks/useSetupChatUsers';
 
-// vi.mock('../../../pages/Chat/HeaderProfileLink', () => ({
-//   default: ({ className, children, user, active, scale = 0.7 }) => (
-//     <div>{user.username}</div>
-//   ),
-// }));
-
-// vi.mock('../../../pages/Chat/Chat', () => ({
-//   default: ({ className, chat }) => <div>chat</div>,
-// }));
-
-// vi.mock('../../../pages/Chat/MessageBox', () => ({
-//   default: ({ className, chat }) => <div>message box</div>,
-// }));
-
 vi.mock('../../../channels/subscriptions', () => {
   const unsubscribe = vi.fn(() => {
     console.log('mocked unsubscribe()');
@@ -37,22 +23,6 @@ vi.mock('../../../channels/subscriptions', () => {
     unsubscribe,
   };
 });
-
-// vi.mock('@inertiajs/react', () => ({
-//   usePage: () => ({
-//     props: {
-//       shared: {
-//         users: [
-//           { id: 1, username: 'user1' },
-//           { id: 2, username: 'user2' },
-//           { id: 3, username: 'user3' },
-//           { id: 4, username: 'user4' },
-//         ],
-//         current_user: { id: 1, username: 'user1' },
-//       },
-//     },
-//   }),
-// }));
 
 describe('useSetupChatUsers', () => {
   it('should return an array of the initial chat users', () => {
