@@ -44,6 +44,8 @@ function useSetupChatUsers(initialUsers, chatId) {
   const prevValues = usePreviousValues({
     initialUsers,
     chatId,
+    reinitializeUsers,
+    subscribeToUserChannel,
   });
   logChangedValues(...prevValues);
 
