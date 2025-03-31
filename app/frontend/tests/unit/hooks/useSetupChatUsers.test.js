@@ -29,10 +29,10 @@ vi.mock('../../../channels/subscriptions', () => {
   });
 
   return {
-    default: (channelName, params, receivedCallback) => {
+    default: vi.fn((channelName, params, receivedCallback) => {
       console.log('mocked subscribe()');
       return createSubscription(params);
-    },
+    }),
   };
 });
 
@@ -119,6 +119,30 @@ describe('useSetupChatUsers', () => {
 
       rerender({ initialUsers: updatedUsers, chatId: updatedChatId });
       expect(result.current).toEqual(updatedUsers);
+    });
+  });
+
+  describe('when the component mounts', () => {
+    it('should subscribe to ChatUserChannel with the chat ID', async () => {
+      const initialUsers = [
+        { id: 1, username: 'user1' },
+        { id: 2, username: 'user2' },
+      ];
+
+      const chatId = 1;
+
+      const { result } = renderHook(
+        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
+        {
+          initialProps: { initialUsers, chatId },
+        },
+      );
+      expect(subscribe).toHaveBeenCalledOnce();
+      expect(subscribe).toHaveBeenCalledWith(
+        'ChatUserChannel',
+        { id: 1 },
+        expect.any(Function),
+      );
     });
   });
 
