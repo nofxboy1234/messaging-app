@@ -1,10 +1,9 @@
 import { vi, describe, it, expect } from 'vitest';
-import { act, renderHook, waitFor, screen } from '@testing-library/react';
+import { act, waitFor, renderHook } from '@testing-library/react';
 
-import subscribe from '../../../channels/subscriptions';
+import subscribe, { unsubscribe } from '../../../channels/subscriptions';
 
 import useSetupChatUsers from '../../../hooks/useSetupChatUsers';
-import { useEffect, useState } from 'react';
 
 // vi.mock('../../../pages/Chat/HeaderProfileLink', () => ({
 //   default: ({ className, children, user, active, scale = 0.7 }) => (
@@ -21,11 +20,13 @@ import { useEffect, useState } from 'react';
 // }));
 
 vi.mock('../../../channels/subscriptions', () => {
+  const unsubscribe = vi.fn(() => {
+    console.log('mocked unsubscribe()');
+  });
+
   const createSubscription = (params) => ({
     identifier: params.id,
-    unsubscribe: () => {
-      console.log('mocked unsubscribe()');
-    },
+    unsubscribe,
   });
 
   return {
@@ -33,6 +34,7 @@ vi.mock('../../../channels/subscriptions', () => {
       console.log('mocked subscribe()');
       return createSubscription(params);
     }),
+    unsubscribe,
   };
 });
 
@@ -131,7 +133,7 @@ describe('useSetupChatUsers', () => {
 
       const chatId = 1;
 
-      const { result } = renderHook(
+      renderHook(
         (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
         {
           initialProps: { initialUsers, chatId },
@@ -146,75 +148,25 @@ describe('useSetupChatUsers', () => {
     });
   });
 
-  // describe('when it mounts', () => {
-  //   it('should set users to the users in the chat, unsubscribe from allUserChannel and subscribe to chatUserChannel', () => {
-  //     render(
-  //       <UsersContext.Provider value={{ setUsers, setUserChannel }}>
-  //         <ChatShow chat={chat} chattingWith={chattingWith} />/
-  //       </UsersContext.Provider>,
-  //     );
+  describe('when the component unmounts', () => {
+    it('should unsubscribe from ChatUserChannel with the chat ID', async () => {
+      const initialUsers = [
+        { id: 1, username: 'user1' },
+        { id: 2, username: 'user2' },
+      ];
 
-  //     expect(setUsers).toHaveBeenCalledWith(chat.members);
-  //     expect(allUserChannelMock.unsubscribe).toHaveBeenCalled();
-  //     expect(chatUserChannel).toHaveBeenCalledWith({ id: 1 }, setUsers);
-  //     expect(getCurrentUserChannel()).toBe(chatUserChannelMock);
-  //   });
-  // });
+      const chatId = 1;
 
-  // describe('when it unmounts', () => {
-  //   it('should set users to all users, unsubscribe from chatUserChannel and subscribe to allUserChannel', () => {
-  //     const { unmount } = render(
-  //       <UsersContext.Provider value={{ setUsers, setUserChannel }}>
-  //         <ChatShow chat={chat} chattingWith={chattingWith} />/
-  //       </UsersContext.Provider>,
-  //     );
-  //     unmount();
+      const { unmount } = renderHook(
+        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
+        {
+          initialProps: { initialUsers, chatId },
+        },
+      );
 
-  //     expect(setUsers).toHaveBeenCalledWith([
-  //       { id: 1, username: 'user1' },
-  //       { id: 2, username: 'user2' },
-  //       { id: 3, username: 'user3' },
-  //       { id: 4, username: 'user4' },
-  //     ]);
-  //     expect(chatUserChannelMock.unsubscribe).toHaveBeenCalled();
-  //     expect(allUserChannel).toHaveBeenCalledWith(setUsers);
-  //     expect(getCurrentUserChannel()).toBe(allUserChannelMock);
-  //   });
-  // });
+      unmount();
 
-  // describe('when chat.members changes', () => {
-  //   it('should set users and re-subscribe to chatUserChannel', () => {
-  //     const { rerender } = render(
-  //       <UsersContext.Provider value={{ setUsers, setUserChannel }}>
-  //         <ChatShow chat={chat} chattingWith={chattingWith} />/
-  //       </UsersContext.Provider>,
-  //     );
-
-  //     const newChat = {
-  //       id: 2,
-  //       members: [
-  //         { id: 1, username: 'user1' },
-  //         { id: 3, username: 'user3' },
-  //       ],
-  //     };
-  //     rerender(
-  //       <UsersContext.Provider value={{ setUsers, setUserChannel }}>
-  //         <ChatShow chat={newChat} chattingWith={chattingWith} />/
-  //       </UsersContext.Provider>,
-  //     );
-
-  //     expect(setUsers).toHaveBeenCalledWith([
-  //       { id: 1, username: 'user1' },
-  //       { id: 2, username: 'user2' },
-  //       { id: 3, username: 'user3' },
-  //       { id: 4, username: 'user4' },
-  //     ]);
-  //     expect(chatUserChannelMock.unsubscribe).toHaveBeenCalled();
-  //     expect(allUserChannel).toHaveBeenCalledWith(setUsers);
-
-  //     expect(setUsers).toHaveBeenCalledWith(newChat.members);
-  //     expect(allUserChannelMock.unsubscribe).toHaveBeenCalled();
-  //     expect(chatUserChannel).toHaveBeenCalledWith({ id: 1 }, setUsers);
-  //   });
-  // });
+      expect(unsubscribe).toHaveBeenCalledOnce();
+    });
+  });
 });
