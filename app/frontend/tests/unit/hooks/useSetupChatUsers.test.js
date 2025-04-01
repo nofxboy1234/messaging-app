@@ -1,31 +1,44 @@
 import { vi, describe, it, expect } from 'vitest';
 import { act, waitFor, renderHook } from '@testing-library/react';
 
-import subscribe, { unsubscribe } from '../../../channels/subscriptions';
+import subscribe, { getSubscriptions } from '../../../channels/subscriptions';
 
 import useSetupChatUsers from '../../../hooks/useSetupChatUsers';
 
 vi.mock('../../../channels/subscriptions', () => {
-  const unsubscribe = vi.fn(() => {
-    console.log('mocked unsubscribe()');
-  });
+  let subscriptions = [];
 
   const createSubscription = (params) => ({
     identifier: params.id,
-    unsubscribe,
+    unsubscribe: vi.fn(() => {
+      console.log(`mocked unsubscribe() ${params.id}`);
+      subscriptions = subscriptions.filter(
+        (subscription) => subscription.identifier !== params.id,
+      );
+      console.log('------------- subscriptions.length', subscriptions.length);
+    }),
   });
 
   return {
     default: vi.fn((channelName, params, receivedCallback) => {
-      console.log('mocked subscribe()');
-      return createSubscription(params);
+      console.log(`mocked subscribe() ${params.id}`);
+      const subscription = createSubscription(params);
+      subscriptions.push(subscription);
+      console.log('+++++++++++++ subscriptions.length', subscriptions.length);
+
+      return subscription;
     }),
-    unsubscribe,
+    getSubscriptions: () => subscriptions,
   };
 });
 
 describe('useSetupChatUsers', () => {
   it('should return an array of the initial chat users', () => {
+    console.log(
+      '1) *************************** subscriptions.length',
+      getSubscriptions().length,
+    );
+
     const initialUsers = [
       { id: 1, username: 'user1' },
       { id: 2, username: 'user2' },
@@ -40,6 +53,11 @@ describe('useSetupChatUsers', () => {
 
   describe('when initialUsers changes', () => {
     it('should return an array of the updated initial chat users', async () => {
+      console.log(
+        '2) *************************** subscriptions.length',
+        getSubscriptions().length,
+      );
+
       const initialUsers = [
         { id: 1, username: 'user1' },
         { id: 2, username: 'user2' },
@@ -67,6 +85,11 @@ describe('useSetupChatUsers', () => {
 
   describe('when chatId changes', () => {
     it('should return an array of the updated initial chat users', async () => {
+      console.log(
+        '3) *************************** subscriptions.length',
+        getSubscriptions().length,
+      );
+
       const initialUsers = [
         { id: 1, username: 'user1' },
         { id: 2, username: 'user2' },
@@ -96,6 +119,11 @@ describe('useSetupChatUsers', () => {
 
   describe('when the component mounts', () => {
     it('should subscribe to ChatUserChannel with the chat ID', async () => {
+      console.log(
+        '4) *************************** subscriptions.length',
+        getSubscriptions().length,
+      );
+
       const initialUsers = [
         { id: 1, username: 'user1' },
         { id: 2, username: 'user2' },
@@ -120,6 +148,11 @@ describe('useSetupChatUsers', () => {
 
   describe('when the component unmounts', () => {
     it('should unsubscribe from ChatUserChannel with the chat ID', async () => {
+      console.log(
+        '5) *************************** subscriptions.length',
+        getSubscriptions().length,
+      );
+
       const initialUsers = [
         { id: 1, username: 'user1' },
         { id: 2, username: 'user2' },
@@ -134,9 +167,16 @@ describe('useSetupChatUsers', () => {
         },
       );
 
+      console.log('&&&&&&&& getSubscriptions()', getSubscriptions().length);
+
+      const subscription = getSubscriptions().find(
+        (subscription) => subscription.identifier === chatId,
+      );
+
       unmount();
 
-      expect(unsubscribe).toHaveBeenCalledOnce();
+      console.log('&&&&&&&& getSubscriptions()', getSubscriptions().length);
+      expect(subscription.unsubscribe).toHaveBeenCalledOnce();
     });
   });
 });
