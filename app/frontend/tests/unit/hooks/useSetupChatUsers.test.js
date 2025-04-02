@@ -42,34 +42,7 @@ describe('useSetupChatUsers', () => {
     expect(result.current).toEqual(initialUsers);
   });
 
-  describe('when initialUsers changes', () => {
-    it('should return an array of the updated initial chat users', async () => {
-      const initialUsers = [
-        { id: 1, username: 'user1' },
-        { id: 2, username: 'user2' },
-      ];
-
-      const chatId = 1;
-
-      const { result, rerender } = renderHook(
-        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
-        {
-          initialProps: { initialUsers, chatId },
-        },
-      );
-      expect(result.current).toEqual(initialUsers);
-
-      const updatedUsers = [
-        { id: 1, username: 'user1' },
-        { id: 3, username: 'user3' },
-      ];
-
-      rerender({ initialUsers: updatedUsers, chatId });
-      expect(result.current).toEqual(updatedUsers);
-    });
-  });
-
-  describe('when chatId changes', () => {
+  describe('when initialUsers or chatId changes', () => {
     it('should return an array of the updated initial chat users', async () => {
       const initialUsers = [
         { id: 1, username: 'user1' },
