@@ -1,6 +1,4 @@
 import { useCallback, useEffect, useReducer } from 'react';
-import logChangedValues from '../helpers/logChangedValues';
-import usePreviousValues from './usePreviousValues';
 import subscribe from '../channels/subscriptions';
 import chatUsersReducer from '../reducers/chatUsersReducer';
 
@@ -16,13 +14,12 @@ function useSetupChatUsers(initialUsers, chatId) {
   }, [initialUsers]);
 
   const subscribeToUserChannel = useCallback(() => {
-    let userChannel;
     const userChannelSubscriptionInfo = [
       'ChatUserChannel',
       { id: chatId },
       addUser,
     ];
-    userChannel = subscribe(...userChannelSubscriptionInfo);
+    const userChannel = subscribe(...userChannelSubscriptionInfo);
 
     return userChannel;
   }, [chatId]);
