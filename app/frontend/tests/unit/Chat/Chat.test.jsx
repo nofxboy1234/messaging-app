@@ -6,9 +6,7 @@ import Chat from '../../../pages/Chat/Chat';
 import consumer from '../../../channels/consumer';
 
 vi.mock('../../../pages/Message/Message', () => {
-  const scrollIntoViewMock = vi.fn(function () {
-    console.log(this.lastChild.textContent);
-  });
+  const scrollIntoViewMock = vi.fn();
   return {
     default: forwardRef(function Message({ message }, ref) {
       return (

@@ -23,31 +23,18 @@ function useSetupChatUsers(initialUsers, chatId) {
       addUser,
     ];
     userChannel = subscribe(...userChannelSubscriptionInfo);
-    console.log('subscribed: ', userChannel.identifier);
 
     return userChannel;
   }, [chatId]);
 
   useEffect(() => {
-    console.log('~*~*~*');
-
     reinitializeUsers();
     const userChannel = subscribeToUserChannel();
 
     return () => {
-      console.log('------');
       userChannel.unsubscribe();
-      console.log('unsubscribed: ', userChannel.identifier);
     };
   }, [reinitializeUsers, subscribeToUserChannel]);
-
-  const prevValues = usePreviousValues({
-    initialUsers,
-    chatId,
-    reinitializeUsers,
-    subscribeToUserChannel,
-  });
-  logChangedValues(...prevValues);
 
   return users;
 }

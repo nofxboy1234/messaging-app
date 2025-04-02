@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import HeaderProfileLink from './HeaderProfileLink';
 
 function ChatShow({ className, chat, chattingWith }) {
-  console.log('render Chat/Show');
-
   return (
     <div className={className}>
       <HeaderProfileLink user={chattingWith} />
