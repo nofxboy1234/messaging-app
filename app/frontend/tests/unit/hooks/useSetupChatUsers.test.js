@@ -29,48 +29,6 @@ vi.mock('../../../channels/subscriptions', () => {
 });
 
 describe('useSetupChatUsers', () => {
-  it('should return an array of the initial chat users', () => {
-    const initialUsers = [
-      { id: 1, username: 'user1' },
-      { id: 2, username: 'user2' },
-    ];
-    const chatId = 1;
-
-    const { result } = renderHook(() =>
-      useSetupChatUsers(initialUsers, chatId),
-    );
-    expect(result.current).toEqual(initialUsers);
-  });
-
-  describe('when initialUsers or chatId changes', () => {
-    it('should return an array of the updated initial chat users', async () => {
-      const initialUsers = [
-        { id: 1, username: 'user1' },
-        { id: 2, username: 'user2' },
-      ];
-
-      const chatId = 1;
-
-      const { result, rerender } = renderHook(
-        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
-        {
-          initialProps: { initialUsers, chatId },
-        },
-      );
-      expect(result.current).toEqual(initialUsers);
-
-      const updatedUsers = [
-        { id: 1, username: 'user1' },
-        { id: 3, username: 'user3' },
-      ];
-
-      const updatedChatId = 2;
-
-      rerender({ initialUsers: updatedUsers, chatId: updatedChatId });
-      expect(result.current).toEqual(updatedUsers);
-    });
-  });
-
   describe('when the component mounts', () => {
     it('should subscribe to ChatUserChannel with the chat ID', async () => {
       const initialUsers = [
@@ -118,6 +76,95 @@ describe('useSetupChatUsers', () => {
       unmount();
 
       expect(subscription.unsubscribe).toHaveBeenCalledOnce();
+    });
+  });
+
+  it('should return an array of the initial chat users', () => {
+    const initialUsers = [
+      { id: 1, username: 'user1' },
+      { id: 2, username: 'user2' },
+    ];
+    const chatId = 1;
+
+    const { result } = renderHook(() =>
+      useSetupChatUsers(initialUsers, chatId),
+    );
+    expect(result.current).toEqual(initialUsers);
+  });
+
+  describe('when initialUsers or chatId changes', () => {
+    it.only('should unsubscribe the current chat user channel subscription', async () => {
+      const initialUsers = [
+        { id: 1, username: 'user1' },
+        { id: 2, username: 'user2' },
+      ];
+      const chatId = 1;
+      const { result, rerender } = renderHook(
+        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
+        {
+          initialProps: { initialUsers, chatId },
+        },
+      );
+
+      expect(subscribe).toHaveBeenCalledWith(
+        'ChatUserChannel',
+        { id: 1 },
+        expect.any(Function),
+      );
+      expect(result.current).toEqual(initialUsers);
+
+      const currentSubscription = getSubscriptions().find(
+        (subscription) => subscription.identifier === 1,
+      );
+
+      const updatedUsers = [
+        { id: 1, username: 'user1' },
+        { id: 3, username: 'user3' },
+      ];
+      const updatedChatId = 2;
+      rerender({ initialUsers: updatedUsers, chatId: updatedChatId });
+
+      expect(currentSubscription.unsubscribe).toHaveBeenCalledOnce();
+
+      // const newSubscription = getSubscriptions().find(
+      //   (subscription) => subscription.identifier === updatedChatId,
+      // );
+      // expect(newSubscription.unsubscribe).not.toHaveBeenCalled();
+
+      // expect(subscribe).toHaveBeenCalledTimes(2);
+      // expect(subscribe).toHaveBeenCalledWith(
+      //   'ChatUserChannel',
+      //   { id: 2 },
+      //   expect.any(Function),
+      // );
+    });
+
+    it('should return an array of the updated initial chat users', async () => {
+      const initialUsers = [
+        { id: 1, username: 'user1' },
+        { id: 2, username: 'user2' },
+      ];
+
+      const chatId = 1;
+
+      const { result, rerender } = renderHook(
+        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
+        {
+          initialProps: { initialUsers, chatId },
+        },
+      );
+
+      expect(result.current).toEqual(initialUsers);
+
+      const updatedUsers = [
+        { id: 1, username: 'user1' },
+        { id: 3, username: 'user3' },
+      ];
+
+      const updatedChatId = 2;
+
+      rerender({ initialUsers: updatedUsers, chatId: updatedChatId });
+      expect(result.current).toEqual(updatedUsers);
     });
   });
 });

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useReducer } from 'react';
 import subscribe from '../channels/subscriptions';
 import chatUsersReducer from '../reducers/chatUsersReducer';
+import usePreviousValues from './usePreviousValues';
+import logChangedValues from '../helpers/logChangedValues';
 
 function useSetupChatUsers(initialUsers, chatId) {
   const [users, dispatch] = useReducer(chatUsersReducer, initialUsers);
@@ -32,6 +34,14 @@ function useSetupChatUsers(initialUsers, chatId) {
       userChannel.unsubscribe();
     };
   }, [reinitializeUsers, subscribeToUserChannel]);
+
+  const prevValues = usePreviousValues({
+    initialUsers,
+    chatId,
+    reinitializeUsers,
+    subscribeToUserChannel,
+  });
+  logChangedValues(...prevValues);
 
   return users;
 }
