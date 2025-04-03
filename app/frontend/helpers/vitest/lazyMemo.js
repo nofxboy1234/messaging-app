@@ -2,7 +2,7 @@ function lazyMemo(factory) {
   let cached;
 
   return () => {
-    if (cached === undefined) {
+    if (!cached) {
       cached = factory();
     }
 
