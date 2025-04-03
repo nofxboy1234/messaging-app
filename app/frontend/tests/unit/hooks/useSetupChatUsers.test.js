@@ -1,9 +1,10 @@
-import { vi, describe, it, expect } from 'vitest';
+import { beforeEach, vi, describe, it, expect } from 'vitest';
 import { act, waitFor, renderHook } from '@testing-library/react';
 
 import subscribe, { getSubscriptions } from '../../../channels/subscriptions';
 
 import useSetupChatUsers from '../../../hooks/useSetupChatUsers';
+import lazyMemo from '../../../helpers/vitest/lazyMemo';
 
 vi.mock('../../../channels/subscriptions', () => {
   let subscriptions = [];
@@ -93,18 +94,31 @@ describe('useSetupChatUsers', () => {
   });
 
   describe('when initialUsers or chatId changes', () => {
-    it.only('should unsubscribe the current chat user channel subscription', async () => {
+    function setup() {
       const initialUsers = [
         { id: 1, username: 'user1' },
         { id: 2, username: 'user2' },
       ];
       const chatId = 1;
-      const { result, rerender } = renderHook(
+
+      const renderHookResult = renderHook(
         (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
         {
           initialProps: { initialUsers, chatId },
         },
       );
+
+      return { ...renderHookResult, initialUsers, chatId };
+    }
+
+    let value;
+
+    beforeEach(() => {
+      value = lazyMemo(() => setup());
+    });
+
+    it('should unsubscribe the current chat user channel subscription', () => {
+      const { result, rerender, initialUsers } = value();
 
       expect(subscribe).toHaveBeenCalledWith(
         'ChatUserChannel',
