@@ -66,31 +66,20 @@ describe('useSetupChatUsers', () => {
 
       expect(result.current).toEqual(initialUsers);
     });
-  });
 
-  describe('when the component unmounts', () => {
-    it('should unsubscribe from ChatUserChannel with the chat ID', async () => {
-      const initialUsers = [
-        { id: 1, username: 'user1' },
-        { id: 2, username: 'user2' },
-      ];
+    describe('when the component unmounts', () => {
+      it('should unsubscribe from the chat user channel with id = 1', async () => {
+        const value = lazyMemo(() => setup());
+        const { unmount, chatId } = value();
 
-      const chatId = 1;
+        const subscription = getSubscriptions().find(
+          (subscription) => subscription.identifier === chatId,
+        );
 
-      const { unmount } = renderHook(
-        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
-        {
-          initialProps: { initialUsers, chatId },
-        },
-      );
+        unmount();
 
-      const subscription = getSubscriptions().find(
-        (subscription) => subscription.identifier === chatId,
-      );
-
-      unmount();
-
-      expect(subscription.unsubscribe).toHaveBeenCalledOnce();
+        expect(subscription.unsubscribe).toHaveBeenCalledOnce();
+      });
     });
   });
 
