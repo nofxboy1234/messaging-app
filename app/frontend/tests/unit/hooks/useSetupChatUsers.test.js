@@ -136,6 +136,17 @@ describe('useSetupChatUsers', () => {
 
         expect(result.current).toEqual(updatedUsers);
       });
+
+      describe('when the component unmounts', () => {
+        it('should unsubscribe from the chat user channel with id = 2', async () => {
+          const value = lazyMemo(() => rerenderForChat2());
+          const { unmount, chat2Sub } = value();
+
+          unmount();
+
+          expect(chat2Sub.unsubscribe).toHaveBeenCalledOnce();
+        });
+      });
     });
 
     describe('when the component unmounts', () => {
