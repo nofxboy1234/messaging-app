@@ -118,6 +118,13 @@ describe('useSetupChatUsers', () => {
       expect(getSubscriptions().length).toBe(1);
     });
 
+    it('should have a subscription for chat1 stored', async () => {
+      const value = lazyMemo(() => mountForChat1());
+      const { chat1Sub } = value();
+
+      expect(getSubscriptions()).toContain(chat1Sub);
+    });
+
     it('should return an array of the initial users = [user1, user2]', () => {
       const value = lazyMemo(() => mountForChat1());
       const { result, initialUsers } = value();
@@ -126,7 +133,7 @@ describe('useSetupChatUsers', () => {
     });
 
     describe('when initialUsers changes to [user1, user3] and chatId changes to 2', () => {
-      it('should unsubscribe from the chat user channel with id = 1', async () => {
+      it('should unsubscribe once from the chat user channel with id = 1', async () => {
         const value = lazyMemo(() => rerenderForChat2());
         const { chat1Sub } = value();
 
