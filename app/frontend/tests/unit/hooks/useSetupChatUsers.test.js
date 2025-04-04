@@ -104,6 +104,20 @@ describe('useSetupChatUsers', () => {
       );
     });
 
+    it('should subscribe once', async () => {
+      const value = lazyMemo(() => mountForChat1());
+      value();
+
+      expect(subscribe).toHaveBeenCalledOnce();
+    });
+
+    it('should have a total of 1 subscription', async () => {
+      const value = lazyMemo(() => mountForChat1());
+      value();
+
+      expect(getSubscriptions().length).toBe(1);
+    });
+
     it('should return an array of the initial users = [user1, user2]', () => {
       const value = lazyMemo(() => mountForChat1());
       const { result, initialUsers } = value();
