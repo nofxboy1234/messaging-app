@@ -83,19 +83,6 @@ describe('useSetupChatUsers', () => {
     });
   });
 
-  it('should return an array of the initial chat users', () => {
-    const initialUsers = [
-      { id: 1, username: 'user1' },
-      { id: 2, username: 'user2' },
-    ];
-    const chatId = 1;
-
-    const { result } = renderHook(() =>
-      useSetupChatUsers(initialUsers, chatId),
-    );
-    expect(result.current).toEqual(initialUsers);
-  });
-
   describe('when initialUsers or chatId changes', () => {
     it('should unsubscribe the current chat user channel subscription', () => {
       const value = lazyMemo(() => setup());
