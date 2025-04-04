@@ -30,27 +30,41 @@ vi.mock('../../../channels/subscriptions', () => {
 });
 
 describe('useSetupChatUsers', () => {
-  describe('when the component mounts', () => {
-    it('should subscribe to ChatUserChannel with the chat ID', async () => {
+  describe.only('when the component mounts with initial users = [user1, user2] and chatId = 1', () => {
+    function setup() {
       const initialUsers = [
         { id: 1, username: 'user1' },
         { id: 2, username: 'user2' },
       ];
-
       const chatId = 1;
 
-      renderHook(
+      const renderHookResult = renderHook(
         (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
         {
           initialProps: { initialUsers, chatId },
         },
       );
+
+      return { ...renderHookResult, initialUsers, chatId };
+    }
+
+    it('should subscribe to the chat user channel with id = 1', async () => {
+      const value = lazyMemo(() => setup());
+      value();
+
       expect(subscribe).toHaveBeenCalledOnce();
       expect(subscribe).toHaveBeenCalledWith(
         'ChatUserChannel',
         { id: 1 },
         expect.any(Function),
       );
+    });
+
+    it('should return an array of the initial users = [user1, user2]', () => {
+      const value = lazyMemo(() => setup());
+      const { result, initialUsers } = value();
+
+      expect(result.current).toEqual(initialUsers);
     });
   });
 
@@ -94,30 +108,8 @@ describe('useSetupChatUsers', () => {
   });
 
   describe('when initialUsers or chatId changes', () => {
-    function setup() {
-      const initialUsers = [
-        { id: 1, username: 'user1' },
-        { id: 2, username: 'user2' },
-      ];
-      const chatId = 1;
-
-      const renderHookResult = renderHook(
-        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
-        {
-          initialProps: { initialUsers, chatId },
-        },
-      );
-
-      return { ...renderHookResult, initialUsers, chatId };
-    }
-
-    let value;
-
-    beforeEach(() => {
-      value = lazyMemo(() => setup());
-    });
-
     it('should unsubscribe the current chat user channel subscription', () => {
+      const value = lazyMemo(() => setup());
       const { result, rerender, initialUsers } = value();
 
       expect(subscribe).toHaveBeenCalledWith(
