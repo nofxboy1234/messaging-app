@@ -10,8 +10,6 @@ function AllUserIndex({ className }) {
 
   const users = useSetupAllUsers(shared.users);
 
-  console.log('render User/AllUserIndex');
-
   return (
     <div className={className}>
       <UserTotal users={users} />

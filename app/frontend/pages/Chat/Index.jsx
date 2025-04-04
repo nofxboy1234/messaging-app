@@ -30,8 +30,6 @@ function ChatIndex({ className, initialChats }) {
     };
   }, [shared.current_user.id]);
 
-  console.log('render Chat/Index');
-
   return (
     <div className={className}>
       <ChatTotal chats={chats} />

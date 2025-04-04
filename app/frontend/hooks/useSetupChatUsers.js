@@ -35,13 +35,13 @@ function useSetupChatUsers(initialUsers, chatId) {
     };
   }, [reinitializeUsers, subscribeToUserChannel]);
 
-  const prevValues = usePreviousValues({
-    initialUsers,
-    chatId,
-    reinitializeUsers,
-    subscribeToUserChannel,
-  });
-  logChangedValues(...prevValues);
+  // const prevValues = usePreviousValues({
+  //   initialUsers,
+  //   chatId,
+  //   reinitializeUsers,
+  //   subscribeToUserChannel,
+  // });
+  // logChangedValues(...prevValues);
 
   return users;
 }

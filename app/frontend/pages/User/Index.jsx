@@ -7,8 +7,6 @@ import AllUserIndex from './AllUserIndex';
 function UserIndex({ className }) {
   const { chat: activeChat } = usePage().props;
 
-  console.log('render User/Index');
-
   return (
     <div className={className}>
       {activeChat ? <ChatUserIndex /> : <AllUserIndex />}

@@ -10,8 +10,6 @@ function ChatUserIndex({ className }) {
 
   const users = useSetupChatUsers(activeChat.members, activeChat.id);
 
-  console.log('render User/ChatUserIndex');
-
   return (
     <div className={className}>
       <UserTotal users={users} />

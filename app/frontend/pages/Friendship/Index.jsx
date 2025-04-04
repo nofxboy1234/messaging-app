@@ -30,8 +30,6 @@ function FriendshipIndex({ className, initialFriendships }) {
     };
   }, [shared.current_user.id]);
 
-  console.log('render Friendship/Index');
-
   return (
     <div id="friend-index" className={className}>
       <FriendshipTotal friendships={friendships} />

@@ -15,20 +15,15 @@ function useSetupAllUsers(initialUsers) {
     let userChannel;
     const userChannelSubscriptionInfo = ['AllUserChannel', {}, addUser];
     userChannel = subscribe(...userChannelSubscriptionInfo);
-    console.log('subscribed: ', userChannel.identifier);
 
     return userChannel;
   }, []);
 
   useEffect(() => {
-    console.log('~*~*~*');
-
     const userChannel = subscribeToUserChannel();
 
     return () => {
-      console.log('------');
       userChannel.unsubscribe();
-      console.log('unsubscribed: ', userChannel.identifier);
     };
   }, [subscribeToUserChannel]);
 

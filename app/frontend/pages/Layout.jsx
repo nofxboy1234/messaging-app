@@ -19,8 +19,6 @@ const LayoutContainer = ({ className, children }) => {
     });
   }, []);
 
-  console.log('render LayoutContainer');
-
   return (
     <div className={className}>
       <div id="layout">
