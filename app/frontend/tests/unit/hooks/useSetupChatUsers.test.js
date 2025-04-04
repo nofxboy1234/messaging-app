@@ -29,27 +29,72 @@ vi.mock('../../../channels/subscriptions', () => {
   };
 });
 
+function mountForChat1() {
+  const initialUsers = [
+    { id: 1, username: 'user1' },
+    { id: 2, username: 'user2' },
+  ];
+  const chatId = 1;
+
+  const renderHookResult = renderHook(
+    (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
+    {
+      initialProps: { initialUsers, chatId },
+    },
+  );
+
+  const chat1Sub = getSubscriptions().find(
+    (subscription) => subscription.identifier === chatId,
+  );
+
+  return { ...renderHookResult, initialUsers, chatId, chat1Sub };
+}
+
+function rerenderForChat2() {
+  const initialUsers = [
+    { id: 1, username: 'user1' },
+    { id: 2, username: 'user2' },
+  ];
+  const chatId = 1;
+
+  const { result, rerender, unmount } = renderHook(
+    (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
+    {
+      initialProps: { initialUsers, chatId },
+    },
+  );
+
+  const chat1Sub = getSubscriptions().find(
+    (subscription) => subscription.identifier === chatId,
+  );
+
+  const updatedUsers = [
+    { id: 1, username: 'user1' },
+    { id: 3, username: 'user3' },
+  ];
+  const updatedChatId = 2;
+
+  rerender({ initialUsers: updatedUsers, chatId: updatedChatId });
+
+  const chat2Sub = getSubscriptions().find(
+    (subscription) => subscription.identifier === updatedChatId,
+  );
+
+  return {
+    initialUsers,
+    updatedUsers,
+    chatId,
+    chat1Sub,
+    chat2Sub,
+    unmount,
+    result,
+  };
+}
+
 describe('useSetupChatUsers', () => {
   describe('when the component mounts with initial users = [user1, user2] and chatId = 1', () => {
-    function setup() {
-      const initialUsers = [
-        { id: 1, username: 'user1' },
-        { id: 2, username: 'user2' },
-      ];
-      const chatId = 1;
-
-      const renderHookResult = renderHook(
-        (props = {}) => useSetupChatUsers(props.initialUsers, props.chatId),
-        {
-          initialProps: { initialUsers, chatId },
-        },
-      );
-
-      return { ...renderHookResult, initialUsers, chatId };
-    }
-
     it('should subscribe to the chat user channel with id = 1', async () => {
-      const value = lazyMemo(() => setup());
+      const value = lazyMemo(() => mountForChat1());
       value();
 
       expect(subscribe).toHaveBeenCalledWith(
@@ -60,7 +105,7 @@ describe('useSetupChatUsers', () => {
     });
 
     it('should return an array of the initial users = [user1, user2]', () => {
-      const value = lazyMemo(() => setup());
+      const value = lazyMemo(() => mountForChat1());
       const { result, initialUsers } = value();
 
       expect(result.current).toEqual(initialUsers);
@@ -68,35 +113,15 @@ describe('useSetupChatUsers', () => {
 
     describe('when initialUsers changes to [user1, user3] and chatId changes to 2', () => {
       it('should unsubscribe from the chat user channel with id = 1', async () => {
-        const value = lazyMemo(() => setup());
-        const { rerender, chatId } = value();
+        const value = lazyMemo(() => rerenderForChat2());
+        const { chat1Sub } = value();
 
-        const subscription = getSubscriptions().find(
-          (subscription) => subscription.identifier === chatId,
-        );
-
-        const updatedUsers = [
-          { id: 1, username: 'user1' },
-          { id: 3, username: 'user3' },
-        ];
-        const updatedChatId = 2;
-
-        rerender({ initialUsers: updatedUsers, chatId: updatedChatId });
-
-        expect(subscription.unsubscribe).toHaveBeenCalledOnce();
+        expect(chat1Sub.unsubscribe).toHaveBeenCalledOnce();
       });
 
       it('should subscribe to the chat user channel with id = 2', async () => {
-        const value = lazyMemo(() => setup());
-        const { rerender } = value();
-
-        const updatedUsers = [
-          { id: 1, username: 'user1' },
-          { id: 3, username: 'user3' },
-        ];
-        const updatedChatId = 2;
-
-        rerender({ initialUsers: updatedUsers, chatId: updatedChatId });
+        const value = lazyMemo(() => rerenderForChat2());
+        value();
 
         expect(subscribe).toHaveBeenCalledWith(
           'ChatUserChannel',
@@ -104,20 +129,23 @@ describe('useSetupChatUsers', () => {
           expect.any(Function),
         );
       });
+
+      it('should return an array of the updated initial users = [user1, user3]', () => {
+        const value = lazyMemo(() => rerenderForChat2());
+        const { result, updatedUsers } = value();
+
+        expect(result.current).toEqual(updatedUsers);
+      });
     });
 
     describe('when the component unmounts', () => {
       it('should unsubscribe from the chat user channel with id = 1', async () => {
-        const value = lazyMemo(() => setup());
-        const { unmount, chatId } = value();
-
-        const subscription = getSubscriptions().find(
-          (subscription) => subscription.identifier === chatId,
-        );
+        const value = lazyMemo(() => mountForChat1());
+        const { unmount, chat1Sub } = value();
 
         unmount();
 
-        expect(subscription.unsubscribe).toHaveBeenCalledOnce();
+        expect(chat1Sub.unsubscribe).toHaveBeenCalledOnce();
       });
     });
   });
