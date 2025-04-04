@@ -93,7 +93,7 @@ function rerenderForChat2() {
 
 describe('useSetupChatUsers', () => {
   describe('when the component mounts with initial users = [user1, user2] and chatId = 1', () => {
-    it('should subscribe to the chat user channel with id = 1', async () => {
+    it('should subscribe to the chat user channel with id = 1', () => {
       const value = lazyMemo(() => mountForChat1());
       value();
 
@@ -104,21 +104,21 @@ describe('useSetupChatUsers', () => {
       );
     });
 
-    it('should have subscribed a total of 1 times', async () => {
+    it('should have subscribed a total of 1 times', () => {
       const value = lazyMemo(() => mountForChat1());
       value();
 
       expect(subscribe).toHaveBeenCalledOnce();
     });
 
-    it('should have a total of 1 subscriptions', async () => {
+    it('should have a total of 1 subscriptions', () => {
       const value = lazyMemo(() => mountForChat1());
       value();
 
       expect(getSubscriptions().length).toBe(1);
     });
 
-    it('should have a subscription for chat1 stored', async () => {
+    it('should have a subscription for chat1 stored', () => {
       const value = lazyMemo(() => mountForChat1());
       const { chat1Sub } = value();
 
@@ -133,14 +133,14 @@ describe('useSetupChatUsers', () => {
     });
 
     describe('when initialUsers changes to [user1, user3] and chatId changes to 2', () => {
-      it('should unsubscribe once from the chat user channel with id = 1', async () => {
+      it('should unsubscribe once from the chat user channel with id = 1', () => {
         const value = lazyMemo(() => rerenderForChat2());
         const { chat1Sub } = value();
 
         expect(chat1Sub.unsubscribe).toHaveBeenCalledOnce();
       });
 
-      it('should subscribe to the chat user channel with id = 2', async () => {
+      it('should subscribe to the chat user channel with id = 2', () => {
         const value = lazyMemo(() => rerenderForChat2());
         value();
 
@@ -151,21 +151,21 @@ describe('useSetupChatUsers', () => {
         );
       });
 
-      it('should have subscribed a total of 2 times', async () => {
+      it('should have subscribed a total of 2 times', () => {
         const value = lazyMemo(() => rerenderForChat2());
         value();
 
         expect(subscribe).toHaveBeenCalledTimes(2);
       });
 
-      it('should have a total of 1 subscription', async () => {
+      it('should have a total of 1 subscription', () => {
         const value = lazyMemo(() => rerenderForChat2());
         value();
 
         expect(getSubscriptions().length).toBe(1);
       });
 
-      it('should have a subscription for chat2 stored', async () => {
+      it('should have a subscription for chat2 stored', () => {
         const value = lazyMemo(() => rerenderForChat2());
         const { chat2Sub } = value();
 
@@ -180,7 +180,7 @@ describe('useSetupChatUsers', () => {
       });
 
       describe('when the component unmounts', () => {
-        it('should unsubscribe from the chat user channel with id = 2', async () => {
+        it('should unsubscribe from the chat user channel with id = 2', () => {
           const value = lazyMemo(() => rerenderForChat2());
           const { unmount, chat2Sub } = value();
 
@@ -189,7 +189,7 @@ describe('useSetupChatUsers', () => {
           expect(chat2Sub.unsubscribe).toHaveBeenCalledOnce();
         });
 
-        it('should have a total of 0 subscriptions', async () => {
+        it('should have a total of 0 subscriptions', () => {
           const value = lazyMemo(() => rerenderForChat2());
           const { unmount } = value();
 
@@ -201,7 +201,7 @@ describe('useSetupChatUsers', () => {
     });
 
     describe('when the component unmounts', () => {
-      it('should unsubscribe from the chat user channel with id = 1', async () => {
+      it('should unsubscribe from the chat user channel with id = 1', () => {
         const value = lazyMemo(() => mountForChat1());
         const { unmount, chat1Sub } = value();
 
@@ -210,7 +210,7 @@ describe('useSetupChatUsers', () => {
         expect(chat1Sub.unsubscribe).toHaveBeenCalledOnce();
       });
 
-      it('should have a total of 0 subscriptions', async () => {
+      it('should have a total of 0 subscriptions', () => {
         const value = lazyMemo(() => mountForChat1());
         const { unmount } = value();
 
