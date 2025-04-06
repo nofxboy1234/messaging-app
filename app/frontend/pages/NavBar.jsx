@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 const NavBar = ({ className }) => {
   const { shared } = usePage().props;
-  const [activeMenuItemId, setActiveMenuItemId] = useState();
+  const [activeMenuItemId, setActiveMenuItemId] = useState(0);
 
   const username = shared.current_user.email.split('@')[0];
 
