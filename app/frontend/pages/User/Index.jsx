@@ -9,7 +9,7 @@ function UserIndex({ className }) {
 
   return (
     <div className={className}>
-      {activeChat ? <ChatUserIndex /> : <AllUserIndex />}
+      {activeChat ? <ChatUserIndex key={activeChat.id} /> : <AllUserIndex />}
     </div>
   );
 }
