@@ -7,9 +7,9 @@ import useSetupChatUsers from '../../hooks/useSetupChatUsers';
 
 function ChatUserIndex({ className }) {
   const pageContext = usePage();
-  const { chat: activeChat } = pageContext.props;
+  const { chat } = pageContext.props;
 
-  const users = useSetupChatUsers(activeChat.members, activeChat.id);
+  const users = useSetupChatUsers(chat);
 
   return (
     <div className={className}>

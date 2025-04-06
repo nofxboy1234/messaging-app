@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useReducer } from 'react';
 import subscribe from '../channels/subscriptions';
-import chatUsersReducer from '../reducers/chatUsersReducer';
+import activeChatReducer from '../reducers/activeChatReducer';
 
-function useSetupChatUsers(initialUsers, chatId) {
-  const [users, dispatch] = useReducer(chatUsersReducer, initialUsers);
+function useSetupChatUsers(chat) {
+  const [activeChat, dispatch] = useReducer(activeChatReducer, {
+    id: chat.id,
+    members: chat.members,
+  });
 
   const addUser = (user) => {
     dispatch({ type: 'added_user', user: user });
@@ -12,13 +15,13 @@ function useSetupChatUsers(initialUsers, chatId) {
   const subscribeToUserChannel = useCallback(() => {
     const userChannelSubscriptionInfo = [
       'ChatUserChannel',
-      { id: chatId },
+      { id: activeChat.id },
       addUser,
     ];
     const userChannel = subscribe(...userChannelSubscriptionInfo);
 
     return userChannel;
-  }, [chatId]);
+  }, [activeChat.id]);
 
   useEffect(() => {
     const userChannel = subscribeToUserChannel();
@@ -28,7 +31,7 @@ function useSetupChatUsers(initialUsers, chatId) {
     };
   }, [subscribeToUserChannel]);
 
-  return users;
+  return activeChat.members;
 }
 
 export default useSetupChatUsers;
