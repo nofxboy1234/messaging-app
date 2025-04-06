@@ -172,11 +172,11 @@ describe('useSetupChatUsers', () => {
         expect(getSubscriptions()).toContain(chat2Sub);
       });
 
-      it('should return an array of the updated initial users = [user1, user3]', () => {
+      it('should still return an array of the original initial users = [user1, user2]', () => {
         const value = lazyMemo(() => rerenderForChat2());
-        const { result, updatedUsers } = value();
+        const { result, initialUsers } = value();
 
-        expect(result.current).toEqual(updatedUsers);
+        expect(result.current).toEqual(initialUsers);
       });
 
       describe('when the component unmounts', () => {
