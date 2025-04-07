@@ -19,8 +19,8 @@ function ChatIndex({ className, initialChats }) {
 
         disconnected() {},
 
-        received(data) {
-          setChats(data);
+        received(chat) {
+          setChats((chats) => [...chats, chat]);
         },
       },
     );
