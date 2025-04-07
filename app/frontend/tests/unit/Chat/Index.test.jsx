@@ -4,10 +4,10 @@ import ChatIndex from '../../../pages/Chat/Index';
 
 // *** end-user tests ***
 // x renders a chat total count
-// renders all the chats that the current user is a member of
+// x renders all the chats that the current user is a member of
 
 // *** developer-user tests ***
-// renders all the chats in the initialChats prop
+// x renders all the chats in the initialChats prop
 // subscribes to the current users' chats channel
 // unsubscribes on unmount
 // when the subscription receives a chat, should render that chat
