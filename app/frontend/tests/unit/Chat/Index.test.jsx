@@ -10,7 +10,7 @@ import consumer from '../../../channels/consumer';
 // *** developer-user tests ***
 // x renders all the chats in the initialChats prop
 // x subscribes to the current users' chats channel
-// unsubscribes on unmount
+// x unsubscribes on unmount
 // when the subscription receives a chat, should render that chat
 
 vi.mock('../../../channels/consumer', async () => {
