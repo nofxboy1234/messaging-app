@@ -22,7 +22,7 @@ vi.mock('../../../pages/User/Total', () => ({
 }));
 
 vi.mock('../../../pages/Profile/Link', () => ({
-  default: ({ user }) => <div>{user.username}</div>,
+  default: ({ user }) => <div data-testid="user">{user.username}</div>,
 }));
 
 describe('ChatUserIndex', () => {
@@ -39,8 +39,10 @@ describe('ChatUserIndex', () => {
 
     const user1 = screen.getByText('user1');
     const user2 = screen.getByText('user2');
+    const users = screen.getAllByTestId('user');
 
     expect(user1).toBeInTheDocument();
     expect(user2).toBeInTheDocument();
+    expect(users.length).toBe(2);
   });
 });
