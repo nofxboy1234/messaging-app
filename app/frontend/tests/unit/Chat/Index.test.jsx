@@ -1,5 +1,5 @@
 import { vi, describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import ChatIndex from '../../../pages/Chat/Index';
 import consumer from '../../../channels/consumer';
 
@@ -109,5 +109,33 @@ describe('ChatIndex', () => {
     unmount();
 
     expect(subscription.unsubscribe).toHaveBeenCalled();
+  });
+
+  describe('when the subscription receives a chat', () => {
+    it('should render the chats with that new chat added', () => {
+      render(
+        <ChatIndex
+          initialChats={[
+            { id: 1, friend: { id: 2, username: 'user2' } },
+            { id: 2, friend: { id: 3, username: 'user3' } },
+          ]}
+        />,
+      );
+
+      act(() => {
+        const subscription = consumer.subscriptions.subscriptions[0];
+        subscription.received({ id: 3, friend: { id: 4, username: 'user4' } });
+      });
+
+      const friend1Chat = screen.getByText('user2');
+      const friend2Chat = screen.getByText('user3');
+      const friend3Chat = screen.getByText('user4');
+      const friendChats = screen.getAllByTestId('friend');
+
+      expect(friend1Chat).toBeInTheDocument();
+      expect(friend2Chat).toBeInTheDocument();
+      expect(friend3Chat).toBeInTheDocument();
+      expect(friendChats.length).toBe(3);
+    });
   });
 });
