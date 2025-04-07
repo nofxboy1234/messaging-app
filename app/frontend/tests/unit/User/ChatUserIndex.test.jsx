@@ -26,7 +26,7 @@ vi.mock('../../../pages/Profile/Link', () => ({
 }));
 
 describe('ChatUserIndex', () => {
-  it('should render a user total count', () => {
+  it('should render the total user count', () => {
     render(<ChatUserIndex />);
 
     const userTotal = screen.getByText('user total');
