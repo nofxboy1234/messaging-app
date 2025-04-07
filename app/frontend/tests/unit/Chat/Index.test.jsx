@@ -3,16 +3,6 @@ import { act, render, screen } from '@testing-library/react';
 import ChatIndex from '../../../pages/Chat/Index';
 import consumer from '../../../channels/consumer';
 
-// *** end-user tests ***
-// x renders a chat total count
-// x renders all the chats that the current user is a member of
-
-// *** developer-user tests ***
-// x renders all the chats in the initialChats prop
-// x subscribes to the current users' chats channel
-// x unsubscribes on unmount
-// when the subscription receives a chat, should render that chat
-
 vi.mock('../../../channels/consumer', async () => {
   const subscription = {
     unsubscribe: vi.fn(),
