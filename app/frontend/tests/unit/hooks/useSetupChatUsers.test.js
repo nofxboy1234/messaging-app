@@ -1,5 +1,5 @@
 import { vi, describe, it, expect } from 'vitest';
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 
 import subscribe, { getSubscriptions } from '../../../channels/subscriptions';
 
@@ -9,18 +9,19 @@ import lazyMemo from '../../../helpers/vitest/lazyMemo';
 vi.mock('../../../channels/subscriptions', () => {
   let subscriptions = [];
 
-  const createSubscription = (params) => ({
+  const createSubscription = (params, receivedCallback) => ({
     identifier: params.id,
     unsubscribe: vi.fn(() => {
       subscriptions = subscriptions.filter(
         (subscription) => subscription.identifier !== params.id,
       );
     }),
+    received: receivedCallback,
   });
 
   return {
     default: vi.fn((channelName, params, receivedCallback) => {
-      const subscription = createSubscription(params);
+      const subscription = createSubscription(params, receivedCallback);
       subscriptions.push(subscription);
 
       return subscription;
@@ -88,6 +89,23 @@ describe('useSetupChatUsers', () => {
       const { result, chat1 } = value();
 
       expect(result.current).toEqual(chat1.members);
+    });
+
+    describe('when the subscription receives a user', () => {
+      it('should return an updated array of the chat1 users with that user added', () => {
+        const value = lazyMemo(() => mountForChat1());
+        const { result, chat1Sub } = value();
+
+        act(() => {
+          chat1Sub.received({ id: 99, username: 'user99' });
+        });
+
+        expect(result.current).toEqual([
+          { id: 1, username: 'user1' },
+          { id: 2, username: 'user2' },
+          { id: 99, username: 'user99' },
+        ]);
+      });
     });
 
     describe('when the component unmounts', () => {
