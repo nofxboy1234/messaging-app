@@ -94,4 +94,20 @@ describe('ChatIndex', () => {
       expect.any(Object),
     );
   });
+
+  it('should unsubscribe from the subscription on unmount', async () => {
+    const { unmount } = render(
+      <ChatIndex
+        initialChats={[
+          { id: 1, friend: { id: 2, username: 'user2' } },
+          { id: 2, friend: { id: 3, username: 'user3' } },
+        ]}
+      />,
+    );
+
+    const subscription = consumer.subscriptions.subscriptions[0];
+    unmount();
+
+    expect(subscription.unsubscribe).toHaveBeenCalled();
+  });
 });
