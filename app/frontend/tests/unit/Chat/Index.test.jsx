@@ -1,6 +1,7 @@
 import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import ChatIndex from '../../../pages/Chat/Index';
+import consumer from '../../../channels/consumer';
 
 // *** end-user tests ***
 // x renders a chat total count
@@ -8,7 +9,7 @@ import ChatIndex from '../../../pages/Chat/Index';
 
 // *** developer-user tests ***
 // x renders all the chats in the initialChats prop
-// subscribes to the current users' chats channel
+// x subscribes to the current users' chats channel
 // unsubscribes on unmount
 // when the subscription receives a chat, should render that chat
 
@@ -76,5 +77,21 @@ describe('ChatIndex', () => {
     expect(friend1Chat).toBeInTheDocument();
     expect(friend2Chat).toBeInTheDocument();
     expect(friendChats.length).toBe(2);
+  });
+
+  it('should subscribe to the chats channel with id = current_user id', () => {
+    render(
+      <ChatIndex
+        initialChats={[
+          { id: 1, friend: { id: 2, username: 'user2' } },
+          { id: 2, friend: { id: 3, username: 'user3' } },
+        ]}
+      />,
+    );
+
+    expect(consumer.subscriptions.create).toHaveBeenCalledWith(
+      { channel: 'ChatChannel', id: 1 },
+      expect.any(Object),
+    );
   });
 });
