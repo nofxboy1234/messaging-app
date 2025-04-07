@@ -1,8 +1,9 @@
 import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import ChatIndex from '../../../pages/Chat/Index';
 
 // *** end-user tests ***
-// renders a chat total count
+// x renders a chat total count
 // renders all the chats that the current user is a member of
 
 // *** developer-user tests ***
@@ -10,3 +11,70 @@ import { render, screen } from '@testing-library/react';
 // subscribes to the current users' chats channel
 // unsubscribes on unmount
 // when the subscription receives a chat, should render that chat
+
+vi.mock('../../../channels/consumer', async () => {
+  const subscription = {
+    unsubscribe: vi.fn(),
+    received: null,
+  };
+
+  return {
+    default: {
+      subscriptions: {
+        create: vi.fn((_, callbacks) => {
+          subscription.received = callbacks.received;
+          return subscription;
+        }),
+        subscriptions: [subscription],
+      },
+    },
+  };
+});
+
+vi.mock('@inertiajs/react', () => ({
+  usePage: () => ({ props: { shared: { current_user: { id: 1 } } } }),
+}));
+
+vi.mock('../../../pages/Chat/Total', () => ({
+  default: () => <div>chat total</div>,
+}));
+
+vi.mock('../../../pages/Chat/Link', () => ({
+  default: ({ friend }) => <div data-testid="friend">{friend.username}</div>,
+}));
+
+describe('ChatIndex', () => {
+  it('should render a chat total count', () => {
+    render(
+      <ChatIndex
+        initialChats={[
+          { id: 1, friend: { id: 2 } },
+          { id: 2, friend: { id: 3 } },
+        ]}
+      />,
+    );
+
+    const userTotal = screen.getByText('chat total');
+
+    expect(userTotal).toBeInTheDocument();
+  });
+
+  it('should render all the chats the current user is a member of', () => {
+    render(
+      <ChatIndex
+        initialChats={[
+          { id: 1, friend: { id: 2, username: 'user2' } },
+          { id: 2, friend: { id: 3, username: 'user3' } },
+        ]}
+      />,
+    );
+
+    const friend1Chat = screen.getByText('user2');
+    const friend2Chat = screen.getByText('user3');
+    const friendChats = screen.getAllByTestId('friend');
+
+    expect(friend1Chat).toBeInTheDocument();
+    expect(friend2Chat).toBeInTheDocument();
+    expect(friendChats.length).toBe(2);
+  });
+});
