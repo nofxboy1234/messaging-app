@@ -33,16 +33,14 @@ describe('ChatLink', () => {
     render(<ChatLink {...defaultProps} />);
 
     const link = screen.getByRole('link');
-    const href = `${window.location.protocol}//${window.location.host}/path/to/chat1`;
-    expect(link).toHaveProperty('href', href);
+    expect(link).toHaveAttribute('href', '/path/to/chat1');
   });
 
   it('renders an image with the correct friend profile picture path', () => {
     render(<ChatLink {...defaultProps} />);
 
     const image = screen.getByRole('img');
-    const href = `${window.location.protocol}//${window.location.host}/path/to/picture`;
-    expect(image).toHaveProperty('src', href);
+    expect(image).toHaveAttribute('src', '/path/to/picture');
   });
 
   it('renders the friend username', () => {
