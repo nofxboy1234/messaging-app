@@ -12,14 +12,7 @@ vi.mock('../../../pathHelpers', () => {
 });
 
 vi.mock('../../../pages/User/Link', () => ({
-  default: ({ children, targetPath }) => (
-    <a href={targetPath}>
-      <div>
-        {targetPath}
-        {children}
-      </div>
-    </a>
-  ),
+  default: ({ children, targetPath }) => <a href={targetPath}>{children}</a>,
 }));
 
 vi.mock('../../../pages/Profile/Picture', () => {
