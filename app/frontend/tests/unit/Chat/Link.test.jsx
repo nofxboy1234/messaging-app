@@ -31,7 +31,7 @@ vi.mock('../../../pages/Profile/Picture', () => {
 });
 
 describe('ChatLink', () => {
-  it('should pass the correct chat path to a link', () => {
+  it('renders a link with the correct chat path', () => {
     const chat = { id: 1 };
     const friend = {
       profile: { username: 'friend1', picture: '/path/to/picture' },
@@ -43,7 +43,7 @@ describe('ChatLink', () => {
     expect(link).toHaveProperty('href', href);
   });
 
-  it('should pass the correct friend profile picture to an image', () => {
+  it('renders an image with the correct friend profile picture path', () => {
     const chat = { id: 1 };
     const friend = {
       profile: { username: 'friend1', picture: '/path/to/picture' },
@@ -55,18 +55,18 @@ describe('ChatLink', () => {
     expect(image).toHaveProperty('src', href);
   });
 
-  it('should render the friend username', () => {
+  it('renders the friend username', () => {
     const chat = { id: 1 };
     const friend = {
       profile: { username: 'friend1', picture: '/path/to/picture' },
     };
     render(<ChatLink chat={chat} friend={friend} />);
 
-    const image = screen.getByText('friend1');
-    expect(image).toBeInTheDocument();
+    const username = screen.getByText('friend1');
+    expect(username).toBeInTheDocument();
   });
 
-  it('should render any children', () => {
+  it('renders any children', () => {
     const chat = { id: 1 };
     const friend = {
       profile: { username: 'friend1', picture: '/path/to/picture' },
