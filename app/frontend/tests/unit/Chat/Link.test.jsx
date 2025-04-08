@@ -17,9 +17,7 @@ vi.mock('../../../pages/User/Link', () => ({
 
 vi.mock('../../../pages/Profile/Picture', () => {
   return {
-    default: function Picture({ src }) {
-      return <img src={src} />;
-    },
+    default: ({ src }) => <img src={src} />,
   };
 });
 
