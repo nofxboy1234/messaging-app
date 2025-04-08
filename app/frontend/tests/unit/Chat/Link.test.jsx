@@ -24,12 +24,15 @@ vi.mock('../../../pages/Profile/Picture', () => {
 });
 
 describe('ChatLink', () => {
-  it('renders a link with the correct chat path', () => {
-    const chat = { id: 1 };
-    const friend = {
+  const defaultProps = {
+    chat: { id: 1 },
+    friend: {
       profile: { username: 'friend1', picture: '/path/to/picture' },
-    };
-    render(<ChatLink chat={chat} friend={friend} />);
+    },
+  };
+
+  it('renders a link with the correct chat path', () => {
+    render(<ChatLink {...defaultProps} />);
 
     const link = screen.getByRole('link');
     const href = `${window.location.protocol}//${window.location.host}/path/to/chat1`;
@@ -37,11 +40,7 @@ describe('ChatLink', () => {
   });
 
   it('renders an image with the correct friend profile picture path', () => {
-    const chat = { id: 1 };
-    const friend = {
-      profile: { username: 'friend1', picture: '/path/to/picture' },
-    };
-    render(<ChatLink chat={chat} friend={friend} />);
+    render(<ChatLink {...defaultProps} />);
 
     const image = screen.getByRole('img');
     const href = `${window.location.protocol}//${window.location.host}/path/to/picture`;
@@ -49,23 +48,15 @@ describe('ChatLink', () => {
   });
 
   it('renders the friend username', () => {
-    const chat = { id: 1 };
-    const friend = {
-      profile: { username: 'friend1', picture: '/path/to/picture' },
-    };
-    render(<ChatLink chat={chat} friend={friend} />);
+    render(<ChatLink {...defaultProps} />);
 
     const username = screen.getByText('friend1');
     expect(username).toBeInTheDocument();
   });
 
   it('renders any children', () => {
-    const chat = { id: 1 };
-    const friend = {
-      profile: { username: 'friend1', picture: '/path/to/picture' },
-    };
     render(
-      <ChatLink chat={chat} friend={friend}>
+      <ChatLink {...defaultProps}>
         <div>children</div>
       </ChatLink>,
     );
