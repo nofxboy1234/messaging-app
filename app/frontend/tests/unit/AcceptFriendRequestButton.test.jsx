@@ -3,9 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { vi, describe, beforeEach, afterEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import StyledAcceptFriendRequestButton from '../../pages/FriendRequest/Buttons/AcceptFriendRequestButton';
-import { router } from '@inertiajs/react';
 
-// Mock dependencies
 vi.mock('../../pages/Buttons/Button', () => ({
   default: ({ text, onClick, className }) => (
     <button className={className} onClick={onClick}>
@@ -13,34 +11,6 @@ vi.mock('../../pages/Buttons/Button', () => ({
     </button>
   ),
 }));
-
-// Mock Inertia's router instead of the entire api module
-vi.mock('@inertiajs/react', () => {
-  const routerMock = {
-    visit: vi.fn(({ url, options, httpMethodFn, obj, data }) => {
-      // Simulate Inertia's behavior: call onBefore if it exists
-      if (options?.onBefore) {
-        const shouldProceed = options.onBefore();
-        if (!shouldProceed) return; // Mimic Inertia canceling the visit
-      }
-
-      if (data) {
-        httpMethodFn(data);
-      } else if (obj) {
-        httpMethodFn(obj);
-      }
-
-      // Simulate success if onFinish exists
-      if (options?.onFinish) {
-        options.onFinish();
-      }
-    }),
-  };
-  return {
-    router: routerMock,
-    usePage: () => ({ props: { shared: { current_user: { id: 1 } } } }), // For other components
-  };
-});
 
 vi.mock('../../pathHelpers', () => {
   const httpDestroy = vi.fn(() => {});
@@ -50,25 +20,32 @@ vi.mock('../../pathHelpers', () => {
     default: {
       friendRequests: {
         httpDestroy,
-        destroy: ({ obj, options }) => {
-          // Call Inertia's router.visit
-          router.visit({
-            url: 'destroy-url',
-            options,
-            httpMethodFn: httpDestroy,
-            obj,
-          });
+        destroy: ({ options, obj }) => {
+          if (options?.onBefore) {
+            const shouldProceed = options.onBefore();
+            if (!shouldProceed) return;
+          }
+
+          httpDestroy(obj);
+
+          if (options?.onFinish) {
+            options.onFinish();
+          }
         },
       },
       friendships: {
         httpCreate,
-        create: ({ data, options }) => {
-          router.visit({
-            url: 'create-url',
-            options,
-            httpMethodFn: httpCreate,
-            data,
-          });
+        create: ({ options, data }) => {
+          if (options?.onBefore) {
+            const shouldProceed = options.onBefore();
+            if (!shouldProceed) return;
+          }
+
+          httpCreate(data);
+
+          if (options?.onFinish) {
+            options.onFinish();
+          }
         },
       },
     },
@@ -101,7 +78,6 @@ describe('StyledAcceptFriendRequestButton', () => {
 
     await user.click(screen.getByText('Accept'));
 
-    // Check that window.confirm was called with the correct message
     expect(window.confirm).toHaveBeenCalledWith(
       'Accept friend request from testuser?',
     );
@@ -112,13 +88,12 @@ describe('StyledAcceptFriendRequestButton', () => {
     );
     expect(mockApi.friendRequests.httpDestroy).toHaveBeenCalledTimes(1);
 
-    // Check that friendships.create was called
     expect(mockApi.friendships.httpCreate).toHaveBeenCalledWith(friendRequest);
     expect(mockApi.friendships.httpCreate).toHaveBeenCalledTimes(1);
   });
 
   it('shows confirmation dialog and does not call APIs on click when cancelled', async () => {
-    window.confirm = vi.fn(() => false); // Mock confirm to return false
+    window.confirm = vi.fn(() => false);
     const mockApi = (await import('../../pathHelpers')).default;
     render(<StyledAcceptFriendRequestButton friendRequest={friendRequest} />);
 
