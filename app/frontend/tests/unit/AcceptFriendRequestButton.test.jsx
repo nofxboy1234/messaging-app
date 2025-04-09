@@ -63,10 +63,6 @@ describe('StyledAcceptFriendRequestButton', () => {
     window.confirm = vi.fn(() => true);
   });
 
-  afterEach(() => {
-    vi.clearAllMocks();
-  });
-
   it('renders with Accept text', () => {
     render(<StyledAcceptFriendRequestButton friendRequest={friendRequest} />);
     expect(screen.getByText('Accept')).toBeInTheDocument();

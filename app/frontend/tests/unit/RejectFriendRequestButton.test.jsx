@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { vi, describe, beforeEach, afterEach, expect, it } from 'vitest';
+import { vi, describe, beforeEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { router } from '@inertiajs/react';
 import StyledRejectFriendRequestButton from '../../pages/FriendRequest/Buttons/RejectFriendRequestButton';
 
 vi.mock('../../pages/Buttons/Button', () => ({
@@ -12,28 +11,24 @@ vi.mock('../../pages/Buttons/Button', () => ({
   ),
 }));
 
-vi.mock('@inertiajs/react', () => {
-  const routerMock = {
-    visit: vi.fn((url, options) => {
-      if (options?.onBefore) {
-        const shouldProceed = options.onBefore();
-        if (!shouldProceed) return;
-      }
-    }),
-  };
+vi.mock('../../pathHelpers/friendRequests', () => {
+  const httpDestroy = vi.fn(() => {});
   return {
-    router: routerMock,
-    usePage: () => ({ props: { shared: { current_user: { id: 1 } } } }),
+    default: {
+      destroy: ({ options, obj }) => {
+        if (options?.onBefore) {
+          const shouldProceed = options.onBefore();
+          if (!shouldProceed) return;
+        }
+        httpDestroy(obj);
+        if (options?.onFinish) {
+          options.onFinish();
+        }
+      },
+      httpDestroy,
+    },
   };
 });
-
-vi.mock('../../pathHelpers/friendRequests', () => ({
-  default: {
-    destroy: ({ obj, options }) => {
-      router.visit('some-url', options);
-    },
-  },
-}));
 
 describe('StyledRejectFriendRequestButton', () => {
   const friendRequest = {
@@ -51,7 +46,8 @@ describe('StyledRejectFriendRequestButton', () => {
     expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
   });
 
-  it('shows confirmation dialog on click when confirmed', async () => {
+  it('shows confirmation dialog and calls API on click when confirmed', async () => {
+    const mockApi = (await import('../../pathHelpers/friendRequests')).default;
     render(<StyledRejectFriendRequestButton friendRequest={friendRequest} />);
 
     await user.click(screen.getByRole('button', { name: 'Reject' }));
@@ -60,10 +56,14 @@ describe('StyledRejectFriendRequestButton', () => {
       'Reject friend request from testuser?',
     );
     expect(window.confirm).toHaveBeenCalledTimes(1);
+
+    expect(mockApi.httpDestroy).toHaveBeenCalledWith(friendRequest);
+    expect(mockApi.httpDestroy).toHaveBeenCalledTimes(1);
   });
 
-  it('does not proceed when confirmation is cancelled', async () => {
+  it('shows confirmation dialog and does not call API on click when cancelled', async () => {
     window.confirm = vi.fn(() => false);
+    const mockApi = (await import('../../pathHelpers/friendRequests')).default;
     render(<StyledRejectFriendRequestButton friendRequest={friendRequest} />);
 
     await user.click(screen.getByRole('button', { name: 'Reject' }));
@@ -71,5 +71,8 @@ describe('StyledRejectFriendRequestButton', () => {
     expect(window.confirm).toHaveBeenCalledWith(
       'Reject friend request from testuser?',
     );
+    expect(window.confirm).toHaveBeenCalledTimes(1);
+
+    expect(mockApi.httpDestroy).not.toHaveBeenCalled();
   });
 });

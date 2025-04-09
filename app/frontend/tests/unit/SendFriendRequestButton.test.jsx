@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { vi, describe, beforeEach, afterEach, expect, it } from 'vitest';
+import { vi, describe, beforeEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { router } from '@inertiajs/react';
 import StyledSendFriendRequestButton from '../../pages/FriendRequest/Buttons/SendFriendRequestButton';
 
 vi.mock('../../pages/Buttons/Button', () => ({
@@ -12,28 +11,32 @@ vi.mock('../../pages/Buttons/Button', () => ({
   ),
 }));
 
-vi.mock('@inertiajs/react', () => {
-  const routerMock = {
-    visit: vi.fn((url, options) => {
-      if (options?.onBefore) {
-        const shouldProceed = options.onBefore();
-        if (!shouldProceed) return;
-      }
-    }),
-  };
+vi.mock('@inertiajs/react', () => ({
+  usePage: () => ({
+    props: {
+      shared: { current_user: { id: 1 } },
+    },
+  }),
+}));
+
+vi.mock('../../pathHelpers/friendRequests', () => {
+  const httpCreate = vi.fn(() => {});
   return {
-    router: routerMock,
-    usePage: () => ({ props: { shared: { current_user: { id: 1 } } } }),
+    default: {
+      create: ({ options, data }) => {
+        if (options?.onBefore) {
+          const shouldProceed = options.onBefore();
+          if (!shouldProceed) return;
+        }
+        httpCreate(data);
+        if (options?.onFinish) {
+          options.onFinish();
+        }
+      },
+      httpCreate,
+    },
   };
 });
-
-vi.mock('../../pathHelpers/friendRequests', () => ({
-  default: {
-    create: ({ data, options }) => {
-      router.visit('some-url', options);
-    },
-  },
-}));
 
 describe('StyledSendFriendRequestButton', () => {
   const userData = {
@@ -52,7 +55,8 @@ describe('StyledSendFriendRequestButton', () => {
     expect(screen.getByRole('button', { name: 'Send' })).toBeInTheDocument();
   });
 
-  it('shows confirmation dialog on click when confirmed', async () => {
+  it('shows confirmation dialog and calls API on click when confirmed', async () => {
+    const mockApi = (await import('../../pathHelpers/friendRequests')).default;
     render(<StyledSendFriendRequestButton user={userData} />);
 
     await user.click(screen.getByRole('button', { name: 'Send' }));
@@ -61,10 +65,17 @@ describe('StyledSendFriendRequestButton', () => {
       'Send friend request to testuser?',
     );
     expect(window.confirm).toHaveBeenCalledTimes(1);
+
+    expect(mockApi.httpCreate).toHaveBeenCalledWith({
+      user_id: 1, // from usePage().props.shared.current_user.id
+      friend_id: userData.id, // from user prop
+    });
+    expect(mockApi.httpCreate).toHaveBeenCalledTimes(1);
   });
 
-  it('does not proceed when confirmation is cancelled', async () => {
+  it('shows confirmation dialog and does not call API on click when cancelled', async () => {
     window.confirm = vi.fn(() => false);
+    const mockApi = (await import('../../pathHelpers/friendRequests')).default;
     render(<StyledSendFriendRequestButton user={userData} />);
 
     await user.click(screen.getByRole('button', { name: 'Send' }));
@@ -72,5 +83,8 @@ describe('StyledSendFriendRequestButton', () => {
     expect(window.confirm).toHaveBeenCalledWith(
       'Send friend request to testuser?',
     );
+    expect(window.confirm).toHaveBeenCalledTimes(1);
+
+    expect(mockApi.httpCreate).not.toHaveBeenCalled();
   });
 });
