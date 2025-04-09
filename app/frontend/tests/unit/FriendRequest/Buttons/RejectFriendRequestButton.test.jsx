@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { vi, describe, beforeEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import StyledRejectFriendRequestButton from '../../pages/FriendRequest/Buttons/RejectFriendRequestButton';
+import StyledRejectFriendRequestButton from '../../../../pages/FriendRequest/Buttons/RejectFriendRequestButton';
 
-vi.mock('../../pages/Buttons/Button', () => ({
+vi.mock('../../../../pages/Buttons/Button', () => ({
   default: ({ text, onClick, className }) => (
     <button className={className} onClick={onClick}>
       {text}
@@ -11,7 +11,7 @@ vi.mock('../../pages/Buttons/Button', () => ({
   ),
 }));
 
-vi.mock('../../pathHelpers/friendRequests', () => {
+vi.mock('../../../../pathHelpers/friendRequests', () => {
   const httpDestroy = vi.fn(() => {});
   return {
     default: {
@@ -47,7 +47,8 @@ describe('StyledRejectFriendRequestButton', () => {
   });
 
   it('shows confirmation dialog and calls API on click when confirmed', async () => {
-    const mockApi = (await import('../../pathHelpers/friendRequests')).default;
+    const mockApi = (await import('../../../../pathHelpers/friendRequests'))
+      .default;
     render(<StyledRejectFriendRequestButton friendRequest={friendRequest} />);
 
     await user.click(screen.getByRole('button', { name: 'Reject' }));
@@ -63,7 +64,8 @@ describe('StyledRejectFriendRequestButton', () => {
 
   it('shows confirmation dialog and does not call API on click when cancelled', async () => {
     window.confirm = vi.fn(() => false);
-    const mockApi = (await import('../../pathHelpers/friendRequests')).default;
+    const mockApi = (await import('../../../../pathHelpers/friendRequests'))
+      .default;
     render(<StyledRejectFriendRequestButton friendRequest={friendRequest} />);
 
     await user.click(screen.getByRole('button', { name: 'Reject' }));

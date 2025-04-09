@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { vi, describe, beforeEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import StyledSendFriendRequestButton from '../../pages/FriendRequest/Buttons/SendFriendRequestButton';
+import StyledSendFriendRequestButton from '../../../../pages/FriendRequest/Buttons/SendFriendRequestButton';
 
-vi.mock('../../pages/Buttons/Button', () => ({
+vi.mock('../../../../pages/Buttons/Button', () => ({
   default: ({ text, onClick, className }) => (
     <button className={className} onClick={onClick}>
       {text}
@@ -19,7 +19,7 @@ vi.mock('@inertiajs/react', () => ({
   }),
 }));
 
-vi.mock('../../pathHelpers/friendRequests', () => {
+vi.mock('../../../../pathHelpers/friendRequests', () => {
   const httpCreate = vi.fn(() => {});
   return {
     default: {
@@ -56,7 +56,8 @@ describe('StyledSendFriendRequestButton', () => {
   });
 
   it('shows confirmation dialog and calls API on click when confirmed', async () => {
-    const mockApi = (await import('../../pathHelpers/friendRequests')).default;
+    const mockApi = (await import('../../../../pathHelpers/friendRequests'))
+      .default;
     render(<StyledSendFriendRequestButton user={userData} />);
 
     await user.click(screen.getByRole('button', { name: 'Send' }));
@@ -75,7 +76,8 @@ describe('StyledSendFriendRequestButton', () => {
 
   it('shows confirmation dialog and does not call API on click when cancelled', async () => {
     window.confirm = vi.fn(() => false);
-    const mockApi = (await import('../../pathHelpers/friendRequests')).default;
+    const mockApi = (await import('../../../../pathHelpers/friendRequests'))
+      .default;
     render(<StyledSendFriendRequestButton user={userData} />);
 
     await user.click(screen.getByRole('button', { name: 'Send' }));
