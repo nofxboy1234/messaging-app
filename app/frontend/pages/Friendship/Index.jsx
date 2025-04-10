@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { router, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import Friendship from './Friendship';
 import FriendshipTotal from './Total';
 import { useEffect, useState } from 'react';
