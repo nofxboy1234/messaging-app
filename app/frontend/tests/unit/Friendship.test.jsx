@@ -8,7 +8,7 @@ vi.mock('../../pages/Profile/Link', () => ({
   default: ({ children, user, active }) => (
     <div data-testid="profile-link">
       <div>profile-link-{user.profile.username}</div>
-      <div>profile-link-active-{active ? 'true' : 'false'}</div>
+      <div>{`profile-link-active-${active}`}</div>
       <div>{children}</div>
     </div>
   ),
