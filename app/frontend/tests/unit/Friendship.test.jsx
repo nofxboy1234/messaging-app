@@ -8,6 +8,7 @@ vi.mock('../../pages/Profile/Link', () => ({
   default: ({ children, user, active }) => (
     <div data-testid="profile-link">
       <div>profile-link-{user.profile.username}</div>
+      <div>profile-link-active-{active ? 'true' : 'false'}</div>
       <div>{children}</div>
     </div>
   ),
@@ -38,11 +39,13 @@ describe('StyledFriendship', () => {
   it('renders profile link, chat button and unfriend button', () => {
     render(<StyledFriendship {...props} />);
     expect(screen.getByText('profile-link-testuser')).toBeInTheDocument();
+    expect(screen.getByText('profile-link-active-true')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Chat-2' })).toBeInTheDocument();
     expect(screen.getByText('unfriend-button-testuser')).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Unfriend-1' }),
     ).toBeInTheDocument();
+    screen.debug();
   });
 
   it('calls handleClick when clicked', async () => {
