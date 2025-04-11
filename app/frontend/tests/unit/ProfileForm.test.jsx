@@ -3,21 +3,18 @@ import { render, screen } from '@testing-library/react';
 import { vi, describe, beforeEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import StyledProfileForm from '../../pages/Profile/Form';
+import { useState } from 'react';
 
 vi.mock('@inertiajs/react', () => {
-  let cached;
-
   return {
     useForm: (initial) => {
-      if (!cached) {
-        cached = initial;
-      }
+      const [formData, setFormData] = useState(initial);
 
       return {
-        data: cached,
-        setData: vi.fn((key, value) => {
-          cached = { ...cached, [key]: value };
-        }),
+        data: formData,
+        setData: (key, value) => {
+          setFormData((formData) => ({ ...formData, [key]: value }));
+        },
         errors: {},
         processing: false,
       };
@@ -62,7 +59,7 @@ describe('StyledProfileForm', () => {
     expect(screen.getByTestId('picture-pic.jpg')).toBeInTheDocument();
   });
 
-  it.only('updates form data on input change', async () => {
+  it('updates form data on input change', async () => {
     const { container } = render(
       <StyledProfileForm profile={profile} onSubmit={onSubmit} />,
     );
