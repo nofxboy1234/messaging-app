@@ -2,7 +2,7 @@
 import { render, screen } from '@testing-library/react';
 import { vi, describe, beforeEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import StyledRegistrationsNew from '../registrations/New';
+import StyledRegistrationsNew from '../../pages/registrations/New';
 
 vi.mock('@inertiajs/react', () => {
   const routerRemoveEventListener = vi.fn();
@@ -16,11 +16,11 @@ vi.mock('@inertiajs/react', () => {
   };
 });
 
-vi.mock('../registrations/Buttons/SignupButton', () => ({
+vi.mock('../../pages/registrations/Buttons/SignupButton', () => ({
   default: ({ values }) => <button>Sign up-{values.email}</button>,
 }));
 
-vi.mock('../registrations/Buttons/BackButton', () => ({
+vi.mock('../../pages/registrations/Buttons/BackButton', () => ({
   default: () => <button>Back</button>,
 }));
 

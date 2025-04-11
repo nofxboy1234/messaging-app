@@ -45,7 +45,6 @@ describe('StyledFriendship', () => {
     expect(
       screen.getByRole('button', { name: 'Unfriend-1' }),
     ).toBeInTheDocument();
-    screen.debug();
   });
 
   it('calls handleClick when clicked', async () => {

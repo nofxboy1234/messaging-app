@@ -2,7 +2,7 @@
 import { render, screen } from '@testing-library/react';
 import { vi, describe, beforeEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import StyledBackButton from '../registrations/Buttons/BackButton';
+import StyledBackButton from '../../pages/registrations/Buttons/BackButton';
 
 vi.mock('../../pages/Buttons/Button', () => ({
   default: ({ text, onClick }) => <button onClick={onClick}>{text}</button>,
