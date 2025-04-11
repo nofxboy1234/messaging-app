@@ -47,4 +47,11 @@ describe('StyledRegistrationsNew', () => {
 
     expect(emailInput).toHaveValue('test@example.com');
   });
+
+  it('registers a callback for when Inertia invalid events occur, on mount', async () => {
+    const mockRouter = (await import('@inertiajs/react')).router;
+    render(<StyledRegistrationsNew />);
+
+    expect(mockRouter.on).toHaveBeenCalledWith('invalid', expect.any(Function));
+  });
 });
