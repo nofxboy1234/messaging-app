@@ -4,12 +4,17 @@ import { vi, describe, beforeEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import StyledRegistrationsNew from '../registrations/New';
 
-vi.mock('@inertiajs/react', () => ({
-  usePage: () => ({
-    props: { shared: { flash: {} }, errors: {} },
-  }),
-  router: { on: vi.fn(() => () => {}) },
-}));
+vi.mock('@inertiajs/react', () => {
+  const routerRemoveEventListener = vi.fn();
+
+  return {
+    usePage: () => ({
+      props: { shared: { flash: {} }, errors: {} },
+    }),
+    router: { on: vi.fn(() => routerRemoveEventListener) },
+    routerRemoveEventListener,
+  };
+});
 
 vi.mock('../registrations/Buttons/SignupButton', () => ({
   default: ({ values }) => <button>Sign up-{values.email}</button>,
@@ -48,10 +53,19 @@ describe('StyledRegistrationsNew', () => {
     expect(emailInput).toHaveValue('test@example.com');
   });
 
-  it('registers a callback for when Inertia invalid events occur, on mount', async () => {
+  it('adds an Inertia invalid event listener on mount', async () => {
     const mockRouter = (await import('@inertiajs/react')).router;
     render(<StyledRegistrationsNew />);
 
     expect(mockRouter.on).toHaveBeenCalledWith('invalid', expect.any(Function));
+  });
+
+  it('removes the Inertia invalid event listener on unmount', async () => {
+    const mockInertia = await import('@inertiajs/react');
+    const { unmount } = render(<StyledRegistrationsNew />);
+
+    unmount();
+
+    expect(mockInertia.routerRemoveEventListener).toHaveBeenCalled();
   });
 });
