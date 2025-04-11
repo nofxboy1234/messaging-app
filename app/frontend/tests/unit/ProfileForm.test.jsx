@@ -23,13 +23,21 @@ vi.mock('@inertiajs/react', () => {
 });
 
 vi.mock('../../pages/Profile/Picture', () => ({
-  default: ({ src }) => (
-    <img src={src} alt="pic" data-testid={`picture-${src}`} />
+  default: ({ src, scale }) => (
+    <div>
+      <div>{`picture-scale-${scale}`}</div>
+      <img src={src} alt="pic" data-testid={`picture-${src}`} />
+    </div>
   ),
 }));
 
 vi.mock('../../pages/Profile/Buttons/UpdateProfileButton', () => ({
-  default: ({ profile }) => <button>Update</button>,
+  default: ({ onSubmit, form }) => (
+    <div>
+      <div>{`update-${form.data.username}`}</div>
+      <button onClick={onSubmit}>Update</button>
+    </div>
+  ),
 }));
 
 vi.mock('../../pages/Profile/Buttons/ShowProfileButton', () => ({
@@ -43,7 +51,7 @@ describe('StyledProfileForm', () => {
     about: 'About me',
     picture: 'pic.jpg',
   };
-  const onSubmit = vi.fn();
+  const onSubmit = vi.fn((event) => event.preventDefault());
   let user;
 
   beforeEach(() => {
@@ -55,8 +63,11 @@ describe('StyledProfileForm', () => {
     expect(screen.getByDisplayValue('testuser')).toBeInTheDocument();
     expect(screen.getByDisplayValue('About me')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Update' })).toBeInTheDocument();
+    expect(screen.getByText(/^update-testuser$/)).toBeInTheDocument();
+
     expect(screen.getByRole('button', { name: 'Show-1' })).toBeInTheDocument();
     expect(screen.getByTestId('picture-pic.jpg')).toBeInTheDocument();
+    expect(screen.getByText(/^picture-scale-2$/)).toBeInTheDocument();
   });
 
   it('updates form data on input change', async () => {
@@ -67,5 +78,14 @@ describe('StyledProfileForm', () => {
     await user.clear(usernameInput);
     await user.type(usernameInput, 'newuser');
     expect(usernameInput).toHaveValue('newuser');
+  });
+
+  it('calls onSubmit when the update button is clicked', async () => {
+    render(<StyledProfileForm profile={profile} onSubmit={onSubmit} />);
+
+    const updateButton = screen.getByRole('button', { name: 'Update' });
+    await user.click(updateButton);
+
+    expect(onSubmit).toHaveBeenCalled();
   });
 });
