@@ -24,11 +24,13 @@ function RegistrationsNew({ className }) {
     }));
   }
 
-  useEffect(() => {
-    return router.on('invalid', (event) => {
-      event.preventDefault();
-    });
-  }, []);
+  useEffect(
+    () =>
+      router.on('invalid', (event) => {
+        event.preventDefault();
+      }),
+    [],
+  );
 
   return (
     <div className={className}>
