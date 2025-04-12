@@ -8,9 +8,9 @@ vi.mock('@inertiajs/react', () => {
   const routerRemoveEventListener = vi.fn();
 
   return {
-    usePage: () => ({
+    usePage: vi.fn(() => ({
       props: { shared: { flash: {} }, errors: {} },
-    }),
+    })),
     router: { on: vi.fn(() => routerRemoveEventListener) },
     routerRemoveEventListener,
   };
@@ -67,5 +67,16 @@ describe('StyledRegistrationsNew', () => {
     unmount();
 
     expect(mockInertia.routerRemoveEventListener).toHaveBeenCalled();
+  });
+
+  it('renders errors when an error occurs after clicking the sign-up button', async () => {
+    const mockInertia = await import('@inertiajs/react');
+    mockInertia.usePage.mockReturnValueOnce({
+      props: { shared: { flash: {} }, errors: { email: 'email error' } },
+    });
+    const { container } = render(<StyledRegistrationsNew />);
+
+    screen.debug();
+    expect(container.querySelectorAll('.error')).toHaveLength(1);
   });
 });
