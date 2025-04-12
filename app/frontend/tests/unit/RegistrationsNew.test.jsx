@@ -83,7 +83,6 @@ describe('StyledRegistrationsNew', () => {
     });
     const { container } = render(<StyledRegistrationsNew />);
 
-    screen.debug();
     expect(container.querySelectorAll('.error')).toHaveLength(3);
   });
 });
