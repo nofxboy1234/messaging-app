@@ -69,14 +69,21 @@ describe('StyledRegistrationsNew', () => {
     expect(mockInertia.routerRemoveEventListener).toHaveBeenCalled();
   });
 
-  it('renders errors when an error occurs after clicking the sign-up button', async () => {
+  it('renders any errors in the page context', async () => {
     const mockInertia = await import('@inertiajs/react');
     mockInertia.usePage.mockReturnValueOnce({
-      props: { shared: { flash: {} }, errors: { email: 'email error' } },
+      props: {
+        shared: { flash: {} },
+        errors: {
+          email: 'email error',
+          password: 'password error',
+          password_confirmation: 'password confirmation error',
+        },
+      },
     });
     const { container } = render(<StyledRegistrationsNew />);
 
     screen.debug();
-    expect(container.querySelectorAll('.error')).toHaveLength(1);
+    expect(container.querySelectorAll('.error')).toHaveLength(3);
   });
 });
