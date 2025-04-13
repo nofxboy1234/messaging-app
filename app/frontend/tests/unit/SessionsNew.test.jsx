@@ -75,7 +75,7 @@ describe('StyledSessionsNew', () => {
 
   it('renders any server errors', async () => {
     const mockInertia = await import('@inertiajs/react');
-    const { container } = render(<StyledSessionsNew />);
+    render(<StyledSessionsNew />);
     const routerEventListener = mockInertia.getRouterEventListener();
 
     act(() => {
@@ -87,6 +87,22 @@ describe('StyledSessionsNew', () => {
     });
 
     expect(screen.getByText('mock server error')).toBeInTheDocument();
-    // expect(container.querySelectorAll('.error')).toHaveLength(3);
+  });
+
+  it('renders any flash messages', async () => {
+    const mockInertia = await import('@inertiajs/react');
+    mockInertia.usePage.mockReturnValueOnce({
+      props: {
+        shared: {
+          flash: { flash1: 'flash1', flash2: 'flash2', flash3: 'flash3' },
+        },
+        errors: {},
+      },
+    });
+    render(<StyledSessionsNew />);
+
+    expect(screen.getByText('flash1')).toBeInTheDocument();
+    expect(screen.getByText('flash2')).toBeInTheDocument();
+    expect(screen.getByText('flash3')).toBeInTheDocument();
   });
 });
