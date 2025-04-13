@@ -16,11 +16,9 @@ vi.mock('@inertiajs/react', () => {
   };
 });
 
-vi.mock('../../pages/sessions/Buttons/LoginButton', () => {
-  return {
-    default: ({ data }) => <button>Log in-{data.email}</button>,
-  };
-});
+vi.mock('../../pages/sessions/Buttons/LoginButton', () => ({
+  default: ({ data }) => <button>Log in-{data.email}</button>,
+}));
 
 vi.mock('../../pages/sessions/Buttons/SignupButton', () => ({
   default: () => <button>Sign up</button>,
@@ -50,5 +48,21 @@ describe('StyledSessionsNew', () => {
     await user.type(emailInput, 'test@example.com');
 
     expect(emailInput).toHaveValue('test@example.com');
+  });
+
+  it('adds an Inertia invalid event listener on mount', async () => {
+    const mockRouter = (await import('@inertiajs/react')).router;
+    render(<StyledSessionsNew />);
+
+    expect(mockRouter.on).toHaveBeenCalledWith('invalid', expect.any(Function));
+  });
+
+  it('removes the Inertia invalid event listener on unmount', async () => {
+    const mockInertia = await import('@inertiajs/react');
+    const { unmount } = render(<StyledSessionsNew />);
+
+    unmount();
+
+    expect(mockInertia.routerRemoveEventListener).toHaveBeenCalled();
   });
 });
