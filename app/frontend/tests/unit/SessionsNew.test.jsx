@@ -1,18 +1,25 @@
 // app/frontend/tests/unit/SessionsNew.test.jsx
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { vi, describe, beforeEach, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import StyledSessionsNew from '../../pages/sessions/New';
 
 vi.mock('@inertiajs/react', () => {
   const routerRemoveEventListener = vi.fn();
+  let routerEventListener;
 
   return {
     usePage: vi.fn(() => ({
       props: { shared: { flash: {} }, errors: {} },
     })),
-    router: { on: vi.fn(() => routerRemoveEventListener) },
+    router: {
+      on: vi.fn((type, callback) => {
+        routerEventListener = callback;
+        return routerRemoveEventListener;
+      }),
+    },
     routerRemoveEventListener,
+    getRouterEventListener: () => routerEventListener,
   };
 });
 
@@ -64,5 +71,22 @@ describe('StyledSessionsNew', () => {
     unmount();
 
     expect(mockInertia.routerRemoveEventListener).toHaveBeenCalled();
+  });
+
+  it.only('renders any server errors', async () => {
+    const mockInertia = await import('@inertiajs/react');
+    const { container } = render(<StyledSessionsNew />);
+    const routerEventListener = mockInertia.getRouterEventListener();
+
+    act(() => {
+      const event = {
+        detail: { response: { data: 'mock server error' } },
+        preventDefault: () => {},
+      };
+      routerEventListener(event);
+    });
+
+    expect(screen.getByText('mock server error')).toBeInTheDocument();
+    // expect(container.querySelectorAll('.error')).toHaveLength(3);
   });
 });
