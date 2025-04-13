@@ -73,7 +73,7 @@ describe('StyledSessionsNew', () => {
     expect(mockInertia.routerRemoveEventListener).toHaveBeenCalled();
   });
 
-  it.only('renders any server errors', async () => {
+  it('renders any server errors', async () => {
     const mockInertia = await import('@inertiajs/react');
     const { container } = render(<StyledSessionsNew />);
     const routerEventListener = mockInertia.getRouterEventListener();
