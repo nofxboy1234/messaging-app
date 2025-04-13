@@ -2,10 +2,8 @@ import api from '../../../pathHelpers';
 import styled from 'styled-components';
 import Button from '../../Buttons/Button';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { router } from '@inertiajs/react';
 
-function LogoutButton({ className, session }) {
+function LogoutButton({ className }) {
   return (
     <Button
       className={className}
