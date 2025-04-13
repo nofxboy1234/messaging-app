@@ -85,4 +85,21 @@ describe('StyledRegistrationsNew', () => {
 
     expect(container.querySelectorAll('.error')).toHaveLength(3);
   });
+
+  it('renders any flash messages', async () => {
+    const mockInertia = await import('@inertiajs/react');
+    mockInertia.usePage.mockReturnValueOnce({
+      props: {
+        shared: {
+          flash: { flash1: 'flash1', flash2: 'flash2', flash3: 'flash3' },
+        },
+        errors: {},
+      },
+    });
+    render(<StyledRegistrationsNew />);
+
+    expect(screen.getByText('flash1')).toBeInTheDocument();
+    expect(screen.getByText('flash2')).toBeInTheDocument();
+    expect(screen.getByText('flash3')).toBeInTheDocument();
+  });
 });
