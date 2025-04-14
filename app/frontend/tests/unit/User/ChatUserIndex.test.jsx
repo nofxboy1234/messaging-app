@@ -1,13 +1,19 @@
 import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import ChatUserIndex from '../../../pages/User/ChatUserIndex';
-import { usePage } from '@inertiajs/react';
-import useSetupChatUsers from '../../../hooks/useSetupChatUsers';
-import UserTotal from '../../../pages/User/Total';
-import ProfileLink from '../../../pages/Profile/Link';
 
 vi.mock('@inertiajs/react', () => ({
-  usePage: () => ({ props: { chat: { id: 1 } } }),
+  usePage: () => ({
+    props: {
+      chat: {
+        id: 1,
+        members: [
+          { id: 1, username: 'user1' },
+          { id: 2, username: 'user2' },
+        ],
+      },
+    },
+  }),
 }));
 
 vi.mock('../../../hooks/useSetupChatUsers', () => ({
