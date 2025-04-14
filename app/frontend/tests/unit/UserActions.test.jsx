@@ -65,6 +65,49 @@ vi.mock('../../pages/FriendRequest/Buttons/SendFriendRequestButton', () => ({
 describe('StyledUserActions', () => {
   const profileUser = { id: 2, profile: { id: 2 } };
 
+  it('renders stranger actions when the viewing user is a stranger to the viewed profile user', () => {
+    render(
+      <StyledUserActions
+        profileUser={profileUser}
+        initialRelationship="stranger"
+        initialFriendRequest={undefined}
+        initialFriendship={undefined}
+        initialChat={undefined}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Send' })).toBeInTheDocument();
+  });
+
+  it('renders outgoingRequest actions when the viewing user has sent a friend request to the viewed profile user', () => {
+    render(
+      <StyledUserActions
+        profileUser={profileUser}
+        initialRelationship="outgoingRequest"
+        initialFriendRequest={{ id: 99 }}
+        initialFriendship={undefined}
+        initialChat={undefined}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+  });
+
+  it('renders incomingRequest actions when the viewing user has received a friend request from the viewed profile user', () => {
+    render(
+      <StyledUserActions
+        profileUser={profileUser}
+        initialRelationship="incomingRequest"
+        initialFriendRequest={{ id: 98 }}
+        initialFriendship={undefined}
+        initialChat={undefined}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Accept' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
+  });
+
   it('renders friend actions when the viewing user is a friend of the viewed profile user', () => {
     render(
       <StyledUserActions
@@ -76,7 +119,6 @@ describe('StyledUserActions', () => {
       />,
     );
 
-    screen.debug();
     expect(screen.getByRole('button', { name: 'Chat' })).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Unfriend' }),
