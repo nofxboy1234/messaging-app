@@ -51,10 +51,13 @@ describe('StyledSessionsNew', () => {
   it('updates form values on input', async () => {
     render(<StyledSessionsNew />);
     const emailInput = screen.getByLabelText('Email:');
+    const passwordInput = screen.getByLabelText('Password:');
 
     await user.type(emailInput, 'test@example.com');
+    await user.type(passwordInput, '123456');
 
     expect(emailInput).toHaveValue('test@example.com');
+    expect(passwordInput).toHaveValue('123456');
   });
 
   it('adds an Inertia invalid event listener on mount', async () => {

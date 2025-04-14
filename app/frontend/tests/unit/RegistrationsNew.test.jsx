@@ -47,10 +47,18 @@ describe('StyledRegistrationsNew', () => {
   it('updates form values on input', async () => {
     render(<StyledRegistrationsNew />);
     const emailInput = screen.getByLabelText('Email:');
+    const passwordInput = screen.getByLabelText('Password:');
+    const passwordConfirmationInput = screen.getByLabelText(
+      'Password confirmation:',
+    );
 
     await user.type(emailInput, 'test@example.com');
+    await user.type(passwordInput, '123456');
+    await user.type(passwordConfirmationInput, '654321');
 
     expect(emailInput).toHaveValue('test@example.com');
+    expect(passwordInput).toHaveValue('123456');
+    expect(passwordConfirmationInput).toHaveValue('654321');
   });
 
   it('adds an Inertia invalid event listener on mount', async () => {
