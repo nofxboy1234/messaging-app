@@ -6,7 +6,8 @@ import { usePage } from '@inertiajs/react';
 import useSetupAllUsers from '../../hooks/useSetupAllUsers';
 
 function AllUserIndex({ className }) {
-  const { shared } = usePage().props;
+  const pageContext = usePage();
+  const { shared } = pageContext.props;
 
   const users = useSetupAllUsers(shared.users);
 
