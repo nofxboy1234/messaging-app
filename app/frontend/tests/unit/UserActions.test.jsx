@@ -65,7 +65,7 @@ vi.mock('../../pages/FriendRequest/Buttons/SendFriendRequestButton', () => ({
 describe('StyledUserActions', () => {
   const profileUser = { id: 2, profile: { id: 2 } };
 
-  it('renders stranger actions when the viewing user is a stranger to the viewed profile user', () => {
+  it('renders a send button when the current user is a stranger to the viewed profile user', () => {
     render(
       <StyledUserActions
         profileUser={profileUser}
@@ -79,7 +79,7 @@ describe('StyledUserActions', () => {
     expect(screen.getByRole('button', { name: 'Send' })).toBeInTheDocument();
   });
 
-  it('renders outgoingRequest actions when the viewing user has sent a friend request to the viewed profile user', () => {
+  it('renders a cancel button when the current user has sent a friend request to the viewed profile user', () => {
     render(
       <StyledUserActions
         profileUser={profileUser}
@@ -93,7 +93,7 @@ describe('StyledUserActions', () => {
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
 
-  it('renders incomingRequest actions when the viewing user has received a friend request from the viewed profile user', () => {
+  it('renders accept and reject buttons when the current user has received a friend request from the viewed profile user', () => {
     render(
       <StyledUserActions
         profileUser={profileUser}
@@ -108,7 +108,7 @@ describe('StyledUserActions', () => {
     expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
   });
 
-  it('renders friend actions when the viewing user is a friend of the viewed profile user', () => {
+  it('renders chat and unfriend buttons when the current user is a friend of the viewed profile user', () => {
     render(
       <StyledUserActions
         profileUser={profileUser}
@@ -156,28 +156,185 @@ describe('StyledUserActions', () => {
     expect(sub.unsubscribe).toHaveBeenCalledTimes(1);
   });
 
-  it('updates actions on websocket data', () => {
-    render(
-      <StyledUserActions
-        profileUser={profileUser}
-        initialRelationship="friend"
-        initialFriendRequest={undefined}
-        initialFriendship={undefined}
-        initialChat={{ id: 1 }}
-      />,
-    );
-    const sub = consumer.subscriptions.getSubscriptions()[0];
+  describe('updates actions when receiving websocket data', () => {
+    describe('when the current user is a stranger to the viewed profile user', () => {
+      describe('and receives a friend request from them', () => {
+        it('renders accept and reject buttons', () => {
+          render(
+            <StyledUserActions
+              profileUser={profileUser}
+              initialRelationship="stranger"
+              initialFriendRequest={undefined}
+              initialFriendship={undefined}
+              initialChat={undefined}
+            />,
+          );
+          const sub = consumer.subscriptions.getSubscriptions()[0];
 
-    act(() => {
-      sub.received({
-        relationship: 'incomingRequest',
-        friendRequest: undefined,
-        friendship: undefined,
-        chat: undefined,
+          expect(
+            screen.getByRole('button', { name: 'Send' }),
+          ).toBeInTheDocument();
+
+          act(() => {
+            sub.received({
+              relationship: 'incomingRequest',
+              friendRequest: undefined,
+              friendship: undefined,
+              chat: undefined,
+            });
+          });
+
+          expect(
+            screen.getByRole('button', { name: 'Accept' }),
+          ).toBeInTheDocument();
+          expect(
+            screen.getByRole('button', { name: 'Reject' }),
+          ).toBeInTheDocument();
+        });
       });
     });
 
-    expect(screen.getByRole('button', { name: 'Accept' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
+    describe('when the current user has sent a friend request to the viewed profile user', () => {
+      describe('and the other user rejects the request', () => {
+        it('renders a send button', () => {
+          render(
+            <StyledUserActions
+              profileUser={profileUser}
+              initialRelationship="outgoingRequest"
+              initialFriendRequest={undefined}
+              initialFriendship={undefined}
+              initialChat={undefined}
+            />,
+          );
+          const sub = consumer.subscriptions.getSubscriptions()[0];
+
+          expect(
+            screen.getByRole('button', { name: 'Cancel' }),
+          ).toBeInTheDocument();
+
+          act(() => {
+            sub.received({
+              relationship: 'stranger',
+              friendRequest: undefined,
+              friendship: undefined,
+              chat: undefined,
+            });
+          });
+
+          expect(
+            screen.getByRole('button', { name: 'Send' }),
+          ).toBeInTheDocument();
+        });
+      });
+
+      describe('and the other user accepts the request', () => {
+        it('renders chat and unfriend buttons', () => {
+          render(
+            <StyledUserActions
+              profileUser={profileUser}
+              initialRelationship="outgoingRequest"
+              initialFriendRequest={undefined}
+              initialFriendship={undefined}
+              initialChat={undefined}
+            />,
+          );
+          const sub = consumer.subscriptions.getSubscriptions()[0];
+
+          expect(
+            screen.getByRole('button', { name: 'Cancel' }),
+          ).toBeInTheDocument();
+
+          act(() => {
+            sub.received({
+              relationship: 'friend',
+              friendRequest: undefined,
+              friendship: { id: 1 },
+              chat: { id: 1 },
+            });
+          });
+
+          expect(
+            screen.getByRole('button', { name: 'Chat' }),
+          ).toBeInTheDocument();
+          expect(
+            screen.getByRole('button', { name: 'Unfriend' }),
+          ).toBeInTheDocument();
+        });
+      });
+    });
+
+    describe('when the current user has received a friend request from the viewed profile user', () => {
+      describe('and the other user cancels the request', () => {
+        it('renders a send button', () => {
+          render(
+            <StyledUserActions
+              profileUser={profileUser}
+              initialRelationship="incomingRequest"
+              initialFriendRequest={undefined}
+              initialFriendship={undefined}
+              initialChat={undefined}
+            />,
+          );
+          const sub = consumer.subscriptions.getSubscriptions()[0];
+
+          expect(
+            screen.getByRole('button', { name: 'Accept' }),
+          ).toBeInTheDocument();
+          expect(
+            screen.getByRole('button', { name: 'Reject' }),
+          ).toBeInTheDocument();
+
+          act(() => {
+            sub.received({
+              relationship: 'stranger',
+              friendRequest: undefined,
+              friendship: undefined,
+              chat: undefined,
+            });
+          });
+
+          expect(
+            screen.getByRole('button', { name: 'Send' }),
+          ).toBeInTheDocument();
+        });
+      });
+    });
+
+    describe('when the current user is friends with the viewed profile user', () => {
+      describe('and the other user unfriends them', () => {
+        it('renders a send button', () => {
+          render(
+            <StyledUserActions
+              profileUser={profileUser}
+              initialRelationship="friend"
+              initialFriendRequest={undefined}
+              initialFriendship={undefined}
+              initialChat={undefined}
+            />,
+          );
+          const sub = consumer.subscriptions.getSubscriptions()[0];
+
+          expect(
+            screen.getByRole('button', { name: 'Chat' }),
+          ).toBeInTheDocument();
+          expect(
+            screen.getByRole('button', { name: 'Unfriend' }),
+          ).toBeInTheDocument();
+
+          act(() => {
+            sub.received({
+              relationship: 'stranger',
+              friendRequest: undefined,
+              friendship: undefined,
+              chat: undefined,
+            });
+          });
+
+          expect(
+            screen.getByRole('button', { name: 'Send' }),
+          ).toBeInTheDocument();
+        });
+      });
+    });
   });
 });
