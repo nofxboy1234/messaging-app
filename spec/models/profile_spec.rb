@@ -43,7 +43,7 @@ RSpec.describe Profile, type: :model do
           relationship: "friend",
           friendRequest: nil,
           friendship: friendship,
-          chat: friendship.chat
+          chat: friendship.chat.serialize
         }
 
         expect(profile.show_data(viewing_user)).to eq(show_data)
