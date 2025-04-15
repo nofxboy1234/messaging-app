@@ -61,7 +61,7 @@ const NavBar = ({ className }) => {
         ))}
 
         <div className="menu-item-container">
-          <StyledLogoutButton session={shared.session} />
+          <StyledLogoutButton />
         </div>
       </div>
     </div>

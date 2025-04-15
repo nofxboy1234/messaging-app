@@ -17,7 +17,6 @@ function LogoutButton({ className }) {
 
 LogoutButton.propTypes = {
   className: PropTypes.string,
-  session: PropTypes.object,
 };
 
 const StyledLogoutButton = styled(LogoutButton)`
