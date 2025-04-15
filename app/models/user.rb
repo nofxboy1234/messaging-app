@@ -15,13 +15,10 @@ class User < ApplicationRecord
     source: :user
 
   def all_friends
-    direct_friends = friends
-
-    inverse_friend_ids = Friendship.where(friend_id: id).pluck(:user_id)
-    inverse_friends = User.where(id: inverse_friend_ids)
-
-    direct_friends_relation = User.where(id: direct_friends.pluck(:id))
-    direct_friends_relation.or(inverse_friends)
+    User.joins("LEFT JOIN friendships ON users.id = friendships.friend_id OR users.id = friendships.user_id")
+        .where("friendships.user_id = :id OR friendships.friend_id = :id", id: id)
+        .where.not(id: id)
+        .distinct
   end
 
   has_many :outgoing_friend_requests,
