@@ -16,26 +16,62 @@ def create_user_with_profile(user_num)
                                       about: ""))
 end
 
-def create_user_without_profile
-  User.create(email: Faker::Internet.email,
-              password: "123456")
+for i in 1..5 do
+  create_user_with_profile(i)
 end
 
-user = create_user_with_profile(1)
+user1 = User.find(1)
+user2 = User.find(2)
+user3 = User.find(3)
+user4 = User.find(4)
+user5 = User.find(5)
 
-for i in 1..3 do
-  friend = create_user_with_profile(i + 1)
-  friendship = Friendship.create(user:, friend:)
-  chat = Chat.create(name: Faker::Lorem.characters(number: 3))
-  chat.members << [ user, friend ]
-  friendship.chat = chat
-end
+@friend_request = FriendRequest.new(user: user1, friend: user2)
+@friend_request.save
 
-friend = create_user_with_profile(5)
-friendship = Friendship.create(user: friend, friend: user)
-chat = Chat.create(name: Faker::Lorem.characters(number: 3))
+@friend_request = FriendRequest.new(user: user3, friend: user1)
+@friend_request.save
+
+@friendship = Friendship.new(user: user1, friend: user4)
+chat = Chat.new
+user = @friendship.user
+friend = @friendship.friend
 chat.members << [ user, friend ]
-friendship.chat = chat
+@friendship.chat = chat
+@friendship.save
+
+Message.create!(body: 'first message', chat:, user:)
+
+for i in 1..50 do
+  Message.create!(body: Faker::Lorem.sentence, chat:, user:)
+  Message.create!(body: Faker::Lorem.sentence, chat:, user: friend)
+end
+
+Message.create!(body: 'middle message', chat:, user:)
+
+for i in 1..50 do
+  Message.create!(body: Faker::Lorem.sentence, chat:, user:)
+  Message.create!(body: Faker::Lorem.sentence, chat:, user: friend)
+end
+
+Message.create!(body: 'last message', chat:, user:)
+
+@friendship = Friendship.new(user: user1, friend: user5)
+chat = Chat.new
+user = @friendship.user
+friend = @friendship.friend
+chat.members << [ user, friend ]
+@friendship.chat = chat
+@friendship.save
+
+Message.create!(body: 'first message', chat:, user:)
+
+for i in 1..50 do
+  Message.create!(body: Faker::Lorem.sentence, chat:, user:)
+  Message.create!(body: Faker::Lorem.sentence, chat:, user: friend)
+end
+
+Message.create!(body: 'middle message', chat:, user:)
 
 for i in 1..50 do
   Message.create!(body: Faker::Lorem.sentence, chat:, user:)
