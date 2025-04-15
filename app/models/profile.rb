@@ -27,7 +27,7 @@ class Profile < ApplicationRecord
       relationship: relationship,
       friendRequest: friend_request,
       friendship: friendship,
-      chat: chat
+      chat: chat&.serialize
     }
   end
 

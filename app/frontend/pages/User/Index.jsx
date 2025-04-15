@@ -5,11 +5,17 @@ import ChatUserIndex from './ChatUserIndex';
 import AllUserIndex from './AllUserIndex';
 
 function UserIndex({ className }) {
-  const { chat: activeChat } = usePage().props;
+  const pageContext = usePage();
+  const { chat: activeChat } = pageContext.props;
+  const { component } = pageContext;
 
   return (
     <div className={className}>
-      {activeChat ? <ChatUserIndex key={activeChat.id} /> : <AllUserIndex />}
+      {component === 'Chat/Show' && activeChat ? (
+        <ChatUserIndex key={activeChat.id} />
+      ) : (
+        <AllUserIndex />
+      )}
     </div>
   );
 }
