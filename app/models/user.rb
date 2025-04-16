@@ -60,21 +60,22 @@ class User < ApplicationRecord
 
   def chats_with_friends
     chats = Chat.joins("INNER JOIN member_lists ml1 ON ml1.chat_id = chats.id")
-        .joins("INNER JOIN member_lists ml2 ON ml2.chat_id = chats.id AND ml2.user_id != #{id}")
-        .where(ml1: { user_id: id })
-        .select("chats.*, ml2.user_id AS other_user_id")
-        .distinct
-        .includes(members: :profile)
+                .joins("INNER JOIN member_lists ml2 ON ml2.chat_id = chats.id")
+                .joins("LEFT JOIN profiles ON profiles.user_id = ml2.user_id")
+                .where(ml1: { user_id: id })
+                .where.not(ml2: { user_id: id })
+                .select("chats.*, ml2.user_id AS other_user_id, profiles.username AS friend_username")
+                .distinct
+                .includes(members: :profile, messages: { user: :profile })
+                .order("profiles.username ASC")
 
-    serialized = chats.map do |chat|
-      friend = chat.members.find { |member| member.id  == chat.other_user_id }
+    chats.map do |chat|
+      friend = chat.members.find { |member| member.id == chat.other_user_id }
+      next unless friend
       s_chat = chat.serialize
       s_chat["friend"] = friend.serialize
-
       s_chat
-    end
-
-    serialized.sort { |a, b| a["friend"]["profile"]["username"] <=> b["friend"]["profile"]["username"] }
+    end.compact
   end
 
   def friendships_data
