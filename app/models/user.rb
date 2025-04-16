@@ -70,7 +70,7 @@ class User < ApplicationRecord
   end
 
   def friendships_data
-    all_friends.includes(:profile).map do |friend|
+    all_friends.includes(:profile).order("profiles.username").map do |friend|
       chat = find_direct_message_chat_with(friend)
       friendship = chat.friendship
 
