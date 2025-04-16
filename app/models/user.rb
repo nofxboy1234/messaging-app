@@ -58,22 +58,23 @@ class User < ApplicationRecord
     chats.where(id: friend.chats.pluck(:id)).take
   end
 
-  def chats_with_other_member
-    Chat.joins("INNER JOIN member_lists ml1 ON ml1.chat_id = chats.id")
+  def chats_with_friends
+    chats = Chat.joins("INNER JOIN member_lists ml1 ON ml1.chat_id = chats.id")
         .joins("INNER JOIN member_lists ml2 ON ml2.chat_id = chats.id AND ml2.user_id != #{id}")
         .where(ml1: { user_id: id })
         .select("chats.*, ml2.user_id AS other_user_id")
         .distinct
         .includes(members: :profile)
-  end
 
-  def chats_with_friends
-    all_friends.includes(:profile).order(profiles: { username: :asc }).map do |friend|
-      chat = find_direct_message_chat_with(friend)
-      serialized_chat = chat.serialize
-      serialized_chat["friend"] = friend.serialize
-      serialized_chat
+    serialized = chats.map do |chat|
+      friend = chat.members.find { |member| member.id  == chat.other_user_id }
+      s_chat = chat.serialize
+      s_chat["friend"] = friend.serialize
+
+      s_chat
     end
+
+    serialized.sort { |a, b| a["friend"]["profile"]["username"] <=> b["friend"]["profile"]["username"] }
   end
 
   def friendships_data
