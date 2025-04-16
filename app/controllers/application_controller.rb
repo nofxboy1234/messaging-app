@@ -10,12 +10,6 @@ class ApplicationController < ActionController::Base
     },
     users: -> {
       User.includes(:profile).order("profiles.username").as_json(include: :profile)
-    },
-    friends: -> {
-      return if !current_user
-
-      friends = current_user.all_friends.includes(:profile)
-      friends.as_json(include: :profile)
     }
   }
 end
