@@ -56,7 +56,7 @@ end
 
 Message.create!(body: 'last message', chat:, user:)
 
-@friendship = Friendship.new(user: user1, friend: user5)
+@friendship = Friendship.new(user: user5, friend: user1)
 chat = Chat.new
 user = @friendship.user
 friend = @friendship.friend
