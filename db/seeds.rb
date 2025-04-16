@@ -63,19 +63,3 @@ friend = @friendship.friend
 chat.members << [ user, friend ]
 @friendship.chat = chat
 @friendship.save
-
-Message.create!(body: 'first message', chat:, user:)
-
-for i in 1..50 do
-  Message.create!(body: Faker::Lorem.sentence, chat:, user:)
-  Message.create!(body: Faker::Lorem.sentence, chat:, user: friend)
-end
-
-Message.create!(body: 'middle message', chat:, user:)
-
-for i in 1..50 do
-  Message.create!(body: Faker::Lorem.sentence, chat:, user:)
-  Message.create!(body: Faker::Lorem.sentence, chat:, user: friend)
-end
-
-Message.create!(body: 'last message', chat:, user:)
