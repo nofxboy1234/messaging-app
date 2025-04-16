@@ -15,7 +15,7 @@ class User < ApplicationRecord
     source: :user
 
   def all_friends
-    User.joins("LEFT JOIN friendships ON users.id = friendships.friend_id OR users.id = friendships.user_id")
+    User.joins("INNER JOIN friendships ON users.id = friendships.friend_id OR users.id = friendships.user_id")
         .where("friendships.user_id = :id OR friendships.friend_id = :id", id: id)
         .where.not(id: id)
         .distinct
