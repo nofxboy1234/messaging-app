@@ -63,3 +63,11 @@ friend = @friendship.friend
 chat.members << [ user, friend ]
 @friendship.chat = chat
 @friendship.save
+
+@friendship = Friendship.new(user: user2, friend: user3)
+chat = Chat.new
+user = @friendship.user
+friend = @friendship.friend
+chat.members << [ user, friend ]
+@friendship.chat = chat
+@friendship.save
