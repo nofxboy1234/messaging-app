@@ -1,18 +1,40 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :rememberable, :validatable
 
   has_many :friendships, dependent: :destroy
   has_many :friends,
-    through: :friendships,
-    source: :friend
+            through: :friendships,
+            source: :friend
 
   has_many :inverse_friendships, dependent: :destroy, class_name: "Friendship", foreign_key: :friend_id
   has_many :inverse_friends,
-    through: :inverse_friendships,
-    source: :user
+            through: :inverse_friendships,
+            source: :user
+
+  has_many :outgoing_friend_requests,
+            class_name: "FriendRequest",
+            foreign_key: "user_id",
+            dependent: :destroy
+
+  has_many :outgoing_friends,
+            through: :outgoing_friend_requests,
+            source: :friend
+
+  has_many :incoming_friend_requests,
+            class_name: "FriendRequest",
+            foreign_key: "friend_id",
+            dependent: :destroy
+
+  has_many :incoming_friends,
+            through: :incoming_friend_requests,
+            source: :user
+
+  has_many :messages, dependent: :destroy
+  has_one :profile, dependent: :destroy
+
+  has_many :member_lists, dependent: :destroy
+  has_many :chats, through: :member_lists
 
   def all_friends
     User.joins("INNER JOIN friendships ON users.id = friendships.friend_id OR users.id = friendships.user_id")
@@ -20,30 +42,6 @@ class User < ApplicationRecord
         .where.not(id: id)
         .distinct
   end
-
-  has_many :outgoing_friend_requests,
-  class_name: "FriendRequest",
-  foreign_key: "user_id",
-  dependent: :destroy
-
-  has_many :outgoing_friends,
-  through: :outgoing_friend_requests,
-  source: :friend
-
-  has_many :incoming_friend_requests,
-  class_name: "FriendRequest",
-  foreign_key: "friend_id",
-  dependent: :destroy
-
-  has_many :incoming_friends,
-  through: :incoming_friend_requests,
-  source: :user
-
-  has_many :messages, dependent: :destroy
-  has_one :profile, dependent: :destroy
-
-  has_many :member_lists, dependent: :destroy
-  has_many :chats, through: :member_lists
 
   def friend_requests
     {
