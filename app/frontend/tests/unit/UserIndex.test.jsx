@@ -6,6 +6,7 @@ import StyledUserIndex from '../../pages/User/Index';
 vi.mock('@inertiajs/react', () => ({
   usePage: vi.fn(() => ({
     props: { chat: { id: 1 } },
+    component: 'Chat/Show',
   })),
 }));
 
@@ -28,6 +29,7 @@ describe('StyledUserIndex', () => {
     const mockInertia = await import('@inertiajs/react');
     mockInertia.usePage.mockReturnValueOnce({
       props: { chat: undefined },
+      component: 'Friendship/Index',
     });
     render(<StyledUserIndex />);
 
