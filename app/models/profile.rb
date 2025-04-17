@@ -14,10 +14,16 @@ class Profile < ApplicationRecord
       friendship = chat.friendship
     elsif target_user.has_outgoing_friend?(user)
       relationship = "outgoingRequest"
-      friend_request = target_user.outgoing_friend_requests.find_by(friend: user)
+      friend_request = target_user.outgoing_friend_requests
+                                  .includes(friend: [ :profile ])
+                                  .order("profiles.username")
+                                  .find_by(friend: user)
     elsif target_user.has_incoming_friend?(user)
       relationship = "incomingRequest"
-      friend_request = target_user.incoming_friend_requests.find_by(user: user)
+      friend_request = target_user.incoming_friend_requests
+                                  .includes(friend: [ :profile ])
+                                  .order("profiles.username")
+                                  .find_by(user: user)
     else
       relationship = "stranger"
     end
@@ -25,7 +31,7 @@ class Profile < ApplicationRecord
     {
       profile: serialize,
       relationship: relationship,
-      friendRequest: friend_request,
+      friendRequest: friend_request&.serialize,
       friendship: friendship,
       chat: chat&.serialize
     }
