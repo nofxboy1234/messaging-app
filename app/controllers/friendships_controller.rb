@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
   before_action :set_friendship, only: %i[ destroy ]
 
   def index
-    @friendships = current_user&.friendships_data
+    @friendships = current_user&.chats_with_friends
 
     render inertia: "Friendship/Index", props: {
       initialChatsWithFriends: @friendships
@@ -80,11 +80,11 @@ class FriendshipsController < ApplicationController
     end
 
     def broadcast_friendships(user)
-      FriendshipChannel.broadcast_to(user, user.friendships_data)
+      FriendshipChannel.broadcast_to(user, user.chats_with_friends)
     end
 
     def broadcast_chats(user)
-      ChatChannel.broadcast_to(user, user.chats_data)
+      ChatChannel.broadcast_to(user, user.chats_with_friends)
     end
 
     def broadcast_relationship(profile_owner, viewer)

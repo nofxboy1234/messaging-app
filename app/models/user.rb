@@ -75,14 +75,6 @@ class User < ApplicationRecord
     end.compact
   end
 
-  def friendships_data
-    chats_with_friends
-  end
-
-  def chats_data
-    chats_with_friends
-  end
-
   def friends_with?(user)
     all_friends.include?(user)
   end
