@@ -36,13 +36,6 @@ class User < ApplicationRecord
   has_many :member_lists, dependent: :destroy
   has_many :chats, through: :member_lists
 
-  def all_friends
-    User.joins("INNER JOIN friendships ON users.id = friendships.friend_id OR users.id = friendships.user_id")
-        .where("friendships.user_id = :id OR friendships.friend_id = :id", id: id)
-        .where.not(id: id)
-        .distinct
-  end
-
   def friend_requests
     {
       outgoing_friend_requests: outgoing_friend_requests
@@ -120,5 +113,14 @@ class User < ApplicationRecord
 
   def serialize
     as_json(include: :profile)
+  end
+
+  private
+
+  def all_friends
+    User.joins("INNER JOIN friendships ON users.id = friendships.friend_id OR users.id = friendships.user_id")
+        .where("friendships.user_id = :id OR friendships.friend_id = :id", id: id)
+        .where.not(id: id)
+        .distinct
   end
 end
