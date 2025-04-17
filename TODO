@@ -34,8 +34,8 @@ backend: ruby
 [x] - test frontend - unit (vitest + react testing library)
 [.] - test frontend - e2e (playwright)
 
-[ ] - ~client-side form validations, server-side model validations, error handling,
-refactor, redis client connections/UserIndex subscriptions
-[ ] - ~refactor: rendering/efficiency/readability, status codes, unused functions
-[ ] - ~change chat users broadcast to broadcast_to(chat)
+[~] - ~client-side form validations, server-side model validations, error handling,
+refactor
+[x] - ~refactor: rendering/efficiency/readability, status codes, unused functions
+[~] - ~change chat users broadcast to broadcast_to(chat)
 [~] - ~Test out creating a React/Rails app without Vite, Inertia, Turbo-mount etc
