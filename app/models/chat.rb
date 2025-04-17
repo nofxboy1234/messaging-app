@@ -9,7 +9,8 @@ class Chat < ApplicationRecord
   def serialize
     as_json(include: [
         { messages: { include: { user: { include: :profile } } } },
-        { members: { include: :profile } }
+        { members: { include: :profile } },
+        :friendship
     ])
   end
 end

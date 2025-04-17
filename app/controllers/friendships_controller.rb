@@ -5,7 +5,7 @@ class FriendshipsController < ApplicationController
     @friendships = current_user&.friendships_data
 
     render inertia: "Friendship/Index", props: {
-      initialFriendships: @friendships
+      initialChatsWithFriends: @friendships
     }
   end
 
@@ -74,8 +74,8 @@ class FriendshipsController < ApplicationController
 
     def broadcast_friend_requests(user)
       FriendRequestChannel.broadcast_to(user, {
-        initialOutgoingFriendRequests: user.friend_requests[:outgoing_friend_requests],
-        initialIncomingFriendRequests: user.friend_requests[:incoming_friend_requests]
+        updatedOutgoingFriendRequests: user.friend_requests[:outgoing_friend_requests],
+        updatedIncomingFriendRequests: user.friend_requests[:incoming_friend_requests]
       })
     end
 

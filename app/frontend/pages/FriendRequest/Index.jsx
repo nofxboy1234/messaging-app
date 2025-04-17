@@ -29,15 +29,8 @@ function FriendRequestIndex({
         disconnected() {},
 
         received(data) {
-          setOutgoingFriendRequests((friendRequests) => [
-            ...friendRequests,
-            ...data.initialOutgoingFriendRequests,
-          ]);
-
-          setIncomingFriendRequests((friendRequests) => [
-            ...friendRequests,
-            ...data.initialIncomingFriendRequests,
-          ]);
+          setOutgoingFriendRequests(data.updatedOutgoingFriendRequests);
+          setIncomingFriendRequests(data.updatedIncomingFriendRequests);
         },
       },
     );

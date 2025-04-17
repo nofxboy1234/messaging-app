@@ -6,8 +6,10 @@ import { useEffect, useState } from 'react';
 import consumer from '../../channels/consumer';
 import styled from 'styled-components';
 
-function FriendshipIndex({ className, initialFriendships }) {
-  const [friendships, setFriendships] = useState(initialFriendships);
+function FriendshipIndex({ className, initialChatsWithFriends }) {
+  const [chatsWithFriends, setChatsWithFriends] = useState(
+    initialChatsWithFriends,
+  );
   const { shared } = usePage().props;
   const [activeFriendshipId, setActiveFriendshipId] = useState();
 
@@ -20,7 +22,7 @@ function FriendshipIndex({ className, initialFriendships }) {
         disconnected() {},
 
         received(updatedFriendships) {
-          setFriendships(updatedFriendships);
+          setChatsWithFriends(updatedFriendships);
         },
       },
     );
@@ -32,17 +34,17 @@ function FriendshipIndex({ className, initialFriendships }) {
 
   return (
     <div id="friend-index" className={className}>
-      <FriendshipTotal friendships={friendships} />
+      <FriendshipTotal friendships={chatsWithFriends} />
       <div id="friendships">
-        {friendships.map((friendship) => (
+        {chatsWithFriends.map((chat) => (
           <Friendship
-            key={friendship.friendship.id}
-            friendship={friendship.friendship}
-            user={friendship.friend}
-            chat={friendship.chat}
-            active={friendship.friendship.id === activeFriendshipId}
+            key={chat.friendship.id}
+            friendship={chat.friendship}
+            user={chat.friend}
+            chat={chat}
+            active={chat.friendship.id === activeFriendshipId}
             handleClick={() => {
-              setActiveFriendshipId(friendship.friendship.id);
+              setActiveFriendshipId(chat.friendship.id);
             }}
           />
         ))}
@@ -53,7 +55,7 @@ function FriendshipIndex({ className, initialFriendships }) {
 
 FriendshipIndex.propTypes = {
   className: PropTypes.string,
-  initialFriendships: PropTypes.array,
+  initialChatsWithFriends: PropTypes.array,
 };
 
 const StyledFriendshipIndex = styled(FriendshipIndex)`

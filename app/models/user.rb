@@ -63,7 +63,7 @@ class User < ApplicationRecord
                 .where.not(ml2: { user_id: id })
                 .select("chats.*, ml2.user_id AS other_user_id, profiles.username AS friend_username")
                 .distinct
-                .includes(members: :profile, messages: { user: :profile })
+                .includes(members: :profile, messages: { user: :profile }, friendship: [])
                 .order("profiles.username ASC")
 
     chats.map do |chat|
@@ -76,27 +76,11 @@ class User < ApplicationRecord
   end
 
   def friendships_data
-    all_friends.includes(:profile).order("profiles.username").map do |friend|
-      chat = find_direct_message_chat_with(friend)
-      friendship = chat.friendship
-
-      {
-        friend: friend.serialize,
-        chat: chat,
-        friendship: friendship
-      }
-    end
+    chats_with_friends
   end
 
   def chats_data
-    all_friends.includes(:profile)&.map do |friend|
-      chat = find_direct_message_chat_with(friend)
-
-      {
-        friend: friend.serialize,
-        chat: chat
-      }
-    end
+    chats_with_friends
   end
 
   def friends_with?(user)
