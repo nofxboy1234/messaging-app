@@ -58,7 +58,7 @@ RSpec.describe Profile, type: :model do
         show_data = {
           profile: profile.serialize,
           relationship: "outgoingRequest",
-          friendRequest: friend_request,
+          friendRequest: friend_request.serialize,
           friendship: nil,
           chat: nil
         }
@@ -75,7 +75,7 @@ RSpec.describe Profile, type: :model do
         show_data = {
           profile: profile.serialize,
           relationship: "incomingRequest",
-          friendRequest: friend_request,
+          friendRequest: friend_request.serialize,
           friendship: nil,
           chat: nil
         }
