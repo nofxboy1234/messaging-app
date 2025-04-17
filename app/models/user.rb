@@ -45,12 +45,16 @@ class User < ApplicationRecord
 
   def friend_requests
     {
-      outgoing_friend_requests: outgoing_friend_requests.includes(friend: [ :profile ]).order("profiles.username").map do |friend_request|
-        friend_request.serialize
-      end,
-      incoming_friend_requests: incoming_friend_requests.includes(user: [ :profile ]).order("profiles.username").map do |friend_request|
-        friend_request.serialize
-      end
+      outgoing_friend_requests: outgoing_friend_requests
+                                .includes(friend: [ :profile ])
+                                .order("profiles.username").map do |friend_request|
+                                  friend_request.serialize
+                                end,
+      incoming_friend_requests: incoming_friend_requests
+                                .includes(user: [ :profile ])
+                                .order("profiles.username").map do |friend_request|
+                                  friend_request.serialize
+                                end
     }
   end
 
