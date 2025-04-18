@@ -25,7 +25,7 @@ test.describe('when navigating to the Chat page', () => {
     await expect(page.getByText('Signed in successfully.')).toBeVisible();
 
     const chatIndex = page.getByTestId('chat-index');
-    const link = chatIndex.getByRole('link', { name: 'user5' });
+    const link = chatIndex.getByRole('link', { name: 'user4' });
     await link.click();
     const sendButton = page.getByRole('button', { name: 'Send' });
     await expect(sendButton).toBeVisible();
