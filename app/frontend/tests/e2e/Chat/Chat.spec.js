@@ -78,6 +78,14 @@ test.describe('when navigating to the Chat page', () => {
   });
 
   test.describe('when sending a new message', () => {
+    test.only('should not see the message if it is blank', async ({ page }) => {
+      const sendButton = page.getByRole('button', { name: 'Send' });
+
+      expect(page.getByTestId('message')).toHaveCount(203);
+      await sendButton.click();
+      expect(page.getByTestId('message')).toHaveCount(203);
+    });
+
     test('should show the new message at the bottom of the chat viewport', async ({
       page,
     }) => {

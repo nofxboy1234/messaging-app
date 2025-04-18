@@ -5,7 +5,7 @@ import { forwardRef } from 'react';
 
 const Message = forwardRef(function Message({ className, message }, ref) {
   return (
-    <div className={className} ref={ref}>
+    <div className={className} ref={ref} data-testid="message">
       <div id="user">
         <Picture src={message.user.profile.picture} />
         <div id="user-container">
