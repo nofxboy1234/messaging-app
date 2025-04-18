@@ -96,7 +96,7 @@ describe('StyledFriendRequestIndex', () => {
     expect(sub.unsubscribe).toHaveBeenCalledTimes(1);
   });
 
-  it('renders any incoming and outgoing friend requests received on the websocket channel, appended to existing friend requests', () => {
+  it('renders updated incoming and outgoing friend requests received on the websocket channel', () => {
     render(
       <StyledFriendRequestIndex
         initialOutgoingFriendRequests={outgoing}
@@ -108,8 +108,8 @@ describe('StyledFriendRequestIndex', () => {
 
     act(() => {
       const data = {
-        initialOutgoingFriendRequests: [{ id: 5 }],
-        initialIncomingFriendRequests: [{ id: 6 }, { id: 7 }],
+        updatedOutgoingFriendRequests: [...outgoing, { id: 5 }],
+        updatedIncomingFriendRequests: [...incoming, { id: 6 }, { id: 7 }],
       };
 
       sub.received(data);
