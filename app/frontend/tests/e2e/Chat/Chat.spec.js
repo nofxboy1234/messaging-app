@@ -64,7 +64,7 @@ test.describe('when navigating to the Chat page', () => {
     expect(chatScrollBarAtBottom).toBe(true);
   });
 
-  test.only('should show the current user and their friend in the user index', async ({
+  test('should show the current user and their friend in the user index', async ({
     page,
   }) => {
     const chatUserIndex = page.getByTestId('chat-user-index');
