@@ -10,7 +10,7 @@ function UserIndex({ className }) {
   const { component } = pageContext;
 
   return (
-    <div className={className}>
+    <div className={className} data-testid="user-index">
       {component === 'Chat/Show' && activeChat ? (
         <ChatUserIndex key={activeChat.id} />
       ) : (

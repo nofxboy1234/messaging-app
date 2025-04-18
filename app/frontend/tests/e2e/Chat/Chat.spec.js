@@ -64,6 +64,19 @@ test.describe('when navigating to the Chat page', () => {
     expect(chatScrollBarAtBottom).toBe(true);
   });
 
+  test.only('should show the current user and their friend in the user index', async ({
+    page,
+  }) => {
+    const chatUserIndex = page.getByTestId('chat-user-index');
+    const user1 = chatUserIndex.getByRole('link', { name: 'user1' });
+    const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
+    const chatUsers = chatUserIndex.getByRole('link');
+
+    expect(user1).toBeVisible;
+    expect(user4).toBeVisible;
+    expect(chatUsers).toHaveCount(2);
+  });
+
   test.describe('when sending a new message', () => {
     test('should show the new message at the bottom of the chat viewport', async ({
       page,

@@ -12,7 +12,7 @@ function ChatUserIndex({ className }) {
   const users = useSetupChatUsers(chat);
 
   return (
-    <div className={className}>
+    <div className={className} data-testid="chat-user-index">
       <UserTotal users={users} />
       <div id="users">
         {users.map((user) => (
