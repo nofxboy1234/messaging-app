@@ -107,9 +107,9 @@ describe('StyledFriendshipIndex', () => {
 
     act(() => {
       sub.received([
-        { friendship: { id: 1 }, friend: { id: 2 }, chat: { id: 9 } },
-        { friendship: { id: 2 }, friend: { id: 3 }, chat: { id: 10 } },
-        { friendship: { id: 3 }, friend: { id: 4 }, chat: { id: 11 } },
+        { id: 9, friendship: { id: 1 }, friend: { id: 2 } },
+        { id: 10, friendship: { id: 2 }, friend: { id: 3 } },
+        { id: 11, friendship: { id: 3 }, friend: { id: 4 } },
       ]);
     });
 
