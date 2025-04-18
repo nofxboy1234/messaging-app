@@ -52,13 +52,17 @@ vi.mock('../../pages/Friendship/Total', () => ({
 }));
 
 describe('StyledFriendshipIndex', () => {
-  const friendships = [
-    { friendship: { id: 1 }, friend: { id: 2 }, chat: { id: 9 } },
-    { friendship: { id: 2 }, friend: { id: 3 }, chat: { id: 10 } },
+  const initialChatsWithFriends = [
+    { id: 9, friendship: { id: 1 }, friend: { id: 2 } },
+    { id: 10, friendship: { id: 2 }, friend: { id: 3 } },
   ];
 
   it('renders friendships and total', () => {
-    render(<StyledFriendshipIndex initialFriendships={friendships} />);
+    render(
+      <StyledFriendshipIndex
+        initialChatsWithFriends={initialChatsWithFriends}
+      />,
+    );
 
     expect(screen.getByText('ALL FRIENDS-2')).toBeInTheDocument();
     expect(screen.getAllByTestId('friendship')).toHaveLength(2);
@@ -71,14 +75,20 @@ describe('StyledFriendshipIndex', () => {
   });
 
   it('subscribes to the friendship channel on mount', () => {
-    render(<StyledFriendshipIndex initialFriendships={friendships} />);
+    render(
+      <StyledFriendshipIndex
+        initialChatsWithFriends={initialChatsWithFriends}
+      />,
+    );
 
     expect(consumer.subscriptions.create).toHaveBeenCalledTimes(1);
   });
 
   it('unsubscribes from the friendship channel on unmount', () => {
     const { unmount } = render(
-      <StyledFriendshipIndex initialFriendships={friendships} />,
+      <StyledFriendshipIndex
+        initialChatsWithFriends={initialChatsWithFriends}
+      />,
     );
     const sub = consumer.subscriptions.getSubscriptions()[0];
 
@@ -88,7 +98,11 @@ describe('StyledFriendshipIndex', () => {
   });
 
   it('updates friendships received on the websocket channel', () => {
-    render(<StyledFriendshipIndex initialFriendships={friendships} />);
+    render(
+      <StyledFriendshipIndex
+        initialChatsWithFriends={initialChatsWithFriends}
+      />,
+    );
     const sub = consumer.subscriptions.getSubscriptions()[0];
 
     act(() => {
@@ -108,7 +122,11 @@ describe('StyledFriendshipIndex', () => {
 
   it('makes a friendship active when clicking on it', async () => {
     const user = userEvent.setup();
-    render(<StyledFriendshipIndex initialFriendships={friendships} />);
+    render(
+      <StyledFriendshipIndex
+        initialChatsWithFriends={initialChatsWithFriends}
+      />,
+    );
 
     const friendship1 = screen.getByText(/^friendship-1$/);
     await user.click(friendship1);
@@ -118,7 +136,11 @@ describe('StyledFriendshipIndex', () => {
   });
 
   it('has no active friendships on mount', async () => {
-    render(<StyledFriendshipIndex initialFriendships={friendships} />);
+    render(
+      <StyledFriendshipIndex
+        initialChatsWithFriends={initialChatsWithFriends}
+      />,
+    );
 
     expect(screen.getByText(/^friendship-1-active-false$/)).toBeInTheDocument();
     expect(screen.getByText(/^friendship-2-active-false$/)).toBeInTheDocument();
