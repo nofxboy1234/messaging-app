@@ -35,7 +35,7 @@ function FriendshipIndex({ className, initialChatsWithFriends }) {
   return (
     <div id="friend-index" className={className}>
       <FriendshipTotal friendships={chatsWithFriends} />
-      <div id="friendships">
+      <div id="friendships" data-testid="friend-index">
         {chatsWithFriends.map((chat) => (
           <Friendship
             key={chat.friendship.id}
