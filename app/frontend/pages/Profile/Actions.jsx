@@ -5,7 +5,7 @@ import UpdateAvatarLink from './Buttons/UpdateAvatarLink';
 
 function ProfileActions({ className, profile }) {
   return (
-    <div className={className}>
+    <div className={className} data-testid="profile-actions">
       <EditProfileButton profile={profile} />
       <UpdateAvatarLink />
     </div>

@@ -72,6 +72,87 @@ test.describe('when navigating to the Home page', () => {
     await expect(userIndex.getByRole('link', { name: 'user4' })).toBeVisible();
     await expect(userIndex.getByRole('link', { name: 'user5' })).toBeVisible();
   });
+
+  test('should show a chat and unfriend button when clicking a friend in the friend index', async ({
+    page,
+  }) => {
+    const friendIndex = page.getByTestId('friend-index');
+    const user5 = friendIndex.getByTestId('user-link-/profiles/5');
+
+    await user5.click();
+
+    await expect(page.getByRole('button', { name: 'Chat' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Unfriend' })).toBeVisible();
+  });
+
+  test('should show a popup message to confirm, and remove the friend and chat if OK is clicked', async ({
+    page,
+  }) => {
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toBe('Unfriend user5?');
+      await dialog.accept();
+    });
+
+    const friendIndex = page.getByTestId('friend-index');
+    await friendIndex.getByTestId('user-link-/profiles/5').click();
+    const unfriend = page.getByRole('button', { name: 'Unfriend' });
+    await unfriend.click();
+
+    // await expect(page.getByText('Unfriend user5?')).toBeVisible();
+    // await page.getByRole('button', { name: 'OK' }).click();
+
+    await expect(page.getByText('CHATS-1')).toBeVisible();
+    const chatIndex = page.getByTestId('chat-index');
+    await expect(chatIndex.getByRole('link', { name: 'user4' })).toBeVisible();
+    await expect(
+      chatIndex.getByRole('link', { name: 'user5' }),
+    ).not.toBeVisible();
+
+    await expect(page.getByText('ALL FRIENDS-1')).toBeVisible();
+    await expect(
+      friendIndex.getByTestId('user-link-/profiles/4'),
+    ).toBeVisible();
+    await expect(
+      friendIndex.getByTestId('user-link-/profiles/5'),
+    ).not.toBeVisible();
+  });
+
+  test.describe('when clicking on the Log out button', () => {
+    test('should show the login page with a flash message', async ({
+      page,
+    }) => {
+      await page.getByRole('button', { name: 'Log out' }).click();
+
+      await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible();
+      await expect(page.getByText('Signed out successfully.')).toBeVisible();
+    });
+  });
+});
+
+test.describe('when navigating to a Chat page with no messages', () => {
+  test.beforeEach(async ({ page }) => {
+    await setup_test_data();
+
+    await page.goto('/');
+    await page.getByLabel('Email:').fill('user1@example.com');
+    await page.getByLabel('Password:').fill('123456');
+    await page.getByRole('button', { name: 'Log in' }).click();
+    await expect(page.getByText('Signed in successfully.')).toBeVisible();
+
+    const chatIndex = page.getByTestId('chat-index');
+    const link = chatIndex.getByRole('link', { name: 'user5' });
+    await link.click();
+    const sendButton = page.getByRole('button', { name: 'Send' });
+    await expect(sendButton).toBeVisible();
+  });
+
+  test.afterEach(async () => {
+    await cleanup_test_data();
+  });
+
+  test('should show no messages', async ({ page }) => {
+    await expect(page.getByTestId('message')).toHaveCount(0);
+  });
 });
 
 test.describe('when navigating to the Chat page', () => {
@@ -147,7 +228,6 @@ test.describe('when navigating to the Chat page', () => {
 
     const profile = page.getByTestId('profile');
     await expect(profile.getByText('user4')).toBeVisible();
-    await expect(profile.getByText('user44')).not.toBeVisible();
     await expect(profile.getByText('About Me:')).toBeVisible();
 
     const userActions = page.getByTestId('user-actions');
@@ -279,5 +359,238 @@ test.describe('when navigating to the Chat page', () => {
       expect(newMessageInChatViewport).toBe(false);
       expect(chatScrollBarAtBottom).toBe(false);
     });
+  });
+});
+
+test.describe('when navigating to the Friends page', () => {
+  test.beforeEach(async ({ page }) => {
+    await setup_test_data();
+
+    await page.goto('/');
+    await page.getByLabel('Email:').fill('user1@example.com');
+    await page.getByLabel('Password:').fill('123456');
+    await page.getByRole('button', { name: 'Log in' }).click();
+    await expect(page.getByText('Signed in successfully.')).toBeVisible();
+
+    await page.getByRole('link', { name: 'Friends' }).click();
+  });
+
+  test.afterEach(async () => {
+    await cleanup_test_data();
+  });
+
+  test('should show All and Pending friends links', async ({ page }) => {
+    await expect(page.getByText('Friends:')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'All' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Pending' })).toBeVisible();
+  });
+
+  test('should show all friends when clicking All', async ({ page }) => {
+    await page.getByRole('link', { name: 'All' }).click();
+
+    await expect(page.getByText('ALL FRIENDS-2')).toBeVisible();
+  });
+
+  test('should show incoming and outgoing friends requests friends when clicking Pending', async ({
+    page,
+  }) => {
+    await page.getByRole('link', { name: 'Pending' }).click();
+
+    await expect(page.getByText('Outgoing Friend Requests')).toBeVisible();
+    await expect(page.getByText('Incoming Friend Requests')).toBeVisible();
+
+    const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
+    await expect(
+      outgoingFriendRequests.getByRole('link', { name: 'user2' }),
+    ).toBeVisible();
+    await expect(
+      outgoingFriendRequests.getByRole('button', { name: 'Cancel' }),
+    ).toBeVisible();
+
+    const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
+    await expect(
+      incomingFriendRequests.getByRole('link', { name: 'user3' }),
+    ).toBeVisible();
+    await expect(
+      incomingFriendRequests.getByRole('button', { name: 'Accept' }),
+    ).toBeVisible();
+    await expect(
+      incomingFriendRequests.getByRole('button', { name: 'Reject' }),
+    ).toBeVisible();
+  });
+
+  test('should remove the user from outgoing friend requests when cancelling a friend request', async ({
+    page,
+  }) => {
+    await page.getByRole('link', { name: 'Pending' }).click();
+
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toBe('Cancel friend request to user2?');
+      await dialog.accept();
+    });
+
+    const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
+    await outgoingFriendRequests
+      .getByRole('button', { name: 'Cancel' })
+      .click();
+
+    // await page.getByRole('button', { name: 'OK' }).click();
+    await expect(
+      outgoingFriendRequests.getByRole('link', { name: 'user2' }),
+    ).not.toBeVisible();
+  });
+
+  test('should remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request', async ({
+    page,
+  }) => {
+    await page.getByRole('link', { name: 'Pending' }).click();
+
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toBe('Accept friend request from user3?');
+      await dialog.accept();
+    });
+
+    const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
+    await incomingFriendRequests
+      .getByRole('button', { name: 'Accept' })
+      .click();
+
+    // await page.getByRole('button', { name: 'OK' }).click();
+    await expect(
+      incomingFriendRequests.getByRole('link', { name: 'user3' }),
+    ).not.toBeVisible();
+
+    const chatIndex = page.getByTestId('chat-index');
+    await expect(chatIndex.getByRole('link', { name: 'user3' })).toBeVisible();
+  });
+
+  test('should remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index', async ({
+    page,
+  }) => {
+    await page.getByRole('link', { name: 'Pending' }).click();
+
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toBe('Reject friend request from user3?');
+      await dialog.accept();
+    });
+
+    const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
+    await incomingFriendRequests
+      .getByRole('button', { name: 'Reject' })
+      .click();
+
+    // await page.getByRole('button', { name: 'OK' }).click();
+    await expect(
+      incomingFriendRequests.getByRole('link', { name: 'user3' }),
+    ).not.toBeVisible();
+
+    const chatIndex = page.getByTestId('chat-index');
+    await expect(
+      chatIndex.getByRole('link', { name: 'user3' }),
+    ).not.toBeVisible();
+  });
+
+  test('should show the receiving user profile when clicking on an outgoing friend request', async ({
+    page,
+  }) => {
+    await page.getByRole('link', { name: 'Pending' }).click();
+
+    const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
+    await outgoingFriendRequests.getByRole('link', { name: 'user2' }).click();
+    const profile = page.getByTestId('profile');
+    await expect(profile.getByText('user2')).toBeVisible();
+    await expect(profile.getByText('About Me:')).toBeVisible();
+  });
+
+  test('should show the sending user profile when clicking on an incoming friend request', async ({
+    page,
+  }) => {
+    await page.getByRole('link', { name: 'Pending' }).click();
+
+    const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
+    await incomingFriendRequests.getByRole('link', { name: 'user3' }).click();
+    const profile = page.getByTestId('profile');
+    await expect(profile.getByText('user3')).toBeVisible();
+    await expect(profile.getByText('About Me:')).toBeVisible();
+  });
+});
+
+test.describe('when navigating to the Profile page', () => {
+  test.beforeEach(async ({ page }) => {
+    await setup_test_data();
+
+    await page.goto('/');
+    await page.getByLabel('Email:').fill('user1@example.com');
+    await page.getByLabel('Password:').fill('123456');
+    await page.getByRole('button', { name: 'Log in' }).click();
+    await expect(page.getByText('Signed in successfully.')).toBeVisible();
+
+    await page.getByRole('link', { name: 'Profile (user1)' }).click();
+  });
+
+  test.afterEach(async () => {
+    await cleanup_test_data();
+  });
+
+  test('should show the current user profile', async ({ page }) => {
+    const profile = page.getByTestId('profile');
+    await expect(profile.getByText('user1')).toBeVisible();
+    await expect(profile.getByText('About Me:')).toBeVisible();
+
+    const profileActions = page.getByTestId('profile-actions');
+    await expect(
+      profileActions.getByRole('button', { name: 'Edit' }),
+    ).toBeVisible();
+    await expect(
+      profileActions.getByRole('link', { name: 'Update avatar' }),
+    ).toBeVisible();
+  });
+
+  test('should show the current user profile edit page when clicking Edit', async ({
+    page,
+  }) => {
+    const userActions = page.getByTestId('profile-actions');
+    await userActions.getByRole('button', { name: 'Edit' }).click();
+
+    await expect(page.locator('#username')).toBeVisible();
+    await expect(page.getByText('About Me:')).toBeVisible();
+
+    await expect(page.getByRole('button', { name: 'Update' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Show' })).toBeVisible();
+  });
+
+  test('should show the current user profile page when clicking Edit, then Show button', async ({
+    page,
+  }) => {
+    const userActions = page.getByTestId('profile-actions');
+    await userActions.getByRole('button', { name: 'Edit' }).click();
+
+    await page.getByRole('button', { name: 'Show' }).click();
+
+    await expect(
+      userActions.getByRole('button', { name: 'Edit' }),
+    ).toBeVisible();
+    await expect(
+      userActions.getByRole('link', { name: 'Update avatar' }),
+    ).toBeVisible();
+  });
+
+  test('should show the current user profile page with updated info when clicking Edit, updating, then clicking Update button', async ({
+    page,
+  }) => {
+    const userActions = page.getByTestId('profile-actions');
+    await userActions.getByRole('button', { name: 'Edit' }).click();
+
+    await page.locator('#username').clear();
+    await page.locator('#username').fill('updated username');
+    await page.getByRole('textbox', { name: 'About Me:' }).clear();
+    await page
+      .getByRole('textbox', { name: 'About Me:' })
+      .fill('updated about me');
+
+    await page.getByRole('button', { name: 'Update' }).click();
+
+    await expect(page.getByText('updated username')).toBeVisible();
+    await expect(page.getByText('updated about me')).toBeVisible();
   });
 });

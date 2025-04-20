@@ -6,7 +6,7 @@ function UserLink({ className, children, targetPath }) {
   const pageUrl = usePage().url;
 
   return (
-    <div id="UserLink" className={className}>
+    <div className={className} data-testid={`user-link-${targetPath}`}>
       <Link
         className="link"
         href={targetPath}
