@@ -41,10 +41,14 @@ function FriendRequestIndex({
   }, [shared.current_user.id]);
 
   return (
-    <div id="friendrequest-index" className={className}>
+    <div
+      id="friendrequest-index"
+      className={className}
+      data-testid="friendrequest-index"
+    >
       <div>
         <div className="friend-request-header">Outgoing Friend Requests</div>
-        <div id="outgoing-friendrequests">
+        <div id="outgoing-friendrequests" data-testid="outgoing-friendrequests">
           {outgoingFriendRequests.map((friendRequest) => (
             <OutgoingFriendRequest
               key={friendRequest.id}
@@ -54,7 +58,7 @@ function FriendRequestIndex({
         </div>
       </div>
 
-      <div id="incoming-friendrequests">
+      <div id="incoming-friendrequests" data-testid="incoming-friendrequests">
         <div className="friend-request-header">Incoming Friend Requests</div>
         <div>
           {incomingFriendRequests.map((friendRequest) => (
