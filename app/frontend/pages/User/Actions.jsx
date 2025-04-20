@@ -87,7 +87,11 @@ function UserActions({
       break;
   }
 
-  return <div className={className}>{actions}</div>;
+  return (
+    <div className={className} data-testid="user-actions">
+      {actions}
+    </div>
+  );
 }
 
 UserActions.propTypes = {

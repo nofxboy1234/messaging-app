@@ -29,7 +29,7 @@ test.describe('when navigating to the Home page', () => {
     await cleanup_test_data();
   });
 
-  test.only('should show the navbar, current user chats, friends and all users', async ({
+  test('should show the navbar, current user chats, friends and all users', async ({
     page,
   }) => {
     const homeLink = page.getByRole('link', { name: 'Home' });
@@ -137,13 +137,35 @@ test.describe('when navigating to the Chat page', () => {
     await expect(chatUsers).toHaveCount(2);
   });
 
+  test('should show a friend profile when clicking on their username in the chat user index', async ({
+    page,
+  }) => {
+    const chatUserIndex = page.getByTestId('chat-user-index');
+    const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
+
+    await user4.click();
+
+    const profile = page.getByTestId('profile');
+    await expect(profile.getByText('user4')).toBeVisible();
+    await expect(profile.getByText('user44')).not.toBeVisible();
+    await expect(profile.getByText('About Me:')).toBeVisible();
+
+    const userActions = page.getByTestId('user-actions');
+    await expect(
+      userActions.getByRole('button', { name: 'Chat' }),
+    ).toBeVisible();
+    await expect(
+      userActions.getByRole('button', { name: 'Unfriend' }),
+    ).toBeVisible();
+  });
+
   test.describe('when sending a new message', () => {
     test('should not see the message if it is blank', async ({ page }) => {
       const sendButton = page.getByRole('button', { name: 'Send' });
 
-      expect(page.getByTestId('message')).toHaveCount(203);
+      await expect(page.getByTestId('message')).toHaveCount(203);
       await sendButton.click();
-      expect(page.getByTestId('message')).toHaveCount(203);
+      await expect(page.getByTestId('message')).toHaveCount(203);
     });
 
     test('should show the new message at the bottom of the chat viewport', async ({

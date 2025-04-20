@@ -28,7 +28,7 @@ function Profile({ className, initialProfile }) {
   }, [profile.id]);
 
   return (
-    <div className={className}>
+    <div className={className} data-testid="profile">
       <div id="header">
         <Picture src={profile.picture} scale={2} />
         <div className="profile-data">{profile.username}</div>
