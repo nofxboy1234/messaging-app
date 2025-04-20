@@ -14,6 +14,34 @@ const cleanup_test_data = async () => {
   });
 };
 
+test.describe('when navigating to the Home page', () => {
+  test.beforeEach(async ({ page, request }) => {
+    await setup_test_data();
+
+    await page.goto('/');
+    await page.getByLabel('Email:').fill('user1@example.com');
+    await page.getByLabel('Password:').fill('123456');
+    await page.getByRole('button', { name: 'Log in' }).click();
+    await expect(page.getByText('Signed in successfully.')).toBeVisible();
+  });
+
+  test.afterEach(async ({ page }) => {
+    await cleanup_test_data();
+  });
+
+  test('should show the current user chats, friends and all users', async ({
+    page,
+  }) => {
+    const chats = page.getByText('CHATS-2');
+    const friends = page.getByText('ALL FRIENDS-2');
+    const users = page.getByText('USERS-5');
+
+    await expect(chats).toBeVisible();
+    await expect(friends).toBeVisible();
+    await expect(users).toBeVisible();
+  });
+});
+
 test.describe('when navigating to the Chat page', () => {
   test.beforeEach(async ({ page, request }) => {
     await setup_test_data();
@@ -72,13 +100,13 @@ test.describe('when navigating to the Chat page', () => {
     const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
     const chatUsers = chatUserIndex.getByRole('link');
 
-    expect(user1).toBeVisible;
-    expect(user4).toBeVisible;
-    expect(chatUsers).toHaveCount(2);
+    await expect(user1).toBeVisible;
+    await expect(user4).toBeVisible;
+    await expect(chatUsers).toHaveCount(2);
   });
 
   test.describe('when sending a new message', () => {
-    test.only('should not see the message if it is blank', async ({ page }) => {
+    test('should not see the message if it is blank', async ({ page }) => {
       const sendButton = page.getByRole('button', { name: 'Send' });
 
       expect(page.getByTestId('message')).toHaveCount(203);
