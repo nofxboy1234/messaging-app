@@ -41,7 +41,7 @@ refactor
 [~] - ~Test out creating a React/Rails app without Vite, Inertia, Turbo-mount etc
 
 [ ] - Refactor e2e tests
-[ ] - Rename e2e test file
+[x] - Rename e2e test file
 [ ] - Move unit tests to proper folders
 [ ] - Check clicking on a user with lots of messages response time
 [ ] - More authorization
