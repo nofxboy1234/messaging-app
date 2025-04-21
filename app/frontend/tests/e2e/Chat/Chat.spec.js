@@ -98,9 +98,6 @@ test.describe('when navigating to the Home page', () => {
     const unfriend = page.getByRole('button', { name: 'Unfriend' });
     await unfriend.click();
 
-    // await expect(page.getByText('Unfriend user5?')).toBeVisible();
-    // await page.getByRole('button', { name: 'OK' }).click();
-
     await expect(page.getByText('CHATS-1')).toBeVisible();
     const chatIndex = page.getByTestId('chat-index');
     await expect(chatIndex.getByRole('link', { name: 'user4' })).toBeVisible();
@@ -434,7 +431,6 @@ test.describe('when navigating to the Friends page', () => {
       .getByRole('button', { name: 'Cancel' })
       .click();
 
-    // await page.getByRole('button', { name: 'OK' }).click();
     await expect(
       outgoingFriendRequests.getByRole('link', { name: 'user2' }),
     ).not.toBeVisible();
@@ -455,7 +451,6 @@ test.describe('when navigating to the Friends page', () => {
       .getByRole('button', { name: 'Accept' })
       .click();
 
-    // await page.getByRole('button', { name: 'OK' }).click();
     await expect(
       incomingFriendRequests.getByRole('link', { name: 'user3' }),
     ).not.toBeVisible();
@@ -479,7 +474,6 @@ test.describe('when navigating to the Friends page', () => {
       .getByRole('button', { name: 'Reject' })
       .click();
 
-    // await page.getByRole('button', { name: 'OK' }).click();
     await expect(
       incomingFriendRequests.getByRole('link', { name: 'user3' }),
     ).not.toBeVisible();
