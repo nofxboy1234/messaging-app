@@ -39,3 +39,11 @@ refactor
 [x] - ~refactor: rendering/efficiency/readability, status codes, unused functions
 [~] - ~change chat users broadcast to broadcast_to(chat)
 [~] - ~Test out creating a React/Rails app without Vite, Inertia, Turbo-mount etc
+
+[ ] - Refactor e2e tests
+[ ] - Rename e2e test file
+[ ] - Move unit tests to proper folders
+[ ] - Check clicking on a user with lots of messages response time
+[ ] - More authorization
+[ ] - Conditionally merge shared props with inertia?
+[ ] - Profile page button texts

@@ -588,3 +588,151 @@ test.describe('when navigating to the Profile page', () => {
     await expect(page.getByText('updated about me')).toBeVisible();
   });
 });
+
+test.describe('when navigating to any page while signed out', () => {
+  test.beforeEach(async ({ page }) => {
+    await setup_test_data();
+
+    await page.goto('/chats/3');
+  });
+
+  test.afterEach(async () => {
+    await cleanup_test_data();
+  });
+
+  test('should show the login screen with a flash message', async ({
+    page,
+  }) => {
+    await expect(page.getByLabel('Email:')).toBeVisible();
+    await expect(page.getByLabel('Password:')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Sign up' })).toBeVisible();
+    await expect(
+      page.getByText('You need to sign in or sign up before continuing.'),
+    ).toBeVisible();
+  });
+
+  test('should show "Invalid Email or password" when entering a valid email then clicking "Log in"', async ({
+    page,
+  }) => {
+    await page.getByLabel('Email:').fill('user1@example.com');
+    await page.getByRole('button', { name: 'Log in' }).click();
+
+    await expect(page.getByText('Invalid Email or password.')).toBeVisible();
+  });
+
+  test('should show "Invalid Email or password" when entering a valid email, invalid password, then clicking "Log in"', async ({
+    page,
+  }) => {
+    await page.getByLabel('Email:').fill('user1@example.com');
+    await page.getByLabel('Password:').fill('123');
+    await page.getByRole('button', { name: 'Log in' }).click();
+
+    await expect(page.getByText('Invalid Email or password.')).toBeVisible();
+  });
+
+  test('should log in and show successful sign in flash message when logging in with correct email and password', async ({
+    page,
+  }) => {
+    await page.getByLabel('Email:').fill('user1@example.com');
+    await page.getByLabel('Password:').fill('123456');
+    await page.getByRole('button', { name: 'Log in' }).click();
+
+    await expect(page.getByText('Signed in successfully.')).toBeVisible();
+    await expect(page.getByText('Profile (user1)')).toBeVisible();
+  });
+
+  test('should show the sign up screen when clicking "Sign up"', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'Sign up' }).click();
+
+    const registrationsNew = page.getByTestId('registrations-new');
+    await expect(registrationsNew.getByLabel('Email:')).toBeVisible();
+    await expect(registrationsNew.getByLabel('Password:')).toBeVisible();
+    await expect(
+      registrationsNew.getByLabel('Password confirmation:'),
+    ).toBeVisible();
+    await expect(
+      registrationsNew.getByRole('button', { name: 'Sign up' }),
+    ).toBeVisible();
+    await expect(
+      registrationsNew.getByRole('button', { name: 'Back' }),
+    ).toBeVisible();
+  });
+
+  test('should show error flash messages for email and password when entering an invalid email then clicking "Sign up"', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'Sign up' }).click();
+
+    const registrationsNew = page.getByTestId('registrations-new');
+    await registrationsNew.getByLabel('Email:').fill('user99');
+    await registrationsNew.getByRole('button', { name: 'Sign up' }).click();
+
+    await expect(registrationsNew.getByText('is invalid')).toBeVisible();
+    await expect(registrationsNew.getByText("can't be blank")).toBeVisible();
+  });
+
+  test('should show error flash message for password when entering a valid email then clicking "Sign up"', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'Sign up' }).click();
+
+    const registrationsNew = page.getByTestId('registrations-new');
+    await registrationsNew.getByLabel('Email:').fill('user99@example.com');
+    await registrationsNew.getByRole('button', { name: 'Sign up' }).click();
+
+    await expect(registrationsNew.getByText("can't be blank")).toBeVisible();
+  });
+
+  test('should show error flash messages for password and password confirmation when entering a valid email, short password, then clicking "Sign up"', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'Sign up' }).click();
+
+    const registrationsNew = page.getByTestId('registrations-new');
+    await registrationsNew.getByLabel('Email:').fill('user99@example.com');
+    await registrationsNew.getByLabel('Password:').fill('123');
+    await registrationsNew.getByRole('button', { name: 'Sign up' }).click();
+
+    await expect(
+      registrationsNew.getByText('is too short (minimum is 6 characters)'),
+    ).toBeVisible();
+    await expect(
+      registrationsNew.getByText("doesn't match Password"),
+    ).toBeVisible();
+  });
+
+  test('should show error flash message for password confirmation when entering a valid email, valid password, then clicking "Sign up"', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'Sign up' }).click();
+
+    const registrationsNew = page.getByTestId('registrations-new');
+    await registrationsNew.getByLabel('Email:').fill('user99@example.com');
+    await registrationsNew.getByLabel('Password:').fill('123456');
+    await registrationsNew.getByRole('button', { name: 'Sign up' }).click();
+
+    await expect(
+      registrationsNew.getByText("doesn't match Password"),
+    ).toBeVisible();
+  });
+
+  test('should log in and show successful sign up message when signing up successfully', async ({
+    page,
+  }) => {
+    await page.getByRole('button', { name: 'Sign up' }).click();
+
+    const registrationsNew = page.getByTestId('registrations-new');
+    await registrationsNew.getByLabel('Email:').fill('user99@example.com');
+    await registrationsNew.getByLabel('Password:').fill('123456');
+    await registrationsNew.getByLabel('Password confirmation:').fill('123456');
+    await registrationsNew.getByRole('button', { name: 'Sign up' }).click();
+
+    await expect(
+      page.getByText('Welcome! You have signed up successfully.'),
+    ).toBeVisible();
+    await expect(page.getByText('Profile (user99)')).toBeVisible();
+  });
+});

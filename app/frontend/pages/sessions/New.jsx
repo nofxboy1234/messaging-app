@@ -32,7 +32,7 @@ function SessionsNew({ className }) {
   }, []);
 
   return (
-    <div className={className}>
+    <div className={className} data-testid="sessions-new">
       <div id="content-container">
         <div id="header">Log in</div>
         <form>

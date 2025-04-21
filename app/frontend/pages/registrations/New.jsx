@@ -33,7 +33,7 @@ function RegistrationsNew({ className }) {
   );
 
   return (
-    <div className={className}>
+    <div className={className} data-testid="registrations-new">
       <div id="content-container">
         <div id="header">Sign up</div>
         <form>
