@@ -14,21 +14,20 @@ const cleanup_test_data = async () => {
   });
 };
 
+test.beforeEach(async ({ page }) => {
+  await setup_test_data();
+
+  await page.goto('/');
+  await page.getByLabel('Email:').fill('user1@example.com');
+  await page.getByLabel('Password:').fill('123456');
+  await page.getByRole('button', { name: 'Log in' }).click();
+});
+
+test.afterEach(async () => {
+  await cleanup_test_data();
+});
+
 test.describe('when navigating to the Home page', () => {
-  test.beforeEach(async ({ page }) => {
-    await setup_test_data();
-
-    await page.goto('/');
-    await page.getByLabel('Email:').fill('user1@example.com');
-    await page.getByLabel('Password:').fill('123456');
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await expect(page.getByText('Signed in successfully.')).toBeVisible();
-  });
-
-  test.afterEach(async () => {
-    await cleanup_test_data();
-  });
-
   test('should show the navbar, current user chats, friends and all users', async ({
     page,
   }) => {
@@ -128,23 +127,11 @@ test.describe('when navigating to the Home page', () => {
 
 test.describe('when navigating to a Chat page with no messages', () => {
   test.beforeEach(async ({ page }) => {
-    await setup_test_data();
-
-    await page.goto('/');
-    await page.getByLabel('Email:').fill('user1@example.com');
-    await page.getByLabel('Password:').fill('123456');
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await expect(page.getByText('Signed in successfully.')).toBeVisible();
-
     const chatIndex = page.getByTestId('chat-index');
     const link = chatIndex.getByRole('link', { name: 'user5' });
     await link.click();
     const sendButton = page.getByRole('button', { name: 'Send' });
     await expect(sendButton).toBeVisible();
-  });
-
-  test.afterEach(async () => {
-    await cleanup_test_data();
   });
 
   test('should show no messages', async ({ page }) => {
@@ -154,23 +141,11 @@ test.describe('when navigating to a Chat page with no messages', () => {
 
 test.describe('when navigating to the Chat page', () => {
   test.beforeEach(async ({ page }) => {
-    await setup_test_data();
-
-    await page.goto('/');
-    await page.getByLabel('Email:').fill('user1@example.com');
-    await page.getByLabel('Password:').fill('123456');
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await expect(page.getByText('Signed in successfully.')).toBeVisible();
-
     const chatIndex = page.getByTestId('chat-index');
     const link = chatIndex.getByRole('link', { name: 'user4' });
     await link.click();
     const sendButton = page.getByRole('button', { name: 'Send' });
     await expect(sendButton).toBeVisible();
-  });
-
-  test.afterEach(async () => {
-    await cleanup_test_data();
   });
 
   test('should show the last message at the bottom of the chat viewport', async ({
@@ -361,19 +336,7 @@ test.describe('when navigating to the Chat page', () => {
 
 test.describe('when navigating to the Friends page', () => {
   test.beforeEach(async ({ page }) => {
-    await setup_test_data();
-
-    await page.goto('/');
-    await page.getByLabel('Email:').fill('user1@example.com');
-    await page.getByLabel('Password:').fill('123456');
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await expect(page.getByText('Signed in successfully.')).toBeVisible();
-
     await page.getByRole('link', { name: 'Friends' }).click();
-  });
-
-  test.afterEach(async () => {
-    await cleanup_test_data();
   });
 
   test('should show All and Pending friends links', async ({ page }) => {
@@ -511,19 +474,7 @@ test.describe('when navigating to the Friends page', () => {
 
 test.describe('when navigating to the Profile page', () => {
   test.beforeEach(async ({ page }) => {
-    await setup_test_data();
-
-    await page.goto('/');
-    await page.getByLabel('Email:').fill('user1@example.com');
-    await page.getByLabel('Password:').fill('123456');
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await expect(page.getByText('Signed in successfully.')).toBeVisible();
-
     await page.getByRole('link', { name: 'Profile (user1)' }).click();
-  });
-
-  test.afterEach(async () => {
-    await cleanup_test_data();
   });
 
   test('should show the current user profile', async ({ page }) => {
@@ -594,10 +545,6 @@ test.describe('when navigating to any page while signed out', () => {
     await setup_test_data();
 
     await page.goto('/chats/3');
-  });
-
-  test.afterEach(async () => {
-    await cleanup_test_data();
   });
 
   test('should show the login screen with a flash message', async ({
