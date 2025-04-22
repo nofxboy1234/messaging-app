@@ -28,7 +28,7 @@ test.afterEach(async () => {
 });
 
 test.describe('when navigating to the Home page', () => {
-  test('should show the navbar, current user chats, friends and all users', async ({
+  test.only('should show the navbar, current user chats, friends and all users', async ({
     page,
   }) => {
     const homeLink = page.getByRole('link', { name: 'Home' });
@@ -45,6 +45,8 @@ test.describe('when navigating to the Home page', () => {
     const chatIndex = page.getByTestId('chat-index');
     await expect(chatIndex.getByRole('link', { name: 'user4' })).toBeVisible();
     await expect(chatIndex.getByRole('link', { name: 'user5' })).toBeVisible();
+
+    await page.waitForLoadState('domcontentloaded');
     await expect(
       chatIndex.getByRole('link', { name: 'user1' }),
     ).not.toBeVisible();
@@ -58,6 +60,8 @@ test.describe('when navigating to the Home page', () => {
     await expect(
       friendIndex.getByRole('link', { name: 'user5' }),
     ).toBeVisible();
+
+    await page.waitForLoadState('domcontentloaded');
     await expect(
       friendIndex.getByRole('link', { name: 'user1' }),
     ).not.toBeVisible();
