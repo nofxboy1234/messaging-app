@@ -42,9 +42,9 @@ refactor
 
 [x] - Rename e2e test file
 [x] - Refactor e2e tests
+[x] - Rails error pages
 [.] - Move unit tests to proper folders
 [ ] - Check clicking on a user with lots of messages response time
 [ ] - More authorization
 [ ] - Conditionally merge shared props with inertia?
 [ ] - Profile page button texts
-[ ] - Rails error pages
