@@ -132,7 +132,7 @@ test.describe('when navigating to a Chat page with no messages', () => {
     await link.click();
   });
 
-  test.only('should show no messages', async ({ page }) => {
+  test('should show no messages', async ({ page }) => {
     await expect(page.getByTestId('message')).toHaveCount(0);
   });
 });

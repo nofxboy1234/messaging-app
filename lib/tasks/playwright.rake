@@ -3,7 +3,7 @@ namespace :playwright do
     Rails.env = "test"
     Rake::Task["db:schema:load"].invoke
 
-    puts "setup test db"
+    # puts "setup test db"
   end
 
   task setup_test_data: :environment do
@@ -76,20 +76,20 @@ namespace :playwright do
     @friendship.chat = chat
     @friendship.save
 
-    puts "setup test data"
+    # puts "setup test data"
   end
 
   task cleanup_test_data: :environment do
     Rails.env = "test"
     Rake::Task["db:schema:load"].invoke
 
-    puts "cleanup test data"
+    # puts "cleanup test data"
   end
 
   task teardown: :environment do
     Rails.env = "test"
     Rake::Task["db:schema:load"].invoke
 
-    puts "teardown test db"
+    # puts "teardown test db"
   end
 end
