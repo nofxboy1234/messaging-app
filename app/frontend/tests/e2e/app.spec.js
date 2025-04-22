@@ -28,7 +28,7 @@ test.afterEach(async () => {
 });
 
 test.describe('when navigating to the Home page', () => {
-  test.only('should show the navbar, current user chats, friends and all users', async ({
+  test('should show the navbar, current user chats, friends and all users', async ({
     page,
   }) => {
     const homeLink = page.getByRole('link', { name: 'Home' });
@@ -104,6 +104,8 @@ test.describe('when navigating to the Home page', () => {
     await expect(page.getByText('CHATS-1')).toBeVisible();
     const chatIndex = page.getByTestId('chat-index');
     await expect(chatIndex.getByRole('link', { name: 'user4' })).toBeVisible();
+
+    await page.waitForLoadState('domcontentloaded');
     await expect(
       chatIndex.getByRole('link', { name: 'user5' }),
     ).not.toBeVisible();
@@ -112,6 +114,8 @@ test.describe('when navigating to the Home page', () => {
     await expect(
       friendIndex.getByTestId('user-link-/profiles/4'),
     ).toBeVisible();
+
+    await page.waitForLoadState('domcontentloaded');
     await expect(
       friendIndex.getByTestId('user-link-/profiles/5'),
     ).not.toBeVisible();
@@ -403,6 +407,7 @@ test.describe('when navigating to the Friends page', () => {
       .getByRole('button', { name: 'Cancel' })
       .click();
 
+    await page.waitForLoadState('domcontentloaded');
     await expect(
       outgoingFriendRequests.getByRole('link', { name: 'user2' }),
     ).not.toBeVisible();
@@ -423,6 +428,7 @@ test.describe('when navigating to the Friends page', () => {
       .getByRole('button', { name: 'Accept' })
       .click();
 
+    await page.waitForLoadState('domcontentloaded');
     await expect(
       incomingFriendRequests.getByRole('link', { name: 'user3' }),
     ).not.toBeVisible();
@@ -446,11 +452,13 @@ test.describe('when navigating to the Friends page', () => {
       .getByRole('button', { name: 'Reject' })
       .click();
 
+    await page.waitForLoadState('domcontentloaded');
     await expect(
       incomingFriendRequests.getByRole('link', { name: 'user3' }),
     ).not.toBeVisible();
 
     const chatIndex = page.getByTestId('chat-index');
+    await page.waitForLoadState('domcontentloaded');
     await expect(
       chatIndex.getByRole('link', { name: 'user3' }),
     ).not.toBeVisible();
