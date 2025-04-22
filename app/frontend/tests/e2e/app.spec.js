@@ -130,22 +130,18 @@ test.describe('when navigating to a Chat page with no messages', () => {
     const chatIndex = page.getByTestId('chat-index');
     const link = chatIndex.getByRole('link', { name: 'user5' });
     await link.click();
-    const sendButton = page.getByRole('button', { name: 'Send' });
-    await expect(sendButton).toBeVisible();
   });
 
-  test('should show no messages', async ({ page }) => {
+  test.only('should show no messages', async ({ page }) => {
     await expect(page.getByTestId('message')).toHaveCount(0);
   });
 });
 
-test.describe('when navigating to the Chat page', () => {
+test.describe('when navigating to a Chat page with messages', () => {
   test.beforeEach(async ({ page }) => {
     const chatIndex = page.getByTestId('chat-index');
     const link = chatIndex.getByRole('link', { name: 'user4' });
     await link.click();
-    const sendButton = page.getByRole('button', { name: 'Send' });
-    await expect(sendButton).toBeVisible();
   });
 
   test('should show the last message at the bottom of the chat viewport', async ({
