@@ -62,7 +62,7 @@ test.describe('when navigating to the Home page', () => {
       friendIndex.getByRole('link', { name: 'user1' }),
     ).not.toBeVisible();
 
-    const users = page.getByText('USERS-5');
+    const users = page.getByText('USERS-6');
     await expect(users).toBeVisible();
     const userIndex = page.getByTestId('user-index');
     await expect(userIndex.getByRole('link', { name: 'user1' })).toBeVisible();
@@ -144,7 +144,7 @@ test.describe('when navigating to a Chat page with messages', () => {
     await link.click();
   });
 
-  test.only('should show a link to the friend profile at the top of the chat', async ({
+  test('should show a link to the friend profile at the top of the chat', async ({
     page,
   }) => {
     const chatShow = page.getByTestId('chat-show');
