@@ -6,7 +6,7 @@ import HeaderProfileLink from './HeaderProfileLink';
 
 function ChatShow({ className, chat, chattingWith }) {
   return (
-    <div className={className}>
+    <div className={className} data-testid="chat-show">
       <HeaderProfileLink user={chattingWith} />
       <Chat chat={chat} />
       <MessageBox chat={chat} />

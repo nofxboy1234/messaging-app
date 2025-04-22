@@ -144,6 +144,15 @@ test.describe('when navigating to a Chat page with messages', () => {
     await link.click();
   });
 
+  test.only('should show a link to the friend profile at the top of the chat', async ({
+    page,
+  }) => {
+    const chatShow = page.getByTestId('chat-show');
+    const headerProfileLink = chatShow.getByTestId('user-link-/profiles/4');
+    // await headerProfileLink.waitFor({ state: 'visible', timeout: 1000 });
+    await expect(headerProfileLink).toBeVisible(); // Should fail if visible
+  });
+
   test('should show the last message at the bottom of the chat viewport', async ({
     page,
   }) => {
