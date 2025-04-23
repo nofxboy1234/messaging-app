@@ -198,8 +198,8 @@ test.describe('when navigating to a Chat page with messages', () => {
     const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
     const chatUsers = chatUserIndex.getByRole('link');
 
-    await expect(user1).toBeVisible;
-    await expect(user4).toBeVisible;
+    await expect(user1).toBeVisible();
+    await expect(user4).toBeVisible();
     await expect(chatUsers).toHaveCount(2);
   });
 
