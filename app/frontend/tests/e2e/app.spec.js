@@ -222,7 +222,7 @@ test.describe('when navigating to the Home page', () => {
     await expect(sendButton).toBeVisible();
   });
 
-  test.only('should remove the friend from chat index and show a send button on their profile when clicking on the unfriend button on their profile', async ({
+  test('should remove the friend from chat index and show a send button on their profile when clicking on the unfriend button on their profile', async ({
     page,
   }) => {
     const userIndex = page.getByTestId('user-index');
