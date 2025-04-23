@@ -239,9 +239,9 @@ test.describe('when navigating to the Home page', () => {
     const userActions = page.getByTestId('user-actions');
     await userActions.getByRole('button', { name: 'Unfriend' }).click();
 
-    await expect(page.getByText('CHATS-1')).toBeVisible();
-
     await dialogPromise;
+
+    await expect(page.getByText('CHATS-1')).toBeVisible();
 
     await page.waitForLoadState('domcontentloaded');
     const chatIndex = page.getByTestId('chat-index');
