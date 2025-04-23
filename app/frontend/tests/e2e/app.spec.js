@@ -46,7 +46,6 @@ test.describe('when navigating to the Home page', () => {
     await expect(chatIndex.getByRole('link', { name: 'user4' })).toBeVisible();
     await expect(chatIndex.getByRole('link', { name: 'user5' })).toBeVisible();
 
-    await page.waitForLoadState('domcontentloaded');
     await expect(
       chatIndex.getByRole('link', { name: 'user1' }),
     ).not.toBeVisible();
@@ -61,7 +60,6 @@ test.describe('when navigating to the Home page', () => {
       friendIndex.getByRole('link', { name: 'user5' }),
     ).toBeVisible();
 
-    await page.waitForLoadState('domcontentloaded');
     await expect(
       friendIndex.getByRole('link', { name: 'user1' }),
     ).not.toBeVisible();
@@ -74,6 +72,7 @@ test.describe('when navigating to the Home page', () => {
     await expect(userIndex.getByRole('link', { name: 'user3' })).toBeVisible();
     await expect(userIndex.getByRole('link', { name: 'user4' })).toBeVisible();
     await expect(userIndex.getByRole('link', { name: 'user5' })).toBeVisible();
+    await expect(userIndex.getByRole('link', { name: 'user6' })).toBeVisible();
   });
 
   test('should show a chat and unfriend button when clicking a friend in the friend index', async ({
@@ -91,21 +90,32 @@ test.describe('when navigating to the Home page', () => {
   test('should show a popup message to confirm, and remove the friend and chat if OK is clicked', async ({
     page,
   }) => {
+    const chatIndex = page.getByTestId('chat-index');
+    const friendIndex = page.getByTestId('friend-index');
+
+    await expect(page.getByText('CHATS-2')).toBeVisible();
+    await expect(chatIndex.getByRole('link', { name: 'user4' })).toBeVisible();
+    await expect(chatIndex.getByRole('link', { name: 'user5' })).toBeVisible();
+
+    await expect(page.getByText('ALL FRIENDS-2')).toBeVisible();
+    await expect(
+      friendIndex.getByTestId('user-link-/profiles/4'),
+    ).toBeVisible();
+    await expect(
+      friendIndex.getByTestId('user-link-/profiles/5'),
+    ).toBeVisible();
+
     page.on('dialog', async (dialog) => {
       expect(dialog.message()).toBe('Unfriend user5?');
       await dialog.accept();
     });
 
-    const friendIndex = page.getByTestId('friend-index');
     await friendIndex.getByTestId('user-link-/profiles/5').click();
     const unfriend = page.getByRole('button', { name: 'Unfriend' });
     await unfriend.click();
 
     await expect(page.getByText('CHATS-1')).toBeVisible();
-    const chatIndex = page.getByTestId('chat-index');
     await expect(chatIndex.getByRole('link', { name: 'user4' })).toBeVisible();
-
-    await page.waitForLoadState('domcontentloaded');
     await expect(
       chatIndex.getByRole('link', { name: 'user5' }),
     ).not.toBeVisible();
@@ -114,8 +124,6 @@ test.describe('when navigating to the Home page', () => {
     await expect(
       friendIndex.getByTestId('user-link-/profiles/4'),
     ).toBeVisible();
-
-    await page.waitForLoadState('domcontentloaded');
     await expect(
       friendIndex.getByTestId('user-link-/profiles/5'),
     ).not.toBeVisible();
