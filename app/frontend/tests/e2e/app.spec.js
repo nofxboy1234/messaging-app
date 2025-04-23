@@ -222,35 +222,33 @@ test.describe('when navigating to the Home page', () => {
     await expect(sendButton).toBeVisible();
   });
 
-  test('should remove the friend from chat index and show a send button on their profile when clicking on the unfriend button on their profile', async ({
+  test('should remove the friend from chat index and show a send button on their profile when clicking the unfriend button on their profile', async ({
     page,
   }) => {
     const userIndex = page.getByTestId('user-index');
     await userIndex.getByRole('link', { name: 'user4' }).click();
 
-    const dialogPromise = new Promise((resolve) => {
-      page.on('dialog', async (dialog) => {
-        expect(dialog.message()).toBe('Unfriend user4?');
-        await dialog.accept();
-        resolve();
-      });
+    const chatIndex = page.getByTestId('chat-index');
+    const userActions = page.getByTestId('user-actions');
+    const user4ChatLink = chatIndex.getByRole('link', { name: 'user4' });
+    await expect(
+      userActions.getByRole('button', { name: 'Chat' }),
+    ).toBeVisible();
+    await expect(page.getByText('CHATS-2')).toBeVisible();
+    await expect(user4ChatLink).toBeVisible();
+
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toBe('Unfriend user4?');
+      await dialog.accept();
     });
 
-    const userActions = page.getByTestId('user-actions');
     await userActions.getByRole('button', { name: 'Unfriend' }).click();
 
-    await dialogPromise;
-
     await expect(page.getByText('CHATS-1')).toBeVisible();
+    await expect(user4ChatLink).not.toBeVisible();
     await expect(
       userActions.getByRole('button', { name: 'Send' }),
     ).toBeVisible();
-
-    await page.waitForLoadState('domcontentloaded');
-    const chatIndex = page.getByTestId('chat-index');
-    await expect(
-      chatIndex.getByRole('link', { name: 'user4' }),
-    ).not.toBeVisible();
   });
 });
 
