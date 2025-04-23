@@ -228,15 +228,20 @@ test.describe('when navigating to the Home page', () => {
     const userIndex = page.getByTestId('user-index');
     await userIndex.getByRole('link', { name: 'user4' }).click();
 
-    page.on('dialog', async (dialog) => {
-      expect(dialog.message()).toBe('Unfriend user4?');
-      await dialog.accept();
+    const dialogPromise = new Promise((resolve) => {
+      page.on('dialog', async (dialog) => {
+        expect(dialog.message()).toBe('Unfriend user4?');
+        await dialog.accept();
+        resolve();
+      });
     });
 
     const userActions = page.getByTestId('user-actions');
     await userActions.getByRole('button', { name: 'Unfriend' }).click();
 
     await expect(page.getByText('CHATS-1')).toBeVisible();
+
+    await dialogPromise;
 
     await page.waitForLoadState('domcontentloaded');
     const chatIndex = page.getByTestId('chat-index');
