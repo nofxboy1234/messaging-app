@@ -258,6 +258,32 @@ test.describe('when navigating to the Home page', () => {
       userActions.getByRole('button', { name: 'Send' }),
     ).toBeVisible();
   });
+
+  test('should show a Cancel button on a user profile when clicking the Send button', async ({
+    page,
+  }) => {
+    const userIndex = page.getByTestId('user-index');
+    const userActions = page.getByTestId('user-actions');
+    const sendButton = userActions.getByRole('button', { name: 'Send' });
+
+    await userIndex.getByRole('link', { name: 'user6' }).click();
+
+    await expect(sendButton).toBeVisible();
+    await expect(page.getByText('CHATS-2')).toBeVisible();
+
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toBe('Send friend request to user6?');
+      await dialog.accept();
+    });
+
+    await sendButton.click();
+
+    await expect(sendButton).not.toBeVisible();
+    await expect(page.getByText('CHATS-2')).toBeVisible();
+    await expect(
+      userActions.getByRole('button', { name: 'Cancel' }),
+    ).toBeVisible();
+  });
 });
 
 test.describe('when navigating to a Chat page with no messages', () => {

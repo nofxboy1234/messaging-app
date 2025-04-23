@@ -46,6 +46,6 @@ refactor
 [.] - extra e2e tests
 [ ] - Move unit tests to proper folders
 [ ] - Check clicking on a user with lots of messages response time
-[ ] - More authorization
 [ ] - Conditionally merge shared props with inertia?
 [ ] - Profile page button texts
+[ ] - More authorization
