@@ -241,9 +241,9 @@ test.describe('when navigating to the Home page', () => {
 
     await dialogPromise;
 
+    await page.waitForLoadState('domcontentloaded');
     await expect(page.getByText('CHATS-1')).toBeVisible();
 
-    await page.waitForLoadState('domcontentloaded');
     const chatIndex = page.getByTestId('chat-index');
     await expect(
       chatIndex.getByRole('link', { name: 'user4' }),
