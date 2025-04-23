@@ -527,19 +527,23 @@ test.describe('when navigating to the Friends page', () => {
   test('should remove the user from outgoing friend requests when cancelling a friend request', async ({
     page,
   }) => {
+    const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
+
     await page.getByRole('link', { name: 'Pending' }).click();
+
+    await expect(
+      outgoingFriendRequests.getByRole('link', { name: 'user2' }),
+    ).toBeVisible();
 
     page.on('dialog', async (dialog) => {
       expect(dialog.message()).toBe('Cancel friend request to user2?');
       await dialog.accept();
     });
 
-    const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
     await outgoingFriendRequests
       .getByRole('button', { name: 'Cancel' })
       .click();
 
-    await page.waitForLoadState('domcontentloaded');
     await expect(
       outgoingFriendRequests.getByRole('link', { name: 'user2' }),
     ).not.toBeVisible();
@@ -550,22 +554,28 @@ test.describe('when navigating to the Friends page', () => {
   }) => {
     await page.getByRole('link', { name: 'Pending' }).click();
 
+    const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
+    const chatIndex = page.getByTestId('chat-index');
+
+    await expect(
+      incomingFriendRequests.getByRole('link', { name: 'user3' }),
+    ).toBeVisible();
+    await expect(
+      chatIndex.getByRole('link', { name: 'user3' }),
+    ).not.toBeVisible();
+
     page.on('dialog', async (dialog) => {
       expect(dialog.message()).toBe('Accept friend request from user3?');
       await dialog.accept();
     });
 
-    const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
     await incomingFriendRequests
       .getByRole('button', { name: 'Accept' })
       .click();
 
-    await page.waitForLoadState('domcontentloaded');
     await expect(
       incomingFriendRequests.getByRole('link', { name: 'user3' }),
     ).not.toBeVisible();
-
-    const chatIndex = page.getByTestId('chat-index');
     await expect(chatIndex.getByRole('link', { name: 'user3' })).toBeVisible();
   });
 
@@ -574,23 +584,30 @@ test.describe('when navigating to the Friends page', () => {
   }) => {
     await page.getByRole('link', { name: 'Pending' }).click();
 
+    const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
+    const chatIndex = page.getByTestId('chat-index');
+
+    await expect(
+      incomingFriendRequests.getByRole('link', { name: 'user3' }),
+    ).toBeVisible();
+
+    await expect(
+      chatIndex.getByRole('link', { name: 'user3' }),
+    ).not.toBeVisible();
+
     page.on('dialog', async (dialog) => {
       expect(dialog.message()).toBe('Reject friend request from user3?');
       await dialog.accept();
     });
 
-    const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
     await incomingFriendRequests
       .getByRole('button', { name: 'Reject' })
       .click();
 
-    await page.waitForLoadState('domcontentloaded');
     await expect(
       incomingFriendRequests.getByRole('link', { name: 'user3' }),
     ).not.toBeVisible();
 
-    const chatIndex = page.getByTestId('chat-index');
-    await page.waitForLoadState('domcontentloaded');
     await expect(
       chatIndex.getByRole('link', { name: 'user3' }),
     ).not.toBeVisible();
