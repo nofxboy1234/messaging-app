@@ -26,45 +26,121 @@ test.afterEach(async () => {
   await cleanup_test_data();
 });
 
+function setup(page) {
+  const homeLink = page.getByRole('link', { name: 'Home' });
+  const friendsLink = page.getByRole('link', { name: 'Friends' });
+  const profileLink = page.getByRole('link', { name: 'Profile (user1)' });
+  const logoutButton = page.getByRole('button', { name: 'Log out' });
+  const chatTotal = page.getByText('CHATS-2');
+  const user1ChatLink = page
+    .getByTestId('chat-index')
+    .getByRole('link', { name: 'user1' });
+  const user4ChatLink = page
+    .getByTestId('chat-index')
+    .getByRole('link', { name: 'user4' });
+  const user5ChatLink = page
+    .getByTestId('chat-index')
+    .getByRole('link', { name: 'user5' });
+
+  const friendTotal = page.getByText('ALL FRIENDS-2');
+  const user1FriendLink = page
+    .getByTestId('friend-index')
+    .getByRole('link', { name: 'user1' });
+  const user4FriendLink = page
+    .getByTestId('friend-index')
+    .getByRole('link', { name: 'user4' });
+  const user5FriendLink = page
+    .getByTestId('friend-index')
+    .getByRole('link', { name: 'user5' });
+
+  const userTotal = page.getByText('USERS-6');
+  const user1UserLink = page
+    .getByTestId('user-index')
+    .getByRole('link', { name: 'user1' });
+  const user2UserLink = page
+    .getByTestId('user-index')
+    .getByRole('link', { name: 'user2' });
+  const user3UserLink = page
+    .getByTestId('user-index')
+    .getByRole('link', { name: 'user3' });
+  const user4UserLink = page
+    .getByTestId('user-index')
+    .getByRole('link', { name: 'user4' });
+  const user5UserLink = page
+    .getByTestId('user-index')
+    .getByRole('link', { name: 'user5' });
+  const user6UserLink = page
+    .getByTestId('user-index')
+    .getByRole('link', { name: 'user6' });
+
+  return {
+    homeLink,
+    friendsLink,
+    profileLink,
+    logoutButton,
+    chatTotal,
+    user1ChatLink,
+    user4ChatLink,
+    user5ChatLink,
+    friendTotal,
+    user1FriendLink,
+    user4FriendLink,
+    user5FriendLink,
+    userTotal,
+    user1UserLink,
+    user2UserLink,
+    user3UserLink,
+    user4UserLink,
+    user5UserLink,
+    user6UserLink,
+  };
+}
+
 test('should show the navbar, current user chats, friends and all users', async ({
   page,
 }) => {
-  const homeLink = page.getByRole('link', { name: 'Home' });
+  const {
+    homeLink,
+    friendsLink,
+    profileLink,
+    logoutButton,
+    chatTotal,
+    user1ChatLink,
+    user4ChatLink,
+    user5ChatLink,
+    friendTotal,
+    user1FriendLink,
+    user4FriendLink,
+    user5FriendLink,
+    userTotal,
+    user1UserLink,
+    user2UserLink,
+    user3UserLink,
+    user4UserLink,
+    user5UserLink,
+    user6UserLink,
+  } = setup(page);
+
   await expect(homeLink).toBeVisible();
-  const friendsLink = page.getByRole('link', { name: 'Friends' });
   await expect(friendsLink).toBeVisible();
-  const profileLink = page.getByRole('link', { name: 'Profile (user1)' });
   await expect(profileLink).toBeVisible();
-  const logoutButton = page.getByRole('button', { name: 'Log out' });
   await expect(logoutButton).toBeVisible();
 
-  const chats = page.getByText('CHATS-2');
-  await expect(chats).toBeVisible();
-  const chatIndex = page.getByTestId('chat-index');
-  await expect(chatIndex.getByRole('link', { name: 'user4' })).toBeVisible();
-  await expect(chatIndex.getByRole('link', { name: 'user5' })).toBeVisible();
+  await expect(chatTotal).toBeVisible();
+  await expect(user1ChatLink).not.toBeVisible();
+  await expect(user4ChatLink).toBeVisible();
+  await expect(user5ChatLink).toBeVisible();
 
-  await expect(
-    chatIndex.getByRole('link', { name: 'user1' }),
-  ).not.toBeVisible();
+  await expect(friendTotal).toBeVisible();
+  await expect(user1FriendLink).not.toBeVisible();
+  await expect(user4FriendLink).toBeVisible();
+  await expect(user5FriendLink).toBeVisible();
 
-  const friends = page.getByText('ALL FRIENDS-2');
-  await expect(friends).toBeVisible();
-  const friendIndex = page.getByTestId('friend-index');
-  await expect(friendIndex.getByRole('link', { name: 'user4' })).toBeVisible();
-  await expect(friendIndex.getByRole('link', { name: 'user5' })).toBeVisible();
-
-  await expect(
-    friendIndex.getByRole('link', { name: 'user1' }),
-  ).not.toBeVisible();
-
-  const users = page.getByText('USERS-6');
-  await expect(users).toBeVisible();
-  const userIndex = page.getByTestId('user-index');
-  await expect(userIndex.getByRole('link', { name: 'user1' })).toBeVisible();
-  await expect(userIndex.getByRole('link', { name: 'user2' })).toBeVisible();
-  await expect(userIndex.getByRole('link', { name: 'user3' })).toBeVisible();
-  await expect(userIndex.getByRole('link', { name: 'user4' })).toBeVisible();
-  await expect(userIndex.getByRole('link', { name: 'user5' })).toBeVisible();
-  await expect(userIndex.getByRole('link', { name: 'user6' })).toBeVisible();
+  await expect(userTotal).toBeVisible();
+  await expect(user1UserLink).toBeVisible();
+  await expect(user2UserLink).toBeVisible();
+  await expect(user3UserLink).toBeVisible();
+  await expect(user4UserLink).toBeVisible();
+  await expect(user5UserLink).toBeVisible();
+  await expect(user6UserLink).toBeVisible();
 });
