@@ -58,7 +58,7 @@ test('should show incoming and outgoing friends requests friends when clicking P
   ).toBeVisible();
 });
 
-test('should remove the user from outgoing friend requests when cancelling a friend request', async ({
+test('should remove the user from outgoing friend requests when cancelling a friend request and accepting the popup', async ({
   page,
 }) => {
   const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
@@ -81,7 +81,30 @@ test('should remove the user from outgoing friend requests when cancelling a fri
   ).not.toBeVisible();
 });
 
-test('should remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request', async ({
+test('should not remove the user from outgoing friend requests when cancelling a friend request and dismissing the popup', async ({
+  page,
+}) => {
+  const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
+
+  await page.getByRole('link', { name: 'Pending' }).click();
+
+  await expect(
+    outgoingFriendRequests.getByRole('link', { name: 'user2' }),
+  ).toBeVisible();
+
+  page.on('dialog', async (dialog) => {
+    expect(dialog.message()).toBe('Cancel friend request to user2?');
+    await dialog.dismiss();
+  });
+
+  await outgoingFriendRequests.getByRole('button', { name: 'Cancel' }).click();
+
+  await expect(
+    outgoingFriendRequests.getByRole('link', { name: 'user2' }),
+  ).toBeVisible();
+});
+
+test('should remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request and accepting the popup', async ({
   page,
 }) => {
   await page.getByRole('link', { name: 'Pending' }).click();
@@ -109,7 +132,37 @@ test('should remove the user from incoming friend requests and add the user chat
   await expect(chatIndex.getByRole('link', { name: 'user3' })).toBeVisible();
 });
 
-test('should remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index', async ({
+test('should not remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request and dismissing the popup', async ({
+  page,
+}) => {
+  await page.getByRole('link', { name: 'Pending' }).click();
+
+  const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
+  const chatIndex = page.getByTestId('chat-index');
+
+  await expect(
+    incomingFriendRequests.getByRole('link', { name: 'user3' }),
+  ).toBeVisible();
+  await expect(
+    chatIndex.getByRole('link', { name: 'user3' }),
+  ).not.toBeVisible();
+
+  page.on('dialog', async (dialog) => {
+    expect(dialog.message()).toBe('Accept friend request from user3?');
+    await dialog.dismiss();
+  });
+
+  await incomingFriendRequests.getByRole('button', { name: 'Accept' }).click();
+
+  await expect(
+    incomingFriendRequests.getByRole('link', { name: 'user3' }),
+  ).toBeVisible();
+  await expect(
+    chatIndex.getByRole('link', { name: 'user3' }),
+  ).not.toBeVisible();
+});
+
+test('should remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index when accepting the popup', async ({
   page,
 }) => {
   await page.getByRole('link', { name: 'Pending' }).click();
@@ -135,6 +188,38 @@ test('should remove the user from incoming friend requests when rejecting an inc
   await expect(
     incomingFriendRequests.getByRole('link', { name: 'user3' }),
   ).not.toBeVisible();
+
+  await expect(
+    chatIndex.getByRole('link', { name: 'user3' }),
+  ).not.toBeVisible();
+});
+
+test('should not remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index when dismissing the popup', async ({
+  page,
+}) => {
+  await page.getByRole('link', { name: 'Pending' }).click();
+
+  const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
+  const chatIndex = page.getByTestId('chat-index');
+
+  await expect(
+    incomingFriendRequests.getByRole('link', { name: 'user3' }),
+  ).toBeVisible();
+
+  await expect(
+    chatIndex.getByRole('link', { name: 'user3' }),
+  ).not.toBeVisible();
+
+  page.on('dialog', async (dialog) => {
+    expect(dialog.message()).toBe('Reject friend request from user3?');
+    await dialog.dismiss();
+  });
+
+  await incomingFriendRequests.getByRole('button', { name: 'Reject' }).click();
+
+  await expect(
+    incomingFriendRequests.getByRole('link', { name: 'user3' }),
+  ).toBeVisible();
 
   await expect(
     chatIndex.getByRole('link', { name: 'user3' }),

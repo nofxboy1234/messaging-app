@@ -38,7 +38,7 @@ test('should show a chat and unfriend button when clicking a friend in the frien
   await expect(page.getByRole('button', { name: 'Unfriend' })).toBeVisible();
 });
 
-test('should show a popup message to confirm, and remove the friend and chat if accepted', async ({
+test('should show a popup message to confirm, and remove the friend and chat when accepting the popup', async ({
   page,
 }) => {
   const chatIndex = page.getByTestId('chat-index');
@@ -74,7 +74,7 @@ test('should show a popup message to confirm, and remove the friend and chat if 
   ).not.toBeVisible();
 });
 
-test('should show a popup message to confirm, and do nothing if dismissed', async ({
+test('should show a popup message to confirm, and not remove the friend and chat when dismissing the popup', async ({
   page,
 }) => {
   const chatIndex = page.getByTestId('chat-index');
