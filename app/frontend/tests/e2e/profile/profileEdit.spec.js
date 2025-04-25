@@ -1,0 +1,33 @@
+import { expect } from '@playwright/test';
+import test from '../setupTest';
+
+test.describe('when the editing the current user profile', () => {
+  test('should show inputs to update their profile info', async ({ page }) => {
+    await page.goto('/profiles/1/edit');
+
+    await expect(page.getByLabel('Username:')).toBeVisible();
+    await expect(page.getByLabel('About Me:')).toBeVisible();
+
+    await expect(page.getByRole('button', { name: 'Update' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Show' })).toBeVisible();
+  });
+
+  test('should update their profile info when clicking the Update button', async ({
+    page,
+  }) => {
+    await page.goto('/profiles/1/edit');
+
+    const usernameInput = page.getByLabel('Username:');
+    await usernameInput.clear();
+    await usernameInput.fill('updated username');
+
+    const aboutMeInput = page.getByLabel('About Me:').clear();
+    await aboutMeInput.clear();
+    await aboutMeInput.fill('updated about me');
+
+    await page.getByRole('button', { name: 'Update' }).click();
+
+    await expect(page.getByText('updated username')).toBeVisible();
+    await expect(page.getByText('updated about me')).toBeVisible();
+  });
+});
