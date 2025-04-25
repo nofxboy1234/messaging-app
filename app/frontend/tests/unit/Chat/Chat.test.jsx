@@ -112,4 +112,29 @@ describe('Chat', () => {
 
     expect(subscription.unsubscribe).toHaveBeenCalled();
   });
+
+  it('should subscribe on mount', async () => {
+    const chat = {
+      id: 99,
+      messages: [
+        { id: 1, body: 'hello user2' },
+        { id: 2, body: 'hi user1, how are you?' },
+        { id: 3, body: 'I am fine thanks, and you?' },
+      ],
+    };
+    render(<Chat chat={chat} />);
+
+    expect(consumer.subscriptions.create).toHaveBeenCalledTimes(1);
+    expect(consumer.subscriptions.create).toHaveBeenCalledWith(
+      {
+        channel: 'MessageChannel',
+        id: 99,
+      },
+      {
+        connected: expect.any(Function),
+        disconnected: expect.any(Function),
+        received: expect.any(Function),
+      },
+    );
+  });
 });
