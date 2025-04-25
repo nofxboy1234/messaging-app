@@ -26,19 +26,19 @@ test.afterEach(async () => {
   await cleanup_test_data();
 });
 
-test.describe('when navigating to a Chat page with no messages', () => {
+test.describe('when there are no messages', () => {
   test.beforeEach(async ({ page }) => {
     const chatIndex = page.getByTestId('chat-index');
     const link = chatIndex.getByRole('link', { name: 'user5' });
     await link.click();
   });
 
-  test('should show no messages', async ({ page }) => {
+  test('should show an empty chat', async ({ page }) => {
     await expect(page.getByTestId('message')).toHaveCount(0);
   });
 });
 
-test.describe('when navigating to a Chat page with messages', () => {
+test.describe('when there are messages', () => {
   test.beforeEach(async ({ page }) => {
     const chatIndex = page.getByTestId('chat-index');
     const link = chatIndex.getByRole('link', { name: 'user4' });
