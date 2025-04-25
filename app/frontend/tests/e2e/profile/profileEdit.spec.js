@@ -33,4 +33,25 @@ test.describe('when the editing the current user profile', () => {
       page.getByText('Profile was successfully updated.'),
     ).toBeVisible();
   });
+
+  test('should show their unchanged profile info when clicking the Show button', async ({
+    page,
+  }) => {
+    const usernameInput = page.getByLabel('Username:');
+    await usernameInput.clear();
+    await usernameInput.fill('updated username');
+
+    const aboutMeInput = page.getByLabel('About Me:');
+    await aboutMeInput.clear();
+    await aboutMeInput.fill('updated about me');
+
+    await page.getByRole('button', { name: 'Show' }).click();
+
+    await expect(page.getByRole('button', { name: 'Edit' })).toBeVisible();
+    await expect(page.getByText('updated username')).not.toBeVisible();
+    await expect(page.getByText('updated about me')).not.toBeVisible();
+    await expect(
+      page.getByText('Profile was successfully updated.'),
+    ).not.toBeVisible();
+  });
 });
