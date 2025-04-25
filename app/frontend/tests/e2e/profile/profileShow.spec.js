@@ -2,11 +2,13 @@ import { expect } from '@playwright/test';
 import test from '../setupTest';
 
 test.describe('when showing the current user profile', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/profiles/1');
+  });
+
   test('should show their profile info, an edit button, an update avatar button', async ({
     page,
   }) => {
-    await page.goto('/profiles/1');
-
     const profile = page.getByTestId('profile');
     await expect(profile.getByText('user1')).toBeVisible();
     await expect(profile.getByText('About Me:')).toBeVisible();
@@ -23,8 +25,6 @@ test.describe('when showing the current user profile', () => {
   test('should show the profile edit page when clicking the Edit button', async ({
     page,
   }) => {
-    await page.goto('/profiles/1');
-
     const userActions = page.getByTestId('profile-actions');
     await userActions.getByRole('button', { name: 'Edit' }).click();
 

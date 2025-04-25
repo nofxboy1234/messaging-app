@@ -2,9 +2,11 @@ import { expect } from '@playwright/test';
 import test from '../setupTest';
 
 test.describe('when the editing the current user profile', () => {
-  test('should show inputs to update their profile info', async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('/profiles/1/edit');
+  });
 
+  test('should show inputs to update their profile info', async ({ page }) => {
     await expect(page.getByLabel('Username:')).toBeVisible();
     await expect(page.getByLabel('About Me:')).toBeVisible();
 
@@ -15,13 +17,11 @@ test.describe('when the editing the current user profile', () => {
   test('should update their profile info when clicking the Update button', async ({
     page,
   }) => {
-    await page.goto('/profiles/1/edit');
-
     const usernameInput = page.getByLabel('Username:');
     await usernameInput.clear();
     await usernameInput.fill('updated username');
 
-    const aboutMeInput = page.getByLabel('About Me:').clear();
+    const aboutMeInput = page.getByLabel('About Me:');
     await aboutMeInput.clear();
     await aboutMeInput.fill('updated about me');
 
