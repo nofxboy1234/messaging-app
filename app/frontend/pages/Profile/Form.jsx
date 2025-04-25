@@ -17,6 +17,9 @@ function ProfileForm({ className, profile, onSubmit }) {
       <div>
         <Picture className="profile-data" src={profile.picture} scale={2} />
         <div>
+          <label style={{ display: 'block' }} htmlFor="username">
+            Username:
+          </label>
           <div id="username-container">
             <input
               type="text"
