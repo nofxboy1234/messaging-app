@@ -25,7 +25,7 @@ const createLayout = (page) => ({
     .getByTestId('friend-index')
     .getByRole('link', { name: 'user5' }),
 
-  userTotal: page.getByText('USERS-6'),
+  allUserTotal: page.getByText('USERS-6'),
   user1UserLink: page
     .getByTestId('user-index')
     .getByRole('link', { name: 'user1' }),
