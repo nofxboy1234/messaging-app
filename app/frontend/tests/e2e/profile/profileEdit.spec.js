@@ -29,5 +29,8 @@ test.describe('when the editing the current user profile', () => {
 
     await expect(page.getByText('updated username')).toBeVisible();
     await expect(page.getByText('updated about me')).toBeVisible();
+    await expect(
+      page.getByText('Profile was successfully updated.'),
+    ).toBeVisible();
   });
 });
