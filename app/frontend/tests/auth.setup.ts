@@ -6,8 +6,8 @@ const authFile = path.join(
   '../playwright/.auth/user.json',
 );
 
-setup('authenticate', async ({ page }, testInfo) => {
-  console.log('*** setup authenticate ***');
+setup('authenticate', async ({ page }) => {
+  console.log('*** setup authenticated state ***');
   // Perform authentication steps. Replace these actions with your own.
   await page.goto('/users/sign_in');
   await page.getByLabel('Email:').fill('user1@example.com');
@@ -20,10 +20,6 @@ setup('authenticate', async ({ page }, testInfo) => {
   // await page.waitForURL('/');
   // Alternatively, you can wait until the page reaches a state where all cookies are set.
   await expect(page.getByText('Profile (user1)')).toBeVisible();
-
   // End of authentication steps.
-
-  await page.context();
-  // .storageState({ path: testInfo.outputDir + '/user.json' });
   await page.context().storageState({ path: authFile });
 });

@@ -37,8 +37,6 @@ def create_test_data(with_users)
 
   @friendship = Friendship.new(user: user1, friend: user4)
   chat = Chat.new
-  # user = @friendship.user
-  # friend = @friendship.friend
   chat.members << [ user1, user4 ]
   @friendship.chat = chat
   @friendship.save
@@ -61,19 +59,13 @@ def create_test_data(with_users)
 
   @friendship = Friendship.new(user: user5, friend: user1)
   chat = Chat.new
-  # user = @friendship.user
-  # friend = @friendship.friend
   chat.members << [ user5, user1 ]
   @friendship.chat = chat
   @friendship.save
 
   @friendship = Friendship.new(user: user2, friend: user3)
   chat = Chat.new
-  # user = @friendship.user
-  # friend = @friendship.friend
   chat.members << [ user2, user3 ]
   @friendship.chat = chat
   @friendship.save
-
-  puts 'end of create_test_data'
 end
