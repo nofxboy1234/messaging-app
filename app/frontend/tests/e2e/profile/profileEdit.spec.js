@@ -49,8 +49,13 @@ test.describe('when the editing the current user profile', () => {
     await page.getByRole('button', { name: 'Show' }).click();
 
     await expect(page.getByRole('button', { name: 'Edit' })).toBeVisible();
-    await expect(page.getByText('updated username')).not.toBeVisible();
-    await expect(page.getByText('updated about me')).not.toBeVisible();
+
+    await expect(
+      page.getByTestId('profile').getByText('updated username'),
+    ).not.toBeVisible();
+    await expect(
+      page.getByTestId('profile').getByText('updated about me'),
+    ).not.toBeVisible();
     await expect(
       page.getByText('Profile was successfully updated.'),
     ).not.toBeVisible();
