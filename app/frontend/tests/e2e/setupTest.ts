@@ -15,12 +15,6 @@ const cleanup_test_data = async () => {
 
 test.beforeEach(async ({ page }) => {
   await setup_test_data();
-
-  await page.goto('/');
-  await page.getByLabel('Email:').fill('user1@example.com');
-  await page.getByLabel('Password:').fill('123456');
-  await page.getByRole('button', { name: 'Log in' }).click();
-  await page.waitForURL('/');
 });
 
 test.afterEach(async () => {

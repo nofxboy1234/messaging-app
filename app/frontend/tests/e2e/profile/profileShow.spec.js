@@ -26,8 +26,8 @@ test.describe('when showing the current user profile', () => {
   test('should show the profile edit page when clicking the Edit button', async ({
     page,
   }) => {
-    const userActions = page.getByTestId('profile-actions');
-    await userActions.getByRole('button', { name: 'Edit' }).click();
+    const profileActions = page.getByTestId('profile-actions');
+    await profileActions.getByRole('button', { name: 'Edit' }).click();
 
     await expect(page.getByLabel('Username:')).toBeVisible();
     await expect(page.getByLabel('About Me:')).toBeVisible();

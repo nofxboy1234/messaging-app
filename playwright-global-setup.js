@@ -1,5 +1,5 @@
-import { execSync, exec } from 'child_process';
+import { execSync } from 'child_process';
 
 export default async () => {
-  execSync('rails playwright:setup', { stdio: 'inherit' });
+  execSync('RAILS_ENV=test rails playwright:setup', { stdio: 'inherit' });
 };

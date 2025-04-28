@@ -53,6 +53,10 @@ group :development do
   gem "overmind"
 end
 
+group :test do
+  gem "database_cleaner-active_record"
+end
+
 gem "inertia_rails-contrib", "~> 0.2.1"
 
 gem "vite_rails", "~> 3.0"
