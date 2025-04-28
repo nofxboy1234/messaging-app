@@ -4,6 +4,7 @@ import test from '../setupTest';
 test.describe('when the editing the current user profile', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/profiles/1/edit');
+    await page.waitForURL('/profiles/1/edit');
   });
 
   test('should show inputs to update their profile info', async ({ page }) => {
