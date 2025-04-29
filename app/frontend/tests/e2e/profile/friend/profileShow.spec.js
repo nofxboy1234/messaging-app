@@ -1,12 +1,32 @@
 import { expect } from '@playwright/test';
-import test from '../../setupTest';
+// import test from './setupShow';
+
+import { execSync } from 'child_process';
+import { test } from '@playwright/test';
+
+const setup_test_data_except_users = async () => {
+  execSync('RAILS_ENV=test rails playwright:setup_test_data_except_users', {
+    stdio: 'inherit',
+  });
+};
+
+const cleanup_test_data_except_users = async () => {
+  execSync('RAILS_ENV=test rails playwright:cleanup_test_data_except_users', {
+    stdio: 'inherit',
+  });
+};
+
+test.beforeEach(async ({ page }) => {
+  await setup_test_data_except_users();
+  await page.goto('/profiles/4');
+  await page.waitForURL('/profiles/4');
+});
+
+test.afterEach(async () => {
+  await cleanup_test_data_except_users();
+});
 
 test.describe('when showing a friend profile', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/profiles/4');
-    await page.waitForURL('/profiles/4');
-  });
-
   test('should show their profile info, a chat button, an unfriend button', async ({
     page,
   }) => {
