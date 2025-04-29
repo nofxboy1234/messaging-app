@@ -16,10 +16,21 @@ def create_user_with_profile(user_num)
                                       about: ""))
 end
 
+def create_profile(user_num)
+  profile = Profile.create(username: "user#{user_num}",
+                 picture: "",
+                 about: "")
+  User.find(user_num).profile = profile
+end
+
 def create_test_data(with_users)
   if with_users
     for i in 1..6 do
       create_user_with_profile(i)
+    end
+  else
+    for i in 1..6 do
+      create_profile(i)
     end
   end
 
