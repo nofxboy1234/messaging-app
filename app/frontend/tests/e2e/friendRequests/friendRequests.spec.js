@@ -1,40 +1,14 @@
-import { test, expect } from '@playwright/test';
-import { execSync } from 'child_process';
-
-const setup_test_data = async () => {
-  execSync('RAILS_ENV=test rails playwright:setup_test_data', {
-    stdio: 'inherit',
-  });
-};
-
-const cleanup_test_data = async () => {
-  execSync('RAILS_ENV=test rails playwright:cleanup_test_data', {
-    stdio: 'inherit',
-  });
-};
+import { expect } from '@playwright/test';
+import test from '../setupTest';
 
 test.beforeEach(async ({ page }) => {
-  await setup_test_data();
-
-  await page.goto('/');
-  await page.getByLabel('Email:').fill('user1@example.com');
-  await page.getByLabel('Password:').fill('123456');
-  await page.getByRole('button', { name: 'Log in' }).click();
-});
-
-test.afterEach(async () => {
-  await cleanup_test_data();
-});
-
-test.beforeEach(async ({ page }) => {
-  await page.getByRole('link', { name: 'Friends' }).click();
+  await page.goto('/pending_friends');
+  await page.waitForURL('/pending_friends');
 });
 
 test('should show incoming and outgoing friends requests friends when clicking Pending', async ({
   page,
 }) => {
-  await page.getByRole('link', { name: 'Pending' }).click();
-
   await expect(page.getByText('Outgoing Friend Requests')).toBeVisible();
   await expect(page.getByText('Incoming Friend Requests')).toBeVisible();
 
@@ -63,8 +37,6 @@ test('should remove the user from outgoing friend requests when cancelling a fri
 }) => {
   const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
 
-  await page.getByRole('link', { name: 'Pending' }).click();
-
   await expect(
     outgoingFriendRequests.getByRole('link', { name: 'user2' }),
   ).toBeVisible();
@@ -86,8 +58,6 @@ test('should not remove the user from outgoing friend requests when cancelling a
 }) => {
   const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
 
-  await page.getByRole('link', { name: 'Pending' }).click();
-
   await expect(
     outgoingFriendRequests.getByRole('link', { name: 'user2' }),
   ).toBeVisible();
@@ -107,8 +77,6 @@ test('should not remove the user from outgoing friend requests when cancelling a
 test('should remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request and accepting the popup', async ({
   page,
 }) => {
-  await page.getByRole('link', { name: 'Pending' }).click();
-
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   const chatIndex = page.getByTestId('chat-index');
 
@@ -135,8 +103,6 @@ test('should remove the user from incoming friend requests and add the user chat
 test('should not remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request and dismissing the popup', async ({
   page,
 }) => {
-  await page.getByRole('link', { name: 'Pending' }).click();
-
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   const chatIndex = page.getByTestId('chat-index');
 
@@ -165,8 +131,6 @@ test('should not remove the user from incoming friend requests and add the user 
 test('should remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index when accepting the popup', async ({
   page,
 }) => {
-  await page.getByRole('link', { name: 'Pending' }).click();
-
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   const chatIndex = page.getByTestId('chat-index');
 
@@ -197,8 +161,6 @@ test('should remove the user from incoming friend requests when rejecting an inc
 test('should not remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index when dismissing the popup', async ({
   page,
 }) => {
-  await page.getByRole('link', { name: 'Pending' }).click();
-
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   const chatIndex = page.getByTestId('chat-index');
 
@@ -229,8 +191,6 @@ test('should not remove the user from incoming friend requests when rejecting an
 test('should show the receiving user profile when clicking on an outgoing friend request', async ({
   page,
 }) => {
-  await page.getByRole('link', { name: 'Pending' }).click();
-
   const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
   await outgoingFriendRequests.getByRole('link', { name: 'user2' }).click();
   const profile = page.getByTestId('profile');
@@ -241,8 +201,6 @@ test('should show the receiving user profile when clicking on an outgoing friend
 test('should show the sending user profile when clicking on an incoming friend request', async ({
   page,
 }) => {
-  await page.getByRole('link', { name: 'Pending' }).click();
-
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   await incomingFriendRequests.getByRole('link', { name: 'user3' }).click();
   const profile = page.getByTestId('profile');
