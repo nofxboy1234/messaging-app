@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import test from '../setupTest';
+import test from '../../setupTest';
 
 test.describe('when showing the current user profile', () => {
   test.beforeEach(async ({ page }) => {

@@ -94,7 +94,7 @@ test.describe('when clicking on a chat link', () => {
 });
 
 test.describe('when clicking on a user link', () => {
-  test('should show the user profile', async ({ page }) => {
+  test('should show a user profile', async ({ page }) => {
     const layout = createLayout(page);
 
     await layout.user4UserLink.click();
