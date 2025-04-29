@@ -67,7 +67,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Safari'],
         // Use prepared auth state.
-        storageState: 'test-results/user.json',
+        storageState: 'app/frontend/playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     },
