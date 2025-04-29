@@ -13,12 +13,21 @@ const cleanup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
-  await setup_test_data_except_users();
-});
+function setupTest(
+  beforeEachCallback = async () => {},
+  afterEachCallback = async () => {},
+) {
+  test.beforeEach(async ({ page }) => {
+    await setup_test_data_except_users();
+    await beforeEachCallback({ page });
+  });
 
-test.afterEach(async () => {
-  await cleanup_test_data_except_users();
-});
+  test.afterEach(async ({ page }) => {
+    await cleanup_test_data_except_users();
+    await afterEachCallback({ page });
+  });
 
-export default test;
+  return test;
+}
+
+export default setupTest;
