@@ -2,6 +2,11 @@ import { expect } from '@playwright/test';
 import test from '../setupTest';
 import createLayout from './layoutPage';
 
+test.beforeEach(async ({ page }) => {
+  await page.goto('/');
+  await page.waitForURL('/');
+});
+
 test('should show the navbar, current user chats, friends and all users', async ({
   page,
 }) => {
