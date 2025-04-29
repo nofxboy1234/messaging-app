@@ -1,36 +1,10 @@
-import { test, expect } from '@playwright/test';
-import { execSync } from 'child_process';
-
-const setup_test_data = async () => {
-  execSync('RAILS_ENV=test rails playwright:setup_test_data', {
-    stdio: 'inherit',
-  });
-};
-
-const cleanup_test_data = async () => {
-  execSync('RAILS_ENV=test rails playwright:cleanup_test_data', {
-    stdio: 'inherit',
-  });
-};
-
-test.beforeEach(async ({ page }) => {
-  await setup_test_data();
-
-  await page.goto('/');
-  await page.getByLabel('Email:').fill('user1@example.com');
-  await page.getByLabel('Password:').fill('123456');
-  await page.getByRole('button', { name: 'Log in' }).click();
-});
-
-test.afterEach(async () => {
-  await cleanup_test_data();
-});
+import { expect } from '@playwright/test';
+import test from '../setupTest';
 
 test.describe('when there are no messages', () => {
   test.beforeEach(async ({ page }) => {
-    const chatIndex = page.getByTestId('chat-index');
-    const link = chatIndex.getByRole('link', { name: 'user5' });
-    await link.click();
+    await page.goto('/chats/2');
+    await page.waitForURL('/chats/2');
   });
 
   test('should show an empty chat', async ({ page }) => {
@@ -40,9 +14,8 @@ test.describe('when there are no messages', () => {
 
 test.describe('when there are messages', () => {
   test.beforeEach(async ({ page }) => {
-    const chatIndex = page.getByTestId('chat-index');
-    const link = chatIndex.getByRole('link', { name: 'user4' });
-    await link.click();
+    await page.goto('/chats/1');
+    await page.waitForURL('/chats/1');
   });
 
   test('should show a link to the friend profile at the top of the chat', async ({
