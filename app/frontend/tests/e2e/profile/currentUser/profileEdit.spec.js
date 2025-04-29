@@ -1,7 +1,5 @@
-import { expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { execSync } from 'child_process';
-// import test from './setupEdit';
-import { test } from '@playwright/test';
 
 const setup_test_data_except_users = async () => {
   execSync('RAILS_ENV=test rails playwright:setup_test_data_except_users', {
