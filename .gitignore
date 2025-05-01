@@ -48,3 +48,4 @@ node_modules
 /playwright/.cache/
 
 app/frontend/playwright/.auth
+app/frontend/tests/e2e/playwright/.auth

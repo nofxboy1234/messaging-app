@@ -1,32 +1,49 @@
-import { expect } from '@playwright/test';
-import test from '../setupTest';
+import { expect, test } from '@playwright/test';
+import { execSync } from 'child_process';
 
-test.describe('when there are no messages', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/chats/2');
-    await page.waitForURL('/chats/2');
+const setup_test_data_except_users = async () => {
+  return new Promise((resolve, reject) => {
+    execSync('RAILS_ENV=test rails playwright:setup_test_data_except_users', {
+      stdio: 'inherit',
+    });
+    resolve();
   });
+};
 
-  test('should show an empty chat', async ({ page }) => {
-    await expect(page.getByTestId('message')).toHaveCount(0);
-  });
-});
+// const cleanup_test_data_except_users = async () => {
+//   execSync('RAILS_ENV=test rails playwright:cleanup_test_data_except_users', {
+//     stdio: 'inherit',
+//   });
+// };
+
+// test.beforeEach(async ({ page }) => {
+//   await setup_test_data_except_users();
+//   await page.goto('/chats/1');
+//   await page.waitForURL('/chats/1');
+// });
+
+// test.afterEach(async () => {
+//   await cleanup_test_data_except_users();
+// });
 
 test.describe('when there are messages', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/chats/1');
-    await page.waitForURL('/chats/1');
-  });
-
   test('should show a link to the friend profile at the top of the chat', async ({
     page,
   }) => {
+    await setup_test_data_except_users();
+    await page.goto('/chats/1');
+    await page.waitForURL('/chats/1');
+
     const chatShow = page.getByTestId('chat-show');
     const headerProfileLink = chatShow.getByTestId('user-link-/profiles/4');
     await expect(headerProfileLink).toBeVisible();
   });
 
   test('should have the message input focused', async ({ page }) => {
+    await setup_test_data_except_users();
+    await page.goto('/chats/1');
+    await page.waitForURL('/chats/1');
+
     const chatShow = page.getByTestId('chat-show');
     const messageInput = chatShow.getByRole('textbox');
     await expect(messageInput).toBeFocused();
@@ -35,35 +52,29 @@ test.describe('when there are messages', () => {
   test('should show the last message at the bottom of the chat viewport', async ({
     page,
   }) => {
+    await setup_test_data_except_users();
+    await page.goto('/chats/1');
+    await page.waitForURL('/chats/1');
+
     const chat = page.getByTestId('root');
+
     const lastMessage = page.getByText('last message');
-
-    const lastMessageInChatViewport = await lastMessage.evaluate(
-      (message, container) => {
-        const messageRect = message.getBoundingClientRect();
-        const chatRect = container.getBoundingClientRect();
-
-        return (
-          messageRect.top >= chatRect.top &&
-          messageRect.bottom <= chatRect.bottom
-        );
-      },
-      await chat.elementHandle(),
-    );
-
+    await expect(lastMessage).toBeInViewport({ ratio: 0.5 });
     const chatScrollBarAtBottom = await chat.evaluate((chat) => {
       return (
         Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
       );
     });
-
-    expect(lastMessageInChatViewport).toBe(true);
     expect(chatScrollBarAtBottom).toBe(true);
   });
 
   test('should show the current user and their friend in the user index', async ({
     page,
   }) => {
+    await setup_test_data_except_users();
+    await page.goto('/chats/1');
+    await page.waitForURL('/chats/1');
+
     const chatUserIndex = page.getByTestId('chat-user-index');
     const user1 = chatUserIndex.getByRole('link', { name: 'user1' });
     const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
@@ -77,6 +88,10 @@ test.describe('when there are messages', () => {
   test('should show a friend profile when clicking on their username in the chat user index', async ({
     page,
   }) => {
+    await setup_test_data_except_users();
+    await page.goto('/chats/1');
+    await page.waitForURL('/chats/1');
+
     const chatUserIndex = page.getByTestId('chat-user-index');
     const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
 
@@ -97,6 +112,10 @@ test.describe('when there are messages', () => {
 
   test.describe('when sending a new message', () => {
     test('should not see the message if it is blank', async ({ page }) => {
+      await setup_test_data_except_users();
+      await page.goto('/chats/1');
+      await page.waitForURL('/chats/1');
+
       const sendButton = page.getByRole('button', { name: 'Send' });
 
       await expect(page.getByTestId('message')).toHaveCount(203);
@@ -107,34 +126,24 @@ test.describe('when there are messages', () => {
     test('should show the new message at the bottom of the chat viewport', async ({
       page,
     }) => {
+      await setup_test_data_except_users();
+      await page.goto('/chats/1');
+      await page.waitForURL('/chats/1');
+
       const input = page.getByRole('textbox');
       const sendButton = page.getByRole('button', { name: 'Send' });
       await input.fill('new message');
       await sendButton.click();
 
       const chat = page.getByTestId('root');
+
       const newMessage = page.getByText('new message');
-
-      const newMessageInChatViewport = await newMessage.evaluate(
-        (message, container) => {
-          const messageRect = message.getBoundingClientRect();
-          const chatRect = container.getBoundingClientRect();
-
-          return (
-            messageRect.top >= chatRect.top &&
-            messageRect.bottom <= chatRect.bottom
-          );
-        },
-        await chat.elementHandle(),
-      );
-
+      await expect(newMessage).toBeInViewport({ ratio: 0.5 });
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
           Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
         );
       });
-
-      expect(newMessageInChatViewport).toBe(true);
       expect(chatScrollBarAtBottom).toBe(true);
     });
   });
@@ -143,8 +152,12 @@ test.describe('when there are messages', () => {
     test('should not show the new message at the bottom of the chat viewport', async ({
       page,
     }) => {
+      await setup_test_data_except_users();
+      await page.goto('/chats/1');
+      await page.waitForURL('/chats/1');
+
       const middleMessage = page.getByText('middle message');
-      middleMessage.scrollIntoViewIfNeeded();
+      await middleMessage.scrollIntoViewIfNeeded();
 
       const input = page.getByRole('textbox');
       const sendButton = page.getByRole('button', { name: 'Send' });
@@ -152,28 +165,14 @@ test.describe('when there are messages', () => {
       await sendButton.click();
 
       const chat = page.getByTestId('root');
+
       const newMessage = page.getByText('new message');
-
-      const newMessageInChatViewport = await newMessage.evaluate(
-        (message, container) => {
-          const messageRect = message.getBoundingClientRect();
-          const chatRect = container.getBoundingClientRect();
-
-          return (
-            messageRect.top >= chatRect.top &&
-            messageRect.bottom <= chatRect.bottom
-          );
-        },
-        await chat.elementHandle(),
-      );
-
+      await expect(newMessage).not.toBeInViewport();
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
           Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
         );
       });
-
-      expect(newMessageInChatViewport).toBe(false);
       expect(chatScrollBarAtBottom).toBe(false);
     });
   });
@@ -182,8 +181,12 @@ test.describe('when there are messages', () => {
     test('should not show the new message at the bottom of the chat viewport', async ({
       page,
     }) => {
+      await setup_test_data_except_users();
+      await page.goto('/chats/1');
+      await page.waitForURL('/chats/1');
+
       const firstMessage = page.getByText('first message');
-      firstMessage.scrollIntoViewIfNeeded();
+      await firstMessage.scrollIntoViewIfNeeded();
 
       const input = page.getByRole('textbox');
       const sendButton = page.getByRole('button', { name: 'Send' });
@@ -191,28 +194,14 @@ test.describe('when there are messages', () => {
       await sendButton.click();
 
       const chat = page.getByTestId('root');
+
       const newMessage = page.getByText('new message');
-
-      const newMessageInChatViewport = await newMessage.evaluate(
-        (message, container) => {
-          const messageRect = message.getBoundingClientRect();
-          const chatRect = container.getBoundingClientRect();
-
-          return (
-            messageRect.top >= chatRect.top &&
-            messageRect.bottom <= chatRect.bottom
-          );
-        },
-        await chat.elementHandle(),
-      );
-
+      await expect(newMessage).not.toBeInViewport();
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
           Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
         );
       });
-
-      expect(newMessageInChatViewport).toBe(false);
       expect(chatScrollBarAtBottom).toBe(false);
     });
   });

@@ -18,7 +18,7 @@ function Chat({ className, chat }) {
         rootElement.scrollHeight -
           rootElement.scrollTop -
           rootElement.clientHeight,
-      ) <= 3
+      ) <= 10
     );
   }
 
@@ -46,12 +46,19 @@ function Chat({ className, chat }) {
   }, [chat.id]);
 
   useEffect(() => {
-    if (!lastMessageRef.current) {
+    if (!lastMessageRef.current || !rootElementRef.current) {
       return;
     }
 
     if (scrollBarWasAtBottomRef.current) {
-      lastMessageRef.current.scrollIntoView();
+      requestAnimationFrame(() => {
+        console.log('*** scroll into view ***');
+        lastMessageRef.current.scrollIntoView({
+          behavior: 'instant',
+          block: 'end',
+          inline: 'end',
+        });
+      });
     }
   }, [messages.length]);
 
