@@ -59,7 +59,7 @@ test.describe('when there are messages', () => {
     const chat = page.getByTestId('root');
 
     const lastMessage = page.getByText('last message');
-    await expect(lastMessage).toBeInViewport({ ratio: 0.5 });
+    await expect(lastMessage).toBeInViewport({ ratio: 1 });
     const chatScrollBarAtBottom = await chat.evaluate((chat) => {
       return (
         Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
@@ -138,7 +138,7 @@ test.describe('when there are messages', () => {
       const chat = page.getByTestId('root');
 
       const newMessage = page.getByText('new message');
-      await expect(newMessage).toBeInViewport({ ratio: 0.5 });
+      await expect(newMessage).toBeInViewport({ ratio: 1 });
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
           Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
