@@ -37,7 +37,7 @@ test.afterEach(async ({ page }) => {
   // End of authentication steps.
   const authFile = path.join(
     import.meta.dirname,
-    '../playwright/.auth/user.json',
+    '../../../playwright/.auth/user.json',
   );
   await page.context().storageState({ path: authFile });
 });
