@@ -14,7 +14,8 @@ const setup_test_data_with_users = async () => {
 test.beforeEach(async ({ page }) => {
   await setup_test_data_with_users();
   await page.goto('/users/sign_in');
-  await page.waitForURL('/users/sign_in');
+  // await page.waitForURL('/users/sign_in');
+  await page.waitForLoadState();
 });
 
 test.afterEach(async ({ page }) => {
