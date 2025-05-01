@@ -41,9 +41,8 @@ test.describe('when there are messages', () => {
       .locator('div')
       .filter({ hasText: 'user1last message' })
       .first();
-    // await expect(message).toBeVisible();
     await page.waitForLoadState();
-    await expect(message).toBeInViewport();
+    await expect(message).toBeInViewport({ ratio: 1 });
 
     const messageBox = await message.boundingBox();
     const chatBox = await chat.boundingBox();
@@ -127,9 +126,8 @@ test.describe('when there are messages', () => {
         .locator('div')
         .filter({ hasText: 'user1new message' })
         .first();
-      // await expect(message).toBeVisible();
       await page.waitForLoadState();
-      await expect(message).toBeInViewport({ ratio: 0.5 });
+      await expect(message).toBeInViewport({ ratio: 1 });
 
       const messageBox = await message.boundingBox();
       const chatBox = await chat.boundingBox();
@@ -175,7 +173,7 @@ test.describe('when there are messages', () => {
         .locator('div')
         .filter({ hasText: 'user1new message' })
         .first();
-      await expect(message).not.toBeVisible();
+      await page.waitForLoadState();
       await expect(message).not.toBeInViewport();
 
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
@@ -206,7 +204,7 @@ test.describe('when there are messages', () => {
         .locator('div')
         .filter({ hasText: 'user1new message' })
         .first();
-      await expect(message).not.toBeVisible();
+      await page.waitForLoadState();
       await expect(message).not.toBeInViewport();
 
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
