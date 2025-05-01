@@ -10,17 +10,11 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-// const cleanup_test_data_except_users = async () => {
-//   execSync('RAILS_ENV=test rails playwright:cleanup_test_data_except_users', {
-//     stdio: 'inherit',
-//   });
-// };
-
-// test.beforeEach(async ({ page }) => {
-//   await setup_test_data_except_users();
-//   await page.goto('/chats/1');
-//   await page.waitForURL('/chats/1');
-// });
+test.beforeEach(async ({ page }) => {
+  await setup_test_data_except_users();
+  await page.goto('/chats/1');
+  await page.waitForURL('/chats/1');
+});
 
 // test.afterEach(async () => {
 //   await cleanup_test_data_except_users();
@@ -30,20 +24,12 @@ test.describe('when there are messages', () => {
   test('should show a link to the friend profile at the top of the chat', async ({
     page,
   }) => {
-    await setup_test_data_except_users();
-    await page.goto('/chats/1');
-    await page.waitForURL('/chats/1');
-
     const chatShow = page.getByTestId('chat-show');
     const headerProfileLink = chatShow.getByTestId('user-link-/profiles/4');
     await expect(headerProfileLink).toBeVisible();
   });
 
   test('should have the message input focused', async ({ page }) => {
-    await setup_test_data_except_users();
-    await page.goto('/chats/1');
-    await page.waitForURL('/chats/1');
-
     const chatShow = page.getByTestId('chat-show');
     const messageInput = chatShow.getByRole('textbox');
     await expect(messageInput).toBeFocused();
@@ -52,10 +38,6 @@ test.describe('when there are messages', () => {
   test('should show the last message at the bottom of the chat viewport', async ({
     page,
   }) => {
-    await setup_test_data_except_users();
-    await page.goto('/chats/1');
-    await page.waitForURL('/chats/1');
-
     const chat = page.getByTestId('root');
 
     const message = page
@@ -92,10 +74,6 @@ test.describe('when there are messages', () => {
   test('should show the current user and their friend in the user index', async ({
     page,
   }) => {
-    await setup_test_data_except_users();
-    await page.goto('/chats/1');
-    await page.waitForURL('/chats/1');
-
     const chatUserIndex = page.getByTestId('chat-user-index');
     const user1 = chatUserIndex.getByRole('link', { name: 'user1' });
     const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
@@ -109,10 +87,6 @@ test.describe('when there are messages', () => {
   test('should show a friend profile when clicking on their username in the chat user index', async ({
     page,
   }) => {
-    await setup_test_data_except_users();
-    await page.goto('/chats/1');
-    await page.waitForURL('/chats/1');
-
     const chatUserIndex = page.getByTestId('chat-user-index');
     const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
 
@@ -133,10 +107,6 @@ test.describe('when there are messages', () => {
 
   test.describe('when sending a new message', () => {
     test('should not see the message if it is blank', async ({ page }) => {
-      await setup_test_data_except_users();
-      await page.goto('/chats/1');
-      await page.waitForURL('/chats/1');
-
       const sendButton = page.getByRole('button', { name: 'Send' });
 
       await expect(page.getByTestId('message')).toHaveCount(203);
@@ -147,10 +117,6 @@ test.describe('when there are messages', () => {
     test('should show the new message at the bottom of the chat viewport', async ({
       page,
     }) => {
-      await setup_test_data_except_users();
-      await page.goto('/chats/1');
-      await page.waitForURL('/chats/1');
-
       const input = page.getByRole('textbox');
       const sendButton = page.getByRole('button', { name: 'Send' });
       await input.fill('new message');
@@ -194,10 +160,6 @@ test.describe('when there are messages', () => {
     test('should not show the new message at the bottom of the chat viewport', async ({
       page,
     }) => {
-      await setup_test_data_except_users();
-      await page.goto('/chats/1');
-      await page.waitForURL('/chats/1');
-
       const middleMessage = page.getByText('middle message');
       await middleMessage.scrollIntoViewIfNeeded();
 
@@ -228,10 +190,6 @@ test.describe('when there are messages', () => {
     test('should not show the new message at the bottom of the chat viewport', async ({
       page,
     }) => {
-      await setup_test_data_except_users();
-      await page.goto('/chats/1');
-      await page.waitForURL('/chats/1');
-
       const firstMessage = page.getByText('first message');
       await firstMessage.scrollIntoViewIfNeeded();
 
