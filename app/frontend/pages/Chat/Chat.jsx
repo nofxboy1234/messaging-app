@@ -51,14 +51,16 @@ function Chat({ className, chat }) {
     }
 
     if (scrollBarWasAtBottomRef.current) {
-      requestAnimationFrame(() => {
-        console.log('*** scroll into view ***');
-        lastMessageRef.current.scrollIntoView({
-          behavior: 'instant',
-          block: 'end',
-          inline: 'end',
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          console.log('*** scroll into view ***');
+          lastMessageRef.current.scrollIntoView({
+            behavior: 'instant',
+            block: 'end',
+            inline: 'end',
+          });
         });
-      });
+      }, 0);
     }
   }, [messages.length]);
 
