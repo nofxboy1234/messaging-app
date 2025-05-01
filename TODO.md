@@ -44,7 +44,9 @@ refactor
 [x] - Refactor e2e tests
 [x] - Rails error pages
 [x] - Database Cleaner, Authenticate once, Clean after every test except [users, profiles], Create test data
-[.] - extra e2e tests - rejecting an action in dialog, refactor e2e's
+[x] - register e2e test setup + cleanup, chat e2e test object x 2?
+[.] - extra e2e tests - dialogs accept + dismiss, websocket element appearance,
+[~] - (1 hour max) ~2 users: receive message (unit tests cover?)
 [ ] - Move unit tests to proper folders
 [ ] - Check clicking on a user with lots of messages response time
 [ ] - Conditionally merge shared props with inertia?
