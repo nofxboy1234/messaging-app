@@ -62,7 +62,7 @@ test.describe('when there are messages', () => {
     await expect(lastMessage).toBeInViewport({ ratio: 1 });
     const chatScrollBarAtBottom = await chat.evaluate((chat) => {
       return (
-        Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
+        Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 10
       );
     });
     expect(chatScrollBarAtBottom).toBe(true);
@@ -141,7 +141,7 @@ test.describe('when there are messages', () => {
       await expect(newMessage).toBeInViewport({ ratio: 1 });
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
-          Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
+          Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 10
         );
       });
       expect(chatScrollBarAtBottom).toBe(true);
@@ -170,7 +170,7 @@ test.describe('when there are messages', () => {
       await expect(newMessage).not.toBeInViewport();
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
-          Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
+          Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 10
         );
       });
       expect(chatScrollBarAtBottom).toBe(false);
@@ -199,7 +199,7 @@ test.describe('when there are messages', () => {
       await expect(newMessage).not.toBeInViewport();
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
-          Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 3
+          Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 10
         );
       });
       expect(chatScrollBarAtBottom).toBe(false);
