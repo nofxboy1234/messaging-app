@@ -21,7 +21,7 @@ test.beforeEach(async ({ page }) => {
 test.afterEach(async ({ page }) => {
   await setup_test_data_with_users();
 
-  console.log('*** setup authenticated state ***');
+  console.log('### setup authenticated state ###');
   // Perform authentication steps. Replace these actions with your own.
   await page.goto('/users/sign_in');
   await page.getByLabel('Email:').fill('user1@example.com');
