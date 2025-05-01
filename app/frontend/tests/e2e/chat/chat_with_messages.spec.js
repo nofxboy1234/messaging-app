@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { execSync } from 'child_process';
 
 const setup_test_data_except_users = async () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     execSync('RAILS_ENV=test rails playwright:setup_test_data_except_users', {
       stdio: 'inherit',
     });
@@ -15,10 +15,6 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/chats/1');
   await page.waitForURL('/chats/1');
 });
-
-// test.afterEach(async () => {
-//   await cleanup_test_data_except_users();
-// });
 
 test.describe('when there are messages', () => {
   test('should show a link to the friend profile at the top of the chat', async ({
