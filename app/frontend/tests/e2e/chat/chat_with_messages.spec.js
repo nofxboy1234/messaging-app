@@ -58,8 +58,29 @@ test.describe('when there are messages', () => {
 
     const chat = page.getByTestId('root');
 
-    const lastMessage = page.getByText('last message');
-    await expect(lastMessage).toBeInViewport({ ratio: 1 });
+    const message = page
+      .getByTestId('root')
+      .locator('div')
+      .filter({ hasText: 'user1last message' })
+      .first();
+    await expect(message).toBeInViewport({ ratio: 1 });
+
+    const messageBox = await message.boundingBox();
+    const chatBox = await chat.boundingBox();
+
+    const messageTop = messageBox.y;
+    const messageBottom = messageBox.y + messageBox.height;
+    const chatBottom = chatBox.y + chatBox.height;
+    const tolerance = 5;
+
+    const messageAtBottomOfViewport =
+      messageTop >= chatBottom - messageBox.height - tolerance &&
+      messageTop <= chatBottom - messageBox.height + tolerance &&
+      messageBottom >= chatBottom - tolerance &&
+      messageBottom <= chatBottom + tolerance;
+
+    expect(messageAtBottomOfViewport).toBe(true);
+
     const chatScrollBarAtBottom = await chat.evaluate((chat) => {
       return (
         Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 10
@@ -137,8 +158,29 @@ test.describe('when there are messages', () => {
 
       const chat = page.getByTestId('root');
 
-      const newMessage = page.getByText('new message');
-      await expect(newMessage).toBeInViewport({ ratio: 1 });
+      const message = page
+        .getByTestId('root')
+        .locator('div')
+        .filter({ hasText: 'user1new message' })
+        .first();
+      await expect(message).toBeInViewport({ ratio: 1 });
+
+      const messageBox = await message.boundingBox();
+      const chatBox = await chat.boundingBox();
+
+      const messageTop = messageBox.y;
+      const messageBottom = messageBox.y + messageBox.height;
+      const chatBottom = chatBox.y + chatBox.height;
+      const tolerance = 5;
+
+      const messageAtBottomOfViewport =
+        messageTop >= chatBottom - messageBox.height - tolerance &&
+        messageTop <= chatBottom - messageBox.height + tolerance &&
+        messageBottom >= chatBottom - tolerance &&
+        messageBottom <= chatBottom + tolerance;
+
+      expect(messageAtBottomOfViewport).toBe(true);
+
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
           Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 10
@@ -166,8 +208,13 @@ test.describe('when there are messages', () => {
 
       const chat = page.getByTestId('root');
 
-      const newMessage = page.getByText('new message');
-      await expect(newMessage).not.toBeInViewport();
+      const message = page
+        .getByTestId('root')
+        .locator('div')
+        .filter({ hasText: 'user1new message' })
+        .first();
+      await expect(message).not.toBeInViewport();
+
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
           Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 10
@@ -195,8 +242,13 @@ test.describe('when there are messages', () => {
 
       const chat = page.getByTestId('root');
 
-      const newMessage = page.getByText('new message');
-      await expect(newMessage).not.toBeInViewport();
+      const message = page
+        .getByTestId('root')
+        .locator('div')
+        .filter({ hasText: 'user1new message' })
+        .first();
+      await expect(message).not.toBeInViewport();
+
       const chatScrollBarAtBottom = await chat.evaluate((chat) => {
         return (
           Math.abs(chat.scrollHeight - chat.scrollTop - chat.clientHeight) <= 10
