@@ -1,0 +1,116 @@
+ui:
+  action:
+    user:
+      observations on all dependent views
+
+outgoing friend requests:
+  when the sender cancels a friend request:
+    sender:
+      receiver is removed from outgoing requests
+      send button is shown on the receiver profile
+    receiver:
+      sender is removed from incoming requests
+      send button is shown on the sender profile
+
+incoming friend requests:
+  when the receiver accepts a friend request:
+    sender:
+      receiver is removed from outgoing requests
+      receiver is added to chat index
+      chat and unfriend buttons are shown on the receiver profile
+      receiver is added to friend index
+    receiver:
+      sender is removed from incoming requests
+      sender is added to chat index
+      chat and unfriend buttons are shown on the sender profile
+      sender is added to friend index
+
+  when the receiver rejects a friend request:
+    sender:
+      receiver is removed from outgoing requests
+      send button is shown on the receiver profile
+    receiver:
+      sender is removed from incoming requests
+      send button is shown on the sender profile
+
+friendship index:
+  when the sender clicks unfriend button:
+    sender:
+      receiver is removed from friend index
+      receiver is removed from chat index
+      send button is shown on the receiver profile
+    receiver:
+      sender is removed from friend index
+      sender is removed from chat index
+      send button is shown on the sender profile
+  when the receiver clicks unfriend button:
+    sender:
+      receiver is removed from friend index
+      receiver is removed from chat index
+      send button is shown on the receiver profile
+    receiver:
+      sender is removed from friend index
+      sender is removed from chat index
+      send button is shown on the sender profile
+
+profile - stranger:
+  when clicking the send button
+    sender:
+      a cancel button is shown on the receiver profile
+    receiver:
+      an accept and reject button are shown on the sender profile
+
+profile - outgoing:
+  when clicking the cancel button
+    sender:
+      a send button is shown on the receiver profile
+    receiver:
+      a send button is shown on the sender profile
+
+profile - incoming:
+  when the receiver accepts a friend request:
+    sender:
+      receiver is removed from outgoing requests
+      receiver is added to chat index
+      chat and unfriend buttons are shown on the receiver profile
+      receiver is added to friend index
+    receiver:
+      sender is removed from incoming requests
+      sender is added to chat index
+      chat and unfriend buttons are shown on the sender profile
+      sender is added to friend index
+
+  when the receiver rejects a friend request:
+    sender:
+      receiver is removed from outgoing requests
+      send button is shown on the receiver profile
+    receiver:
+      sender is removed from incoming requests
+      send button is shown on the sender profile
+
+profile - friend:
+  when the sender clicks unfriend button:
+    sender:
+      receiver is removed from friend index
+      receiver is removed from chat index
+      send button is shown on the receiver profile
+    receiver:
+      sender is removed from friend index
+      sender is removed from chat index
+      send button is shown on the sender profile
+  when the receiver clicks unfriend button:
+    sender:
+      receiver is removed from friend index
+      receiver is removed from chat index
+      send button is shown on the receiver profile
+    receiver:
+      sender is removed from friend index
+      sender is removed from chat index
+      send button is shown on the sender profile
+
+register new:
+  when the sender registers
+    sender:
+      sender is added to user index
+    receiver:
+      sender is added to user index
