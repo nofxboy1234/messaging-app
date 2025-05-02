@@ -1,9 +1,19 @@
-import { expect } from '@playwright/test';
-import test from '../setupTest';
+import { expect, test } from '@playwright/test';
+import { execSync } from 'child_process';
+
+const setup_test_data_except_users = async () => {
+  return new Promise((resolve) => {
+    execSync('RAILS_ENV=test rails playwright:setup_test_data_except_users', {
+      stdio: 'inherit',
+    });
+    resolve();
+  });
+};
 
 test.beforeEach(async ({ page }) => {
+  await setup_test_data_except_users();
   await page.goto('/friend_categories');
-  await page.waitForURL('/friend_categories');
+  await page.waitForLoadState();
 });
 
 test('should show All and Pending friends links', async ({ page }) => {
