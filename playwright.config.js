@@ -14,7 +14,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   globalSetup: './playwright-global-setup',
-  // globalTeardown: './playwright-global-teardown',
+  globalTeardown: './playwright-global-teardown',
   testDir: './app/frontend/tests',
   testIgnore: '**/*.test.?(c|m)[jt]s?(x)',
   /* Run tests in files in parallel */

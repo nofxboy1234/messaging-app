@@ -22,15 +22,6 @@ namespace :playwright do
     create_test_data(true)
   end
 
-  # task cleanup_test_data: :environment do
-  #   DatabaseCleaner.strategy = [
-  #     :truncation,
-  #     pre_count: true
-
-  #   ]
-  #   DatabaseCleaner.clean
-  # end
-
   task setup_test_data_except_users: :environment do
     DatabaseCleaner.strategy = [
       :truncation, except: %w[users],
@@ -41,21 +32,12 @@ namespace :playwright do
     create_test_data(false)
   end
 
-  # task cleanup_test_data_except_users: :environment do
-  #   DatabaseCleaner.strategy = [
-  #     :truncation, except: %w[users],
-  #     pre_count: true
+  task teardown: :environment do
+    DatabaseCleaner.strategy = [
+      :truncation,
+      pre_count: true
 
-  #   ]
-  #   DatabaseCleaner.clean
-  # end
-
-  # task teardown: :environment do
-  #   DatabaseCleaner.strategy = [
-  #     :truncation,
-  #     pre_count: true
-
-  #   ]
-  #   DatabaseCleaner.clean
-  # end
+    ]
+    DatabaseCleaner.clean
+  end
 end
