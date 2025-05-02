@@ -108,6 +108,13 @@ profile - friend:
       sender is removed from chat index
       send button is shown on the sender profile
 
+chat:
+  when the sender sends a message:
+    sender:
+      message is added to the chat
+    receiver:
+      message is added to the chat
+
 register new:
   when the sender registers
     sender:
