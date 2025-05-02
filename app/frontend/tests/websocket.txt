@@ -61,11 +61,13 @@ profile - stranger:
       an accept and reject button are shown on the sender profile
 
 profile - outgoing:
-  when clicking the cancel button
+  when the sender cancels a friend request:
     sender:
-      a send button is shown on the receiver profile
+      receiver is removed from outgoing requests
+      send button is shown on the receiver profile
     receiver:
-      a send button is shown on the sender profile
+      sender is removed from incoming requests
+      send button is shown on the sender profile
 
 profile - incoming:
   when the receiver accepts a friend request:
