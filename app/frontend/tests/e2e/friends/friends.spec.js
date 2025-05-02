@@ -1,9 +1,19 @@
-import { expect } from '@playwright/test';
-import test from '../setupTest';
+import { expect, test } from '@playwright/test';
+import { execSync } from 'child_process';
+
+const setup_test_data_except_users = async () => {
+  return new Promise((resolve) => {
+    execSync('RAILS_ENV=test rails playwright:setup_test_data_except_users', {
+      stdio: 'inherit',
+    });
+    resolve();
+  });
+};
 
 test.beforeEach(async ({ page }) => {
+  await setup_test_data_except_users();
   await page.goto('/friends');
-  await page.waitForURL('/friends');
+  await page.waitForLoadState();
 });
 
 test('should show a chat and unfriend button when clicking a friend in the friend index', async ({
