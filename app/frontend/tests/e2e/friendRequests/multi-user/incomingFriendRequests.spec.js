@@ -21,26 +21,44 @@ test.describe('when accepting an incoming friend request and accepting the popup
                add the user chat to chat index, \
                show chat and unfriend buttons on their profile, \
                show user in friend index', async ({ page, browser }) => {
-    const senderContext = await browser.newContext();
-    const senderPage = await senderContext.newPage();
-    await senderPage.goto('/');
-    await senderPage.getByRole('button', { name: 'Log out' }).click();
-    await senderPage.waitForURL('/users/sign_in');
+    const user3Context = await browser.newContext();
+    const user3Page = await user3Context.newPage();
+    await user3Page.goto('/');
+    await user3Page.getByRole('button', { name: 'Log out' }).click();
+    await user3Page.waitForURL('/users/sign_in');
 
-    await senderPage.getByLabel('Email:').fill('user3@example.com');
-    await senderPage.getByLabel('Password:').fill('123456');
-    await senderPage.getByRole('button', { name: 'Log in' }).click();
-    await expect(senderPage.getByText('Profile (user3)')).toBeVisible();
+    await user3Page.getByLabel('Email:').fill('user3@example.com');
+    await user3Page.getByLabel('Password:').fill('123456');
+    await user3Page.getByRole('button', { name: 'Log in' }).click();
+    await expect(user3Page.getByText('Profile (user3)')).toBeVisible();
 
-    const senderPage1 = await senderContext.newPage();
-    await senderPage1.goto('/');
-    await senderPage1.getByRole('link', { name: 'Friends' }).click();
-    await senderPage1.getByRole('link', { name: 'Pending' }).click();
+    const user3Page1 = await user3Context.newPage();
+    await user3Page1.goto('/pending_friends');
     await expect(
-      senderPage1
+      user3Page1
         .getByTestId('outgoing-friendrequests')
         .getByRole('link', { name: 'user1' }),
     ).toBeVisible();
+
+    const user3Page2 = await user3Context.newPage();
+    await user3Page2.goto('/');
+    await expect(
+      user3Page2.getByTestId('chat-index').getByRole('link', { name: 'user1' }),
+    ).not.toBeVisible();
+
+    const user3Page3 = await user3Context.newPage();
+    await user3Page3.goto('/profiles/1');
+    await expect(
+      user3Page3
+        .getByTestId('user-actions')
+        .getByRole('button', { name: 'Cancel' }),
+    ).toBeVisible();
+
+    const user3Page4 = await user3Context.newPage();
+    await user3Page4.goto('/friends');
+    await expect(
+      user3Page4.getByTestId('chat-index').getByRole('link', { name: 'user1' }),
+    ).not.toBeVisible();
 
     const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
     const chatIndex = page.getByTestId('chat-index');
@@ -87,12 +105,31 @@ test.describe('when accepting an incoming friend request and accepting the popup
     ).toBeVisible();
 
     await expect(
-      senderPage1
+      user3Page1
         .getByTestId('outgoing-friendrequests')
         .getByRole('link', { name: 'user1' }),
     ).not.toBeVisible();
 
-    await senderContext.close();
+    await expect(
+      user3Page2.getByTestId('chat-index').getByRole('link', { name: 'user1' }),
+    ).toBeVisible();
+
+    await expect(
+      user3Page3
+        .getByTestId('user-actions')
+        .getByRole('button', { name: 'Chat' }),
+    ).toBeVisible();
+    await expect(
+      user3Page3
+        .getByTestId('user-actions')
+        .getByRole('button', { name: 'Unfriend' }),
+    ).toBeVisible();
+
+    await expect(
+      user3Page4.getByTestId('chat-index').getByRole('link', { name: 'user1' }),
+    ).toBeVisible();
+
+    await user3Context.close();
   });
 });
 
