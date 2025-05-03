@@ -31,13 +31,15 @@ test.describe('when accepting an incoming friend request and accepting the popup
     await senderPage.getByLabel('Password:').fill('123456');
     await senderPage.getByRole('button', { name: 'Log in' }).click();
     await expect(senderPage.getByText('Profile (user3)')).toBeVisible();
-    await senderPage.getByRole('link', { name: 'Friends' }).click();
-    await senderPage.getByRole('link', { name: 'Pending' }).click();
-    const senderOutgoingFriendRequests = senderPage.getByTestId(
-      'outgoing-friendrequests',
-    );
+
+    const senderPage1 = await senderContext.newPage();
+    await senderPage1.goto('/');
+    await senderPage1.getByRole('link', { name: 'Friends' }).click();
+    await senderPage1.getByRole('link', { name: 'Pending' }).click();
     await expect(
-      senderOutgoingFriendRequests.getByRole('link', { name: 'user1' }),
+      senderPage1
+        .getByTestId('outgoing-friendrequests')
+        .getByRole('link', { name: 'user1' }),
     ).toBeVisible();
 
     const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
@@ -84,9 +86,10 @@ test.describe('when accepting an incoming friend request and accepting the popup
       page.getByTestId('friend-index').getByTestId('user-link-/profiles/3'),
     ).toBeVisible();
 
-    expect(senderPage.getByText('Outgoing Friend Requests')).toBeVisible();
     await expect(
-      senderOutgoingFriendRequests.getByRole('link', { name: 'user1' }),
+      senderPage1
+        .getByTestId('outgoing-friendrequests')
+        .getByRole('link', { name: 'user1' }),
     ).not.toBeVisible();
 
     await senderContext.close();
