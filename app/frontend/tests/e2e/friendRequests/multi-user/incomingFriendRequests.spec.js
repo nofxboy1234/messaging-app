@@ -21,13 +21,12 @@ test.describe('when accepting an incoming friend request and accepting the popup
                add the user chat to chat index, \
                show chat and unfriend buttons on their profile, \
                show user in friend index', async ({ page, browser }) => {
-    const senderBrowser = await browser.browserType().launch();
-    // const senderContext = await browser.newContext();
-    // const senderPage = await senderContext.newPage();
-    const senderPage = await senderBrowser.newPage();
+    const senderContext = await browser.newContext();
+    const senderPage = await senderContext.newPage();
     await senderPage.goto('/');
     await senderPage.getByRole('button', { name: 'Log out' }).click();
     await senderPage.waitForURL('/users/sign_in');
+
     await senderPage.getByLabel('Email:').fill('user3@example.com');
     await senderPage.getByLabel('Password:').fill('123456');
     await senderPage.getByRole('button', { name: 'Log in' }).click();
@@ -90,8 +89,7 @@ test.describe('when accepting an incoming friend request and accepting the popup
       senderOutgoingFriendRequests.getByRole('link', { name: 'user1' }),
     ).not.toBeVisible();
 
-    await senderBrowser.close();
-    // await senderContext.close();
+    await senderContext.close();
   });
 });
 
