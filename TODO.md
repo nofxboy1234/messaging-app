@@ -53,4 +53,4 @@ refactor
 [ ] - Profile page button texts
 [ ] - More authorization
 [ ] - Add guest account
-[~] - (1 hour max) ~2 users: receive message (unit tests cover?)
+[.] - (1 hour max) ~2 users: receive message (unit tests cover?)
