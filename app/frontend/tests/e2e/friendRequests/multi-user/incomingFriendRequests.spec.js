@@ -20,7 +20,27 @@ test.describe('when accepting an incoming friend request and accepting the popup
   test('should remove the user from incoming friend requests, \
                add the user chat to chat index, \
                show chat and unfriend buttons on their profile, \
-               show user in friend index', async ({ page }) => {
+               show user in friend index', async ({ page, browser }) => {
+    const senderBrowser = await browser.browserType().launch();
+    // const senderContext = await browser.newContext();
+    // const senderPage = await senderContext.newPage();
+    const senderPage = await senderBrowser.newPage();
+    await senderPage.goto('/');
+    await senderPage.getByRole('button', { name: 'Log out' }).click();
+    await senderPage.waitForURL('/users/sign_in');
+    await senderPage.getByLabel('Email:').fill('user3@example.com');
+    await senderPage.getByLabel('Password:').fill('123456');
+    await senderPage.getByRole('button', { name: 'Log in' }).click();
+    await expect(senderPage.getByText('Profile (user3)')).toBeVisible();
+    await senderPage.getByRole('link', { name: 'Friends' }).click();
+    await senderPage.getByRole('link', { name: 'Pending' }).click();
+    const senderOutgoingFriendRequests = senderPage.getByTestId(
+      'outgoing-friendrequests',
+    );
+    await expect(
+      senderOutgoingFriendRequests.getByRole('link', { name: 'user1' }),
+    ).toBeVisible();
+
     const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
     const chatIndex = page.getByTestId('chat-index');
 
@@ -64,6 +84,14 @@ test.describe('when accepting an incoming friend request and accepting the popup
     await expect(
       page.getByTestId('friend-index').getByTestId('user-link-/profiles/3'),
     ).toBeVisible();
+
+    expect(senderPage.getByText('Outgoing Friend Requests')).toBeVisible();
+    await expect(
+      senderOutgoingFriendRequests.getByRole('link', { name: 'user1' }),
+    ).not.toBeVisible();
+
+    await senderBrowser.close();
+    // await senderContext.close();
   });
 });
 
