@@ -57,8 +57,10 @@ profile - stranger:
   when clicking the send button
     sender:
       a cancel button is shown on the receiver profile
+      receiver is added to outgoing requests
     receiver:
       an accept and reject button are shown on the sender profile
+      sender is added to incoming requests
 
 profile - outgoing:
   when the sender cancels a friend request:

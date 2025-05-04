@@ -175,33 +175,3 @@ test.describe('when accepting an incoming friend request and accepting the popup
     ).toBeVisible();
   });
 });
-
-// test('should remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index when accepting the popup', async ({
-//   page,
-// }) => {
-//   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
-//   const chatIndex = page.getByTestId('chat-index');
-
-//   await expect(
-//     incomingFriendRequests.getByRole('link', { name: 'user3' }),
-//   ).toBeVisible();
-
-//   await expect(
-//     chatIndex.getByRole('link', { name: 'user3' }),
-//   ).not.toBeVisible();
-
-//   page.on('dialog', async (dialog) => {
-//     expect(dialog.message()).toBe('Reject friend request from user3?');
-//     await dialog.accept();
-//   });
-
-//   await incomingFriendRequests.getByRole('button', { name: 'Reject' }).click();
-
-//   await expect(
-//     incomingFriendRequests.getByRole('link', { name: 'user3' }),
-//   ).not.toBeVisible();
-
-//   await expect(
-//     chatIndex.getByRole('link', { name: 'user3' }),
-//   ).not.toBeVisible();
-// });
