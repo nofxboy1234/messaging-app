@@ -115,9 +115,9 @@ profile - friend:
 chat:
   when the sender sends a message:
     sender:
-      message is added to the chat
+      sees a message from sender added to the chat
     receiver:
-      message is added to the chat
+      sees a message from sender added to the chat
 
 register new:
   when the sender registers
