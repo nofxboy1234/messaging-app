@@ -32,7 +32,7 @@ backend: ruby
 [x] - add authorization using Action Policy
 [x] - test models (rspec)
 [x] - test frontend - unit (vitest + react testing library)
-[.] - test frontend - e2e (playwright)
+[x] - test frontend - e2e (playwright)
 
 [~] - ~client-side form validations, server-side model validations, error handling,
 refactor
