@@ -65,14 +65,14 @@ describe('StyledAcceptFriendRequestButton', () => {
 
   it('renders with Accept text', () => {
     render(<StyledAcceptFriendRequestButton friendRequest={friendRequest} />);
-    expect(screen.getByText('Accept')).toBeInTheDocument();
+    expect(screen.getByText('Accept friend request')).toBeInTheDocument();
   });
 
   it('shows confirmation dialog and calls APIs on click when confirmed', async () => {
     const mockApi = (await import('../../../../pathHelpers')).default;
     render(<StyledAcceptFriendRequestButton friendRequest={friendRequest} />);
 
-    await user.click(screen.getByText('Accept'));
+    await user.click(screen.getByText('Accept friend request'));
 
     expect(window.confirm).toHaveBeenCalledWith(
       'Accept friend request from testuser?',
@@ -93,7 +93,7 @@ describe('StyledAcceptFriendRequestButton', () => {
     const mockApi = (await import('../../../../pathHelpers')).default;
     render(<StyledAcceptFriendRequestButton friendRequest={friendRequest} />);
 
-    await user.click(screen.getByText('Accept'));
+    await user.click(screen.getByText('Accept friend request'));
 
     expect(window.confirm).toHaveBeenCalledWith(
       'Accept friend request from testuser?',
