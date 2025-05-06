@@ -10,7 +10,7 @@ function SendFriendRequestButton({ className, user }) {
   return (
     <Button
       className={className}
-      text={'Send'}
+      text={'Send friend request'}
       onClick={() => {
         const data = {
           user_id: shared.current_user.id,

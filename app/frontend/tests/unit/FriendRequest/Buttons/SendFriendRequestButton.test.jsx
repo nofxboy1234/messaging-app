@@ -52,7 +52,9 @@ describe('StyledSendFriendRequestButton', () => {
 
   it('renders with Send text', () => {
     render(<StyledSendFriendRequestButton user={userData} />);
-    expect(screen.getByRole('button', { name: 'Send' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Send friend request' }),
+    ).toBeInTheDocument();
   });
 
   it('shows confirmation dialog and calls API on click when confirmed', async () => {
@@ -60,7 +62,9 @@ describe('StyledSendFriendRequestButton', () => {
       .default;
     render(<StyledSendFriendRequestButton user={userData} />);
 
-    await user.click(screen.getByRole('button', { name: 'Send' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Send friend request' }),
+    );
 
     expect(window.confirm).toHaveBeenCalledWith(
       'Send friend request to testuser?',
@@ -80,7 +84,9 @@ describe('StyledSendFriendRequestButton', () => {
       .default;
     render(<StyledSendFriendRequestButton user={userData} />);
 
-    await user.click(screen.getByRole('button', { name: 'Send' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Send friend request' }),
+    );
 
     expect(window.confirm).toHaveBeenCalledWith(
       'Send friend request to testuser?',

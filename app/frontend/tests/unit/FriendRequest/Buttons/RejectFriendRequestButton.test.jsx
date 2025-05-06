@@ -43,7 +43,9 @@ describe('StyledRejectFriendRequestButton', () => {
 
   it('renders with Reject text', () => {
     render(<StyledRejectFriendRequestButton friendRequest={friendRequest} />);
-    expect(screen.getByRole('button', { name: 'Reject' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Reject friend request' }),
+    ).toBeInTheDocument();
   });
 
   it('shows confirmation dialog and calls API on click when confirmed', async () => {
@@ -51,7 +53,9 @@ describe('StyledRejectFriendRequestButton', () => {
       .default;
     render(<StyledRejectFriendRequestButton friendRequest={friendRequest} />);
 
-    await user.click(screen.getByRole('button', { name: 'Reject' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Reject friend request' }),
+    );
 
     expect(window.confirm).toHaveBeenCalledWith(
       'Reject friend request from testuser?',
@@ -68,7 +72,9 @@ describe('StyledRejectFriendRequestButton', () => {
       .default;
     render(<StyledRejectFriendRequestButton friendRequest={friendRequest} />);
 
-    await user.click(screen.getByRole('button', { name: 'Reject' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Reject friend request' }),
+    );
 
     expect(window.confirm).toHaveBeenCalledWith(
       'Reject friend request from testuser?',

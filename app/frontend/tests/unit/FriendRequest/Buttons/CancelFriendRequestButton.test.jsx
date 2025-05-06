@@ -43,7 +43,9 @@ describe('StyledCancelFriendRequestButton', () => {
 
   it('renders with Cancel text', () => {
     render(<StyledCancelFriendRequestButton friendRequest={friendRequest} />);
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Cancel friend request' }),
+    ).toBeInTheDocument();
   });
 
   it('shows confirmation dialog and calls API on click when confirmed', async () => {
@@ -51,7 +53,9 @@ describe('StyledCancelFriendRequestButton', () => {
       .default;
     render(<StyledCancelFriendRequestButton friendRequest={friendRequest} />);
 
-    await user.click(screen.getByRole('button', { name: 'Cancel' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Cancel friend request' }),
+    );
 
     expect(window.confirm).toHaveBeenCalledWith(
       'Cancel friend request to testuser?',
@@ -68,7 +72,9 @@ describe('StyledCancelFriendRequestButton', () => {
       .default;
     render(<StyledCancelFriendRequestButton friendRequest={friendRequest} />);
 
-    await user.click(screen.getByRole('button', { name: 'Cancel' }));
+    await user.click(
+      screen.getByRole('button', { name: 'Cancel friend request' }),
+    );
 
     expect(window.confirm).toHaveBeenCalledWith(
       'Cancel friend request to testuser?',

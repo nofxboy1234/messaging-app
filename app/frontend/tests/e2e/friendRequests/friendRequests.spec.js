@@ -213,7 +213,9 @@ test('should show the sending user profile when clicking on an incoming friend r
   page,
 }) => {
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
-  await incomingFriendRequests.getByRole('link', { name: 'user3' }).click();
+  await incomingFriendRequests
+    .getByRole('link', { name: 'user3' })
+    .click({ position: { x: 5, y: 5 } });
   const profile = page.getByTestId('profile');
   await expect(profile.getByText('user3')).toBeVisible();
   await expect(profile.getByText('About Me:')).toBeVisible();

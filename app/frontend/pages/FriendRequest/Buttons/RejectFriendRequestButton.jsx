@@ -7,7 +7,7 @@ function RejectFriendRequestButton({ className, friendRequest }) {
   return (
     <Button
       className={className}
-      text={'Reject'}
+      text={'Reject friend request'}
       onClick={() => {
         const options = {
           onBefore: () =>
