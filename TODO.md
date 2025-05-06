@@ -49,8 +49,8 @@ refactor
 [x] - websocket element appearance,
 [x] - (1 hour max) ~2 users: receive message (unit tests cover?)
 [x] - Move unit tests to proper folders
-[ ] - Check clicking on a user with lots of messages response time
-[ ] - Conditionally merge shared props with inertia?
+[x] - Conditionally merge shared props with inertia?
 [ ] - Profile page button texts
+[ ] - Check clicking on a user with lots of messages response time
 [ ] - More authorization
 [ ] - Add guest account
