@@ -2,7 +2,7 @@ class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show ]
 
   def index
-    @chats = current_user&.chats_with_friends
+    @chats = current_user.chats_with_friends
 
     render inertia: "Chat/Index", props: {
       initialChats: @chats

@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
   before_action :set_friendship, only: %i[ destroy ]
 
   def index
-    @friendships = current_user&.chats_with_friends
+    @friendships = current_user.chats_with_friends
 
     render inertia: "Friendship/Index", props: {
       initialChatsWithFriends: @friendships

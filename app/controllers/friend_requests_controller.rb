@@ -2,7 +2,7 @@ class FriendRequestsController < ApplicationController
   before_action :set_friend_request, only: %i[ destroy ]
 
   def index
-    @friend_requests = current_user&.friend_requests
+    @friend_requests = current_user.friend_requests
 
     render inertia: "FriendRequest/Index", props: {
       initialOutgoingFriendRequests: @friend_requests[:outgoing_friend_requests],
