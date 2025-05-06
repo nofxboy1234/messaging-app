@@ -20,7 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
                            picture: "",
                            about: "")
         if user.save
-          broadcast_create
+          broadcast_create(user)
         else
           redirect_to new_user_registration_url, inertia: { errors: user.errors }
           return
@@ -31,13 +31,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def broadcast_create
-    broadcast_all_users
+  def broadcast_create(user)
+    broadcast_all_users(user)
   end
 
-  def broadcast_all_users
-    users = User.includes(:profile).order("profiles.username").as_json(include: :profile)
-    ActionCable.server.broadcast("AllUserChannel", users)
+  def broadcast_all_users(user)
+    ActionCable.server.broadcast("AllUserChannel", user.serialize)
   end
 
   # GET /resource/edit
