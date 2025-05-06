@@ -48,7 +48,7 @@ refactor
 [x] - extra e2e tests - dialogs accept + dismiss
 [x] - websocket element appearance,
 [x] - (1 hour max) ~2 users: receive message (unit tests cover?)
-[.] - Move unit tests to proper folders
+[x] - Move unit tests to proper folders
 [ ] - Check clicking on a user with lots of messages response time
 [ ] - Conditionally merge shared props with inertia?
 [ ] - Profile page button texts
