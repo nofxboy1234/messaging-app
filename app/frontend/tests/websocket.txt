@@ -122,6 +122,6 @@ chat:
 register new:
   when the sender registers
     sender:
-      sender is added to user index
+      sender is shown in user index when logged in after register
     receiver:
       sender is added to user index
