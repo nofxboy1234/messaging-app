@@ -13,6 +13,7 @@ const setup_test_data_except_users = async () => {
 test.beforeEach(async ({ page }) => {
   await setup_test_data_except_users();
   await page.goto('/pending_friends');
+  await page.waitForURL('/pending_friends');
   await page.waitForLoadState();
 });
 
@@ -24,6 +25,9 @@ test.describe('when accepting an incoming friend request and accepting the popup
 
     const user1Page1 = await user1Context.newPage();
     await user1Page1.goto('/pending_friends');
+    await user1Page1.waitForURL('/pending_friends');
+    await user1Page1.waitForLoadState();
+
     await expect(
       user1Page1
         .getByTestId('incoming-friendrequests')
@@ -35,6 +39,9 @@ test.describe('when accepting an incoming friend request and accepting the popup
 
     const user1Page2 = await user1Context.newPage();
     await user1Page2.goto('/profiles/3');
+    await user1Page2.waitForURL('/profiles/3');
+    await user1Page2.waitForLoadState();
+
     await expect(
       user1Page2
         .getByTestId('user-actions')
@@ -48,6 +55,9 @@ test.describe('when accepting an incoming friend request and accepting the popup
 
     const user1Page3 = await user1Context.newPage();
     await user1Page3.goto('/friends');
+    await user1Page3.waitForURL('/friends');
+    await user1Page3.waitForLoadState();
+
     await expect(user1Page3.getByText('ALL FRIENDS-2')).toBeVisible();
     await expect(
       user1Page3
@@ -91,6 +101,8 @@ test.describe('when accepting an incoming friend request and accepting the popup
         .getByTestId('friend-index')
         .getByTestId('user-link-/profiles/3'),
     ).toBeVisible();
+
+    user1Context.close();
   });
 
   test('should update sender views related to receiver', async ({
@@ -101,6 +113,9 @@ test.describe('when accepting an incoming friend request and accepting the popup
 
     const user3SignIn = await user3Context.newPage();
     await user3SignIn.goto('/');
+    await user3SignIn.waitForURL('/');
+    await user3SignIn.waitForLoadState();
+
     await user3SignIn.getByRole('button', { name: 'Log out' }).click();
     await user3SignIn.waitForURL('/users/sign_in');
 
@@ -111,6 +126,9 @@ test.describe('when accepting an incoming friend request and accepting the popup
 
     const user3Page1 = await user3Context.newPage();
     await user3Page1.goto('/pending_friends');
+    await user3Page1.waitForURL('/pending_friends');
+    await user3Page1.waitForLoadState();
+
     await expect(
       user3Page1
         .getByTestId('outgoing-friendrequests')
@@ -122,6 +140,9 @@ test.describe('when accepting an incoming friend request and accepting the popup
 
     const user3Page2 = await user3Context.newPage();
     await user3Page2.goto('/profiles/1');
+    await user3Page2.waitForURL('/profiles/1');
+    await user3Page2.waitForLoadState();
+
     await expect(
       user3Page2
         .getByTestId('user-actions')
@@ -130,6 +151,9 @@ test.describe('when accepting an incoming friend request and accepting the popup
 
     const user3Page3 = await user3Context.newPage();
     await user3Page3.goto('/friends');
+    await user3Page3.waitForURL('/friends');
+    await user3Page3.waitForLoadState();
+
     await expect(user3Page3.getByText('ALL FRIENDS-1')).toBeVisible();
     await expect(
       user3Page3
@@ -173,6 +197,8 @@ test.describe('when accepting an incoming friend request and accepting the popup
         .getByTestId('friend-index')
         .getByTestId('user-link-/profiles/1'),
     ).toBeVisible();
+
+    user3Context.close();
   });
 });
 
@@ -184,6 +210,9 @@ test.describe('when rejecting an incoming friend request and accepting the popup
 
     const user1Page1 = await user1Context.newPage();
     await user1Page1.goto('/pending_friends');
+    await user1Page1.waitForURL('/pending_friends');
+    await user1Page1.waitForLoadState();
+
     await expect(
       user1Page1
         .getByTestId('incoming-friendrequests')
@@ -195,6 +224,9 @@ test.describe('when rejecting an incoming friend request and accepting the popup
 
     const user1Page2 = await user1Context.newPage();
     await user1Page2.goto('/profiles/3');
+    await user1Page2.waitForURL('/profiles/3');
+    await user1Page2.waitForLoadState();
+
     await expect(
       user1Page2
         .getByTestId('user-actions')
@@ -208,6 +240,9 @@ test.describe('when rejecting an incoming friend request and accepting the popup
 
     const user1Page3 = await user1Context.newPage();
     await user1Page3.goto('/friends');
+    await user1Page3.waitForURL('/friends');
+    await user1Page3.waitForLoadState();
+
     await expect(user1Page3.getByText('ALL FRIENDS-2')).toBeVisible();
     await expect(
       user1Page3
@@ -246,6 +281,8 @@ test.describe('when rejecting an incoming friend request and accepting the popup
         .getByTestId('friend-index')
         .getByTestId('user-link-/profiles/3'),
     ).not.toBeVisible();
+
+    user1Context.close();
   });
 
   test('should update sender views related to receiver', async ({
@@ -256,6 +293,9 @@ test.describe('when rejecting an incoming friend request and accepting the popup
 
     const user3SignIn = await user3Context.newPage();
     await user3SignIn.goto('/');
+    await user3SignIn.waitForURL('/');
+    await user3SignIn.waitForLoadState();
+
     await user3SignIn.getByRole('button', { name: 'Log out' }).click();
     await user3SignIn.waitForURL('/users/sign_in');
 
@@ -266,6 +306,9 @@ test.describe('when rejecting an incoming friend request and accepting the popup
 
     const user3Page1 = await user3Context.newPage();
     await user3Page1.goto('/pending_friends');
+    await user3Page1.waitForURL('/pending_friends');
+    await user3Page1.waitForLoadState();
+
     await expect(
       user3Page1
         .getByTestId('outgoing-friendrequests')
@@ -277,6 +320,9 @@ test.describe('when rejecting an incoming friend request and accepting the popup
 
     const user3Page2 = await user3Context.newPage();
     await user3Page2.goto('/profiles/1');
+    await user3Page2.waitForURL('/profiles/1');
+    await user3Page2.waitForLoadState();
+
     await expect(
       user3Page2
         .getByTestId('user-actions')
@@ -285,6 +331,9 @@ test.describe('when rejecting an incoming friend request and accepting the popup
 
     const user3Page3 = await user3Context.newPage();
     await user3Page3.goto('/friends');
+    await user3Page3.waitForURL('/friends');
+    await user3Page3.waitForLoadState();
+
     await expect(user3Page3.getByText('ALL FRIENDS-1')).toBeVisible();
     await expect(
       user3Page3
@@ -323,5 +372,7 @@ test.describe('when rejecting an incoming friend request and accepting the popup
         .getByTestId('friend-index')
         .getByTestId('user-link-/profiles/1'),
     ).not.toBeVisible();
+
+    user3Context.close();
   });
 });

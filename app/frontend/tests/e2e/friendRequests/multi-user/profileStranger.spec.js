@@ -13,6 +13,7 @@ const setup_test_data_except_users = async () => {
 test.beforeEach(async ({ page }) => {
   await setup_test_data_except_users();
   await page.goto('/profiles/6');
+  await page.waitForURL('/profiles/6');
   await page.waitForLoadState();
 });
 
@@ -24,6 +25,9 @@ test.describe('when sending a friend request and accepting the popup', () => {
 
     const user1Page1 = await user1Context.newPage();
     await user1Page1.goto('/pending_friends');
+    await user1Page1.waitForURL('/pending_friends');
+    await user1Page1.waitForLoadState();
+
     await expect(
       user1Page1
         .getByTestId('outgoing-friendrequests')
@@ -32,6 +36,9 @@ test.describe('when sending a friend request and accepting the popup', () => {
 
     const user1Page2 = await user1Context.newPage();
     await user1Page2.goto('/profiles/6');
+    await user1Page2.waitForURL('/profiles/6');
+    await user1Page2.waitForLoadState();
+
     await expect(
       user1Page2
         .getByTestId('user-actions')
@@ -59,6 +66,8 @@ test.describe('when sending a friend request and accepting the popup', () => {
         .getByTestId('user-actions')
         .getByRole('button', { name: 'Cancel' }),
     ).toBeVisible();
+
+    user1Context.close();
   });
 
   test('should update receiver views related to sender', async ({
@@ -69,6 +78,9 @@ test.describe('when sending a friend request and accepting the popup', () => {
 
     const user6SignIn = await user6Context.newPage();
     await user6SignIn.goto('/');
+    await user6SignIn.waitForURL('/');
+    await user6SignIn.waitForLoadState();
+
     await user6SignIn.getByRole('button', { name: 'Log out' }).click();
     await user6SignIn.waitForURL('/users/sign_in');
 
@@ -79,6 +91,9 @@ test.describe('when sending a friend request and accepting the popup', () => {
 
     const user6Page1 = await user6Context.newPage();
     await user6Page1.goto('/pending_friends');
+    await user6Page1.waitForURL('/pending_friends');
+    await user6Page1.waitForLoadState();
+
     await expect(
       user6Page1
         .getByTestId('incoming-friendrequests')
@@ -87,6 +102,9 @@ test.describe('when sending a friend request and accepting the popup', () => {
 
     const user6Page2 = await user6Context.newPage();
     await user6Page2.goto('/profiles/1');
+    await user6Page2.waitForURL('/profiles/1');
+    await user6Page2.waitForLoadState();
+
     await expect(
       user6Page2
         .getByTestId('user-actions')
@@ -119,5 +137,7 @@ test.describe('when sending a friend request and accepting the popup', () => {
         .getByTestId('user-actions')
         .getByRole('button', { name: 'Reject' }),
     ).toBeVisible();
+
+    user6Context.close();
   });
 });

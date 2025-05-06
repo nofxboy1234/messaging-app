@@ -13,6 +13,8 @@ const setup_test_data_except_users = async () => {
 test.beforeEach(async ({ page }) => {
   await setup_test_data_except_users();
   await page.goto('/profiles/1');
+  await page.waitForURL('/profiles/1');
+
   await page.waitForLoadState();
 });
 
@@ -20,8 +22,6 @@ test.describe('when showing the current user profile', () => {
   test('should show their profile info, an edit button, an update avatar button', async ({
     page,
   }) => {
-    console.log('test 1/2');
-
     const profile = page.getByTestId('profile');
     await expect(profile.getByText('user1')).toBeVisible();
     await expect(profile.getByText('About Me:')).toBeVisible();
@@ -38,8 +38,6 @@ test.describe('when showing the current user profile', () => {
   test('should show the profile edit page when clicking the Edit button', async ({
     page,
   }) => {
-    console.log('test 2/2');
-
     const profileActions = page.getByTestId('profile-actions');
     await profileActions.getByRole('button', { name: 'Edit' }).click();
 

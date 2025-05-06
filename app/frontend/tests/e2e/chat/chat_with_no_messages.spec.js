@@ -15,6 +15,7 @@ test.describe('when there are no messages', () => {
     await setup_test_data_except_users();
     await page.goto('/chats/2');
     await page.waitForURL('/chats/2');
+    await page.waitForLoadState();
 
     await expect(page.getByTestId('message')).toHaveCount(0);
   });

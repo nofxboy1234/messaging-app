@@ -13,7 +13,7 @@ const setup_test_data_except_users = async () => {
 test.beforeEach(async ({ page }) => {
   await setup_test_data_except_users();
   await page.goto('/chats/1');
-  // await page.waitForURL('/chats/1');
+  await page.waitForURL('/chats/1');
   await page.waitForLoadState();
 });
 

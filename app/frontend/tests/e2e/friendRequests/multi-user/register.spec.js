@@ -13,15 +13,18 @@ const setup_test_data_with_users = async () => {
 
 test.beforeEach(async ({ page }) => {
   await setup_test_data_with_users();
-  await page.goto('/');
+  await page.goto('/users/sign_in');
+  await page.waitForURL('/users/sign_in');
   await page.waitForLoadState();
 });
 
 test.afterEach(async ({ page }) => {
   await setup_test_data_with_users();
 
-  console.log('### setup authenticated state ###');
   await page.goto('/users/sign_in');
+  await page.waitForURL('/users/sign_in');
+  await page.waitForLoadState();
+
   await page.getByLabel('Email:').fill('user1@example.com');
   await page.getByLabel('Password:').fill('123456');
   await page.getByRole('button', { name: 'Log in' }).click();
@@ -61,8 +64,9 @@ test.describe('when the sender registers a new user', () => {
     const user4Context = await browser.newContext();
 
     const user4SignIn = await user4Context.newPage();
-    await user4SignIn.goto('/');
+    await user4SignIn.goto('/users/sign_in');
     await user4SignIn.waitForURL('/users/sign_in');
+    await user4SignIn.waitForLoadState();
 
     await user4SignIn.getByLabel('Email:').fill('user4@example.com');
     await user4SignIn.getByLabel('Password:').fill('123456');
@@ -71,6 +75,8 @@ test.describe('when the sender registers a new user', () => {
 
     const user4Page1 = await user4Context.newPage();
     await user4Page1.goto('/');
+    await user4Page1.waitForURL('/');
+    await user4Page1.waitForLoadState();
 
     await expect(
       user4Page1
@@ -93,5 +99,7 @@ test.describe('when the sender registers a new user', () => {
         .getByTestId('user-index')
         .getByRole('link', { name: 'user99' }),
     ).toBeVisible();
+
+    user4Context.close();
   });
 });

@@ -13,6 +13,7 @@ const setup_test_data_except_users = async () => {
 test.beforeEach(async ({ page }) => {
   await setup_test_data_except_users();
   await page.goto('/chats/1');
+  await page.waitForURL('/chats/1');
   await page.waitForLoadState();
 });
 
@@ -91,6 +92,9 @@ test.describe('when sender sends a new message', () => {
 
     const user4SignIn = await user4Context.newPage();
     await user4SignIn.goto('/');
+    await user4SignIn.waitForURL('/');
+    await user4SignIn.waitForLoadState();
+
     await user4SignIn.getByRole('button', { name: 'Log out' }).click();
     await user4SignIn.waitForURL('/users/sign_in');
 
@@ -101,6 +105,8 @@ test.describe('when sender sends a new message', () => {
 
     const user4Page1 = await user4Context.newPage();
     await user4Page1.goto('/chats/1');
+    await user4Page1.waitForURL('/chats/1');
+    await user4Page1.waitForLoadState();
 
     const chat = user4Page1.getByTestId('root');
 
@@ -162,5 +168,7 @@ test.describe('when sender sends a new message', () => {
       );
     });
     expect(chatScrollBarAtBottom).toBe(true);
+
+    user4Context.close();
   });
 });

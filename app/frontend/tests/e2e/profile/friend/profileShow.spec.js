@@ -14,6 +14,7 @@ test.beforeEach(async ({ page }) => {
   await setup_test_data_except_users();
   await page.goto('/profiles/4');
   await page.waitForURL('/profiles/4');
+  await page.waitForLoadState();
 });
 
 test.describe('when showing a friend profile', () => {

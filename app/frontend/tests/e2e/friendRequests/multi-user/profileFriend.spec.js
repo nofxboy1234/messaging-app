@@ -13,6 +13,7 @@ const setup_test_data_except_users = async () => {
 test.beforeEach(async ({ page }) => {
   await setup_test_data_except_users();
   await page.goto('/profiles/4');
+  await page.waitForURL('/profiles/4');
   await page.waitForLoadState();
 });
 
@@ -24,6 +25,9 @@ test.describe('when unfriending a friend and accepting the popup', () => {
 
     const user1Page1 = await user1Context.newPage();
     await user1Page1.goto('/friends');
+    await user1Page1.waitForURL('/friends');
+    await user1Page1.waitForLoadState();
+
     await expect(user1Page1.getByText('ALL FRIENDS-2')).toBeVisible();
     await expect(
       user1Page1
@@ -36,6 +40,9 @@ test.describe('when unfriending a friend and accepting the popup', () => {
 
     const user1Page2 = await user1Context.newPage();
     await user1Page2.goto('/profiles/4');
+    await user1Page2.waitForURL('/profiles/4');
+    await user1Page2.waitForLoadState();
+
     await expect(
       user1Page2
         .getByTestId('user-actions')
@@ -72,6 +79,8 @@ test.describe('when unfriending a friend and accepting the popup', () => {
         .getByTestId('user-actions')
         .getByRole('button', { name: 'Send' }),
     ).toBeVisible();
+
+    user1Context.close();
   });
 
   test('should update receiver views related to sender', async ({
@@ -82,6 +91,9 @@ test.describe('when unfriending a friend and accepting the popup', () => {
 
     const user4SignIn = await user4Context.newPage();
     await user4SignIn.goto('/');
+    await user4SignIn.waitForURL('/');
+    await user4SignIn.waitForLoadState();
+
     await user4SignIn.getByRole('button', { name: 'Log out' }).click();
     await user4SignIn.waitForURL('/users/sign_in');
 
@@ -92,6 +104,9 @@ test.describe('when unfriending a friend and accepting the popup', () => {
 
     const user4Page1 = await user4Context.newPage();
     await user4Page1.goto('/friends');
+    await user4Page1.waitForURL('/friends');
+    await user4Page1.waitForLoadState();
+
     await expect(user4Page1.getByText('ALL FRIENDS-1')).toBeVisible();
     await expect(
       user4Page1
@@ -104,6 +119,9 @@ test.describe('when unfriending a friend and accepting the popup', () => {
 
     const user4Page2 = await user4Context.newPage();
     await user4Page2.goto('/profiles/1');
+    await user4Page2.waitForURL('/profiles/1');
+    await user4Page2.waitForLoadState();
+
     await expect(
       user4Page2
         .getByTestId('user-actions')
@@ -140,5 +158,7 @@ test.describe('when unfriending a friend and accepting the popup', () => {
         .getByTestId('user-actions')
         .getByRole('button', { name: 'Send' }),
     ).toBeVisible();
+
+    user4Context.close();
   });
 });

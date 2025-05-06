@@ -7,7 +7,6 @@ const authFile = path.join(
 );
 
 setup('authenticate', async ({ page }) => {
-  console.log('*** setup authenticated state ***');
   // Perform authentication steps. Replace these actions with your own.
   await page.goto('/users/sign_in');
   await page.getByLabel('Email:').fill('user1@example.com');

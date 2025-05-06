@@ -13,6 +13,7 @@ const setup_test_data_except_users = async () => {
 test.beforeEach(async ({ page }) => {
   await setup_test_data_except_users();
   await page.goto('/profiles/2');
+  await page.waitForURL('/profiles/2');
   await page.waitForLoadState();
 });
 

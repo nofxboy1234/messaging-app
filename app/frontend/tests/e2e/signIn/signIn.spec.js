@@ -14,16 +14,18 @@ const setup_test_data_with_users = async () => {
 test.beforeEach(async ({ page }) => {
   await setup_test_data_with_users();
   await page.goto('/users/sign_in');
-  // await page.waitForURL('/users/sign_in');
+  await page.waitForURL('/users/sign_in');
   await page.waitForLoadState();
 });
 
 test.afterEach(async ({ page }) => {
   await setup_test_data_with_users();
 
-  console.log('### setup authenticated state ###');
   // Perform authentication steps. Replace these actions with your own.
   await page.goto('/users/sign_in');
+  await page.waitForURL('/users/sign_in');
+  await page.waitForLoadState();
+
   await page.getByLabel('Email:').fill('user1@example.com');
   await page.getByLabel('Password:').fill('123456');
   await page.getByRole('button', { name: 'Log in' }).click();
