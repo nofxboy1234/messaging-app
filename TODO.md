@@ -54,4 +54,3 @@ refactor
 [x] - Check clicking on a user with lots of messages response time
 [x] - user index - respond with all users ordered
 [x] - More authorization
-[.] - Add guest account
