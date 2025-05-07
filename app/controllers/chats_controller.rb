@@ -1,6 +1,10 @@
 class ChatsController < ApplicationController
   before_action :set_chat, only: %i[ show ]
 
+  rescue_from ActionPolicy::Unauthorized do |ex|
+    redirect_back_or_to root_url, alert: "You are not authorized to show that chat"
+  end
+
   def index
     @chats = current_user.chats_with_friends
 
@@ -10,6 +14,8 @@ class ChatsController < ApplicationController
   end
 
   def show
+    authorize! @chat
+
     @serialized_chat = @chat.serialize
     chatting_with = @chat.members.find { |member| member != current_user }
     @serialized_chatting_with = chatting_with.serialize
