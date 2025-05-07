@@ -52,7 +52,8 @@ class User < ApplicationRecord
   end
 
   def find_direct_message_chat_with(friend)
-    chats.where(id: friend.chats.pluck(:id)).take
+    chats.where(id: friend.chats.pluck(:id)).includes(messages: { user: :profile }, members: :profile, friendship: []).take
+    # chats.where(id: friend.chats.pluck(:id)).take
   end
 
   def chats_with_friends

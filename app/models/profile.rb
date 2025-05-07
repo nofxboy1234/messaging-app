@@ -11,11 +11,12 @@ class Profile < ApplicationRecord
     if target_user.friends_with?(user)
       relationship = "friend"
       chat = target_user.find_direct_message_chat_with(user)
+      # friendship = chat.friendship.includes(user: :profile, friend: :profile)
       friendship = chat.friendship
     elsif target_user.has_outgoing_friend?(user)
       relationship = "outgoingRequest"
       friend_request = target_user.outgoing_friend_requests
-                                  .includes(friend: [ :profile ])
+                                  .includes(user: :profile, friend: :profile)
                                   .order("profiles.username")
                                   .find_by(friend: user)
     elsif target_user.has_incoming_friend?(user)
