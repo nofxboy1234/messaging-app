@@ -52,6 +52,6 @@ refactor
 [x] - Conditionally merge shared props with inertia?
 [x] - Profile page button texts
 [x] - Check clicking on a user with lots of messages response time
-[.] - user index - respond with all users ordered
-[ ] - More authorization
-[ ] - Add guest account
+[x] - user index - respond with all users ordered
+[x] - More authorization
+[.] - Add guest account
