@@ -81,7 +81,7 @@ test.describe('when unfriending a friend and accepting the popup', () => {
         .getByRole('button', { name: 'Send' }),
     ).toBeVisible();
 
-    user1Context.close();
+    await user1Context.close();
   });
 
   test('should update receiver views related to sender', async ({
@@ -161,6 +161,6 @@ test.describe('when unfriending a friend and accepting the popup', () => {
         .getByRole('button', { name: 'Send' }),
     ).toBeVisible();
 
-    user4Context.close();
+    await user4Context.close();
   });
 });

@@ -67,7 +67,7 @@ test.describe('when canceling an outgoing friend request and accepting the popup
         .getByRole('button', { name: 'Send' }),
     ).toBeVisible();
 
-    user1Context.close();
+    await user1Context.close();
   });
 
   test('should update receiver views related to sender', async ({
@@ -138,6 +138,6 @@ test.describe('when canceling an outgoing friend request and accepting the popup
         .getByRole('button', { name: 'Send' }),
     ).toBeVisible();
 
-    user2Context.close();
+    await user2Context.close();
   });
 });

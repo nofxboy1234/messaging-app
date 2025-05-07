@@ -169,6 +169,6 @@ test.describe('when sender sends a new message', () => {
     });
     expect(chatScrollBarAtBottom).toBe(true);
 
-    user4Context.close();
+    await user4Context.close();
   });
 });

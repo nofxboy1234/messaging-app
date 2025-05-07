@@ -1,7 +1,7 @@
 function activeChatReducer(activeChat, action) {
   switch (action.type) {
-    case 'added_user': {
-      return { ...activeChat, members: [...activeChat.members, action.user] };
+    case 'updated_users': {
+      return { ...activeChat, members: [...action.users] };
     }
 
     default: {

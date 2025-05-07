@@ -1,7 +1,7 @@
 function allUsersReducer(users, action) {
   switch (action.type) {
-    case 'added_user': {
-      return [...users, action.user];
+    case 'updated_users': {
+      return action.users;
     }
 
     default: {

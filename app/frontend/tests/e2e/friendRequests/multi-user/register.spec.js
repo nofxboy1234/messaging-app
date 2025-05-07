@@ -100,6 +100,6 @@ test.describe('when the sender registers a new user', () => {
         .getByRole('link', { name: 'user99' }),
     ).toBeVisible();
 
-    user4Context.close();
+    await user4Context.close();
   });
 });

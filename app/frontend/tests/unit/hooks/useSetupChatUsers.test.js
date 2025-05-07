@@ -70,13 +70,6 @@ describe('useSetupChatUsers', () => {
       expect(subscribe).toHaveBeenCalledOnce();
     });
 
-    it('should have a total of 1 subscriptions', () => {
-      const value = lazyMemo(() => mountForChat1());
-      value();
-
-      expect(getSubscriptions().length).toBe(1);
-    });
-
     it('should have a subscription for chat1 stored', () => {
       const value = lazyMemo(() => mountForChat1());
       const { chat1Sub } = value();
@@ -91,13 +84,17 @@ describe('useSetupChatUsers', () => {
       expect(result.current).toEqual(chat1.members);
     });
 
-    describe('when the subscription receives a user', () => {
-      it('should return an updated array of the chat1 users with that user added', () => {
+    describe('when the subscription receives an updated list of users', () => {
+      it('should return an updated array of the chat1 users', () => {
         const value = lazyMemo(() => mountForChat1());
         const { result, chat1Sub } = value();
 
         act(() => {
-          chat1Sub.received({ id: 99, username: 'user99' });
+          chat1Sub.received([
+            { id: 1, username: 'user1' },
+            { id: 2, username: 'user2' },
+            { id: 99, username: 'user99' },
+          ]);
         });
 
         expect(result.current).toEqual([
@@ -116,15 +113,6 @@ describe('useSetupChatUsers', () => {
         unmount();
 
         expect(chat1Sub.unsubscribe).toHaveBeenCalledOnce();
-      });
-
-      it('should have a total of 0 subscriptions', () => {
-        const value = lazyMemo(() => mountForChat1());
-        const { unmount } = value();
-
-        unmount();
-
-        expect(getSubscriptions().length).toBe(0);
       });
     });
   });

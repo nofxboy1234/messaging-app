@@ -8,15 +8,15 @@ function useSetupChatUsers(chat) {
     members: chat.members,
   });
 
-  const addUser = (user) => {
-    dispatch({ type: 'added_user', user: user });
+  const updateUsers = (users) => {
+    dispatch({ type: 'updated_users', users });
   };
 
   const subscribeToUserChannel = useCallback(() => {
     const userChannelSubscriptionInfo = [
       'ChatUserChannel',
       { id: activeChat.id },
-      addUser,
+      updateUsers,
     ];
     const userChannel = subscribe(...userChannelSubscriptionInfo);
 

@@ -5,12 +5,12 @@ import allUsersReducer from '../reducers/allUsersReducer';
 function useSetupAllUsers(initialUsers) {
   const [users, dispatch] = useReducer(allUsersReducer, initialUsers);
 
-  const addUser = (user) => {
-    dispatch({ type: 'added_user', user: user });
+  const updateUsers = (users) => {
+    dispatch({ type: 'updated_users', users });
   };
 
   const subscribeToUserChannel = useCallback(() => {
-    const userChannelSubscriptionInfo = ['AllUserChannel', {}, addUser];
+    const userChannelSubscriptionInfo = ['AllUserChannel', {}, updateUsers];
     const userChannel = subscribe(...userChannelSubscriptionInfo);
 
     return userChannel;

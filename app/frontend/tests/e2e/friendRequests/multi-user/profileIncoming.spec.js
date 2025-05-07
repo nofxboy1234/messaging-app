@@ -102,7 +102,7 @@ test.describe('when accepting an incoming friend request and accepting the popup
         .getByTestId('user-link-/profiles/3'),
     ).toBeVisible();
 
-    user1Context.close();
+    await user1Context.close();
   });
 
   test('should update receiver views related to sender', async ({
@@ -198,7 +198,7 @@ test.describe('when accepting an incoming friend request and accepting the popup
         .getByTestId('user-link-/profiles/1'),
     ).toBeVisible();
 
-    user3Context.close();
+    await user3Context.close();
   });
 });
 
@@ -282,7 +282,7 @@ test.describe('when rejecting an incoming friend request and accepting the popup
         .getByTestId('user-link-/profiles/3'),
     ).not.toBeVisible();
 
-    user1Context.close();
+    await user1Context.close();
   });
 
   test('should update receiver views related to sender', async ({
@@ -373,6 +373,6 @@ test.describe('when rejecting an incoming friend request and accepting the popup
         .getByTestId('user-link-/profiles/1'),
     ).not.toBeVisible();
 
-    user3Context.close();
+    await user3Context.close();
   });
 });
