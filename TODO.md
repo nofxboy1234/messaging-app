@@ -51,6 +51,7 @@ refactor
 [x] - Move unit tests to proper folders
 [x] - Conditionally merge shared props with inertia?
 [x] - Profile page button texts
-[ ] - Check clicking on a user with lots of messages response time
+[x] - Check clicking on a user with lots of messages response time
+[.] - user index - respond with all users ordered
 [ ] - More authorization
 [ ] - Add guest account
