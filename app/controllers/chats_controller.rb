@@ -29,6 +29,8 @@ class ChatsController < ApplicationController
       @chat = Chat.includes(messages: { user: :profile },
                             members: :profile,
                             friendship: [])
-                  .order("messages.created_at").find(params[:id])
+                  .joins(members: :profile)
+                  .order("messages.created_at", "profiles.username")
+                  .find(params[:id])
     end
 end
