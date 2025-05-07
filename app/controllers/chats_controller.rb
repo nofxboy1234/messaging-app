@@ -26,6 +26,9 @@ class ChatsController < ApplicationController
     end
 
     def set_chat
-      @chat = Chat.includes(messages: [ :user ]).order("messages.created_at").find(params[:id])
+      @chat = Chat.includes(messages: { user: :profile },
+                            members: :profile,
+                            friendship: [])
+                  .order("messages.created_at").find(params[:id])
     end
 end
