@@ -39,7 +39,6 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "factory_bot_rails"
-  gem "faker"
 
   gem "hirb"
 
@@ -54,6 +53,7 @@ group :development do
 end
 
 gem "database_cleaner-active_record"
+gem "faker"
 
 gem "inertia_rails-contrib", "~> 0.2.1"
 
