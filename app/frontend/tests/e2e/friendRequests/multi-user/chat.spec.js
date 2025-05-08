@@ -10,17 +10,30 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/chats/1');
   await page.waitForURL('/chats/1');
   await page.waitForLoadState();
 });
 
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
+});
+
 test.describe('when sender sends a new message', () => {
-  test('sender should see message from sender added to the chat', async ({
-    page,
-  }) => {
+  test('sender should see message from sender added to the chat', async () => {
     const chat = page.getByTestId('root');
 
     const message = page
@@ -86,8 +99,8 @@ test.describe('when sender sends a new message', () => {
 
   test('receiver should see message from sender added to the chat', async ({
     browser,
-    page: user1Page1,
   }) => {
+    const user1Page1 = page;
     const user4Context = await browser.newContext();
 
     const user4SignIn = await user4Context.newPage();

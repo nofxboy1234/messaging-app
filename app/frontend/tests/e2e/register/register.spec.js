@@ -11,16 +11,23 @@ const setup_test_data_with_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_with_users();
   await page.goto('/users/sign_in');
   await page.waitForURL('/users/sign_in');
   await page.waitForLoadState();
 });
 
-test.afterEach(async ({ page }) => {
+test.afterEach(async () => {
   await setup_test_data_with_users();
-
   // Perform authentication steps. Replace these actions with your own.
   await page.goto('/users/sign_in');
   await page.waitForURL('/users/sign_in');
@@ -42,12 +49,15 @@ test.afterEach(async ({ page }) => {
     '../../../playwright/.auth/user.json',
   );
   await page.context().storageState({ path: authFile });
+
+  if (context) {
+    await context.close();
+    context = null;
+  }
 });
 
 test.describe('when on the sign up page', () => {
-  test('should show the sign up screen when clicking "Sign up"', async ({
-    page,
-  }) => {
+  test('should show the sign up screen when clicking "Sign up"', async () => {
     await page.getByRole('button', { name: 'Sign up' }).click();
 
     const registrationsNew = page.getByTestId('registrations-new');
@@ -64,9 +74,7 @@ test.describe('when on the sign up page', () => {
     ).toBeVisible();
   });
 
-  test('should show error flash messages for email and password when entering an invalid email then clicking "Sign up"', async ({
-    page,
-  }) => {
+  test('should show error flash messages for email and password when entering an invalid email then clicking "Sign up"', async () => {
     await page.getByRole('button', { name: 'Sign up' }).click();
 
     const registrationsNew = page.getByTestId('registrations-new');
@@ -77,9 +85,7 @@ test.describe('when on the sign up page', () => {
     await expect(registrationsNew.getByText("can't be blank")).toBeVisible();
   });
 
-  test('should show error flash message for password when entering a valid email then clicking "Sign up"', async ({
-    page,
-  }) => {
+  test('should show error flash message for password when entering a valid email then clicking "Sign up"', async () => {
     await page.getByRole('button', { name: 'Sign up' }).click();
 
     const registrationsNew = page.getByTestId('registrations-new');
@@ -89,9 +95,7 @@ test.describe('when on the sign up page', () => {
     await expect(registrationsNew.getByText("can't be blank")).toBeVisible();
   });
 
-  test('should show error flash messages for password and password confirmation when entering a valid email, short password, then clicking "Sign up"', async ({
-    page,
-  }) => {
+  test('should show error flash messages for password and password confirmation when entering a valid email, short password, then clicking "Sign up"', async () => {
     await page.getByRole('button', { name: 'Sign up' }).click();
 
     const registrationsNew = page.getByTestId('registrations-new');
@@ -107,9 +111,7 @@ test.describe('when on the sign up page', () => {
     ).toBeVisible();
   });
 
-  test('should show error flash message for password confirmation when entering a valid email, valid password, then clicking "Sign up"', async ({
-    page,
-  }) => {
+  test('should show error flash message for password confirmation when entering a valid email, valid password, then clicking "Sign up"', async () => {
     await page.getByRole('button', { name: 'Sign up' }).click();
 
     const registrationsNew = page.getByTestId('registrations-new');
@@ -122,9 +124,7 @@ test.describe('when on the sign up page', () => {
     ).toBeVisible();
   });
 
-  test('should log in and show successful sign up message when signing up successfully', async ({
-    page,
-  }) => {
+  test('should log in and show successful sign up message when signing up successfully', async () => {
     await page.getByRole('button', { name: 'Sign up' }).click();
 
     const registrationsNew = page.getByTestId('registrations-new');
@@ -139,9 +139,7 @@ test.describe('when on the sign up page', () => {
     await expect(page.getByText('Profile (user99)')).toBeVisible();
   });
 
-  test('should show "has already been taken" message when signing up with an email that is already registered', async ({
-    page,
-  }) => {
+  test('should show "has already been taken" message when signing up with an email that is already registered', async () => {
     await page.getByRole('button', { name: 'Sign up' }).click();
 
     const registrationsNew = page.getByTestId('registrations-new');

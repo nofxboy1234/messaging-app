@@ -11,14 +11,22 @@ const setup_test_data_with_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_with_users();
   await page.goto('/users/sign_in');
   await page.waitForURL('/users/sign_in');
   await page.waitForLoadState();
 });
 
-test.afterEach(async ({ page }) => {
+test.afterEach(async () => {
   await setup_test_data_with_users();
 
   await page.goto('/users/sign_in');
@@ -34,12 +42,15 @@ test.afterEach(async ({ page }) => {
     '../../../../playwright/.auth/user.json',
   );
   await page.context().storageState({ path: authFile });
+
+  if (context) {
+    await context.close();
+    context = null;
+  }
 });
 
 test.describe('when the sender registers a new user', () => {
-  test('should show the new user in user index when logged in afterwards', async ({
-    page,
-  }) => {
+  test('should show the new user in user index when logged in afterwards', async () => {
     await page.getByRole('button', { name: 'Sign up' }).click();
 
     const registrationsNew = page.getByTestId('registrations-new');
@@ -59,8 +70,8 @@ test.describe('when the sender registers a new user', () => {
 
   test('receiver should see the new user added to user index', async ({
     browser,
-    page: user1Page1,
   }) => {
+    const user1Page1 = page;
     const user4Context = await browser.newContext();
 
     const user4SignIn = await user4Context.newPage();

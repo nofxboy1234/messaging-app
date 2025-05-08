@@ -10,17 +10,30 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/profiles/6');
   await page.waitForURL('/profiles/6');
   await page.waitForLoadState();
 });
 
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
+});
+
 test.describe('when showing a friend profile', () => {
-  test('should show their profile info, and a send button', async ({
-    page,
-  }) => {
+  test('should show their profile info, and a send button', async () => {
     const profile = page.getByTestId('profile');
     await expect(profile.getByText('user6')).toBeVisible();
     await expect(profile.getByText('About Me:')).toBeVisible();
@@ -31,9 +44,7 @@ test.describe('when showing a friend profile', () => {
     ).toBeVisible();
   });
 
-  test('should show a Cancel button on a user profile when clicking the Send button and accepting the popup', async ({
-    page,
-  }) => {
+  test('should show a Cancel button on a user profile when clicking the Send button and accepting the popup', async () => {
     const userActions = page.getByTestId('user-actions');
     const sendButton = userActions.getByRole('button', { name: 'Send' });
 
@@ -54,9 +65,7 @@ test.describe('when showing a friend profile', () => {
     ).toBeVisible();
   });
 
-  test('should not show a Cancel button on a user profile when clicking the Send button and dismissing the popup', async ({
-    page,
-  }) => {
+  test('should not show a Cancel button on a user profile when clicking the Send button and dismissing the popup', async () => {
     const userActions = page.getByTestId('user-actions');
     const sendButton = userActions.getByRole('button', { name: 'Send' });
 

@@ -11,16 +11,29 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/');
   await page.waitForURL('/');
   await page.waitForLoadState();
 });
 
-test('should show the navbar, current user chats, friends and all users', async ({
-  page,
-}) => {
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
+});
+
+test('should show the navbar, current user chats, friends and all users', async () => {
   const layout = createLayout(page);
 
   await expect(layout.homeLink).toBeVisible();
@@ -48,7 +61,7 @@ test('should show the navbar, current user chats, friends and all users', async 
 });
 
 test.describe('when clicking on the Home link', () => {
-  test('should show the friend index page', async ({ page }) => {
+  test('should show the friend index page', async () => {
     const layout = createLayout(page);
 
     await layout.homeLink.click();
@@ -58,7 +71,7 @@ test.describe('when clicking on the Home link', () => {
 });
 
 test.describe('when clicking on the Friends link', () => {
-  test('should show the friend index', async ({ page }) => {
+  test('should show the friend index', async () => {
     const layout = createLayout(page);
 
     await layout.friendsLink.click();
@@ -68,7 +81,7 @@ test.describe('when clicking on the Friends link', () => {
 });
 
 test.describe('when clicking on the Profile link', () => {
-  test('should show the current user profile', async ({ page }) => {
+  test('should show the current user profile', async () => {
     const layout = createLayout(page);
 
     await layout.profileLink.click();
@@ -88,7 +101,7 @@ test.describe('when clicking on the Profile link', () => {
 });
 
 test.describe('when clicking on the Log out button', () => {
-  test('should show the login page with a flash message', async ({ page }) => {
+  test('should show the login page with a flash message', async () => {
     const layout = createLayout(page);
 
     await layout.logoutButton.click();
@@ -99,7 +112,7 @@ test.describe('when clicking on the Log out button', () => {
 });
 
 test.describe('when clicking on a chat link', () => {
-  test('should show the chat', async ({ page }) => {
+  test('should show the chat', async () => {
     const layout = createLayout(page);
 
     await layout.user4ChatLink.click();
@@ -110,7 +123,7 @@ test.describe('when clicking on a chat link', () => {
 });
 
 test.describe('when clicking on a user link', () => {
-  test('should show a user profile', async ({ page }) => {
+  test('should show a user profile', async () => {
     const layout = createLayout(page);
 
     await layout.user4UserLink.click();

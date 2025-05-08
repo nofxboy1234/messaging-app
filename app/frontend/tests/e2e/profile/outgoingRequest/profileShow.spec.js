@@ -10,17 +10,30 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/profiles/2');
   await page.waitForURL('/profiles/2');
   await page.waitForLoadState();
 });
 
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
+});
+
 test.describe('when showing a profile with an outgoing request', () => {
-  test('should show their profile info, and a cancel button', async ({
-    page,
-  }) => {
+  test('should show their profile info, and a cancel button', async () => {
     const profile = page.getByTestId('profile');
     await expect(profile.getByText('user2')).toBeVisible();
     await expect(profile.getByText('About Me:')).toBeVisible();
@@ -31,9 +44,7 @@ test.describe('when showing a profile with an outgoing request', () => {
     ).toBeVisible();
   });
 
-  test('should show a Send button when clicking the Cancel button and accepting the popup', async ({
-    page,
-  }) => {
+  test('should show a Send button when clicking the Cancel button and accepting the popup', async () => {
     const userActions = page.getByTestId('user-actions');
     const cancelButton = userActions.getByRole('button', { name: 'Cancel' });
 
@@ -54,9 +65,7 @@ test.describe('when showing a profile with an outgoing request', () => {
     ).toBeVisible();
   });
 
-  test('should not show a Send button when clicking the Cancel button and dismissing the popup', async ({
-    page,
-  }) => {
+  test('should not show a Send button when clicking the Cancel button and dismissing the popup', async () => {
     const userActions = page.getByTestId('user-actions');
     const cancelButton = userActions.getByRole('button', { name: 'Cancel' });
 

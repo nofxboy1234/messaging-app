@@ -10,11 +10,26 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/pending_friends');
   await page.waitForURL('/pending_friends');
   await page.waitForLoadState();
+});
+
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
 });
 
 test.describe('when accepting an incoming friend request and accepting the popup', () => {
@@ -107,8 +122,8 @@ test.describe('when accepting an incoming friend request and accepting the popup
 
   test('should update sender views related to receiver', async ({
     browser,
-    page: user1Page1,
   }) => {
+    const user1Page1 = page;
     const user3Context = await browser.newContext();
 
     const user3SignIn = await user3Context.newPage();
@@ -287,8 +302,8 @@ test.describe('when rejecting an incoming friend request and accepting the popup
 
   test('should update sender views related to receiver', async ({
     browser,
-    page: user1Page1,
   }) => {
+    const user1Page1 = page;
     const user3Context = await browser.newContext();
 
     const user3SignIn = await user3Context.newPage();

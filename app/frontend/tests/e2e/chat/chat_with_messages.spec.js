@@ -10,31 +10,44 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
-  await setup_test_data_except_users();
-  await page.goto('/chats/1');
-  await page.waitForURL('/chats/1');
-  await page.waitForLoadState();
-});
-
 test.describe('when there are messages', () => {
-  test('should show a link to the friend profile at the top of the chat', async ({
-    page,
-  }) => {
+  let context;
+  let page;
+
+  test.beforeEach(async ({ browser }) => {
+    context = await browser.newContext({
+      storageState: 'app/frontend/playwright/.auth/user.json',
+    });
+    page = await context.newPage();
+
+    await setup_test_data_except_users();
+    await page.goto('/chats/1');
+    await page.waitForURL('/chats/1');
+    await page.waitForLoadState();
+
+    // return { page };
+  });
+
+  test.afterEach(async () => {
+    if (context) {
+      await context.close();
+      context = null;
+    }
+  });
+
+  test('should show a link to the friend profile at the top of the chat', async () => {
     const chatShow = page.getByTestId('chat-show');
     const headerProfileLink = chatShow.getByTestId('user-link-/profiles/4');
     await expect(headerProfileLink).toBeVisible();
   });
 
-  test('should have the message input focused', async ({ page }) => {
+  test('should have the message input focused', async () => {
     const chatShow = page.getByTestId('chat-show');
     const messageInput = chatShow.getByRole('textbox');
     await expect(messageInput).toBeFocused();
   });
 
-  test('should show the last message at the bottom of the chat viewport', async ({
-    page,
-  }) => {
+  test('should show the last message at the bottom of the chat viewport', async () => {
     const chat = page.getByTestId('root');
 
     const message = page
@@ -69,9 +82,7 @@ test.describe('when there are messages', () => {
     expect(chatScrollBarAtBottom).toBe(true);
   });
 
-  test('should show the current user and their friend in the user index', async ({
-    page,
-  }) => {
+  test('should show the current user and their friend in the user index', async () => {
     const chatUserIndex = page.getByTestId('chat-user-index');
     const user1 = chatUserIndex.getByRole('link', { name: 'user1' });
     const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
@@ -82,9 +93,7 @@ test.describe('when there are messages', () => {
     await expect(chatUsers).toHaveCount(2);
   });
 
-  test('should show a friend profile when clicking on their username in the chat user index', async ({
-    page,
-  }) => {
+  test('should show a friend profile when clicking on their username in the chat user index', async () => {
     const chatUserIndex = page.getByTestId('chat-user-index');
     const user4 = chatUserIndex.getByRole('link', { name: 'user4' });
 
@@ -104,7 +113,7 @@ test.describe('when there are messages', () => {
   });
 
   test.describe('when sending a new message', () => {
-    test('should not see the message if it is blank', async ({ page }) => {
+    test('should not see the message if it is blank', async () => {
       const sendButton = page.getByRole('button', { name: 'Send' });
 
       await expect(page.getByTestId('message')).toHaveCount(203);
@@ -112,9 +121,7 @@ test.describe('when there are messages', () => {
       await expect(page.getByTestId('message')).toHaveCount(203);
     });
 
-    test('should show the new message at the bottom of the chat viewport', async ({
-      page,
-    }) => {
+    test('should show the new message at the bottom of the chat viewport', async () => {
       const input = page.getByRole('textbox');
       const sendButton = page.getByRole('button', { name: 'Send' });
       await input.fill('new message');
@@ -156,9 +163,7 @@ test.describe('when there are messages', () => {
   });
 
   test.describe('when scrolling partially in the chat, then sending a message', () => {
-    test('should not show the new message at the bottom of the chat viewport', async ({
-      page,
-    }) => {
+    test('should not show the new message at the bottom of the chat viewport', async () => {
       const middleMessage = page.getByText('middle message');
       await middleMessage.scrollIntoViewIfNeeded();
 
@@ -187,9 +192,7 @@ test.describe('when there are messages', () => {
   });
 
   test.describe('when scrolling right to the top in the chat, then sending a message', () => {
-    test('should not show the new message at the bottom of the chat viewport', async ({
-      page,
-    }) => {
+    test('should not show the new message at the bottom of the chat viewport', async () => {
       const firstMessage = page.getByText('first message');
       await firstMessage.scrollIntoViewIfNeeded();
 

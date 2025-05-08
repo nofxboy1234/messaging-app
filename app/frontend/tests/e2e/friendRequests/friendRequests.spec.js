@@ -10,16 +10,29 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/pending_friends');
   await page.waitForURL('/pending_friends');
   await page.waitForLoadState();
 });
 
-test('should show incoming and outgoing friends requests friends when clicking Pending', async ({
-  page,
-}) => {
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
+});
+
+test('should show incoming and outgoing friends requests friends when clicking Pending', async () => {
   await expect(page.getByText('Outgoing Friend Requests')).toBeVisible();
   await expect(page.getByText('Incoming Friend Requests')).toBeVisible();
 
@@ -43,9 +56,7 @@ test('should show incoming and outgoing friends requests friends when clicking P
   ).toBeVisible();
 });
 
-test('should remove the user from outgoing friend requests when cancelling a friend request and accepting the popup', async ({
-  page,
-}) => {
+test('should remove the user from outgoing friend requests when cancelling a friend request and accepting the popup', async () => {
   const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
 
   await expect(
@@ -64,9 +75,7 @@ test('should remove the user from outgoing friend requests when cancelling a fri
   ).not.toBeVisible();
 });
 
-test('should not remove the user from outgoing friend requests when cancelling a friend request and dismissing the popup', async ({
-  page,
-}) => {
+test('should not remove the user from outgoing friend requests when cancelling a friend request and dismissing the popup', async () => {
   const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
 
   await expect(
@@ -85,9 +94,7 @@ test('should not remove the user from outgoing friend requests when cancelling a
   ).toBeVisible();
 });
 
-test('should remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request and accepting the popup', async ({
-  page,
-}) => {
+test('should remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request and accepting the popup', async () => {
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   const chatIndex = page.getByTestId('chat-index');
 
@@ -111,9 +118,7 @@ test('should remove the user from incoming friend requests and add the user chat
   await expect(chatIndex.getByRole('link', { name: 'user3' })).toBeVisible();
 });
 
-test('should not remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request and dismissing the popup', async ({
-  page,
-}) => {
+test('should not remove the user from incoming friend requests and add the user chat to chat index when accepting an incoming friend request and dismissing the popup', async () => {
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   const chatIndex = page.getByTestId('chat-index');
 
@@ -139,9 +144,7 @@ test('should not remove the user from incoming friend requests and add the user 
   ).not.toBeVisible();
 });
 
-test('should remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index when accepting the popup', async ({
-  page,
-}) => {
+test('should remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index when accepting the popup', async () => {
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   const chatIndex = page.getByTestId('chat-index');
 
@@ -169,9 +172,7 @@ test('should remove the user from incoming friend requests when rejecting an inc
   ).not.toBeVisible();
 });
 
-test('should not remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index when dismissing the popup', async ({
-  page,
-}) => {
+test('should not remove the user from incoming friend requests when rejecting an incoming friend request and not create a new chat in chat index when dismissing the popup', async () => {
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   const chatIndex = page.getByTestId('chat-index');
 
@@ -199,9 +200,7 @@ test('should not remove the user from incoming friend requests when rejecting an
   ).not.toBeVisible();
 });
 
-test('should show the receiving user profile when clicking on an outgoing friend request', async ({
-  page,
-}) => {
+test('should show the receiving user profile when clicking on an outgoing friend request', async () => {
   const outgoingFriendRequests = page.getByTestId('outgoing-friendrequests');
   await outgoingFriendRequests.getByRole('link', { name: 'user2' }).click();
   const profile = page.getByTestId('profile');
@@ -209,9 +208,7 @@ test('should show the receiving user profile when clicking on an outgoing friend
   await expect(profile.getByText('About Me:')).toBeVisible();
 });
 
-test('should show the sending user profile when clicking on an incoming friend request', async ({
-  page,
-}) => {
+test('should show the sending user profile when clicking on an incoming friend request', async () => {
   const incomingFriendRequests = page.getByTestId('incoming-friendrequests');
   await incomingFriendRequests
     .getByRole('link', { name: 'user3' })

@@ -10,11 +10,26 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/profiles/2');
   await page.waitForURL('/profiles/2');
   await page.waitForLoadState();
+});
+
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
 });
 
 test.describe('when canceling an outgoing friend request and accepting the popup', () => {
@@ -72,8 +87,8 @@ test.describe('when canceling an outgoing friend request and accepting the popup
 
   test('should update receiver views related to sender', async ({
     browser,
-    page: user1Page1,
   }) => {
+    const user1Page1 = page;
     const user2Context = await browser.newContext();
 
     const user2SignIn = await user2Context.newPage();

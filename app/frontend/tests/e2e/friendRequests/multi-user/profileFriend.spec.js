@@ -10,11 +10,26 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/profiles/4');
   await page.waitForURL('/profiles/4');
   await page.waitForLoadState();
+});
+
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
 });
 
 test.describe('when unfriending a friend and accepting the popup', () => {
@@ -85,8 +100,8 @@ test.describe('when unfriending a friend and accepting the popup', () => {
 
   test('should update receiver views related to sender', async ({
     browser,
-    page: user1Page1,
   }) => {
+    const user1Page1 = page;
     const user4Context = await browser.newContext();
 
     const user4SignIn = await user4Context.newPage();

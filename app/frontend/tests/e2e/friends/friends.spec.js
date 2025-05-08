@@ -10,16 +10,29 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/friends');
   await page.waitForURL('/friends');
   await page.waitForLoadState();
 });
 
-test('should show a chat and unfriend button when clicking a friend in the friend index', async ({
-  page,
-}) => {
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
+});
+
+test('should show a chat and unfriend button when clicking a friend in the friend index', async () => {
   const friendIndex = page.getByTestId('friend-index');
   const user5 = friendIndex.getByTestId('user-link-/profiles/5');
 
@@ -30,9 +43,7 @@ test('should show a chat and unfriend button when clicking a friend in the frien
 });
 
 test.describe('when clicking the Unfriend button', () => {
-  test('should show a popup message to confirm, and remove the friend and chat when accepting the popup', async ({
-    page,
-  }) => {
+  test('should show a popup message to confirm, and remove the friend and chat when accepting the popup', async () => {
     const chatIndex = page.getByTestId('chat-index');
     const friendIndex = page.getByTestId('friend-index');
 
@@ -72,9 +83,7 @@ test.describe('when clicking the Unfriend button', () => {
     ).not.toBeVisible();
   });
 
-  test('should show a popup message to confirm, and not remove the friend and chat when dismissing the popup', async ({
-    page,
-  }) => {
+  test('should show a popup message to confirm, and not remove the friend and chat when dismissing the popup', async () => {
     const chatIndex = page.getByTestId('chat-index');
     const friendIndex = page.getByTestId('friend-index');
 
@@ -114,7 +123,7 @@ test.describe('when clicking the Unfriend button', () => {
 });
 
 test.describe('when clicking the Chat button', () => {
-  test('should show a chat with the friend', async ({ page }) => {
+  test('should show a chat with the friend', async () => {
     const friendIndex = page.getByTestId('friend-index');
     await friendIndex.getByTestId('user-link-/profiles/5').click();
     await page.getByRole('button', { name: 'Chat' }).click();

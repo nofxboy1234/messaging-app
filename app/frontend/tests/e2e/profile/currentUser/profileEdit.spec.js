@@ -10,15 +10,30 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/profiles/1/edit');
   await page.waitForURL('/profiles/1/edit');
   await page.waitForLoadState();
 });
 
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
+});
+
 test.describe('when the editing the current user profile', () => {
-  test('should show inputs to update their profile info', async ({ page }) => {
+  test('should show inputs to update their profile info', async () => {
     await expect(page.getByLabel('Username:')).toBeVisible();
     await expect(page.getByLabel('About Me:')).toBeVisible();
 
@@ -26,9 +41,7 @@ test.describe('when the editing the current user profile', () => {
     await expect(page.getByRole('button', { name: 'Show' })).toBeVisible();
   });
 
-  test('should update their profile info when clicking the Update button', async ({
-    page,
-  }) => {
+  test('should update their profile info when clicking the Update button', async () => {
     const usernameInput = page.getByLabel('Username:');
     await usernameInput.clear();
     await usernameInput.fill('updated username');
@@ -46,9 +59,7 @@ test.describe('when the editing the current user profile', () => {
     ).toBeVisible();
   });
 
-  test('should show their unchanged profile info when clicking the Show button', async ({
-    page,
-  }) => {
+  test('should show their unchanged profile info when clicking the Show button', async () => {
     const usernameInput = page.getByLabel('Username:');
     await usernameInput.clear();
     await usernameInput.fill('updated username');

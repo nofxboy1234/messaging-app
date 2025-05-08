@@ -10,17 +10,30 @@ const setup_test_data_except_users = async () => {
   });
 };
 
-test.beforeEach(async ({ page }) => {
+let context;
+let page;
+
+test.beforeEach(async ({ browser }) => {
+  context = await browser.newContext({
+    storageState: 'app/frontend/playwright/.auth/user.json',
+  });
+  page = await context.newPage();
+
   await setup_test_data_except_users();
   await page.goto('/profiles/4');
   await page.waitForURL('/profiles/4');
   await page.waitForLoadState();
 });
 
+test.afterEach(async () => {
+  if (context) {
+    await context.close();
+    context = null;
+  }
+});
+
 test.describe('when showing a friend profile', () => {
-  test('should show their profile info, a chat button, an unfriend button', async ({
-    page,
-  }) => {
+  test('should show their profile info, a chat button, an unfriend button', async () => {
     const profile = page.getByTestId('profile');
     await expect(profile.getByText('user4')).toBeVisible();
     await expect(profile.getByText('About Me:')).toBeVisible();
@@ -34,9 +47,7 @@ test.describe('when showing a friend profile', () => {
     ).toBeVisible();
   });
 
-  test('should show the friend chat when clicking on the chat button on their profile', async ({
-    page,
-  }) => {
+  test('should show the friend chat when clicking on the chat button on their profile', async () => {
     const userActions = page.getByTestId('user-actions');
     await userActions.getByRole('button', { name: 'Chat' }).click();
 
@@ -48,9 +59,7 @@ test.describe('when showing a friend profile', () => {
     await expect(sendButton).toBeVisible();
   });
 
-  test('should remove the friend from chat index and show a send button on their profile when clicking the unfriend button and accepting the popup', async ({
-    page,
-  }) => {
+  test('should remove the friend from chat index and show a send button on their profile when clicking the unfriend button and accepting the popup', async () => {
     const chatIndex = page.getByTestId('chat-index');
     const userActions = page.getByTestId('user-actions');
     const user4ChatLink = chatIndex.getByRole('link', { name: 'user4' });
@@ -75,9 +84,7 @@ test.describe('when showing a friend profile', () => {
     await expect(user4ChatLink).not.toBeVisible();
   });
 
-  test('should not remove the friend from chat index and not show a send button on their profile when clicking the unfriend button and dismissing the popup', async ({
-    page,
-  }) => {
+  test('should not remove the friend from chat index and not show a send button on their profile when clicking the unfriend button and dismissing the popup', async () => {
     const chatIndex = page.getByTestId('chat-index');
     const userActions = page.getByTestId('user-actions');
     const user4ChatLink = chatIndex.getByRole('link', { name: 'user4' });
