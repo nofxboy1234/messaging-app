@@ -1,24 +1,18 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Messaging App
 
-Things you may want to cover:
+A realtime chat built using Ruby on Rails, InertiaJS and React.
 
-* Ruby version
 
-* System dependencies
+## Demo
 
-* Configuration
+https://glacial-lowlands-89807-117906cec308.herokuapp.com/
 
-* Database creation
 
-* Database initialization
+## Features
 
-* How to run the test suite
+- Authentication and authorization
+- Friend lists
+- Pending friends
+- User profiles
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
