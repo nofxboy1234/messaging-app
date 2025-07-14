@@ -7,6 +7,8 @@ import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.t
 import SignupButton from './Buttons/SignupButton';
 import { router, usePage } from '@inertiajs/react';
 
+import '../styles.css';
+
 function SessionsNew({ className }) {
   const [values, setValues] = useState({
     email: '',
