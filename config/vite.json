@@ -14,7 +14,7 @@
     "port": 3037
   },
   "production": {
-    "publicOutputDir": "public/vite",
+    "publicOutputDir": "vite",
     "cacheDir": "tmp/cache/vite"
   }
 }
