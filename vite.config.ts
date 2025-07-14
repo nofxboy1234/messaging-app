@@ -20,4 +20,12 @@ export default defineConfig({
     testTimeout: 0,
     fileParallelism: false,
   },
+  build: {
+    rollupOptions: {
+      input: {
+        application: './app/frontend/entrypoints/application.js', // Or .ts, .jsx, .tsx
+        inertia: './app/frontend/entrypoints/inertia.js', // Make sure this line exists and path is correct
+      },
+    },
+  },
 });
