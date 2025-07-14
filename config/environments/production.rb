@@ -35,9 +35,25 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain.
   config.action_cable.mount_path = "/websocket"
-  config.action_cable.url = "wss://glacial-lowlands-89807-117906cec308.herokuapp.com/websocket"
-  config.action_cable.allowed_request_origins = [ "https://glacial-lowlands-89807-117906cec308.herokuapp.com",
-                                                  /http:\/\/glacial-lowlands-89807-117906cec308.herokuapp.com/ ]
+
+  # Dynamically get the public URL from Render's environment variable
+  # RENDER_EXTERNAL_URL is provided by Render for your web service's public URL
+  # It will be something like "https://your-service-name.onrender.com"
+  render_host = ENV.fetch("RENDER_EXTERNAL_HOSTNAME") { "localhost" }
+  render_url = "https://#{render_host}"
+
+  config.action_cable.url = "wss://#{render_host}#{config.action_cable.mount_path}"
+
+  # Allowed origins should include your Render app's URL
+  # Use an environment variable for additional origins if needed, or explicitly set for Render.
+  # If you add custom domains, you'll need to update this or use a regex.
+  config.action_cable.allowed_request_origins = [
+    render_url
+    # If you have other domains that need to connect to your Action Cable, add them here
+    # e.g., "https://your-custom-domain.com",
+    # or if you need to allow development origins:
+    # /http:\/\/localhost:\d+/ # For local testing with specific ports
+  ]
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
@@ -72,7 +88,7 @@ Rails.application.configure do
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: "https://glacial-lowlands-89807-117906cec308.herokuapp.com", port: 3000 }
+  config.action_mailer.default_url_options = { host: render_host, protocol: "https" } # Remove port: 3000
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
