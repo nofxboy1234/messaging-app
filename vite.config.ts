@@ -25,6 +25,7 @@ export default defineConfig({
       input: {
         application: './app/frontend/entrypoints/application.js', // Or .ts, .jsx, .tsx
         inertia: './app/frontend/entrypoints/inertia.js', // Make sure this line exists and path is correct
+        global_styles: './app/frontend/index.css',
       },
     },
   },
