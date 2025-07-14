@@ -27,7 +27,6 @@ const StyledButton = styled(Button)`
   font-size: 1rem;
 
   background-color: var(--vivid-sky-blue);
-  /* background-color: blue; */
   color: white;
   padding: 0.25rem 1rem;
   border: none;

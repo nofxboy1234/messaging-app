@@ -6,7 +6,6 @@ import UserIndex from './User/Index';
 import PropTypes from 'prop-types';
 import NavBar from './NavBar';
 
-import './styles.css';
 import fontUrl from '/assets/fonts/jetbrains_mono/static/JetBrainsMono-Regular.ttf';
 import { useEffect } from 'react';
 
