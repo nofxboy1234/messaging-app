@@ -1,3 +1,4 @@
+// vite.config.ts
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { configDefaults } from 'vitest/config';
@@ -23,10 +24,16 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        application: './app/frontend/entrypoints/application.js', // Or .ts, .jsx, .tsx
-        inertia: './app/frontend/entrypoints/inertia.js', // Make sure this line exists and path is correct
-        global_styles: './app/frontend/index.css',
+        // Keep your JS entrypoints separate
+        application: './app/frontend/entrypoints/application.js',
+        inertia: './app/frontend/entrypoints/inertia.js',
+        // Make index.css its own, distinct entrypoint
+        // Use a unique name like 'global_styles_css' to avoid any naming conflicts
+        global_styles_css: './app/frontend/index.css',
       },
     },
+    // Ensure CSS is extracted and not inlined
+    cssCodeSplit: true, // This is default, but good to be explicit
+    assetsInlineLimit: 0, // Ensure even small CSS files are NOT inlined into JS
   },
 });
