@@ -1,1 +1,24 @@
 /* Application styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --heliotrope: #e1b8e2;
+  --vivid-sky-blue: #8f69eb;
+  --vivid-sky-blue-hover: #8460d6;
+  --icterine: #edeea9;
+  --white: white;
+  --bright-pink-crayola: #ff909f;
+  --medium-grey: #3a3a3a;
+  --bg-grey: white;
+
+  --bg-color-grey: #f3f3f3;
+  --bg-color-hover: #7dfef8;
+  --border-color: #f1f1f1;
+
+  --bg-flash-message: #ff53c6;
+  --fg-flash-message: white;
+}
