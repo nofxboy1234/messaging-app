@@ -6,7 +6,7 @@ A realtime chat built using Ruby on Rails, InertiaJS and React.
 
 ## Demo
 
-https://glacial-lowlands-89807-117906cec308.herokuapp.com/
+https://messaging-app-66jx.onrender.com/
 
 
 ## Features
