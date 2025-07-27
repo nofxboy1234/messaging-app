@@ -1,7 +1,7 @@
 
 # Messaging App
 
-A realtime chat built using Ruby on Rails, InertiaJS and React.
+A realtime chat built using Ruby on Rails, InertiaJS, React, PostgreSQL, Redis (ActionCable)
 
 
 ## Demo
